@@ -64,8 +64,8 @@ Wireframes were created for all main pages at three key screen sizes:
 ### Home page wireframes:
 
 - [Desktop](assets/images/wireframes/desktop/home-page.png)
-- [Tablet](assets/images/wireframes/tablet/home-page.png)
-- [Mobile](assets/images/wireframes/mobile/home-page.png)
+- [Tablet](assets/images/wireframes/tablets/home-page.png)
+- [Mobile](assets/images/wireframes/phones/home-page.png)
 
 The home page is always the starting point for any e-commerce site. It serves as the primary entry point for users and sets the tone for their entire shopping experience. The wireframe for the home page was designed to be visually appealing, easy to navigate, and informative.
 The home page wireframe includes the following key elements:
@@ -83,3 +83,21 @@ In designing the home page wireframe, I've carefully balanced aesthetic appeal w
 
 ### Shop page wireframes:
 
+- [Desktop](assets/images/wireframes/desktop/shop-page.png)
+- [Tablet](assets/images/wireframes/tablets/shop-page.png)
+- [Mobile](assets/images/wireframes/phones/shop-page.png)
+
+The Shop page is the commercial heart of CNCraft, acting as the central interface for product browsing and discovery. This wireframe was designed with the user's product-finding journey in mind—providing a highly structured, filterable catalog that adapts across screen sizes to maintain clarity and ease of use.
+
+The layout emphasizes a balance between information density and legibility, allowing users to scan multiple product listings efficiently without feeling overwhelmed. From a UX perspective, filtering and pagination were prioritized to offer control and refinement, especially valuable when dealing with technical products like CNC machines and accessories.
+
+Key elements of the Shop page wireframe include:
+
+- **Filter Sidebar**: Positioned on the left (or collapsible on mobile), this vertical navigation enables users to filter products by categories such as machine type or accessory type. The filters are designed to be quick to scan and simple to apply, improving product discovery efficiency.
+- **Product Grid**: Each product card features a thumbnail image, name, and price—intuitively formatted for rapid browsing. On smaller screens, the grid collapses into a single-column layout while maintaining the product visibility hierarchy.
+- **Pagination Controls**: These controls are located at the bottom of the page, allowing users to seamlessly move through product listings without breaking flow.
+- **Responsive Layout**: The grid dynamically adjusts from four columns (desktop) to two columns (tablet) to one column (mobile), ensuring accessibility and usability regardless of device.
+
+This design ensures users can locate specific items or explore product categories effortlessly. The information architecture supports scalability as CNCraft expands its inventory and product categories. The consistent placement of product visuals, names, and prices also aids cognitive recognition, enabling users to easily compare listings at a glance.
+
+Above all, the shop wireframe translates CNCraft's product diversity into a clear, responsive, and navigable catalog, laying the groundwork for a satisfying e-commerce browsing experience that supports both informed purchases and casual discovery.
