@@ -39,5 +39,47 @@ CNCraft is an e-commerce platform dedicated to high-quality, custom CNC (Compute
 
 ## Design
 
+- The colour scheme, typography and layout are yet to be decided. 
+
 ## Wireframes
+
+The wireframe design process for CNCraft was conducted with meticulous attention to user experience, business objectives, and modern e-commerce best practices. I approached the design phase systematically, first mapping the full customer journey from discovery to purchase to create a seamless path-to-conversion.
+
+My wireframes embody a user-centric philosophy, with careful consideration of information hierarchy, interaction patterns, and visual weight to guide users intuitively through the platform. Each interface element was strategically positioned to optimize both user engagement and conversion opportunities, balancing aesthetic appeal with functional clarity.
+
+For responsive design, I adopted a mobile-first methodology, ensuring critical functionality and content maintains integrity across all devices while adapting thoughtfully to different viewport constraints. The wireframes demonstrate how the interface gracefully transforms between breakpoints without compromising usability or brand experience.
+
+Key design priorities addressed in these wireframes include:
+- Intuitive product discovery and filtering mechanisms
+- Clear visualization of CNC product specifications and customization options
+- Streamlined checkout process with minimal friction points
+- Accessible interface elements following WCAG guidelines
+- Consistent navigation patterns across all site sections
+
+Wireframes were created for all main pages at three key screen sizes:
+- Desktop (1440x1024)
+- Tablet (768x1024)
+- Mobile (360x640)
+
+### Home page wireframes:
+
+- [Desktop](assets/images/wireframes/desktop/home-page.png)
+- [Tablet](assets/images/wireframes/tablet/home-page.png)
+- [Mobile](assets/images/wireframes/mobile/home-page.png)
+
+The home page is always the starting point for any e-commerce site. It serves as the primary entry point for users and sets the tone for their entire shopping experience. The wireframe for the home page was designed to be visually appealing, easy to navigate, and informative.
+The home page wireframe includes the following key elements:
+
+- **Header**: The header contains the site logo, navigation links, and a search bar. The navigation links include "Shop," "About Us," "Contact," and "My Account." The search bar allows users to quickly find specific products.
+- **Hero Section**: The hero section displays a prominent image that captures the attention of visitors. It provides a clear call-to-action to encourage users to browse the site.
+- **About**: This section provides a brief overview of the company and its mission. It helps build trust with potential customers.
+- **Services**: The services section highlights the various CNC services offered by the company. It provides a brief description of each service and a link to learn more.
+- **Clients**: This section showcases the company's clients, which helps build credibility and trust with potential customers.
+- **Footer**: The footer contains important links, including "Privacy Policy," "Terms of Service," and "Contact Us." It also includes social media icons for users to connect with the company on various platforms.
+
+In designing the home page wireframe, I've carefully balanced aesthetic appeal with functional purpose, ensuring that every element serves both user needs and business objectives. The layout strategically guides visitors through a narrative that builds confidence in CNCraft's expertise while simplifying the path to product discovery. Special attention was paid to visual hierarchy, ensuring key conversion points receive appropriate emphasis without overwhelming the user. This home page design establishes not just a gateway to products, but a foundation for the brand experience that continues throughout the customer journey, setting clear expectations for the craftsmanship and quality that define CNCraft as a premium destination for CNC enthusiasts and professionals alike.
+
+---
+
+### Shop page wireframes:
 
