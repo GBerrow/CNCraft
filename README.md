@@ -101,3 +101,29 @@ Key elements of the Shop page wireframe include:
 This design ensures users can locate specific items or explore product categories effortlessly. The information architecture supports scalability as CNCraft expands its inventory and product categories. The consistent placement of product visuals, names, and prices also aids cognitive recognition, enabling users to easily compare listings at a glance.
 
 Above all, the shop wireframe translates CNCraft's product diversity into a clear, responsive, and navigable catalog, laying the groundwork for a satisfying e-commerce browsing experience that supports both informed purchases and casual discovery.
+
+---
+
+### Product Details page wireframes:
+
+- [Desktop](assets/images/wireframes/desktop/product-detail-page.png)
+- [Tablet](assets/images/wireframes/tablets/product-detail-page.png)
+- [Mobile](assets/images/wireframes/phones/product-detail-page.png)
+
+The Product Detail page is the focal point of the user's decision-making process. Designed to provide all necessary information without overwhelming the visitor, this wireframe strategically combines high-impact visuals with clear, actionable content to encourage confident purchases.
+
+The layout is intentionally modular, allowing the user to engage with key information—product images, descriptions, pricing, and specifications—at their own pace. On mobile and tablet, the design reflows gracefully to preserve hierarchy and prevent visual congestion, maintaining a consistent buying experience across devices.
+
+Key elements of the Product Detail page wireframe include:
+
+- **Image Display**: High-priority placement of one or more product images, with the ability to preview different angles or attachments. This visual presentation serves as a digital showroom, helping users assess physical form and quality.
+- **Product Information Panel**: Includes product name, price, short description, and a clear call-to-action button (e.g., "Add to Cart" or "Configure"). Positioned to remain visible without scrolling on desktop and easily accessible on mobile.
+- **Feature List**: Bullet points provide a concise technical summary of key features and benefits, reinforcing user confidence in the purchase.
+- **Quantity Selector**: Allows the user to adjust the quantity before adding to the cart, reducing friction and preventing errors.
+- **Related Products**: Positioned near the bottom to suggest complementary or alternative items, aiding in upselling or cross-selling strategies.
+
+The layout's visual hierarchy and whitespace ensure users can engage deeply with each product's unique value without distraction. On mobile, elements are stacked vertically with thumb-friendly spacing, preserving function without compromising on information.
+
+This wireframe supports the core e-commerce principle of clarity drives conversion, helping users move seamlessly from interest to action. Whether browsing technical specs or scanning visuals, the experience is intuitive, informative, and persuasive—supporting CNCraft's brand identity as a source of trusted, high-quality CNC equipment.
+
+---
