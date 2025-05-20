@@ -149,3 +149,27 @@ Key components of the Cart page wireframe include:
 This wireframe supports a low-friction, high-clarity cart experience, reducing drop-off while increasing opportunities for additional conversions. The design's responsiveness ensures the cart is not just functional but intuitively navigable on any device, allowing users to make last-minute adjustments without confusion or delay.
 
 By offering users transparency and control at a crucial stage, the cart design builds trust and helps preserve momentum toward completing a transaction—critical objectives for any e-commerce workflow.
+
+---
+
+### Checkout page wireframes:
+
+- [Desktop](assets/images/wireframes/desktop/checkout-page.png)
+- [Tablet](assets/images/wireframes/tablets/checkout-page.png)
+- [Mobile](assets/images/wireframes/phones/checkout-page.png)
+
+The Checkout page is the final and most sensitive stage of the user journey—where clarity, trust, and speed become paramount. This wireframe was developed to reduce cognitive load, minimize user hesitation, and ensure a seamless handoff from intent to payment.
+
+Designed for maximum usability across screen sizes, the layout cleanly separates billing information, payment fields, and the order summary into digestible sections. On desktop, a two-column layout offers parallel input, while on tablets and mobile devices the sections reflow vertically for streamlined scrolling and tapability.
+
+Key elements of the Checkout page wireframe include:
+
+- **Billing Address Form**: Users are prompted to enter name, address, city, and country, with an optional checkbox to save this information for future use. Field order and spacing are optimized for autofill and fast typing, especially on mobile.
+- **Payment Information**: Credit card number, expiration date, and CVV fields are styled with clear labels and a layout optimized for PCI compliance and Stripe integration. Field validation will be handled via Stripe's secure elements.
+- **Order Summary**: Positioned to the right (desktop) or below the form fields (mobile), this section reiterates the product list, subtotal, and final total, offering users reassurance before committing.
+- **Call to Action (CTA)**: A clearly emphasized "Place Order" button is fixed near the bottom of the form stack or page to reduce friction and eliminate the need to scroll back up.
+- **Error Handling (planned)**: Inline validation and fail-safe messaging for invalid entries or Stripe API issues will be implemented in the final build.
+
+On smaller viewports, the design collapses responsively without sacrificing clarity or control. Users can easily scan and complete each section with minimal vertical scrolling and optimal thumb reach.
+
+This wireframe embodies the core principles of conversion-optimized checkout design—trust, speed, and transparency—by reducing potential drop-offs and reinforcing confidence at the critical point of purchase. Whether on desktop or mobile, users are offered a clean and reassuring environment to complete their transaction, fully aligned with CNCraft's commitment to professionalism and user satisfaction.
