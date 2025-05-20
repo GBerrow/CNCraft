@@ -196,3 +196,40 @@ Key elements of the User Dashboard wireframe include:
 On smaller devices, sections stack vertically with consistent margins and padding to maintain clarity. On desktop and tablet, content is broken into columns or grids to make better use of horizontal space while maintaining a modular, readable flow.
 
 The design philosophy behind the User Dashboard is user empowerment through clarity. It reinforces trust by giving users control over their data and visibility into their transaction history, supporting both transparency and re-engagement. Whether managing orders or updating personal info, the experience is designed to be smooth, secure, and intuitive—an extension of the premium service experience CNCraft promises.
+
+---
+
+### Admin Panel wireframes:
+
+- [Admin Interface](assets/images/wireframes/other/admin-page.png)
+
+The Admin Panel wireframe was developed to provide CNCraft's site owner with a dedicated, streamlined environment for managing key business operations. While most users interact with the frontend, the admin experience is optimized for operational efficiency and oversight.
+
+Unlike user-facing pages, the Admin Panel remains desktop-focused given the complexity and density of admin tasks. The design prioritizes readability, table-based data management, and quick access to essential admin functions.
+
+Key features of the Admin Panel wireframe include:
+
+- **Dashboard Overview**: A summary section that displays metrics like total orders, pending shipments, and revenue (planned).
+- **Navigation Sidebar**: Allows access to management sections such as Orders, Products, Users, and Sales Reports.
+- **Orders Table**: Admins can view all orders with sorting and filtering capabilities, including order status and customer info.
+- **Product Management**: Includes forms for adding or editing CNC machines and accessories, with options for uploading images and setting availability.
+- **User Management**: A simple interface for reviewing registered users, useful for customer support or moderation.
+
+The Admin Panel wireframe embraces clarity and consistency while assuming a higher technical proficiency from the user. All actions are grouped logically to enable fast and error-free content and order management—supporting CNCraft's backend operations without unnecessary complexity.
+
+### Login / Register page wireframes:
+
+- [Login/Register Page](assets/images/wireframes/other/login-register-page.png)
+
+The Login/Register page wireframe plays a vital role in controlling access to personalized user features such as account dashboards, saved carts, and order tracking. Its design is purposefully minimalist, reducing distractions and guiding users quickly through the authentication process.
+
+To support first-time users and returning customers, both forms are presented side by side (desktop/tablet) or as toggleable tabs (on mobile), ensuring fluid navigation regardless of device.
+
+Key elements include:
+
+- **Login Form**: Includes email and password fields, a "Remember Me" checkbox, and a "Forgot Password" link for easy account recovery.
+- **Register Form**: Requests basic info like name, email, and password confirmation, with plans for password strength validation.
+- **Clear CTAs**: Submit buttons are styled to encourage quick completion, with feedback planned for invalid entries or successful logins.
+- **Responsive Flow**: On smaller screens, the forms stack vertically and maintain padding for finger-friendly form completion.
+
+The page's neutral tone and focus on form clarity help create a trusted and frictionless entry point to the platform. In e-commerce, seamless account access is critical to customer retention—this wireframe sets the foundation for that experience while adhering to accessibility and UX best practices.
