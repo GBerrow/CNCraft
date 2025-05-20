@@ -173,3 +173,26 @@ Key elements of the Checkout page wireframe include:
 On smaller viewports, the design collapses responsively without sacrificing clarity or control. Users can easily scan and complete each section with minimal vertical scrolling and optimal thumb reach.
 
 This wireframe embodies the core principles of conversion-optimized checkout design—trust, speed, and transparency—by reducing potential drop-offs and reinforcing confidence at the critical point of purchase. Whether on desktop or mobile, users are offered a clean and reassuring environment to complete their transaction, fully aligned with CNCraft's commitment to professionalism and user satisfaction.
+
+--- 
+
+### User Dashboard wireframes:
+
+- [Desktop](assets/images/wireframes/desktop/user-dashboard-(after-login).png)
+- [Tablet](assets/images/wireframes/tablets/user-dashboard-(after-login).png)
+- [Mobile](assets/images/wireframes/phones/user-dashboard-(after-login).png)
+
+The User Dashboard serves as the user's central hub for account management and post-purchase engagement. This wireframe was created to empower users with easy access to their profile, order history, and personal settings—all within a clean, modular layout that adapts seamlessly to device constraints.
+
+The dashboard's structure was designed to reduce overwhelm by grouping functionality into clear, titled sections. Whether managing account details or checking the status of recent orders, users can find and perform key actions with minimal navigation friction.
+
+Key elements of the User Dashboard wireframe include:
+
+- **My Profile**: Displays the user's name, contact details, and a button to edit their profile information. This section is fixed at the top to reinforce the logged-in state and identity.
+- **My Orders**: Provides a clear, collapsible list of past orders with essential metadata like order ID, date, and status. On desktop, the layout allows inline review, while on mobile, items are stacked vertically for thumb accessibility.
+- **My Account**: Contains account settings and the ability to change the user's password securely. The layout and spacing ensure clarity and accessibility for form fields and action buttons.
+- **My Preferences**: A placeholder section for future customization features, such as saved CNC configurations or notification settings. Presenting this in the wireframe prepares the design for scalable, user-personalized features.
+
+On smaller devices, sections stack vertically with consistent margins and padding to maintain clarity. On desktop and tablet, content is broken into columns or grids to make better use of horizontal space while maintaining a modular, readable flow.
+
+The design philosophy behind the User Dashboard is user empowerment through clarity. It reinforces trust by giving users control over their data and visibility into their transaction history, supporting both transparency and re-engagement. Whether managing orders or updating personal info, the experience is designed to be smooth, secure, and intuitive—an extension of the premium service experience CNCraft promises.
