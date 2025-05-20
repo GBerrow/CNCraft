@@ -127,3 +127,25 @@ The layout's visual hierarchy and whitespace ensure users can engage deeply with
 This wireframe supports the core e-commerce principle of clarity drives conversion, helping users move seamlessly from interest to action. Whether browsing technical specs or scanning visuals, the experience is intuitive, informative, and persuasive—supporting CNCraft's brand identity as a source of trusted, high-quality CNC equipment.
 
 ---
+
+### Cart page wireframes:
+
+- [Desktop](assets/images/wireframes/desktop/cart-page.png)
+- [Tablet](assets/images/wireframes/tablets/cart-page.png)
+- [Mobile](assets/images/wireframes/phones/cart-page.png)
+
+The Cart page plays a critical role in the purchase funnel by summarizing the user's selections while offering opportunities for review, adjustment, and upselling. Designed with clarity and actionability in mind, this wireframe ensures users are empowered to proceed confidently toward checkout.
+
+The layout strikes a balance between functionality and reassurance—presenting a clear snapshot of selected items while subtly guiding users toward the final conversion step. From desktops to smartphones, the structure adapts to ensure pricing, product identity, and next steps remain easily accessible and legible.
+
+Key components of the Cart page wireframe include:
+
+- **Product Summary Blocks**: Each item in the cart is displayed with a thumbnail image, product name, price, quantity selector, and a subtotal. These components are aligned horizontally on desktop and stacked vertically on smaller devices to maintain usability.
+- **Remove & Update Options**: Users can update product quantities directly in the cart or remove unwanted items. These options are positioned intuitively to avoid accidental deletions while remaining easily clickable/tappable.
+- **Order Summary Panel**: Subtotals and totals are prominently displayed in a side panel (desktop/tablet) or directly below the product list (mobile). This allows users to monitor price changes dynamically.
+- **Proceed to Checkout CTA**: A clearly emphasized button invites users to move forward with minimal friction. The button remains highly visible and is repositioned responsively on smaller screens for accessibility.
+- **Cross-Selling Carousel (Bonus Feature)**: The desktop and tablet versions incorporate an "Explore More Items" carousel beneath the main cart list, encouraging users to discover CNC-related items such as accessories or alternate machines before finalizing their purchase.
+
+This wireframe supports a low-friction, high-clarity cart experience, reducing drop-off while increasing opportunities for additional conversions. The design's responsiveness ensures the cart is not just functional but intuitively navigable on any device, allowing users to make last-minute adjustments without confusion or delay.
+
+By offering users transparency and control at a crucial stage, the cart design builds trust and helps preserve momentum toward completing a transaction—critical objectives for any e-commerce workflow.
