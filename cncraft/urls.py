@@ -19,7 +19,4 @@ urlpatterns = [
     path('checkout/', include('checkout.urls')),
     # Profiles app URLs
     path('profile/', include('profiles.urls')),
-]
-
-# Serve media files during development
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
