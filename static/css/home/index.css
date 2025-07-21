@@ -1,0 +1,179 @@
+/* ========================================================================
+HOME PAGE STYLES
+   ======================================================================== */
+
+/* Hero section container - accounts for fixed navigation */
+.hero-section {
+    margin-top: 76px; /* Offset for fixed navbar height plus padding */
+    position: relative; /* Allows absolute positioning of overlay content */
+}
+
+/* Main hero banner image styling */
+.hero-banner img {
+    min-height: 70vh; /* Ensures hero takes significant viewport space */
+    max-height: 80vh; /* Prevents hero from taking entire screen */
+    object-fit: cover; /* Maintains aspect ratio while filling container */
+    width: 100%; /* Full width coverage */
+    filter: brightness(0.9); /* Slightly dims image for better text overlay */
+}
+
+/* Hero content overlay for text readability */
+.hero-overlay {
+    background: linear-gradient(
+        45deg, 
+        rgba(0, 0, 0, 0.6) 0%, 
+        rgba(0, 0, 0, 0.3) 100%
+    ); /* Gradient overlay for better text contrast */
+}
+
+/* Hero section typography */
+.hero-section h1 {
+    font-size: 3.5rem; /* Large, impactful heading size */
+    font-weight: 700; /* Bold weight for maximum impact */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for text clarity */
+    margin-bottom: 1.5rem; /* Spacing below main heading */
+    line-height: 1.2; /* Tighter line height for display text */
+}
+
+.hero-section .lead {
+    font-size: 1.25rem; /* Larger than body text but smaller than heading */
+    font-weight: 300; /* Light weight for elegant appearance */
+    margin-bottom: 2rem; /* Generous spacing before CTA buttons */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+}
+
+/* About section styling for company information */
+.about-section {
+    padding: 5rem 0; /* Generous vertical padding for section separation */
+    background-color: #f8f9fa; /* Light gray background for section distinction */
+}
+
+.about-section .stats-container {
+    margin-top: 3rem; /* Spacing above statistics */
+}
+
+.about-section .stat-item {
+    text-align: center; /* Center-aligned statistics */
+    padding: 1rem; /* Internal spacing for each stat */
+}
+
+.about-section .stat-number {
+    font-size: 2.5rem; /* Large numbers for impact */
+    font-weight: 700; /* Bold weight for emphasis */
+    color: #007bff; /* Brand color for consistency */
+    display: block; /* Forces line break after number */
+}
+
+.about-section .stat-label {
+    font-size: 0.9rem; /* Smaller text for labels */
+    color: #6c757d; /* Muted color for secondary information */
+    text-transform: uppercase; /* Professional appearance */
+    letter-spacing: 1px; /* Spacing for readability */
+}
+
+/* Services section styling */
+.services-section {
+    padding: 5rem 0; /* Consistent section padding */
+    background-color: #fff; /* White background for alternating sections */
+}
+
+/* Individual service card styling */
+.service-card {
+    border: none; /* Removes default Bootstrap card border */
+    border-radius: 8px; /* Rounded corners for modern appearance */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: all 0.3s ease; /* Smooth animation for interactions */
+    height: 100%; /* Ensures equal height cards in grid */
+    background-color: #fff; /* White background for cards */
+}
+
+.service-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Service icon container */
+.service-icon {
+    height: 80px; /* Fixed height for icon consistency */
+    display: flex; /* Flexbox for easy centering */
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+    margin-bottom: 1rem; /* Space below icon */
+}
+
+.service-icon i {
+    color: #007bff; /* Brand color for service icons */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.service-card:hover .service-icon i {
+    color: #0056b3; /* Darker shade on hover */
+}
+
+/* Featured products section */
+.featured-products-section {
+    padding: 5rem 0; /* Consistent section padding */
+    background-color: #f8f9fa; /* Alternating background color */
+}
+
+/* Client logos section styling */
+.clients-section {
+    padding: 4rem 0; /* Slightly less padding than other sections */
+    background-color: #fff; /* White background */
+}
+
+.client-logo {
+    max-height: 80px; /* Consistent logo height */
+    width: auto; /* Maintains aspect ratio */
+    filter: grayscale(100%); /* Initially desaturated for subtle appearance */
+    opacity: 0.7; /* Semi-transparent for subtle effect */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    object-fit: contain; /* Prevents logo distortion */
+}
+
+.client-logo:hover {
+    filter: grayscale(0%); /* Returns color on hover for engagement */
+    opacity: 1; /* Full opacity on hover */
+    transform: scale(1.05); /* Slight scale increase for interaction feedback */
+}
+
+/* Testimonials section styling */
+.testimonials-section {
+    padding: 5rem 0; /* Consistent section padding */
+    background-color: #f8f9fa; /* Alternating background */
+}
+
+.testimonial-card {
+    border: none; /* Clean card appearance */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle depth */
+    height: 100%; /* Equal height cards */
+    background-color: #fff; /* White card background */
+}
+
+.testimonial-stars {
+    color: #ffc107; /* Warning color for star ratings */
+    margin-bottom: 1rem; /* Space below rating */
+}
+
+/* Newsletter subscription section */
+.newsletter-section {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Gradient background */
+    color: white; /* White text for contrast */
+    padding: 4rem 0; /* Section padding */
+}
+
+.newsletter-section .form-control {
+    border: none; /* Clean input appearance */
+    border-radius: 25px 0 0 25px; /* Rounded left corners */
+    padding: 0.75rem 1.5rem; /* Comfortable input padding */
+}
+
+.newsletter-section .btn {
+    border-radius: 0 25px 25px 0; /* Rounded right corners to match input */
+    padding: 0.75rem 2rem; /* Button padding to match input height */
+    background-color: #fff; /* White background for contrast */
+    color: #007bff; /* Brand color for button text */
+    border: none; /* Clean button appearance */
+    font-weight: 600; /* Semi-bold button text */
+}
