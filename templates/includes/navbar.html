@@ -1,71 +1,99 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-        <!-- Logo -->
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <strong>CNCraft</strong>
-        </a>
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <strong>CNCraft</strong>
+    </a>
 
-        <!-- Mobile toggle button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Mobile toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Search Bar -->
-            <form class="d-flex mx-auto my-2 my-lg-0" method="GET" action="{% url 'products' %}">
-                <div class="input-group">
-                    <input class="form-control" type="search" name="q" placeholder="Search CNC products..." aria-label="Search">
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
-
-            <!-- Navigation Links -->
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'products' %}">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
-                
-                <!-- User Account -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user"></i> My Account
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% if request.user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                        {% else %}
-                            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                            <li><a class="dropdown-item" href="#">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-
-                <!-- Shopping Cart -->
-                <li class="nav-item">
-                    <a class="nav-link position-relative" href="{% url 'view_cart' %}">
-                        <i class="fas fa-shopping-cart fa-lg"></i>
-                        {% if grand_total %}
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ product_count }}
-                            </span>
-                            <small class="text-muted">${{ grand_total|floatformat:2 }}</small>
-                        {% else %}
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                                0
-                            </span>
-                        {% endif %}
-                    </a>
-                </li>
-            </ul>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Search Bar -->
+      <form
+        class="d-flex mx-auto my-2 my-lg-0"
+        method="GET"
+        action="{% url 'products' %}"
+      >
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="search"
+            name="q"
+            placeholder="Search CNC products..."
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-dark" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
+      </form>
+
+      <!-- Navigation Links -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'products' %}">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+
+        <!-- User Account -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            <i class="fas fa-user"></i> My Account
+          </a>
+          <ul class="dropdown-menu">
+            {% if request.user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+            <li><a class="dropdown-item" href="#">Register</a></li>
+            {% endif %}
+          </ul>
+        </li>
+
+        <!-- Shopping Cart -->
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="{% url 'view_cart' %}">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            {% if grand_total %}
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              {{ product_count }}
+            </span>
+            <small class="text-muted">${{ grand_total|floatformat:2 }}</small>
+            {% else %}
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
+            >
+              0
+            </span>
+            {% endif %}
+          </a>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>

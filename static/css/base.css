@@ -10,34 +10,39 @@
 
 /* Primary font and typography settings for entire site */
 body {
-    font-family: 'Roboto', sans-serif; /* Professional, clean font for CNC industry */
-    line-height: 1.6; /* Improved readability with proper line spacing */
-    font-size: 16px; /* Base font size for scalability */
-    color: #333; /* Dark gray for better readability than pure black */
-    background-color: #fff; /* Clean white background */
+  font-family: "Roboto", sans-serif; /* Professional, clean font for CNC industry */
+  line-height: 1.6; /* Improved readability with proper line spacing */
+  font-size: 16px; /* Base font size for scalability */
+  color: #333; /* Dark gray for better readability than pure black */
+  background-color: #fff; /* Clean white background */
 }
 
 /* Global heading styles for consistency across all pages */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 600; /* Semi-bold for professional appearance */
-    color: #2c3e50; /* Darker color for headings to create hierarchy */
-    margin-bottom: 1rem; /* Consistent spacing below headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600; /* Semi-bold for professional appearance */
+  color: #2c3e50; /* Darker color for headings to create hierarchy */
+  margin-bottom: 1rem; /* Consistent spacing below headings */
 }
 
 /* Global link styles - maintains consistency across site */
 a {
-    color: #007bff; /* Primary brand blue for links */
-    text-decoration: none; /* Clean, modern look without underlines */
-    transition: color 0.3s ease; /* Smooth color change on hover */
+  color: #007bff; /* Primary brand blue for links */
+  text-decoration: none; /* Clean, modern look without underlines */
+  transition: color 0.3s ease; /* Smooth color change on hover */
 }
 
 a:hover {
-    color: #0056b3; /* Darker blue on hover for better UX feedback */
+  color: #0056b3; /* Darker blue on hover for better UX feedback */
 }
 
 /* Global container modifications for better spacing */
 .container {
-    max-width: 1200px; /* Prevents content from being too wide on large screens */
+  max-width: 1200px; /* Prevents content from being too wide on large screens */
 }
 
 /* ========================================================================
@@ -46,79 +51,79 @@ a:hover {
 
 /* Main navigation brand logo styling */
 .navbar-brand {
-    font-size: 1.5rem; /* Prominent size for brand recognition */
-    font-weight: 700; /* Bold weight for brand emphasis */
-    color: #333 !important; /* Forces dark color override Bootstrap defaults */
-    text-decoration: none; /* Removes any underline from brand link */
-    letter-spacing: 0.5px; /* Slight spacing for modern look */
+  font-size: 1.5rem; /* Prominent size for brand recognition */
+  font-weight: 700; /* Bold weight for brand emphasis */
+  color: #333 !important; /* Forces dark color override Bootstrap defaults */
+  text-decoration: none; /* Removes any underline from brand link */
+  letter-spacing: 0.5px; /* Slight spacing for modern look */
 }
 
 .navbar-brand:hover {
-    color: #007bff !important; /* Brand color on hover for interaction feedback */
+  color: #007bff !important; /* Brand color on hover for interaction feedback */
 }
 
 /* Navigation menu links styling */
 .navbar-nav .nav-link {
-    font-weight: 500; /* Medium weight for professional appearance */
-    color: #333 !important; /* Ensures consistent dark color for visibility */
-    margin: 0 15px; /* Horizontal spacing between navigation items */
-    padding: 0.75rem 1rem; /* Adequate click area for better UX */
-    border-radius: 4px; /* Subtle rounded corners for modern look */
-    transition: all 0.3s ease; /* Smooth transition for all properties */
+  font-weight: 500; /* Medium weight for professional appearance */
+  color: #333 !important; /* Ensures consistent dark color for visibility */
+  margin: 0 15px; /* Horizontal spacing between navigation items */
+  padding: 0.75rem 1rem; /* Adequate click area for better UX */
+  border-radius: 4px; /* Subtle rounded corners for modern look */
+  transition: all 0.3s ease; /* Smooth transition for all properties */
 }
 
 .navbar-nav .nav-link:hover {
-    color: #007bff !important; /* Blue hover effect for interactive feedback */
-    background-color: rgba(0, 123, 255, 0.1); /* Subtle background highlight */
+  color: #007bff !important; /* Blue hover effect for interactive feedback */
+  background-color: rgba(0, 123, 255, 0.1); /* Subtle background highlight */
 }
 
 /* Active navigation link styling for current page indication */
 .navbar-nav .nav-link.active {
-    color: #007bff !important;
-    font-weight: 600;
-    background-color: rgba(0, 123, 255, 0.15);
+  color: #007bff !important;
+  font-weight: 600;
+  background-color: rgba(0, 123, 255, 0.15);
 }
 
 /* Search bar container styling within navigation */
 .navbar .search-form {
-    max-width: 400px; /* Prevents search bar from being too wide */
-    margin: 0 2rem; /* Spacing from other nav elements */
+  max-width: 400px; /* Prevents search bar from being too wide */
+  margin: 0 2rem; /* Spacing from other nav elements */
 }
 
 /* Search input field styling */
 .navbar .search-form .form-control {
-    border-radius: 25px 0 0 25px; /* Rounded left side for modern look */
-    border-right: none; /* Seamless connection with search button */
-    box-shadow: none; /* Removes default Bootstrap shadow */
-    padding: 0.75rem 1rem; /* Comfortable input area */
+  border-radius: 25px 0 0 25px; /* Rounded left side for modern look */
+  border-right: none; /* Seamless connection with search button */
+  box-shadow: none; /* Removes default Bootstrap shadow */
+  padding: 0.75rem 1rem; /* Comfortable input area */
 }
 
 /* Search button styling to match input field */
 .navbar .search-form .btn {
-    border-radius: 0 25px 25px 0; /* Rounded right side to match input */
-    border-left: none; /* Seamless connection with input field */
-    padding: 0.75rem 1rem; /* Matching padding with input */
+  border-radius: 0 25px 25px 0; /* Rounded right side to match input */
+  border-left: none; /* Seamless connection with input field */
+  padding: 0.75rem 1rem; /* Matching padding with input */
 }
 
 /* Shopping cart icon and badge styling */
 .navbar .cart-link {
-    position: relative; /* Allows absolute positioning of cart badge */
-    padding: 0.5rem 1rem; /* Adequate click area */
+  position: relative; /* Allows absolute positioning of cart badge */
+  padding: 0.5rem 1rem; /* Adequate click area */
 }
 
 /* Cart item count badge styling */
 .navbar .cart-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #dc3545; /* Red color for urgency/attention */
-    color: white;
-    border-radius: 50%; /* Circular badge */
-    width: 20px;
-    height: 20px;
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #dc3545; /* Red color for urgency/attention */
+  color: white;
+  border-radius: 50%; /* Circular badge */
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
 }

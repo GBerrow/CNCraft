@@ -1,0 +1,415 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/products/product_list.css' %}">
+{% endblock %}
+
+{% block extra_title %} - Shop CNC Equipment{% endblock %}
+
+{% block content %}
+<div class="shop-page">
+    <!-- Page Header -->
+    <div class="container-fluid bg-light py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item active">Shop</li>
+                        </ol>
+                    </nav>
+                    <h1 class="h2 mb-0">CNC Equipment Shop</h1>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">
+                        {% if products %}
+                            Showing {{ products|length }} of {{ total_products }} products
+                        {% else %}
+                            No products found
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <div class="row">
+            <!-- Filter Sidebar -->
+            <div class="col-lg-3">
+                <div class="filters-sidebar">
+                    <!-- Mobile Filter Toggle -->
+                    <div class="d-lg-none mb-3">
+                        <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+                            <i class="fas fa-filter"></i> Filters & Categories
+                        </button>
+                    </div>
+
+                    <!-- Collapsible Filter Content -->
+                    <div class="collapse d-lg-block" id="filterCollapse">
+                        <div class="filter-card">
+                            <!-- Search Within Results -->
+                            <div class="filter-section">
+                                <h6>Search Products</h6>
+                                <form method="GET" class="search-form">
+                                    <div class="input-group input-group-sm">
+                                        <input type="search" class="form-control" name="q" 
+                                               placeholder="Search..." value="{{ request.GET.q }}">
+                                        <button class="btn btn-outline-secondary" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Categories Filter -->
+                            <div class="filter-section">
+                                <h6>Categories</h6>
+                                <div class="filter-options">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" value="" id="all-categories"
+                                               {% if not request.GET.category %}checked{% endif %}>
+                                        <label class="form-check-label" for="all-categories">
+                                            All Categories
+                                        </label>
+                                    </div>
+                                    {% for category in categories %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="category" 
+                                               value="{{ category.name }}" id="category-{{ category.id }}"
+                                               {% if request.GET.category == category.name %}checked{% endif %}>
+                                        <label class="form-check-label" for="category-{{ category.id }}">
+                                            {{ category.friendly_name }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Price Range Filter -->
+                            <div class="filter-section">
+                                <h6>Price Range</h6>
+                                <div class="filter-options">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="price_range" value="" id="all-prices"
+                                               {% if not request.GET.price_range %}checked{% endif %}>
+                                        <label class="form-check-label" for="all-prices">All Prices</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="price_range" value="0-100" id="price-0-100"
+                                               {% if request.GET.price_range == "0-100" %}checked{% endif %}>
+                                        <label class="form-check-label" for="price-0-100">$0 - $100</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="price_range" value="100-500" id="price-100-500"
+                                               {% if request.GET.price_range == "100-500" %}checked{% endif %}>
+                                        <label class="form-check-label" for="price-100-500">$100 - $500</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="price_range" value="500-1000" id="price-500-1000"
+                                               {% if request.GET.price_range == "500-1000" %}checked{% endif %}>
+                                        <label class="form-check-label" for="price-500-1000">$500 - $1,000</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="price_range" value="1000+" id="price-1000-plus"
+                                               {% if request.GET.price_range == "1000+" %}checked{% endif %}>
+                                        <label class="form-check-label" for="price-1000-plus">$1,000+</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Apply Filters Button -->
+                            <div class="filter-section">
+                                <button type="button" class="btn btn-primary w-100" onclick="applyFilters()">
+                                    Apply Filters
+                                </button>
+                                <a href="{% url 'products' %}" class="btn btn-outline-secondary w-100 mt-2">
+                                    Clear All
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <!-- Sorting and View Options -->
+                <div class="products-header mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="sort-options">
+                                <label for="sort-select" class="form-label me-2">Sort by:</label>
+                                <select class="form-select form-select-sm d-inline-block w-auto" id="sort-select" onchange="sortProducts(this.value)">
+                                    <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>Name (A-Z)</option>
+                                    <option value="-name" {% if request.GET.sort == "-name" %}selected{% endif %}>Name (Z-A)</option>
+                                    <option value="price" {% if request.GET.sort == "price" %}selected{% endif %}>Price (Low to High)</option>
+                                    <option value="-price" {% if request.GET.sort == "-price" %}selected{% endif %}>Price (High to Low)</option>
+                                    <option value="-created_at" {% if request.GET.sort == "-created_at" %}selected{% endif %}>Newest First</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <div class="view-toggle">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-outline-secondary active" onclick="toggleView('grid')">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" onclick="toggleView('list')">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid Container -->
+                <div class="products-grid" id="products-container">
+                    {% if products %}
+                        <div class="row g-4">
+                            {% for product in products %}
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                <div class="product-card card h-100 border-0 shadow-sm">
+                                    <div class="product-image position-relative">
+                                        {% if product.image %}
+                                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
+                                        {% else %}
+                                            <img src="{% static 'images/no-image.png' %}" alt="{{ product.name }}" class="card-img-top">
+                                        {% endif %}
+                                        
+                                        <!-- Sale Badge -->
+                                        {% if product.discount_price %}
+                                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                                                Sale
+                                            </span>
+                                        {% endif %}
+
+                                        <!-- Quick Actions Overlay -->
+                                        <div class="product-overlay">
+                                            <div class="product-actions">
+                                                <a href="{% url 'product_detail' product.id %}" class="btn btn-light btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-light btn-sm wishlist-btn" data-product-id="{{ product.id }}">
+                                                    <i class="far fa-heart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body p-3">
+                                        <div class="product-category">
+                                            {% if product.category %}
+                                                <small class="text-muted">{{ product.category.friendly_name }}</small>
+                                            {% endif %}
+                                        </div>
+                                        <h6 class="card-title">
+                                            <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                                                {{ product.name|truncatechars:50 }}
+                                            </a>
+                                        </h6>
+                                        <p class="card-text text-muted small">
+                                            {{ product.description|truncatewords:15 }}
+                                        </p>
+                                        
+                                        <!-- Rating -->
+                                        <div class="product-rating mb-2">
+                                            <div class="stars">
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="fas fa-star text-warning"></i>
+                                                <i class="far fa-star text-muted"></i>
+                                            </div>
+                                            <small class="text-muted ms-1">(24 reviews)</small>
+                                        </div>
+
+                                        <!-- Price and Actions -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="price">
+                                                {% if product.discount_price %}
+                                                    <span class="text-danger fw-bold">${{ product.discount_price }}</span>
+                                                    <small class="text-muted text-decoration-line-through ms-1">
+                                                        ${{ product.price }}
+                                                    </small>
+                                                {% else %}
+                                                    <span class="fw-bold">${{ product.price }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <form action="{% url 'add_to_cart' product.id %}" method="POST" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
+                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="no-products text-center py-5">
+                            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                            <h4>No products found</h4>
+                            <p class="text-muted">Try adjusting your filters or search terms.</p>
+                            <a href="{% url 'products' %}" class="btn btn-primary">View All Products</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Pagination -->
+                {% if is_paginated %}
+                <nav aria-label="Product pagination" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}">&laquo; First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.price_range %}&price_range={{ request.GET.price_range }}{% endif %}">Last &raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+<script>
+    // Apply filters function
+    function applyFilters() {
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = '{% url "products" %}';
+
+        // Get all checked filter values
+        const categoryRadio = document.querySelector('input[name="category"]:checked');
+        const priceRadio = document.querySelector('input[name="price_range"]:checked');
+        const searchInput = document.querySelector('input[name="q"]');
+        const sortSelect = document.getElementById('sort-select');
+
+        // Add category filter
+        if (categoryRadio && categoryRadio.value) {
+            const categoryInput = document.createElement('input');
+            categoryInput.type = 'hidden';
+            categoryInput.name = 'category';
+            categoryInput.value = categoryRadio.value;
+            form.appendChild(categoryInput);
+        }
+
+        // Add price range filter
+        if (priceRadio && priceRadio.value) {
+            const priceInput = document.createElement('input');
+            priceInput.type = 'hidden';
+            priceInput.name = 'price_range';
+            priceInput.value = priceRadio.value;
+            form.appendChild(priceInput);
+        }
+
+        // Add search query
+        if (searchInput && searchInput.value) {
+            const queryInput = document.createElement('input');
+            queryInput.type = 'hidden';
+            queryInput.name = 'q';
+            queryInput.value = searchInput.value;
+            form.appendChild(queryInput);
+        }
+
+        // Add sort option
+        if (sortSelect && sortSelect.value) {
+            const sortInput = document.createElement('input');
+            sortInput.type = 'hidden';
+            sortInput.name = 'sort';
+            sortInput.value = sortSelect.value;
+            form.appendChild(sortInput);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    // Sort products function
+    function sortProducts(sortValue) {
+        const url = new URL(window.location);
+        if (sortValue) {
+            url.searchParams.set('sort', sortValue);
+        } else {
+            url.searchParams.delete('sort');
+        }
+        window.location.href = url.toString();
+    }
+
+    // Toggle view function (grid/list)
+    function toggleView(viewType) {
+        const buttons = document.querySelectorAll('.view-toggle .btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        const clickedButton = document.querySelector(`[onclick="toggleView('${viewType}')"]`);
+        clickedButton.classList.add('active');
+
+        const container = document.getElementById('products-container');
+        
+        if (viewType === 'list') {
+            container.classList.add('list-view');
+        } else {
+            container.classList.remove('list-view');
+        }
+    }
+
+    // Add to wishlist function with event delegation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle wishlist button clicks
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                addToWishlist(productId);
+            });
+        });
+    });
+
+    // Add to wishlist function
+    function addToWishlist(productId) {
+        // TODO: Implement wishlist functionality
+        console.log('Adding product ' + productId + ' to wishlist');
+        alert('Wishlist feature coming soon!');
+    }
+
+    // Auto-apply filters when radio buttons change
+    document.querySelectorAll('input[name="category"], input[name="price_range"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Optional: Auto-apply filters on change, or keep manual apply button
+            // applyFilters();
+        });
+    });
+</script>
+{% endblock %}

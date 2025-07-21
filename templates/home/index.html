@@ -1,397 +1,541 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block extra_title %} - Professional CNC Equipment{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block extra_title %} -
+Professional CNC Equipment{% endblock %} {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="container-fluid p-0">
-        <div class="hero-banner position-relative">
-            <img src="{% static 'images/hero-cnc.jpg' %}" alt="CNC Equipment" class="w-100" style="height: 70vh; object-fit: cover;">
-            <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0,0,0,0.4);">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <h1 class="display-4 text-white fw-bold mb-4">Precision CNC Equipment for Professionals</h1>
-                            <p class="lead text-white mb-4">Discover our comprehensive range of high-quality CNC machines, tools, and accessories designed to elevate your manufacturing capabilities.</p>
-                            <a href="{% url 'products' %}" class="btn btn-primary btn-lg">Shop Now</a>
-                            <a href="#about" class="btn btn-outline-light btn-lg ms-3">Learn More</a>
-                        </div>
-                    </div>
-                </div>
+  <div class="container-fluid p-0">
+    <div class="hero-banner position-relative">
+      <img
+        src="{% static 'images/hero-cnc.jpg' %}"
+        alt="CNC Equipment"
+        class="w-100"
+        style="height: 70vh; object-fit: cover"
+      />
+      <div
+        class="hero-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+        style="background: rgba(0, 0, 0, 0.4)"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <h1 class="display-4 text-white fw-bold mb-4">
+                Precision CNC Equipment for Professionals
+              </h1>
+              <p class="lead text-white mb-4">
+                Discover our comprehensive range of high-quality CNC machines,
+                tools, and accessories designed to elevate your manufacturing
+                capabilities.
+              </p>
+              <a href="{% url 'products' %}" class="btn btn-primary btn-lg"
+                >Shop Now</a
+              >
+              <a href="#about" class="btn btn-outline-light btn-lg ms-3"
+                >Learn More</a
+              >
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- About Section -->
 <section id="about" class="py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h2 class="h1 mb-4">About CNCraft</h2>
-                <p class="lead mb-4">CNCraft is your trusted partner in precision manufacturing, providing top-tier CNC equipment and solutions to professionals and enthusiasts worldwide.</p>
-                <p>With over a decade of experience in the industry, we understand the demands of modern manufacturing. Our carefully curated selection of CNC machines, cutting tools, and accessories represents the pinnacle of engineering excellence.</p>
-                <p>Our mission is to empower creators, manufacturers, and innovators with the tools they need to bring their visions to life with uncompromising precision and quality.</p>
-                <div class="d-flex mt-4">
-                    <div class="me-4">
-                        <h4 class="text-primary">10+</h4>
-                        <small>Years Experience</small>
-                    </div>
-                    <div class="me-4">
-                        <h4 class="text-primary">500+</h4>
-                        <small>Happy Clients</small>
-                    </div>
-                    <div class="me-4">
-                        <h4 class="text-primary">1000+</h4>
-                        <small>Projects Completed</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <img src="{% static 'images/about-cnc.jpg' %}" alt="About CNCraft" class="img-fluid rounded">
-            </div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h2 class="h1 mb-4">About CNCraft</h2>
+        <p class="lead mb-4">
+          CNCraft is your trusted partner in precision manufacturing, providing
+          top-tier CNC equipment and solutions to professionals and enthusiasts
+          worldwide.
+        </p>
+        <p>
+          With over a decade of experience in the industry, we understand the
+          demands of modern manufacturing. Our carefully curated selection of
+          CNC machines, cutting tools, and accessories represents the pinnacle
+          of engineering excellence.
+        </p>
+        <p>
+          Our mission is to empower creators, manufacturers, and innovators with
+          the tools they need to bring their visions to life with uncompromising
+          precision and quality.
+        </p>
+        <div class="d-flex mt-4">
+          <div class="me-4">
+            <h4 class="text-primary">10+</h4>
+            <small>Years Experience</small>
+          </div>
+          <div class="me-4">
+            <h4 class="text-primary">500+</h4>
+            <small>Happy Clients</small>
+          </div>
+          <div class="me-4">
+            <h4 class="text-primary">1000+</h4>
+            <small>Projects Completed</small>
+          </div>
         </div>
+      </div>
+      <div class="col-lg-6">
+        <img
+          src="{% static 'images/about-cnc.jpg' %}"
+          alt="About CNCraft"
+          class="img-fluid rounded"
+        />
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Services Section -->
 <section id="services" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1">Our CNC Services</h2>
-            <p class="lead">Comprehensive solutions for all your CNC manufacturing needs</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-cogs fa-3x text-primary"></i>
-                        </div>
-                        <h5>CNC Machining</h5>
-                        <p>Precision CNC machining services for complex components with tight tolerances.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-tools fa-3x text-primary"></i>
-                        </div>
-                        <h5>Tool & Die Making</h5>
-                        <p>Custom tool and die manufacturing for specialized production requirements.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-drafting-compass fa-3x text-primary"></i>
-                        </div>
-                        <h5>CAD/CAM Design</h5>
-                        <p>Professional CAD/CAM design services to optimize your manufacturing processes.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-wrench fa-3x text-primary"></i>
-                        </div>
-                        <h5>Equipment Maintenance</h5>
-                        <p>Comprehensive maintenance and repair services to keep your equipment running smoothly.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-graduation-cap fa-3x text-primary"></i>
-                        </div>
-                        <h5>Training & Support</h5>
-                        <p>Expert training programs and ongoing technical support for your team.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="service-icon mb-3">
-                            <i class="fas fa-shipping-fast fa-3x text-primary"></i>
-                        </div>
-                        <h5>Fast Delivery</h5>
-                        <p>Quick turnaround times and reliable shipping to meet your project deadlines.</p>
-                        <a href="#" class="btn btn-outline-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1">Our CNC Services</h2>
+      <p class="lead">
+        Comprehensive solutions for all your CNC manufacturing needs
+      </p>
     </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-cogs fa-3x text-primary"></i>
+            </div>
+            <h5>CNC Machining</h5>
+            <p>
+              Precision CNC machining services for complex components with tight
+              tolerances.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-tools fa-3x text-primary"></i>
+            </div>
+            <h5>Tool & Die Making</h5>
+            <p>
+              Custom tool and die manufacturing for specialized production
+              requirements.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-drafting-compass fa-3x text-primary"></i>
+            </div>
+            <h5>CAD/CAM Design</h5>
+            <p>
+              Professional CAD/CAM design services to optimize your
+              manufacturing processes.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-wrench fa-3x text-primary"></i>
+            </div>
+            <h5>Equipment Maintenance</h5>
+            <p>
+              Comprehensive maintenance and repair services to keep your
+              equipment running smoothly.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+            </div>
+            <h5>Training & Support</h5>
+            <p>
+              Expert training programs and ongoing technical support for your
+              team.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="service-icon mb-3">
+              <i class="fas fa-shipping-fast fa-3x text-primary"></i>
+            </div>
+            <h5>Fast Delivery</h5>
+            <p>
+              Quick turnaround times and reliable shipping to meet your project
+              deadlines.
+            </p>
+            <a href="#" class="btn btn-outline-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Featured Products Section -->
 <section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1">Featured Products</h2>
-            <p class="lead">Discover our most popular CNC equipment and tools</p>
-        </div>
-        
-        <div class="row g-4">
-            {% for product in featured_products %}
-            <div class="col-lg-3 col-md-6">
-                <div class="card h-100 border-0 shadow-sm product-card">
-                    <div class="position-relative">
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
-                        {% else %}
-                            <img src="{% static 'images/no-image.png' %}" alt="{{ product.name }}" class="card-img-top">
-                        {% endif %}
-                        {% if product.is_on_sale %}
-                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sale</span>
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-title">{{ product.name }}</h6>
-                        <p class="card-text text-muted small">{{ product.description|truncatewords:15 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="price">
-                                {% if product.discount_price %}
-                                    <span class="text-danger fw-bold">${{ product.discount_price }}</span>
-                                    <small class="text-muted text-decoration-line-through ms-1">${{ product.price }}</small>
-                                {% else %}
-                                    <span class="fw-bold">${{ product.price }}</span>
-                                {% endif %}
-                            </div>
-                            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary btn-sm">View</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <p>No featured products available at the moment.</p>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-5">
-            <a href="{% url 'products' %}" class="btn btn-outline-primary btn-lg">View All Products</a>
-        </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1">Featured Products</h2>
+      <p class="lead">Discover our most popular CNC equipment and tools</p>
     </div>
+
+    <div class="row g-4">
+      {% for product in featured_products %}
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm product-card">
+          <div class="position-relative">
+            {% if product.image %}
+            <img
+              src="{{ product.image.url }}"
+              alt="{{ product.name }}"
+              class="card-img-top"
+            />
+            {% else %}
+            <img
+              src="{% static 'images/no-image.png' %}"
+              alt="{{ product.name }}"
+              class="card-img-top"
+            />
+            {% endif %} {% if product.is_on_sale %}
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2"
+              >Sale</span
+            >
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">{{ product.name }}</h6>
+            <p class="card-text text-muted small">
+              {{ product.description|truncatewords:15 }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="price">
+                {% if product.discount_price %}
+                <span class="text-danger fw-bold"
+                  >${{ product.discount_price }}</span
+                >
+                <small class="text-muted text-decoration-line-through ms-1"
+                  >${{ product.price }}</small
+                >
+                {% else %}
+                <span class="fw-bold">${{ product.price }}</span>
+                {% endif %}
+              </div>
+              <a
+                href="{% url 'product_detail' product.id %}"
+                class="btn btn-primary btn-sm"
+                >View</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p>No featured products available at the moment.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="{% url 'products' %}" class="btn btn-outline-primary btn-lg"
+        >View All Products</a
+      >
+    </div>
+  </div>
 </section>
 
 <!-- Clients Section -->
 <section id="clients" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1">Trusted by Industry Leaders</h2>
-            <p class="lead">Join hundreds of satisfied customers who trust CNCraft for their manufacturing needs</p>
-        </div>
-        
-        <div class="row align-items-center g-4">
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client1.png' %}" alt="Client 1" class="img-fluid client-logo">
-            </div>
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client2.png' %}" alt="Client 2" class="img-fluid client-logo">
-            </div>
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client3.png' %}" alt="Client 3" class="img-fluid client-logo">
-            </div>
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client4.png' %}" alt="Client 4" class="img-fluid client-logo">
-            </div>
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client5.png' %}" alt="Client 5" class="img-fluid client-logo">
-            </div>
-            <div class="col-lg-2 col-md-4 col-6 text-center">
-                <img src="{% static 'images/clients/client6.png' %}" alt="Client 6" class="img-fluid client-logo">
-            </div>
-        </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1">Trusted by Industry Leaders</h2>
+      <p class="lead">
+        Join hundreds of satisfied customers who trust CNCraft for their
+        manufacturing needs
+      </p>
     </div>
+
+    <div class="row align-items-center g-4">
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client1.png' %}"
+          alt="Client 1"
+          class="img-fluid client-logo"
+        />
+      </div>
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client2.png' %}"
+          alt="Client 2"
+          class="img-fluid client-logo"
+        />
+      </div>
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client3.png' %}"
+          alt="Client 3"
+          class="img-fluid client-logo"
+        />
+      </div>
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client4.png' %}"
+          alt="Client 4"
+          class="img-fluid client-logo"
+        />
+      </div>
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client5.png' %}"
+          alt="Client 5"
+          class="img-fluid client-logo"
+        />
+      </div>
+      <div class="col-lg-2 col-md-4 col-6 text-center">
+        <img
+          src="{% static 'images/clients/client6.png' %}"
+          alt="Client 6"
+          class="img-fluid client-logo"
+        />
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Testimonials Section -->
 <section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1">What Our Customers Say</h2>
-            <p class="lead">Real feedback from real customers</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="mb-3">"CNCraft provided us with exceptional CNC equipment that has transformed our production capabilities. The quality and precision are outstanding."</p>
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'images/testimonials/customer1.jpg' %}" alt="Customer" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <h6 class="mb-0">John Smith</h6>
-                                <small class="text-muted">Manufacturing Director</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="mb-3">"The customer service is incredible, and their technical expertise helped us choose the perfect equipment for our needs. Highly recommended!"</p>
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'images/testimonials/customer2.jpg' %}" alt="Customer" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <h6 class="mb-0">Sarah Johnson</h6>
-                                <small class="text-muted">Operations Manager</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <p class="mb-3">"Fast delivery, competitive pricing, and top-quality products. CNCraft has become our go-to supplier for all CNC equipment needs."</p>
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'images/testimonials/customer3.jpg' %}" alt="Customer" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <h6 class="mb-0">Mike Chen</h6>
-                                <small class="text-muted">Production Engineer</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1">What Our Customers Say</h2>
+      <p class="lead">Real feedback from real customers</p>
     </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">
+              "CNCraft provided us with exceptional CNC equipment that has
+              transformed our production capabilities. The quality and precision
+              are outstanding."
+            </p>
+            <div class="d-flex align-items-center">
+              <img
+                src="{% static 'images/testimonials/customer1.jpg' %}"
+                alt="Customer"
+                class="rounded-circle me-3"
+                width="50"
+                height="50"
+              />
+              <div>
+                <h6 class="mb-0">John Smith</h6>
+                <small class="text-muted">Manufacturing Director</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">
+              "The customer service is incredible, and their technical expertise
+              helped us choose the perfect equipment for our needs. Highly
+              recommended!"
+            </p>
+            <div class="d-flex align-items-center">
+              <img
+                src="{% static 'images/testimonials/customer2.jpg' %}"
+                alt="Customer"
+                class="rounded-circle me-3"
+                width="50"
+                height="50"
+              />
+              <div>
+                <h6 class="mb-0">Sarah Johnson</h6>
+                <small class="text-muted">Operations Manager</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body p-4">
+            <div class="mb-3">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+            </div>
+            <p class="mb-3">
+              "Fast delivery, competitive pricing, and top-quality products.
+              CNCraft has become our go-to supplier for all CNC equipment
+              needs."
+            </p>
+            <div class="d-flex align-items-center">
+              <img
+                src="{% static 'images/testimonials/customer3.jpg' %}"
+                alt="Customer"
+                class="rounded-circle me-3"
+                width="50"
+                height="50"
+              />
+              <div>
+                <h6 class="mb-0">Mike Chen</h6>
+                <small class="text-muted">Production Engineer</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Newsletter Section -->
 <section class="py-5 bg-primary text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h3>Stay Updated with CNCraft</h3>
-                <p class="mb-0">Get the latest news, product updates, and exclusive offers delivered to your inbox.</p>
-            </div>
-            <div class="col-lg-6">
-                <form class="d-flex mt-3 mt-lg-0">
-                    <input type="email" class="form-control me-2" placeholder="Enter your email address" required>
-                    <button type="submit" class="btn btn-light">Subscribe</button>
-                </form>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h3>Stay Updated with CNCraft</h3>
+        <p class="mb-0">
+          Get the latest news, product updates, and exclusive offers delivered
+          to your inbox.
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <form class="d-flex mt-3 mt-lg-0">
+          <input
+            type="email"
+            class="form-control me-2"
+            placeholder="Enter your email address"
+            required
+          />
+          <button type="submit" class="btn btn-light">Subscribe</button>
+        </form>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Contact Section -->
 <section id="contact" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="h1">Get in Touch</h2>
-            <p class="lead">Ready to discuss your CNC needs? We're here to help.</p>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-md-4 text-center">
-                <div class="contact-info">
-                    <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
-                    <h5>Visit Us</h5>
-                    <p>123 Industrial Way<br>Manufacturing District<br>Tech City, TC 12345</p>
-                </div>
-            </div>
-            
-            <div class="col-md-4 text-center">
-                <div class="contact-info">
-                    <i class="fas fa-phone fa-2x text-primary mb-3"></i>
-                    <h5>Call Us</h5>
-                    <p>Sales: <a href="tel:+1234567890">(123) 456-7890</a><br>
-                       Support: <a href="tel:+1234567891">(123) 456-7891</a></p>
-                </div>
-            </div>
-            
-            <div class="col-md-4 text-center">
-                <div class="contact-info">
-                    <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
-                    <h5>Email Us</h5>
-                    <p>Sales: <a href="mailto:sales@cncraft.com">sales@cncraft.com</a><br>
-                       Support: <a href="mailto:support@cncraft.com">support@cncraft.com</a></p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center mt-5">
-            <a href="#" class="btn btn-primary btn-lg">Contact Us Today</a>
-        </div>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1">Get in Touch</h2>
+      <p class="lead">Ready to discuss your CNC needs? We're here to help.</p>
     </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 text-center">
+        <div class="contact-info">
+          <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+          <h5>Visit Us</h5>
+          <p>
+            123 Industrial Way<br />Manufacturing District<br />Tech City, TC
+            12345
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="contact-info">
+          <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+          <h5>Call Us</h5>
+          <p>
+            Sales: <a href="tel:+1234567890">(123) 456-7890</a><br />
+            Support: <a href="tel:+1234567891">(123) 456-7891</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 text-center">
+        <div class="contact-info">
+          <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+          <h5>Email Us</h5>
+          <p>
+            Sales: <a href="mailto:sales@cncraft.com">sales@cncraft.com</a
+            ><br />
+            Support:
+            <a href="mailto:support@cncraft.com">support@cncraft.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5">
+      <a href="#" class="btn btn-primary btn-lg">Contact Us Today</a>
+    </div>
+  </div>
 </section>
-{% endblock %}
-
-{% block postloadjs %}
+{% endblock %} {% block postloadjs %}
 <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
         });
+      }
+    });
+  });
+
+  // Add hover effects to product cards
+  document.querySelectorAll(".product-card").forEach((card) => {
+    card.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-5px)";
+      this.style.transition = "transform 0.3s ease";
     });
 
-    // Add hover effects to product cards
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-        });
+    card.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0)";
     });
+  });
 </script>
 {% endblock %}
