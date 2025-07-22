@@ -1,0 +1,238 @@
+{% extends "base.html" %} {% load static %} {% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<div class="overlay"></div>
+<div class="container mb-2">
+  <div class="row">
+    <div class="col">
+      <hr />
+      <h2 class="logo-font mb-4">Shopping Cart</h2>
+      <hr />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      {% if cart_items %}
+      <div class="table-responsive rounded">
+        <table class="table table-sm table-borderless">
+          <thead class="text-black">
+            <tr>
+              <th scope="col">Product Info</th>
+              <th scope="col"></th>
+              <th scope="col">Price</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+
+          {% for item in cart_items %}
+          <tr>
+            <td class="p-3 w-25">
+              {% if item.product.image %}
+              <img
+                class="img-fluid rounded"
+                src="{{ item.product.image.url }}"
+                alt="{{ item.product.name }}"
+              />
+              {% else %}
+              <img
+                class="img-fluid rounded"
+                src="{{ MEDIA_URL }}noimage.png"
+                alt="{{ item.product.name }}"
+              />
+              {% endif %}
+            </td>
+            <td class="py-3">
+              <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+              <p class="my-0">
+                <strong>Size: </strong>{% if item.product.dimensions %}{{
+                item.product.dimensions }}{% else %}N/A{% endif %}
+              </p>
+              <p class="my-0 small text-muted">
+                SKU: {{ item.product.sku|upper }}
+              </p>
+            </td>
+            <td class="py-3">
+              <p class="my-0">${{ item.product.get_display_price }}</p>
+            </td>
+            <td class="py-3 w-25">
+              <form
+                class="form update-form"
+                method="POST"
+                action="{% url 'adjust_cart' item.product.id %}"
+              >
+                {% csrf_token %}
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <button
+                        class="decrement-qty btn btn-sm btn-black rounded-0"
+                        data-item_id="{{ item.product.id }}"
+                        id="decrement-qty_{{ item.product.id }}"
+                      >
+                        <span>
+                          <i class="fas fa-minus fa-sm"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <input
+                      class="form-control form-control-sm qty_input"
+                      type="number"
+                      name="quantity"
+                      value="{{ item.quantity }}"
+                      min="1"
+                      max="99"
+                      data-item_id="{{ item.product.id }}"
+                      id="id_qty_{{ item.product.id }}"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="increment-qty btn btn-sm btn-black rounded-0"
+                        data-item_id="{{ item.product.id }}"
+                        id="increment-qty_{{ item.product.id }}"
+                      >
+                        <span>
+                          <i class="fas fa-plus fa-sm"></i>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <a class="update-link text-info"><small>Update</small></a>
+              <a
+                class="remove-item text-danger float-right"
+                id="remove_{{ item.product.id }}"
+                ><small>Remove</small></a
+              >
+            </td>
+            <td class="py-3">
+              <p class="my-0">${{ item.subtotal|floatformat:2 }}</p>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="5" class="pt-5 text-right">
+              <h6><strong>Cart Total: ${{ total|floatformat:2 }}</strong></h6>
+              <h6>Delivery: ${{ delivery|floatformat:2 }}</h6>
+              <h4 class="mt-4">
+                <strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong>
+              </h4>
+              {% if free_delivery_delta > 0 %}
+              <p class="mb-1 text-danger">
+                You could get free delivery by spending just
+                <strong>${{ free_delivery_delta }}</strong> more!
+              </p>
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5" class="text-right">
+              <a
+                href="{% url 'products' %}"
+                class="btn btn-outline-black rounded-0 btn-lg"
+              >
+                <span class="icon">
+                  <i class="fas fa-chevron-left"></i>
+                </span>
+                <span class="text-uppercase">Keep Shopping</span>
+              </a>
+              <a
+                href="{% url 'checkout' %}"
+                class="btn btn-black rounded-0 btn-lg"
+              >
+                <span class="text-uppercase">Secure Checkout</span>
+                <span class="icon">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </div>
+      {% else %}
+      <p class="lead mb-5">Your cart is empty.</p>
+      <a
+        href="{% url 'products' %}"
+        class="btn btn-outline-black rounded-0 btn-lg"
+      >
+        <span class="icon">
+          <i class="fas fa-chevron-left"></i>
+        </span>
+        <span class="text-uppercase">Keep Shopping</span>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %} {% block postloadjs %} {{ block.super }}
+<script type="text/javascript">
+  // Update quantity on click
+  $(".update-link").click(function (e) {
+    var form = $(this).prev(".update-form");
+    form.submit();
+  });
+
+  // Remove item functionality
+  $(".remove-item").click(function (e) {
+    var csrfToken = "{{ csrf_token }}";
+    var productId = $(this).attr("id").split("remove_")[1];
+    var url = `/cart/remove/${productId}/`;
+
+    $.post(url, { csrfmiddlewaretoken: csrfToken }).done(function () {
+      location.reload();
+    });
+  });
+
+  // Disable +/- buttons outside 1-99 range
+  function handleEnableDisable(productId) {
+    var currentValue = parseInt($(`#id_qty_${productId}`).val());
+    var minusDisabled = currentValue < 2;
+    var plusDisabled = currentValue > 98;
+    $(`#decrement-qty_${productId}`).prop("disabled", minusDisabled);
+    $(`#increment-qty_${productId}`).prop("disabled", plusDisabled);
+  }
+
+  // Ensure proper enabling/disabling of all inputs on page load
+  var allQtyInputs = $(".qty_input");
+  for (var i = 0; i < allQtyInputs.length; i++) {
+    var productId = $(allQtyInputs[i]).data("item_id");
+    handleEnableDisable(productId);
+  }
+
+  // Check enable/disable every time the input is changed
+  $(".qty_input").change(function () {
+    var productId = $(this).data("item_id");
+    handleEnableDisable(productId);
+  });
+
+  // Increment quantity
+  $(".increment-qty").click(function (e) {
+    e.preventDefault();
+    var productId = $(this).data("item_id");
+    var allQuantityInputs = $(
+      `.input-group-${productId} input[name='quantity']`
+    );
+    var currentValue = parseInt($(`#id_qty_${productId}`).val());
+    $(`#id_qty_${productId}`).val(currentValue + 1);
+    handleEnableDisable(productId);
+  });
+
+  // Decrement quantity
+  $(".decrement-qty").click(function (e) {
+    e.preventDefault();
+    var productId = $(this).data("item_id");
+    var allQuantityInputs = $(
+      `.input-group-${productId} input[name='quantity']`
+    );
+    var currentValue = parseInt($(`#id_qty_${productId}`).val());
+    $(`#id_qty_${productId}`).val(currentValue - 1);
+    handleEnableDisable(productId);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,217 @@
+/* ========================================================================
+   CNCraft - Cart Page Stylesheet
+   ========================================================================
+1. Cart Table & Layout Styles
+2. Quantity Control Styles  
+3. Action Button Styles
+4. Interactive Element Styles
+5. Cart Summary & Total Styles
+
+/* ========================================================================
+   1. CART TABLE & LAYOUT STYLES
+   ======================================================================== */
+
+/* Main cart table container with clean professional appearance */
+.cart-table {
+  background: #fff; /* Clean white background for better readability */
+  border-radius: 0.5rem; /* Subtle rounded corners for modern look */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Light shadow for depth */
+  overflow: hidden; /* Ensures rounded corners are clean */
+}
+
+/* Cart table rows with hover effects for better UX */
+.cart-table tbody tr:hover {
+  background-color: #f8f9fa; /* Light gray highlight on hover */
+  transition: background-color 0.2s ease; /* Smooth transition */
+}
+
+/* Product image styling within cart table */
+.cart-product-image {
+  max-width: 120px; /* Consistent image size */
+  border-radius: 0.375rem; /* Matches modern design standards */
+  object-fit: cover; /* Maintains aspect ratio */
+}
+
+/* Product information text styling for hierarchy */
+.cart-product-info h6 {
+  font-weight: 600; /* Semi-bold for product names */
+  color: #2c3e50; /* Consistent with site heading colors */
+  margin-bottom: 0.5rem;
+}
+
+.cart-product-info p {
+  color: #6c757d; /* Muted color for secondary information */
+  margin-bottom: 0.25rem; /* Tight spacing for compact layout */
+}
+
+/* ========================================================================
+   2. QUANTITY CONTROL STYLES
+   ======================================================================== */
+
+/* Quantity input field with centered text and proper sizing */
+.qty_input {
+  width: 80px !important; /* Fixed width for consistency across devices */
+  text-align: center; /* Centered numbers for clean appearance */
+  font-weight: 500; /* Medium weight for better readability */
+  border: 1px solid #dee2e6; /* Consistent border color */
+}
+
+/* Quantity input group styling for seamless button integration */
+.qty-input-group {
+  max-width: 140px; /* Prevents overly wide quantity controls */
+  margin: 0 auto; /* Centers the quantity control */
+}
+
+/* Quantity increment/decrement buttons */
+.qty-btn {
+  width: 30px; /* Fixed width for consistent sizing */
+  height: 38px; /* Matches input field height */
+  display: flex; /* Flexbox for perfect icon centering */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  padding: 0; /* Removes default button padding */
+  border: 1px solid #dee2e6; /* Matches input field border */
+}
+
+/* Disabled state for quantity buttons */
+.qty-btn:disabled {
+  opacity: 0.5; /* Visual indication of disabled state */
+  cursor: not-allowed; /* Cursor feedback for disabled buttons */
+}
+
+/* ========================================================================
+   3. ACTION BUTTON STYLES
+   ======================================================================== */
+
+/* Primary black button styling for main actions */
+.btn-black {
+  background: #000; /* Pure black for strong CTA appearance */
+  color: white; /* High contrast white text */
+  border: 1px solid #000; /* Matching border */
+  font-weight: 500; /* Medium weight for professional look */
+  transition: all 0.3s ease; /* Smooth hover transitions */
+}
+
+.btn-black:hover,
+.btn-black:focus {
+  background: #333; /* Slightly lighter on hover for feedback */
+  color: white; /* Maintains white text */
+  border: 1px solid #333; /* Matching hover border */
+  transform: translateY(-1px); /* Subtle lift effect */
+}
+
+/* Outline black button for secondary actions */
+.btn-outline-black {
+  background: transparent; /* Transparent background */
+  color: #000; /* Black text */
+  border: 1px solid #000; /* Black border */
+  font-weight: 500; /* Consistent weight with primary buttons */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:focus {
+  background: #000; /* Black background on hover */
+  color: white; /* White text on hover */
+  border: 1px solid #000; /* Maintains border */
+  transform: translateY(-1px); /* Consistent lift effect */
+}
+
+/* ========================================================================
+   4. INTERACTIVE ELEMENT STYLES
+   ======================================================================== */
+
+/* Update and remove link styling for in-table actions */
+.update-link,
+.remove-item {
+  cursor: pointer; /* Pointer cursor indicates clickable element */
+  font-weight: 500; /* Medium weight for visibility */
+  transition: all 0.2s ease; /* Quick hover transitions */
+  text-decoration: none; /* Clean appearance without underlines */
+}
+
+/* Update link styling with info color */
+.update-link:hover {
+  text-decoration: underline; /* Underline on hover for feedback */
+  color: #17a2b8; /* Stronger info blue on hover */
+}
+
+/* Remove link styling with danger color */
+.remove-item:hover {
+  text-decoration: underline; /* Underline on hover for feedback */
+  color: #dc3545; /* Stronger danger red on hover */
+  font-weight: 600; /* Slightly bolder on hover for emphasis */
+}
+
+/* Loading state for interactive elements */
+.updating {
+  opacity: 0.6; /* Visual feedback during updates */
+  pointer-events: none; /* Prevents multiple clicks during processing */
+}
+
+/* ========================================================================
+   5. CART SUMMARY & TOTAL STYLES
+   ======================================================================== */
+
+/* Cart totals section with highlighted background */
+.cart-total-section {
+  background: #f8f9fa; /* Light gray background for section separation */
+  padding: 2rem; /* Generous padding for important information */
+  border-radius: 0.5rem; /* Consistent border radius */
+  border: 1px solid #e9ecef; /* Subtle border for definition */
+  margin-top: 1rem; /* Separation from cart items */
+}
+
+/* Cart total text styling for hierarchy */
+.cart-total-section h6 {
+  color: #495057; /* Medium gray for subtotals */
+  font-weight: 500; /* Medium weight */
+  margin-bottom: 0.5rem; /* Consistent spacing */
+}
+
+.cart-total-section h4 {
+  color: #2c3e50; /* Dark color for grand total emphasis */
+  font-weight: 700; /* Bold weight for final total */
+  border-top: 2px solid #dee2e6; /* Top border for separation */
+  padding-top: 1rem; /* Padding above final total */
+}
+
+/* Free delivery message styling */
+.free-delivery-message {
+  background: #fff3cd; /* Light yellow background for attention */
+  border: 1px solid #ffeaa7; /* Matching border */
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.75rem 1rem; /* Comfortable padding */
+  margin-top: 1rem; /* Spacing from totals */
+}
+
+/* Empty cart message styling */
+.empty-cart-message {
+  text-align: center; /* Centered for better visual impact */
+  padding: 3rem 1rem; /* Generous padding for emphasis */
+  color: #6c757d; /* Muted color for empty state */
+}
+
+.empty-cart-message .lead {
+  font-size: 1.375rem; /* Larger text for primary message */
+  margin-bottom: 2rem; /* Space before action button */
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+  .cart-table {
+    font-size: 0.875rem; /* Smaller text on mobile */
+  }
+
+  .cart-product-image {
+    max-width: 80px; /* Smaller images on mobile */
+  }
+
+  .cart-total-section {
+    padding: 1.5rem; /* Reduced padding on mobile */
+  }
+
+  .qty_input {
+    width: 60px !important; /* Narrower quantity input on mobile */
+  }
+}
