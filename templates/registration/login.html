@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/registration/login.css' %}" />
+{% endblock %} {% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<div class="overlay"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <div class="auth-container">
+        <!-- Mobile Toggle Buttons -->
+        <div class="auth-toggle d-md-none">
+          <button class="toggle-btn active" data-target="login">Login</button>
+          <button class="toggle-btn" data-target="signup">Sign Up</button>
+        </div>
+
+        <!-- Desktop Side by Side / Mobile Stacked Forms -->
+        <div class="auth-forms-container">
+          <!-- Login Form -->
+          <div class="auth-form login-form active">
+            <h3 class="auth-title">Welcome Back</h3>
+            <form method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+
+              <!-- Email Field -->
+              <div class="form-group">
+                <label for="id_login">Email</label>
+                <input
+                  type="email"
+                  name="login"
+                  id="id_login"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <!-- Password Field -->
+              <div class="form-group">
+                <label for="id_password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="id_password"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+
+              <!-- Remember Me -->
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  name="remember"
+                  id="id_remember"
+                  class="form-check-input"
+                />
+                <label for="id_remember" class="form-check-label"
+                  >Remember Me</label
+                >
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-auth btn-primary">
+                Sign In
+              </button>
+
+              <!-- Forgot Password Link -->
+              <div class="auth-links">
+                <a href="{% url 'forgot_password' %}" class="forgot-password">Forgot Password?</a>
+              </div>
+            </form>
+          </div>
+
+          <!-- Sign Up Link for Desktop -->
+          <div class="auth-divider d-none d-md-block">
+            <div class="divider-line"></div>
+            <span class="divider-text">OR</span>
+            <div class="divider-line"></div>
+          </div>
+
+          <div class="auth-signup-link d-none d-md-block">
+            <h4>New to CNCraft?</h4>
+            <p>Create an account to track orders and save your preferences</p>
+            <a href="{% url 'account_signup' %}" class="btn btn-outline-primary"
+              >Create Account</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block postloadjs %} {{ block.super }}
+<script src="{% static 'js/registration/auth-toggle.js' %}"></script>
+{% endblock %}
