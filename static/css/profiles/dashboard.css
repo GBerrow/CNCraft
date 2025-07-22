@@ -1,0 +1,446 @@
+/* ========================================================================
+   CNCraft - User Dashboard CSS Stylesheet
+   ========================================================================
+1. Dashboard Layout & Structure
+2. Profile Section Styles
+3. Orders Section Styles
+4. Account Section Styles
+5. Preferences Section Styles
+6. Responsive Design & Mobile Optimizations
+
+/* ========================================================================
+   1. DASHBOARD LAYOUT & STRUCTURE
+   ======================================================================== */
+
+/* Main dashboard content area styling */
+.dashboard-content {
+  margin-top: 2rem; /* Spacing from page header */
+  margin-bottom: 2rem; /* Bottom spacing for clean layout */
+}
+
+/* Universal dashboard section styling for consistent appearance */
+.dashboard-section {
+  background-color: #fff; /* Clean white background for each section */
+  border: 1px solid #e9ecef; /* Subtle border for section definition */
+  border-radius: 8px; /* Modern rounded corners */
+  padding: 1.5rem; /* Adequate internal spacing */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: box-shadow 0.3s ease; /* Smooth hover effect */
+  height: 100%; /* Ensures equal height sections in grid */
+}
+
+.dashboard-section:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Section header styling for consistent typography hierarchy */
+.section-header {
+  border-bottom: 2px solid #f8f9fa; /* Separates header from content */
+  padding-bottom: 1rem; /* Space between header text and border */
+  margin-bottom: 1.5rem; /* Space between header and content */
+}
+
+.section-header h3 {
+  color: #2c3e50; /* Dark color for primary headings */
+  font-weight: 600; /* Semi-bold for emphasis */
+  margin-bottom: 0.5rem; /* Spacing below main heading */
+}
+
+.section-header h4 {
+  color: #2c3e50; /* Consistent heading color */
+  font-weight: 500; /* Medium weight for sub-headings */
+  margin-bottom: 0.5rem;
+}
+
+.section-header p {
+  margin-bottom: 0; /* Removes default paragraph margin */
+  font-size: 0.9rem; /* Slightly smaller descriptive text */
+}
+
+/* Content area styling within each section */
+.section-content {
+  line-height: 1.6; /* Improved readability */
+}
+
+/* ========================================================================
+   2. PROFILE SECTION STYLES
+   ======================================================================== */
+
+/* Profile information display styling */
+.profile-info {
+  margin-bottom: 1.5rem; /* Space before action buttons */
+}
+
+/* Individual profile detail line styling */
+.profile-detail {
+  display: flex; /* Flexbox for label-value alignment */
+  margin-bottom: 0.75rem; /* Consistent spacing between details */
+  padding: 0.5rem 0; /* Vertical padding for better touch targets */
+  border-bottom: 1px solid #f8f9fa; /* Subtle separator between details */
+}
+
+.profile-detail:last-child {
+  border-bottom: none; /* Removes border from last item */
+}
+
+/* Profile detail labels (e.g., "Email:", "Phone:") */
+.detail-label {
+  font-weight: 500; /* Medium weight for labels */
+  color: #6c757d; /* Muted color for labels */
+  min-width: 80px; /* Consistent label width for alignment */
+  margin-right: 1rem; /* Space between label and value */
+}
+
+/* Profile detail values (actual user data) */
+.detail-value {
+  color: #2c3e50; /* Darker color for actual values */
+  font-weight: 400; /* Regular weight for values */
+  flex: 1; /* Takes remaining space in flexbox */
+}
+
+/* Profile action buttons container */
+.profile-actions {
+  text-align: left; /* Left-aligned buttons */
+}
+
+/* Edit profile form section styling */
+.edit-profile-section {
+  background-color: #f8f9fa; /* Light gray background to distinguish from main profile */
+  border-color: #dee2e6; /* Slightly darker border */
+}
+
+/* ========================================================================
+   3. ORDERS SECTION STYLES
+   ======================================================================== */
+
+/* Orders list container */
+.order-list {
+  max-height: 400px; /* Prevents section from becoming too tall */
+  overflow-y: auto; /* Scrollable if many orders */
+}
+
+/* Individual order item styling */
+.order-item {
+  background-color: #f8f9fa; /* Light background for order items */
+  border: 1px solid #e9ecef; /* Border for definition */
+  border-radius: 6px; /* Rounded corners */
+  padding: 1rem; /* Internal spacing */
+  margin-bottom: 1rem; /* Space between order items */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.order-item:hover {
+  background-color: #e9ecef; /* Darker background on hover */
+}
+
+.order-item:last-child {
+  margin-bottom: 0; /* Removes margin from last order */
+}
+
+/* Order header containing order number and date */
+.order-header {
+  display: flex; /* Flexbox for horizontal layout */
+  justify-content: space-between; /* Spreads content to edges */
+  align-items: center; /* Vertically centers content */
+  margin-bottom: 0.75rem; /* Space below header */
+}
+
+/* Order number styling */
+.order-number {
+  font-size: 1rem; /* Standard font size */
+  color: #2c3e50; /* Dark color for emphasis */
+}
+
+/* Order date styling */
+.order-date {
+  font-size: 0.9rem; /* Slightly smaller for secondary information */
+  color: #6c757d; /* Muted color for dates */
+}
+
+/* Order details section containing total and status */
+.order-details {
+  display: flex; /* Flexbox layout */
+  justify-content: space-between; /* Spreads items across width */
+  align-items: center; /* Vertically centers items */
+  margin-bottom: 0.75rem; /* Space before action buttons */
+  padding: 0.5rem 0; /* Vertical padding */
+  border-top: 1px solid #dee2e6; /* Top border for separation */
+}
+
+/* Order total amount styling */
+.order-total .detail-label {
+  font-weight: 500; /* Medium weight for total label */
+  color: #6c757d; /* Muted color */
+  margin-right: 0.5rem; /* Space between label and amount */
+}
+
+.order-total .detail-value {
+  font-weight: 600; /* Bold for monetary amounts */
+  color: #28a745; /* Green color for positive monetary values */
+  font-size: 1.1rem; /* Slightly larger for emphasis */
+}
+
+/* Status badge styling */
+.status-badge {
+  padding: 0.25rem 0.75rem; /* Internal padding for badge */
+  border-radius: 15px; /* Rounded pill shape */
+  font-size: 0.8rem; /* Smaller font for badges */
+  font-weight: 500; /* Medium weight */
+  text-transform: uppercase; /* Uppercase for status consistency */
+  letter-spacing: 0.5px; /* Spacing for readability */
+}
+
+.status-completed {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+  border: 1px solid #c3e6cb; /* Green border */
+}
+
+/* Order action buttons */
+.order-actions {
+  text-align: right; /* Right-aligned action buttons */
+}
+
+/* No orders placeholder styling */
+.no-orders {
+  text-align: center; /* Center-aligned placeholder */
+  padding: 2rem 1rem; /* Generous padding */
+  color: #6c757d; /* Muted color */
+}
+
+.no-orders p {
+  margin-bottom: 1.5rem; /* Space before call-to-action button */
+  font-size: 1.1rem; /* Slightly larger for readability */
+}
+
+/* ========================================================================
+   4. ACCOUNT SECTION STYLES
+   ======================================================================== */
+
+/* Individual account option styling */
+.account-option {
+  display: flex; /* Flexbox for layout */
+  justify-content: space-between; /* Spreads content across width */
+  align-items: flex-start; /* Aligns items to top */
+  padding: 1rem; /* Internal padding */
+  background-color: #f8f9fa; /* Light background */
+  border: 1px solid #e9ecef; /* Subtle border */
+  border-radius: 6px; /* Rounded corners */
+  margin-bottom: 1rem; /* Space between options - this handles the spacing */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.account-option:hover {
+  background-color: #e9ecef; /* Darker background on hover */
+}
+
+.account-option:last-child {
+  margin-bottom: 0; /* Removes margin from last option */
+}
+
+/* Account option information section */
+.option-info {
+  flex: 1; /* Takes available space */
+  margin-right: 1rem; /* Space before action button */
+}
+
+.option-info strong {
+  color: #2c3e50; /* Dark color for option titles */
+  font-size: 1rem; /* Standard font size */
+  display: block; /* Block display for proper spacing */
+  margin-bottom: 0.25rem; /* Space below title */
+}
+
+.option-info p {
+  margin-bottom: 0; /* Removes default paragraph margin */
+  line-height: 1.4; /* Tighter line height for descriptions */
+}
+
+/* Account option action section */
+.option-action {
+  flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+/* ========================================================================
+   5. PREFERENCES SECTION STYLES
+   ======================================================================== */
+
+/* Preferences placeholder container */
+.preferences-placeholder {
+  position: relative; /* Allows absolute positioning of coming soon badge */
+  text-align: center; /* Center-aligned content */
+  padding: 2rem 1rem; /* Generous padding */
+  background-color: #f8f9fa; /* Light background */
+  border-radius: 6px; /* Rounded corners */
+  border: 2px dashed #dee2e6; /* Dashed border for placeholder effect */
+}
+
+/* Individual preference item styling */
+.preference-item {
+  margin-bottom: 1.5rem; /* Space between preference items */
+}
+
+.preference-item:last-child {
+  margin-bottom: 0; /* Removes margin from last item */
+}
+
+.preference-item.coming-soon {
+  opacity: 0.7; /* Reduced opacity for coming soon items */
+  cursor: default; /* Default cursor since items aren't interactive */
+}
+
+.preference-item h5 {
+  color: #2c3e50; /* Dark color for preference titles */
+  font-weight: 500; /* Medium weight */
+  margin-bottom: 0.5rem; /* Space below titles */
+}
+
+.preference-item p {
+  color: #6c757d; /* Muted color for descriptions */
+  font-size: 0.9rem; /* Slightly smaller font */
+  margin-bottom: 0; /* Removes default margin */
+  line-height: 1.4; /* Improved readability */
+}
+
+/* Coming soon badge positioning */
+.coming-soon-badge {
+  position: absolute; /* Absolute positioning within placeholder */
+  top: 1rem; /* Distance from top */
+  right: 1rem; /* Distance from right */
+}
+
+.coming-soon-badge .badge {
+  font-size: 0.8rem; /* Smaller font for badge */
+  padding: 0.5rem 1rem; /* Padding for badge */
+}
+
+/* ========================================================================
+   6. RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+   ======================================================================== */
+
+/* Tablet and small desktop adjustments */
+@media (max-width: 991.98px) {
+  .dashboard-section {
+    margin-bottom: 1.5rem; /* Increased bottom margin for stacked sections */
+  }
+  
+  .order-header {
+    flex-direction: column; /* Stacks order number and date vertically */
+    align-items: flex-start; /* Left-aligns stacked items */
+  }
+  
+  .order-date {
+    margin-top: 0.25rem; /* Space between order number and date */
+  }
+  
+  .order-details {
+    flex-direction: column; /* Stacks total and status vertically */
+    align-items: flex-start; /* Left-aligns stacked items */
+  }
+  
+  .order-total {
+    margin-bottom: 0.5rem; /* Space between total and status */
+  }
+}
+
+/* Mobile phone optimizations */
+@media (max-width: 767.98px) {
+  .dashboard-content {
+    margin-top: 1rem; /* Reduced top margin on mobile */
+  }
+  
+  .dashboard-section {
+    padding: 1rem; /* Reduced padding for mobile screens */
+    margin-bottom: 1rem; /* Reduced bottom margin */
+  }
+  
+  .section-header {
+    margin-bottom: 1rem; /* Reduced header margin */
+  }
+  
+  .section-header h3 {
+    font-size: 1.25rem; /* Smaller heading size for mobile */
+  }
+  
+  .profile-detail {
+    flex-direction: column; /* Stacks labels and values vertically */
+    align-items: flex-start; /* Left-aligns stacked items */
+  }
+  
+  .detail-label {
+    min-width: auto; /* Removes fixed width on mobile */
+    margin-right: 0; /* Removes right margin */
+    margin-bottom: 0.25rem; /* Space below label */
+  }
+  
+  .account-option {
+    flex-direction: column; /* Stacks info and action vertically */
+    align-items: flex-start; /* Left-aligns stacked items */
+  }
+  
+  .option-info {
+    margin-right: 0; /* Removes right margin */
+    margin-bottom: 1rem; /* Space below info section */
+  }
+  
+  .option-action {
+    align-self: flex-start; /* Aligns button to left */
+  }
+  
+  .order-actions {
+    text-align: left; /* Left-aligns action buttons on mobile */
+    margin-top: 0.5rem; /* Space above action buttons */
+  }
+  
+  .preferences-placeholder {
+    padding: 1.5rem 1rem; /* Reduced padding on mobile */
+  }
+  
+  .coming-soon-badge {
+    position: static; /* Removes absolute positioning on mobile */
+    margin-top: 1rem; /* Space above badge */
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 575.98px) {
+  .dashboard-section {
+    padding: 0.75rem; /* Further reduced padding for very small screens */
+  }
+  
+  .section-header h3 {
+    font-size: 1.1rem; /* Even smaller heading for tiny screens */
+  }
+  
+  .order-item {
+    padding: 0.75rem; /* Reduced padding for order items */
+  }
+  
+  .account-option {
+    padding: 0.75rem; /* Reduced padding for account options */
+  }
+  
+  .preferences-placeholder {
+    padding: 1rem 0.75rem; /* Minimal padding for very small screens */
+  }
+}
+
+/* Print styles for dashboard printing */
+@media print {
+  .dashboard-section {
+    box-shadow: none; /* Removes shadows for print */
+    border: 1px solid #000; /* Black borders for print clarity */
+    page-break-inside: avoid; /* Prevents sections from breaking across pages */
+    margin-bottom: 1rem; /* Space between sections in print */
+  }
+  
+  .profile-actions,
+  .order-actions,
+  .option-action {
+    display: none; /* Hides interactive elements in print */
+  }
+  
+  .coming-soon-badge {
+    display: none; /* Hides coming soon badge in print */
+  }
+}
