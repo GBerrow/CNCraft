@@ -1,217 +1,642 @@
 /* ========================================================================
-   CNCraft - Cart Page Stylesheet
+   CNCraft - Cart Page Stylesheet (Wireframe Aligned)
    ========================================================================
-1. Cart Table & Layout Styles
-2. Quantity Control Styles  
-3. Action Button Styles
-4. Interactive Element Styles
-5. Cart Summary & Total Styles
-
-/* ========================================================================
-   1. CART TABLE & LAYOUT STYLES
+   Table of Contents:
+   1. Cart Items Section & Product Summary Blocks
+   2. Quantity Control Styles  
+   3. Order Summary Panel
+   4. Checkout CTA & Action Buttons
+   5. Cross-Selling Section
+   6. Empty Cart State
+   7. Mobile Responsive Design
    ======================================================================== */
 
-/* Main cart table container with clean professional appearance */
-.cart-table {
+/* ========================================================================
+   1. CART ITEMS SECTION & PRODUCT SUMMARY BLOCKS
+   ========================================================================
+   
+   These styles create individual product blocks that replace traditional
+   table layouts. Each block contains all product information in a scannable,
+   card-like format that works across all device sizes.
+   
+   Design Goals:
+   - Clear product identification with image and details
+   - Easy-to-read pricing and subtotal information
+   - Intuitive quantity adjustment controls
+   - Non-destructive update and remove actions
+   ======================================================================== */
+
+/* Main container for all cart items with professional card styling */
+.cart-items-section {
   background: #fff; /* Clean white background for better readability */
-  border-radius: 0.5rem; /* Subtle rounded corners for modern look */
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); /* Light shadow for depth */
-  overflow: hidden; /* Ensures rounded corners are clean */
+  border-radius: 8px; /* Modern rounded corners for visual appeal */
+  padding: 1.5rem; /* Generous padding for breathing room */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth and separation */
 }
 
-/* Cart table rows with hover effects for better UX */
-.cart-table tbody tr:hover {
-  background-color: #f8f9fa; /* Light gray highlight on hover */
-  transition: background-color 0.2s ease; /* Smooth transition */
+/* Individual cart item styling - each product gets its own block */
+.cart-item-block {
+  background: #f8f9fa; /* Light gray background to distinguish from container */
+  border-radius: 8px; /* Consistent rounded corners throughout */
+  padding: 1.5rem; /* Comfortable padding for content spacing */
+  border: 1px solid #e9ecef; /* Subtle border for definition */
+  transition: box-shadow 0.3s ease; /* Smooth hover effect transition */
 }
 
-/* Product image styling within cart table */
+/* Interactive hover effect to provide user feedback */
+.cart-item-block:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover for interactivity */
+}
+
+/* Product image container with centered alignment */
+.cart-product-image-container {
+  text-align: center; /* Centers the product image within its container */
+}
+
+/* Product image styling for consistency and visual appeal */
 .cart-product-image {
-  max-width: 120px; /* Consistent image size */
-  border-radius: 0.375rem; /* Matches modern design standards */
-  object-fit: cover; /* Maintains aspect ratio */
+  max-width: 100px; /* Consistent maximum width across all product images */
+  border-radius: 6px; /* Rounded corners matching overall design language */
+  object-fit: cover; /* Maintains aspect ratio while filling container */
+  border: 1px solid #dee2e6; /* Light border for definition against background */
 }
 
-/* Product information text styling for hierarchy */
-.cart-product-info h6 {
-  font-weight: 600; /* Semi-bold for product names */
-  color: #2c3e50; /* Consistent with site heading colors */
-  margin-bottom: 0.5rem;
+/* Product name styling - primary identifier for each item */
+.cart-product-info .product-name {
+  font-weight: 600; /* Semi-bold weight for prominence and hierarchy */
+  color: #2c3e50; /* Dark color for high contrast and readability */
+  margin-bottom: 0.5rem; /* Spacing below product name */
+  font-size: 1.1rem; /* Slightly larger than body text for emphasis */
 }
 
-.cart-product-info p {
-  color: #6c757d; /* Muted color for secondary information */
-  margin-bottom: 0.25rem; /* Tight spacing for compact layout */
+/* Secondary product information - dimensions, specifications, etc. */
+.cart-product-info .product-details {
+  color: #6c757d; /* Muted color to indicate secondary importance */
+  margin-bottom: 0.25rem; /* Tight spacing for compact information display */
+  font-size: 0.9rem; /* Smaller font size for secondary details */
+}
+
+/* SKU styling - least prominent but still accessible information */
+.cart-product-info .product-sku {
+  color: #868e96; /* Most muted color for tertiary information */
+  font-size: 0.8rem; /* Smallest readable font size for SKU codes */
+}
+
+/* Price and subtotal containers with centered alignment */
+.item-price,
+.item-subtotal {
+  text-align: center; /* Centers price information for easy scanning */
+}
+
+/* Labels for price and subtotal - hidden on desktop, shown on mobile */
+.price-label,
+.subtotal-label {
+  font-size: 0.8rem; /* Small font size for contextual labels */
+  color: #6c757d; /* Muted color to not compete with actual values */
+  display: block; /* Block display for proper stacking */
+  margin-bottom: 0.25rem; /* Small gap between label and value */
+}
+
+/* Actual price and subtotal values - most important financial information */
+.price-value,
+.subtotal-value {
+  font-size: 1.1rem; /* Larger font for easy readability */
+  font-weight: 600; /* Semi-bold to emphasize monetary values */
+  color: #2c3e50; /* High contrast color for maximum legibility */
+}
+
+/* Container for update and remove actions */
+.item-actions {
+  text-align: left; /* Left alignment for natural reading flow */
+  padding-top: 0.5rem; /* Spacing above actions */
+  border-top: 1px solid #e9ecef; /* Visual separator from main content */
+}
+
+/* Styling for update and remove links */
+.update-link,
+.remove-item {
+  cursor: pointer; /* Pointer cursor to indicate clickable elements */
+  font-weight: 500; /* Medium weight for visibility without overwhelming */
+  text-decoration: none; /* Clean appearance without default underlines */
+  transition: all 0.2s ease; /* Smooth hover transitions for better UX */
+}
+
+/* Update link hover state with info-style blue color */
+.update-link:hover {
+  text-decoration: underline; /* Underline appears on hover for feedback */
+  color: #0d6efd !important; /* Bootstrap info blue for update actions */
+}
+
+/* Remove link hover state with danger-style red color */
+.remove-item:hover {
+  text-decoration: underline; /* Consistent underline behavior */
+  color: #dc3545 !important; /* Bootstrap danger red for destructive actions */
+  font-weight: 600; /* Slightly heavier weight on hover for emphasis */
 }
 
 /* ========================================================================
    2. QUANTITY CONTROL STYLES
+   ========================================================================
+   
+   Quantity controls are critical for cart functionality. These styles
+   create an integrated input group with increment/decrement buttons
+   that are touch-friendly and accessible across all devices.
+   
+   Design Goals:
+   - Clear quantity display with large, readable numbers
+   - Easy-to-tap increment/decrement buttons
+   - Disabled states for min/max quantities
+   - Visual integration with overall design system
    ======================================================================== */
+
+/* Container for quantity controls with centered alignment */
+.quantity-section {
+  display: flex; /* Flexbox for perfect alignment */
+  justify-content: center; /* Centers the quantity controls */
+  align-items: center; /* Vertical centering within available space */
+}
+
+/* Input group styling that visually connects all quantity elements */
+.qty-input-group {
+  display: flex; /* Flexbox for seamless button integration */
+  align-items: center; /* Vertical alignment of all elements */
+  max-width: 120px; /* Prevents overly wide quantity controls */
+  border: 1px solid #ced4da; /* Consistent border matching Bootstrap styles */
+  border-radius: 4px; /* Rounded corners for modern appearance */
+  overflow: hidden; /* Ensures clean corners when elements are joined */
+}
 
 /* Quantity input field with centered text and proper sizing */
 .qty_input {
-  width: 80px !important; /* Fixed width for consistency across devices */
-  text-align: center; /* Centered numbers for clean appearance */
-  font-weight: 500; /* Medium weight for better readability */
-  border: 1px solid #dee2e6; /* Consistent border color */
+  width: 50px; /* Fixed width for consistent appearance */
+  text-align: center; /* Centers the quantity number */
+  font-weight: 600; /* Bold weight for clear number display */
+  border: none; /* No border - provided by parent container */
+  border-left: 1px solid #ced4da; /* Left border to separate from decrement button */
+  border-right: 1px solid #ced4da; /* Right border to separate from increment button */
+  outline: none; /* Removes browser default outline */
 }
 
-/* Quantity input group styling for seamless button integration */
-.qty-input-group {
-  max-width: 140px; /* Prevents overly wide quantity controls */
-  margin: 0 auto; /* Centers the quantity control */
+/* Focus state for quantity input */
+.qty_input:focus {
+  box-shadow: none; /* Removes Bootstrap default focus shadow */
+  border-color: #007bff; /* Blue border on focus for visual feedback */
 }
 
-/* Quantity increment/decrement buttons */
+/* Increment and decrement button styling */
 .qty-btn {
-  width: 30px; /* Fixed width for consistent sizing */
-  height: 38px; /* Matches input field height */
+  width: 35px; /* Fixed width for consistent button sizing */
+  height: 38px; /* Height matching input field for visual alignment */
   display: flex; /* Flexbox for perfect icon centering */
-  align-items: center; /* Vertical centering */
-  justify-content: center; /* Horizontal centering */
-  padding: 0; /* Removes default button padding */
-  border: 1px solid #dee2e6; /* Matches input field border */
+  align-items: center; /* Vertical centering of icons */
+  justify-content: center; /* Horizontal centering of icons */
+  border: none; /* No border - integrated with parent */
+  background: #f8f9fa; /* Light gray background for subtle appearance */
+  transition: all 0.2s ease; /* Smooth transition for all hover effects */
 }
 
-/* Disabled state for quantity buttons */
+/* Hover state for quantity buttons */
+.qty-btn:hover {
+  background: #007bff; /* Blue background on hover for clear feedback */
+  color: white; /* White icon color for contrast against blue background */
+}
+
+/* Disabled state for quantity buttons when at min/max limits */
 .qty-btn:disabled {
-  opacity: 0.5; /* Visual indication of disabled state */
-  cursor: not-allowed; /* Cursor feedback for disabled buttons */
+  opacity: 0.5; /* Reduced opacity to indicate disabled state */
+  cursor: not-allowed; /* Cursor feedback for disabled interaction */
+  background: #f8f9fa; /* Maintains original background when disabled */
+  color: #6c757d; /* Muted text color for disabled state */
 }
 
 /* ========================================================================
-   3. ACTION BUTTON STYLES
+   3. ORDER SUMMARY PANEL
+   ========================================================================
+   
+   The order summary panel is crucial for building trust and transparency.
+   It provides a clear breakdown of costs and remains visible (sticky on
+   desktop) to help users make informed decisions throughout the process.
+   
+   Design Goals:
+   - Clear cost breakdown with visual hierarchy
+   - Sticky positioning on desktop for constant visibility
+   - Prominent total display to set clear expectations
+   - Free delivery messaging to encourage larger orders
    ======================================================================== */
 
-/* Primary black button styling for main actions */
-.btn-black {
-  background: #000; /* Pure black for strong CTA appearance */
-  color: white; /* High contrast white text */
-  border: 1px solid #000; /* Matching border */
-  font-weight: 500; /* Medium weight for professional look */
+/* Main order summary container with elevated card styling */
+.order-summary-panel {
+  background: #fff; /* Clean white background for important financial information */
+  border-radius: 8px; /* Consistent rounded corners */
+  padding: 2rem; /* Generous padding for comfortable reading */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  border: 1px solid #e9ecef; /* Light border for definition */
+  position: sticky; /* Sticky positioning to keep visible during scroll */
+  top: 100px; /* Distance from top when sticky (accounts for header) */
+}
+
+/* Order summary title styling */
+.summary-title {
+  color: #2c3e50; /* Dark color for strong heading hierarchy */
+  font-weight: 600; /* Semi-bold weight for section identification */
+  text-align: center; /* Centered alignment for balance */
+  margin-bottom: 1.5rem; /* Space below title */
+  padding-bottom: 1rem; /* Additional padding for visual separation */
+  border-bottom: 2px solid #e9ecef; /* Bottom border to separate from content */
+}
+
+/* Individual summary line containers (subtotal, delivery, etc.) */
+.summary-line {
+  display: flex; /* Flexbox for label-value alignment */
+  justify-content: space-between; /* Pushes label and value to opposite ends */
+  align-items: center; /* Vertical alignment of content */
+  padding: 0.75rem 0; /* Vertical padding for comfortable spacing */
+  border-bottom: 1px solid #f1f3f4; /* Subtle separator between lines */
+}
+
+/* Removes border from last summary line for clean appearance */
+.summary-line:last-child {
+  border-bottom: none;
+}
+
+/* Labels for summary items (Subtotal, Delivery, etc.) */
+.summary-label {
+  color: #6c757d; /* Muted color for labels to emphasize values */
+  font-size: 1rem; /* Standard body font size */
+}
+
+/* Values for summary items (actual prices and totals) */
+.summary-value {
+  color: #2c3e50; /* High contrast for important financial information */
+  font-weight: 600; /* Semi-bold to emphasize monetary values */
+  font-size: 1rem; /* Consistent with labels for balanced appearance */
+}
+
+/* Special styling for the final total line */
+.total-line {
+  border-top: 2px solid #e9ecef; /* Stronger top border for visual separation */
+  margin-top: 1rem; /* Additional space above total */
+  padding-top: 1rem; /* Padding to separate from border */
+}
+
+/* Enhanced styling for total line label and value */
+.total-line .summary-label,
+.total-line .summary-value {
+  font-size: 1.2rem; /* Larger font size for final total prominence */
+  color: #2c3e50; /* Both label and value use high contrast color */
+}
+
+/* Horizontal divider for visual separation */
+.summary-divider {
+  margin: 1rem 0; /* Vertical margin for spacing */
+  border-color: #e9ecef; /* Consistent border color */
+}
+
+/* Free delivery promotional message styling */
+.free-delivery-message {
+  background: #d1ecf1; /* Light cyan background for positive messaging */
+  border: 1px solid #bee5eb; /* Matching border color */
+  border-radius: 4px; /* Rounded corners for consistency */
+  padding: 0.75rem 1rem; /* Comfortable padding for message text */
+  text-align: center; /* Centered text for emphasis */
+}
+
+/* ========================================================================
+   4. CHECKOUT CTA & ACTION BUTTONS
+   ========================================================================
+   
+   The checkout section contains the most important conversion elements.
+   These styles ensure the primary CTA (checkout) is prominent while
+   secondary actions (continue shopping) remain accessible but less dominant.
+   
+   Design Goals:
+   - Prominent checkout button that drives conversions
+   - Clear visual hierarchy between primary and secondary actions
+   - Trust indicators (security icons) to reduce checkout anxiety
+   - Responsive button sizing for all devices
+   ======================================================================== */
+
+/* Container for all checkout action buttons */
+.checkout-actions {
+  margin-top: 2rem; /* Space above actions for visual separation */
+}
+
+/* Primary checkout button styling - the main conversion driver */
+.checkout-btn {
+  background: #28a745; /* Success green to indicate positive action */
+  border-color: #28a745; /* Matching border color */
+  font-weight: 600; /* Semi-bold text for prominence */
+  font-size: 1.1rem; /* Slightly larger text for importance */
+  padding: 0.875rem; /* Generous padding for better click targets */
+  transition: all 0.3s ease; /* Smooth transitions for all hover effects */
+}
+
+/* Checkout button hover state with enhanced visual feedback */
+.checkout-btn:hover {
+  background: #218838; /* Darker green on hover */
+  border-color: #1e7e34; /* Matching darker border */
+  transform: translateY(-1px); /* Subtle lift effect for interaction feedback */
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); /* Enhanced shadow for depth */
+}
+
+/* Secondary continue shopping button styling */
+.continue-shopping-btn {
+  font-weight: 500; /* Medium weight for secondary importance */
+  color: #6c757d; /* Muted color to indicate secondary action */
+  border-color: #6c757d; /* Matching border color for consistency */
   transition: all 0.3s ease; /* Smooth hover transitions */
 }
 
-.btn-black:hover,
-.btn-black:focus {
-  background: #333; /* Slightly lighter on hover for feedback */
-  color: white; /* Maintains white text */
-  border: 1px solid #333; /* Matching hover border */
-  transform: translateY(-1px); /* Subtle lift effect */
-}
-
-/* Outline black button for secondary actions */
-.btn-outline-black {
-  background: transparent; /* Transparent background */
-  color: #000; /* Black text */
-  border: 1px solid #000; /* Black border */
-  font-weight: 500; /* Consistent weight with primary buttons */
-  transition: all 0.3s ease; /* Smooth transitions */
-}
-
-.btn-outline-black:hover,
-.btn-outline-black:focus {
-  background: #000; /* Black background on hover */
-  color: white; /* White text on hover */
-  border: 1px solid #000; /* Maintains border */
-  transform: translateY(-1px); /* Consistent lift effect */
+/* Continue shopping button hover state */
+.continue-shopping-btn:hover {
+  background: #6c757d; /* Fill background on hover for clear feedback */
+  color: white; /* White text for contrast against filled background */
+  border-color: #6c757d; /* Maintain consistent border color */
 }
 
 /* ========================================================================
-   4. INTERACTIVE ELEMENT STYLES
+   5. CROSS-SELLING SECTION
+   ========================================================================
+   
+   The cross-selling section implements the "Explore More Items" feature
+   mentioned in the wireframe. This area encourages users to discover
+   additional CNC-related products, accessories, or complementary items
+   before completing their purchase, potentially increasing order value.
+   
+   Design Goals:
+   - Non-intrusive placement that doesn't disrupt checkout flow
+   - Clear section identification with appropriate spacing
+   - Placeholder structure ready for dynamic content integration
+   - Consistent styling with overall page design
    ======================================================================== */
 
-/* Update and remove link styling for in-table actions */
-.update-link,
-.remove-item {
-  cursor: pointer; /* Pointer cursor indicates clickable element */
-  font-weight: 500; /* Medium weight for visibility */
-  transition: all 0.2s ease; /* Quick hover transitions */
-  text-decoration: none; /* Clean appearance without underlines */
+/* Main cross-selling section container */
+.cross-selling-section {
+  background: #f8f9fa; /* Light background to distinguish from main content */
+  border-radius: 8px; /* Consistent rounded corners */
+  padding: 2rem; /* Generous padding for content breathing room */
+  border: 1px solid #e9ecef; /* Subtle border for section definition */
 }
 
-/* Update link styling with info color */
-.update-link:hover {
-  text-decoration: underline; /* Underline on hover for feedback */
-  color: #17a2b8; /* Stronger info blue on hover */
+/* Cross-selling section title */
+.cross-selling-section .section-title {
+  color: #2c3e50; /* High contrast color for clear section identification */
+  font-weight: 600; /* Semi-bold weight for heading hierarchy */
+  text-align: center; /* Centered alignment for balanced appearance */
+  margin-bottom: 2rem; /* Space below title for content separation */
 }
 
-/* Remove link styling with danger color */
-.remove-item:hover {
-  text-decoration: underline; /* Underline on hover for feedback */
-  color: #dc3545; /* Stronger danger red on hover */
-  font-weight: 600; /* Slightly bolder on hover for emphasis */
-}
-
-/* Loading state for interactive elements */
-.updating {
-  opacity: 0.6; /* Visual feedback during updates */
-  pointer-events: none; /* Prevents multiple clicks during processing */
+/* Placeholder content area for future product recommendations */
+.cross-sell-placeholder {
+  background: white; /* Clean white background for placeholder content */
+  border-radius: 4px; /* Slightly smaller radius for nested elements */
+  padding: 3rem 2rem; /* Large padding to create substantial placeholder area */
+  border: 2px dashed #dee2e6; /* Dashed border to indicate placeholder status */
 }
 
 /* ========================================================================
-   5. CART SUMMARY & TOTAL STYLES
+   6. EMPTY CART STATE
+   ========================================================================
+   
+   The empty cart state handles the scenario when users have no items
+   in their cart. This state should be welcoming rather than frustrating,
+   guiding users toward productive actions while maintaining brand consistency.
+   
+   Design Goals:
+   - Clear but friendly indication of empty state
+   - Prominent call-to-action to start shopping
+   - Consistent visual styling with rest of application
+   - Accessible and encouraging messaging
    ======================================================================== */
 
-/* Cart totals section with highlighted background */
-.cart-total-section {
-  background: #f8f9fa; /* Light gray background for section separation */
-  padding: 2rem; /* Generous padding for important information */
-  border-radius: 0.5rem; /* Consistent border radius */
-  border: 1px solid #e9ecef; /* Subtle border for definition */
-  margin-top: 1rem; /* Separation from cart items */
-}
-
-/* Cart total text styling for hierarchy */
-.cart-total-section h6 {
-  color: #495057; /* Medium gray for subtotals */
-  font-weight: 500; /* Medium weight */
-  margin-bottom: 0.5rem; /* Consistent spacing */
-}
-
-.cart-total-section h4 {
-  color: #2c3e50; /* Dark color for grand total emphasis */
-  font-weight: 700; /* Bold weight for final total */
-  border-top: 2px solid #dee2e6; /* Top border for separation */
-  padding-top: 1rem; /* Padding above final total */
-}
-
-/* Free delivery message styling */
-.free-delivery-message {
-  background: #fff3cd; /* Light yellow background for attention */
-  border: 1px solid #ffeaa7; /* Matching border */
-  border-radius: 0.375rem; /* Rounded corners */
-  padding: 0.75rem 1rem; /* Comfortable padding */
-  margin-top: 1rem; /* Spacing from totals */
-}
-
-/* Empty cart message styling */
+/* Main container for empty cart messaging and actions */
 .empty-cart-message {
-  text-align: center; /* Centered for better visual impact */
-  padding: 3rem 1rem; /* Generous padding for emphasis */
-  color: #6c757d; /* Muted color for empty state */
+  background: #f8f9fa; /* Light background for gentle, non-alarming appearance */
+  border-radius: 8px; /* Consistent rounded corners throughout application */
+  padding: 4rem 2rem; /* Large padding for spacious, welcoming layout */
+  border: 1px solid #e9ecef; /* Subtle border for container definition */
 }
 
+/* Icon styling within empty cart message */
+.empty-cart-message .fas {
+  opacity: 0.5; /* Reduced opacity for subtle, non-threatening icon appearance */
+}
+
+/* Lead text styling for empty cart message */
 .empty-cart-message .lead {
-  font-size: 1.375rem; /* Larger text for primary message */
-  margin-bottom: 2rem; /* Space before action button */
+  color: #6c757d; /* Muted color for friendly rather than harsh messaging */
+  font-size: 1.375rem; /* Large enough to be clearly readable and prominent */
 }
 
-/* Responsive adjustments for mobile devices */
-@media (max-width: 768px) {
-  .cart-table {
-    font-size: 0.875rem; /* Smaller text on mobile */
+/* ========================================================================
+   7. MOBILE RESPONSIVE DESIGN
+   ========================================================================
+   
+   Mobile responsiveness is critical for cart functionality as many users
+   complete purchases on mobile devices. These styles ensure the cart
+   remains fully functional and visually appealing across all screen sizes.
+   
+   Responsive Strategy:
+   - Large screens: Side-by-side layout with sticky summary panel
+   - Medium screens: Stack summary panel below cart items
+   - Small screens: Optimize spacing and touch targets
+   - Extra small screens: Minimize padding while maintaining usability
+   ======================================================================== */
+
+/* Tablet and smaller desktop breakpoint adjustments */
+@media (max-width: 991.98px) {
+  /* Remove sticky positioning on smaller screens to prevent layout issues */
+  .order-summary-panel {
+    position: relative; /* Switch from sticky to normal positioning */
+    top: 0; /* Reset top position */
+    margin-top: 2rem; /* Add margin to separate from cart items */
+  }
+}
+
+/* Mobile phone landscape and smaller tablet adjustments */
+@media (max-width: 767.98px) {
+  /* Reduce padding in cart items section for more screen real estate */
+  .cart-items-section {
+    padding: 1rem; /* Reduced from 1.5rem for mobile space optimization */
   }
 
+  /* Reduce padding in individual cart item blocks */
+  .cart-item-block {
+    padding: 1rem; /* Reduced from 1.5rem for mobile optimization */
+  }
+
+  /* Smaller product images on mobile to save space */
   .cart-product-image {
-    max-width: 80px; /* Smaller images on mobile */
+    max-width: 80px; /* Reduced from 100px for mobile layout */
   }
 
-  .cart-total-section {
-    padding: 1.5rem; /* Reduced padding on mobile */
+  /* Adjust product name font size for mobile readability */
+  .cart-product-info .product-name {
+    font-size: 1rem; /* Reduced from 1.1rem for mobile screens */
   }
 
+  /* Convert price labels from block to inline for mobile layout efficiency */
+  .price-label,
+  .subtotal-label {
+    display: inline; /* Change from block to inline for horizontal layout */
+    margin-right: 0.5rem; /* Right margin instead of bottom margin */
+    margin-bottom: 0; /* Remove bottom margin for inline layout */
+  }
+
+  /* Adjust price and subtotal alignment for mobile */
+  .item-price,
+  .item-subtotal {
+    text-align: left; /* Left align instead of center for mobile reading flow */
+    margin-top: 0.5rem; /* Top margin for separation from other elements */
+  }
+
+  /* Reduce quantity control size for mobile touch targets */
+  .qty-input-group {
+    max-width: 100px; /* Reduced from 120px for mobile space efficiency */
+  }
+
+  /* Narrower quantity input for mobile */
   .qty_input {
-    width: 60px !important; /* Narrower quantity input on mobile */
+    width: 40px; /* Reduced from 50px for mobile layout */
+  }
+
+  /* Smaller quantity buttons for mobile */
+  .qty-btn {
+    width: 30px; /* Reduced from 35px for mobile */
+    height: 32px; /* Reduced from 38px for mobile */
+  }
+
+  /* Reduce order summary padding for mobile */
+  .order-summary-panel {
+    padding: 1.5rem; /* Reduced from 2rem for mobile optimization */
+  }
+
+  /* Reduce cross-selling section padding for mobile */
+  .cross-selling-section {
+    padding: 1.5rem; /* Reduced from 2rem for mobile */
+  }
+
+  /* Adjust cross-sell placeholder for mobile */
+  .cross-sell-placeholder {
+    padding: 2rem 1rem; /* Reduced padding for mobile screens */
+  }
+}
+
+/* Extra small mobile phone adjustments */
+@media (max-width: 575.98px) {
+  /* Further reduce cart item padding for very small screens */
+  .cart-item-block {
+    padding: 0.75rem; /* Minimal padding while maintaining usability */
+  }
+
+  /* Adjust button sizing for small mobile screens */
+  .checkout-btn,
+  .continue-shopping-btn {
+    font-size: 1rem; /* Reduced from 1.1rem for small screens */
+    padding: 0.75rem; /* Reduced padding for small screen optimization */
+  }
+
+  /* Tighter summary line spacing for small screens */
+  .summary-line {
+    padding: 0.5rem 0; /* Reduced from 0.75rem for space efficiency */
+  }
+
+  /* Center item actions on very small screens for better thumb access */
+  .item-actions {
+    text-align: center; /* Center align for easier mobile interaction */
+    margin-top: 0.75rem; /* Top margin for visual separation */
+  }
+}
+
+/* ========================================================================
+   LOADING AND STATE MANAGEMENT
+   ========================================================================
+   
+   These styles handle dynamic states during cart operations like updating
+   quantities or removing items. They provide visual feedback to users
+   during AJAX operations and prevent multiple simultaneous actions.
+   
+   State Goals:
+   - Clear visual indication during processing
+   - Prevention of accidental multiple clicks
+   - Smooth transitions that don't disrupt user experience
+   - Consistent feedback across all cart operations
+   ======================================================================== */
+
+/* General updating state for any cart operation in progress */
+.updating {
+  opacity: 0.6; /* Reduce opacity to indicate processing state */
+  pointer-events: none; /* Disable all interactions during processing */
+}
+
+/* Specific styling for cart item blocks during updates */
+.cart-item-block.updating {
+  background: #e9ecef; /* Gray background to clearly indicate updating state */
+}
+
+/* ========================================================================
+   ACCESSIBILITY AND ENHANCEMENT FEATURES
+   ========================================================================
+   
+   Additional styles to ensure the cart is accessible to all users and
+   provides enhanced experiences where possible. These styles improve
+   usability for keyboard navigation, screen readers, and users with
+   different abilities or preferences.
+   
+   Accessibility Goals:
+   - Clear focus states for keyboard navigation
+   - High contrast colors for visibility
+   - Appropriate sizing for touch targets
+   - Semantic color usage for different action types
+   ======================================================================== */
+
+/* Enhanced focus states for better keyboard navigation accessibility */
+.qty-btn:focus,
+.checkout-btn:focus,
+.continue-shopping-btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Blue focus ring */
+  outline: none; /* Remove browser default outline */
+}
+
+/* Focus state for quantity input */
+.qty_input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Consistent focus ring */
+}
+
+/* Print styles for cart page (useful for order confirmation) */
+@media print {
+  .checkout-actions,
+  .cross-selling-section {
+    display: none; /* Hide action buttons and cross-sell when printing */
+  }
+
+  .order-summary-panel {
+    position: static; /* Remove sticky positioning for print */
+    box-shadow: none; /* Remove shadows for clean print appearance */
+  }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  .cart-item-block {
+    border-width: 2px; /* Thicker borders for high contrast mode */
+  }
+
+  .qty-btn {
+    border: 2px solid #000; /* High contrast borders for buttons */
+  }
+}
+
+/* Reduced motion preferences for users sensitive to animations */
+@media (prefers-reduced-motion: reduce) {
+  .cart-item-block,
+  .qty-btn,
+  .checkout-btn,
+  .continue-shopping-btn {
+    transition: none; /* Remove all transitions for reduced motion preference */
+  }
+
+  .checkout-btn:hover {
+    transform: none; /* Remove hover lift effect */
   }
 }
