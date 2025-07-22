@@ -1,0 +1,115 @@
+{% extends "base.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/products/product_detail.css' %}" />
+{% endblock %} {% block content %}
+<div class="container py-4">
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'products' %}">Shop</a></li>
+      <li class="breadcrumb-item active">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row">
+    <!-- Product Image -->
+    <div class="col-md-6">
+      {% if product.image %}
+      <img
+        src="{{ product.image.url }}"
+        alt="{{ product.name }}"
+        class="img-fluid"
+      />
+      {% else %}
+      <img
+        src="{% static 'images/no-image.png' %}"
+        alt="{{ product.name }}"
+        class="img-fluid"
+      />
+      {% endif %}
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-md-6">
+      <h1>{{ product.name }}</h1>
+
+      {% if product.category %}
+      <p class="text-muted">{{ product.category.friendly_name }}</p>
+      {% endif %}
+
+      <div class="price mb-3">
+        {% if product.discount_price %}
+        <span class="h3 text-danger">${{ product.discount_price }}</span>
+        <span class="text-muted text-decoration-line-through ms-2"
+          >${{ product.price }}</span
+        >
+        {% else %}
+        <span class="h3 text-primary">${{ product.price }}</span>
+        {% endif %}
+      </div>
+
+      <div class="stock-status mb-3">
+        {% if product.in_stock %}
+        <span class="badge bg-success">In Stock</span>
+        {% else %}
+        <span class="badge bg-danger">Out of Stock</span>
+        {% endif %}
+      </div>
+
+      <p>{{ product.description }}</p>
+
+      <!-- Add to Cart -->
+      {% if product.in_stock %}
+      <form
+        action="{% url 'add_to_cart' product.id %}"
+        method="POST"
+        class="mt-4"
+      >
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-3">
+            <label for="quantity">Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              id="quantity"
+              class="form-control"
+              value="1"
+              min="1"
+            />
+          </div>
+        </div>
+        <input
+          type="hidden"
+          name="redirect_url"
+          value="{{ request.get_full_path }}"
+        />
+        <button type="submit" class="btn btn-primary btn-lg mt-3">
+          Add to Cart
+        </button>
+      </form>
+      {% endif %}
+
+      <!-- Specifications -->
+      {% if product.dimensions or product.weight or product.material %}
+      <div class="mt-4">
+        <h5>Specifications</h5>
+        {% if product.dimensions %}
+        <p><strong>Dimensions:</strong> {{ product.dimensions }}</p>
+        {% endif %} {% if product.weight %}
+        <p><strong>Weight:</strong> {{ product.weight }} kg</p>
+        {% endif %} {% if product.material %}
+        <p><strong>Material:</strong> {{ product.material }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="{% url 'products' %}" class="btn btn-outline-secondary"
+      >← Back to Products</a
+    >
+  </div>
+</div>
+{% endblock %}
