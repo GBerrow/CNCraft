@@ -1,0 +1,262 @@
+/* ========================================================================
+   CNCraft - Checkout Page Styles 
+   ======================================================================== */
+
+/* Table of Contents:
+   1. Stripe Elements & Payment Form Styling
+   2. Form Controls & Input Styling
+   3. Fieldset & Legend Styling
+   4. Loading Overlay & Spinner
+   5. Order Summary Section
+   6. Button & CTA Styling
+   7. Mobile Responsive Design
+   8. Accessibility & Enhancement Features
+*/
+
+/* ========================================================================
+   1. STRIPE ELEMENTS & PAYMENT FORM STYLING
+   ======================================================================== */
+
+/* Base styling for Stripe card elements and payment inputs */
+.StripeElement,
+.stripe-style-input {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+/* Focus states for Stripe elements - provides visual feedback */
+.StripeElement--focus,
+.stripe-style-input:focus,
+.stripe-style-input:active {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+/* Webkit autofill styling override for Stripe elements */
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+/* Placeholder text color for Stripe inputs */
+.stripe-style-input::placeholder {
+    color: #aab7c4;
+}
+
+/* ========================================================================
+   2. FORM CONTROLS & INPUT STYLING
+   ======================================================================== */
+
+/* Payment form inputs and card element styling */
+#payment-form .form-control,
+#card-element {
+    color: #000;
+    border: 1px solid #000;
+}
+
+/* Select dropdown styling */
+select,
+select option {
+    color: #000000;
+}
+
+/* Invalid select states and empty option styling */
+select:invalid,
+select option[value=""] {
+    color: #aab7c4 !important;
+}
+
+/* ========================================================================
+   3. FIELDSET & LEGEND STYLING
+   ======================================================================== */
+
+/* Fieldset legend positioning for form sections */
+.fieldset-label {
+    position: relative;
+    right: .5rem;
+}
+
+/* ========================================================================
+   4. LOADING OVERLAY & SPINNER
+   ======================================================================== */
+
+/* Full-screen loading overlay during payment processing */
+#loading-overlay {
+	display: none;
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(23, 162, 184, .85);
+    z-index: 9999;
+}
+
+/* Centered loading spinner container */
+.loading-spinner {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+}
+
+/* ========================================================================
+   5. ORDER SUMMARY SECTION
+   ======================================================================== */
+
+/* Order summary styling is handled by Bootstrap grid system
+   Additional custom styling can be added here if needed */
+
+/* Product image thumbnails in order summary */
+.order-summary .product-thumbnail {
+    max-width: 60px;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Order totals section styling */
+.order-totals {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+/* ========================================================================
+   6. BUTTON & CTA STYLING
+   ======================================================================== */
+
+/* Submit button container */
+.submit-button {
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Complete order button styling */
+#submit-button {
+    min-width: 200px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* Button hover effects */
+#submit-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Disabled button state during processing */
+#submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ========================================================================
+   7. MOBILE RESPONSIVE DESIGN
+   ======================================================================== */
+
+/* Tablet and mobile layout adjustments */
+@media (max-width: 768px) {
+    /* Reorder sections on mobile - order summary appears first */
+    .order-lg-last {
+        order: -1;
+    }
+    
+    /* Add spacing between stacked sections */
+    .col-lg-6 {
+        margin-bottom: 2rem;
+    }
+    
+    /* Adjust form fieldsets for mobile */
+    .fieldset-label {
+        font-size: 0.9rem;
+    }
+    
+    /* Stack buttons vertically on small screens */
+    .submit-button .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+    /* Reduce padding in form sections */
+    fieldset.rounded {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Adjust loading spinner size */
+    .loading-spinner .fa-3x {
+        font-size: 2rem !important;
+    }
+}
+
+/* ========================================================================
+   8. ACCESSIBILITY & ENHANCEMENT FEATURES
+   ======================================================================== */
+
+/* Focus indicators for better accessibility */
+.form-control:focus,
+.StripeElement--focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Error message styling */
+#card-errors {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+/* Success/error message containers */
+.alert-checkout {
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .StripeElement,
+    .stripe-style-input {
+        border: 2px solid #000;
+    }
+    
+    #loading-overlay {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .StripeElement,
+    .stripe-style-input,
+    #submit-button {
+        transition: none;
+    }
+    
+    .loading-spinner .fa-spin {
+        animation: none;
+    }
+}
+
+/* Print styles for order confirmation */
+@media print {
+    #loading-overlay,
+    .submit-button,
+    #card-element {
+        display: none !important;
+    }
+    
+    .order-summary {
+        page-break-inside: avoid;
+    }
+}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
-
+from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
@@ -11,6 +11,7 @@ def checkout(request):
     """
     Handle the checkout process
     """
+
     # Get the cart from the session
     cart = request.session.get('cart', {})
     # If the cart is empty, redirect to products page with an error message
@@ -22,9 +23,6 @@ def checkout(request):
     current_cart = cart_contents(request)
     total = current_cart['grand_total']
     
-    # For now, just render the checkout template
-    # In a future step, we'll implement Stripe integration
-    
     # Create a blank order form
     order_form = OrderForm()
     template = 'checkout/checkout.html'
@@ -32,6 +30,11 @@ def checkout(request):
         'order_form': order_form,
         'stripe_public_key': 'pk_test_placeholder',  # Placeholder for Stripe public key
         'client_secret': 'test_secret_placeholder',  # Placeholder for Stripe client secret
+        'cart_items': current_cart['cart_items'],
+        'total': current_cart['total'],
+        'delivery': current_cart['delivery'],
+        'grand_total': current_cart['grand_total'],
+        'product_count': current_cart['product_count'],
     }
 
     # Render the checkout page with the context
