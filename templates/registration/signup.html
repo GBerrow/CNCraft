@@ -1,0 +1,116 @@
+{% extends "base.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/registration/signup.css' %}" />
+{% endblock %} {% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col"></div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<div class="overlay"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <div class="auth-container">
+        <!-- Mobile Toggle Buttons -->
+        <div class="auth-toggle d-md-none">
+          <button class="toggle-btn" data-target="login">Login</button>
+          <button class="toggle-btn active" data-target="signup">
+            Sign Up
+          </button>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="auth-forms-container">
+          <div class="auth-form signup-form active">
+            <h3 class="auth-title">Create Account</h3>
+            <form method="POST" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+
+              <!-- First Name -->
+              <div class="form-group">
+                <label for="id_first_name">First Name</label>
+                <input
+                  type="text"
+                  name="first_name"
+                  id="id_first_name"
+                  class="form-control"
+                  placeholder="Enter your first name"
+                  required
+                />
+              </div>
+
+              <!-- Last Name -->
+              <div class="form-group">
+                <label for="id_last_name">Last Name</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  id="id_last_name"
+                  class="form-control"
+                  placeholder="Enter your last name"
+                  required
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="id_email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="id_email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+
+              <!-- Password -->
+              <div class="form-group">
+                <label for="id_password1">Password</label>
+                <input
+                  type="password"
+                  name="password1"
+                  id="id_password1"
+                  class="form-control"
+                  placeholder="Create a password"
+                  required
+                />
+              </div>
+
+              <!-- Confirm Password -->
+              <div class="form-group">
+                <label for="id_password2">Confirm Password</label>
+                <input
+                  type="password"
+                  name="password2"
+                  id="id_password2"
+                  class="form-control"
+                  placeholder="Confirm your password"
+                  required
+                />
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-auth btn-primary">
+                Create Account
+              </button>
+
+              <!-- Login Link -->
+              <div class="auth-links">
+                <p>
+                  Already have an account?
+                  <a href="{% url 'account_login' %}">Sign In</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block postloadjs %} {{ block.super }}
+<script src="{% static 'js/registration/auth-toggle.js' %}"></script>
+{% endblock %}
