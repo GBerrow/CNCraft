@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     # Admin site URL
     path('admin/', admin.site.urls),
+    # Custom Admin Panel URLs
+    path('admin-panel/', include('admin_panel.urls')),
     # Accounts URLs
     path('accounts/', include('django.contrib.auth.urls')),
     # Home app URLs
