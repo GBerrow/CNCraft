@@ -1,8 +1,8 @@
-<footer class="bg-dark text-light py-5 mt-5">
+<footer class="bg-dark text-light py-5">
   <div class="container">
     <div class="row">
       <!-- Company Info -->
-      <div class="col-md-4 mb-4">
+      <div class="col-md-6 mb-4">
         <h5>CNCraft</h5>
         <p>
           Your premier destination for professional CNC equipment and solutions.
@@ -24,74 +24,39 @@
       </div>
 
       <!-- Quick Links -->
-      <div class="col-md-2 mb-4">
+      <div class="col-md-6 mb-4">
         <h6>Quick Links</h6>
         <ul class="list-unstyled">
-          <li>
+          <li class="mb-2">
             <a
               href="{% url 'products' %}"
               class="text-light text-decoration-none"
               >Shop</a
             >
           </li>
-          <li>
-            <a href="#about" class="text-light text-decoration-none"
+          <li class="mb-2">
+            <a href="{% url 'home' %}#about" class="text-light text-decoration-none"
               >About Us</a
             >
           </li>
-          <li>
-            <a href="#contact" class="text-light text-decoration-none"
-              >Contact</a
-            >
-          </li>
-          <li>
-            <a href="#services" class="text-light text-decoration-none"
+          <li class="mb-2">
+            <a href="{% url 'home' %}#services" class="text-light text-decoration-none"
               >Services</a
             >
           </li>
-        </ul>
-      </div>
-
-      <!-- Customer Service -->
-      <div class="col-md-3 mb-4">
-        <h6>Customer Service</h6>
-        <ul class="list-unstyled">
-          <li>
-            <a href="#" class="text-light text-decoration-none">Help Center</a>
-          </li>
-          <li>
-            <a href="#" class="text-light text-decoration-none">Returns</a>
-          </li>
-          <li>
-            <a href="#" class="text-light text-decoration-none"
-              >Shipping Info</a
+          {% if request.user.is_authenticated %}
+          <li class="mb-2">
+            <a href="{% url 'profile' %}" class="text-light text-decoration-none"
+              >My Account</a
             >
           </li>
-          <li>
-            <a href="#" class="text-light text-decoration-none">Track Order</a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div class="col-md-3 mb-4">
-        <h6>Legal</h6>
-        <ul class="list-unstyled">
-          <li>
-            <a href="#" class="text-light text-decoration-none"
-              >Privacy Policy</a
+          {% else %}
+          <li class="mb-2">
+            <a href="{% url 'login' %}" class="text-light text-decoration-none"
+              >Login</a
             >
           </li>
-          <li>
-            <a href="#" class="text-light text-decoration-none"
-              >Terms of Service</a
-            >
-          </li>
-          <li>
-            <a href="#" class="text-light text-decoration-none"
-              >Cookie Policy</a
-            >
-          </li>
+          {% endif %}
         </ul>
       </div>
     </div>

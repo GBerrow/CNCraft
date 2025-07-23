@@ -5,8 +5,8 @@ from products.models import Product
 def index(request):
     """A view to return the index page"""
     
-    # Get featured products for the homepage
-    featured_products = Product.objects.filter(featured=True)[:4]
+    # Get 3 random products for the homepage (randomized each load)
+    featured_products = Product.objects.order_by('?')[:3]
     
     context = {
         'featured_products': featured_products,

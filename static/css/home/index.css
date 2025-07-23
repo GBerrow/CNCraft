@@ -42,63 +42,53 @@ HOME PAGE STYLES
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
 }
 
-/* About section styling for company information */
-.about-section {
-    padding: 5rem 0; /* Generous vertical padding for section separation */
-    background-color: #f8f9fa; /* Light gray background for section distinction */
+/* Hero buttons container */
+.hero-buttons {
+    display: flex; /* Flexbox for better button layout */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 0.5rem; /* Consistent spacing between buttons */
 }
 
-.about-section .stats-container {
-    margin-top: 3rem; /* Spacing above statistics */
+/* About section enhancements */
+#about {
+    position: relative; /* For any absolute positioning needs */
 }
 
-.about-section .stat-item {
-    text-align: center; /* Center-aligned statistics */
-    padding: 1rem; /* Internal spacing for each stat */
+#about .row.text-center {
+    border-top: 1px solid #e9ecef; /* Subtle separator above stats */
+    padding-top: 2rem; /* Spacing above statistics */
 }
 
-.about-section .stat-number {
-    font-size: 2.5rem; /* Large numbers for impact */
-    font-weight: 700; /* Bold weight for emphasis */
-    color: #007bff; /* Brand color for consistency */
-    display: block; /* Forces line break after number */
+#about .col-4 h4 {
+    font-size: 2.5rem; /* Large, impactful numbers */
+    font-weight: 700; /* Bold for emphasis */
+    line-height: 1; /* Tight line height for numbers */
 }
 
-.about-section .stat-label {
-    font-size: 0.9rem; /* Smaller text for labels */
-    color: #6c757d; /* Muted color for secondary information */
-    text-transform: uppercase; /* Professional appearance */
-    letter-spacing: 1px; /* Spacing for readability */
-}
-
-/* Services section styling */
-.services-section {
-    padding: 5rem 0; /* Consistent section padding */
-    background-color: #fff; /* White background for alternating sections */
-}
-
-/* Individual service card styling */
+/* Services section enhancements */
 .service-card {
-    border: none; /* Removes default Bootstrap card border */
-    border-radius: 8px; /* Rounded corners for modern appearance */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     transition: all 0.3s ease; /* Smooth animation for interactions */
-    height: 100%; /* Ensures equal height cards in grid */
-    background-color: #fff; /* White background for cards */
+    border-radius: 12px; /* More pronounced rounded corners */
+    overflow: hidden; /* Ensures content doesn't overflow rounded corners */
 }
 
 .service-card:hover {
-    transform: translateY(-5px); /* Lift effect on hover */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+    transform: translateY(-8px); /* More pronounced lift effect on hover */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
-/* Service icon container */
+/* Service icon styling */
 .service-icon {
     height: 80px; /* Fixed height for icon consistency */
     display: flex; /* Flexbox for easy centering */
     align-items: center; /* Vertical centering */
     justify-content: center; /* Horizontal centering */
     margin-bottom: 1rem; /* Space below icon */
+    transition: transform 0.3s ease; /* Smooth icon animation */
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.1); /* Slight scale increase on hover */
 }
 
 .service-icon i {
@@ -110,18 +100,57 @@ HOME PAGE STYLES
     color: #0056b3; /* Darker shade on hover */
 }
 
-/* Featured products section */
-.featured-products-section {
-    padding: 5rem 0; /* Consistent section padding */
-    background-color: #f8f9fa; /* Alternating background color */
+/* Featured products section enhancements */
+.product-card {
+    transition: all 0.3s ease; /* Smooth hover effects */
+    border-radius: 12px; /* Rounded corners */
+    overflow: hidden; /* Clean edges */
 }
 
-/* Client logos section styling */
-.clients-section {
-    padding: 4rem 0; /* Slightly less padding than other sections */
-    background-color: #fff; /* White background */
+.product-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
 }
 
+.product-card .card-img-top {
+    transition: transform 0.3s ease; /* Image hover effect */
+}
+
+.product-card:hover .card-img-top {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Testimonials section styling - IMPROVED ANIMATIONS */
+.testimonial-card {
+    border-radius: 12px; /* Rounded corners */
+    transition: all 0.2s ease-out; /* FASTER, smoother transition */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-4px); /* Subtle lift on hover - REDUCED from -8px */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Smooth shadow transition */
+}
+
+/* Testimonial content animations */
+.testimonial-card .card-body {
+    transition: all 0.2s ease-out; /* Smooth content transition */
+}
+
+.testimonial-card:hover .card-body {
+    transform: scale(1.02); /* Very subtle scale for content */
+}
+
+/* Star ratings smooth animation */
+.testimonial-card .fas.fa-star {
+    transition: all 0.2s ease;
+}
+
+.testimonial-card:hover .fas.fa-star {
+    transform: scale(1.1); /* Slight star scale on hover */
+}
+
+/* Client logos section */
 .client-logo {
     max-height: 80px; /* Consistent logo height */
     width: auto; /* Maintains aspect ratio */
@@ -129,6 +158,7 @@ HOME PAGE STYLES
     opacity: 0.7; /* Semi-transparent for subtle effect */
     transition: all 0.3s ease; /* Smooth transition for hover effects */
     object-fit: contain; /* Prevents logo distortion */
+    padding: 1rem; /* Internal spacing for logos */
 }
 
 .client-logo:hover {
@@ -137,43 +167,83 @@ HOME PAGE STYLES
     transform: scale(1.05); /* Slight scale increase for interaction feedback */
 }
 
-/* Testimonials section styling */
-.testimonials-section {
-    padding: 5rem 0; /* Consistent section padding */
-    background-color: #f8f9fa; /* Alternating background */
+/* Client logo container animations */
+.client-logo-container {
+    transition: all 0.2s ease-out;
 }
 
-.testimonial-card {
-    border: none; /* Clean card appearance */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle depth */
-    height: 100%; /* Equal height cards */
-    background-color: #fff; /* White card background */
+.client-logo-container:hover {
+    transform: translateY(-2px);
 }
 
-.testimonial-stars {
-    color: #ffc107; /* Warning color for star ratings */
-    margin-bottom: 1rem; /* Space below rating */
+/* Mobile responsiveness improvements */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem; /* Smaller heading on mobile */
+    }
+    
+    .hero-section .lead {
+        font-size: 1.1rem; /* Adjust lead text size */
+    }
+    
+    .hero-buttons {
+        justify-content: center; /* Center buttons on mobile */
+    }
+    
+    .hero-buttons .btn {
+        flex: 1; /* Full width buttons on mobile */
+        min-width: 150px; /* Minimum button width */
+    }
+    
+    #about .col-4 h4 {
+        font-size: 2rem; /* Smaller stats numbers on mobile */
+    }
+    
+    /* Reduce animation intensity on mobile for performance */
+    .service-card:hover,
+    .product-card:hover,
+    .testimonial-card:hover {
+        transform: translateY(-2px); /* Less movement on mobile */
+    }
 }
 
-/* Newsletter subscription section */
-.newsletter-section {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); /* Gradient background */
-    color: white; /* White text for contrast */
-    padding: 4rem 0; /* Section padding */
+@media (max-width: 576px) {
+    .hero-section {
+        margin-top: 70px; /* Adjust for smaller navbar on mobile */
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem; /* Even smaller on very small screens */
+    }
+    
+    .service-card,
+    .product-card,
+    .testimonial-card {
+        margin-bottom: 1rem; /* Consistent spacing on mobile */
+    }
 }
 
-.newsletter-section .form-control {
-    border: none; /* Clean input appearance */
-    border-radius: 25px 0 0 25px; /* Rounded left corners */
-    padding: 0.75rem 1.5rem; /* Comfortable input padding */
+/* Performance optimization for animations */
+.service-card,
+.product-card,
+.testimonial-card,
+.client-logo-container {
+    will-change: transform; /* Optimize for smooth animations */
 }
 
-.newsletter-section .btn {
-    border-radius: 0 25px 25px 0; /* Rounded right corners to match input */
-    padding: 0.75rem 2rem; /* Button padding to match input height */
-    background-color: #fff; /* White background for contrast */
-    color: #007bff; /* Brand color for button text */
-    border: none; /* Clean button appearance */
-    font-weight: 600; /* Semi-bold button text */
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .product-card,
+    .testimonial-card,
+    .client-logo-container {
+        transition: none;
+    }
+    
+    .service-card:hover,
+    .product-card:hover,
+    .testimonial-card:hover,
+    .client-logo-container:hover {
+        transform: none;
+    }
 }

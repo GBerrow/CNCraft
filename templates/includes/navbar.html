@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-  <div class="container">
+  <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" href="{% url 'home' %}">
       <strong>CNCraft</strong>
@@ -16,7 +16,8 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Search Bar -->
+      <!-- Search Bar - Only show on shop pages -->
+      {% if request.resolver_match.url_name == 'products' or request.resolver_match.url_name == 'product_detail' %}
       <form
         class="d-flex mx-auto my-2 my-lg-0"
         method="GET"
@@ -35,6 +36,7 @@
           </button>
         </div>
       </form>
+      {% endif %}
 
       <!-- Navigation Links -->
       <ul class="navbar-nav ms-auto">
@@ -42,10 +44,10 @@
           <a class="nav-link" href="{% url 'products' %}">Shop</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#about">About Us</a>
+          <a class="nav-link" href="{% url 'home' %}#about">About Us</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#contact">Contact</a>
+          <a class="nav-link" href="{% url 'home' %}#contact">Contact</a>
         </li>
 
         <!-- User Account -->
@@ -80,21 +82,11 @@
 
         <!-- Shopping Cart -->
         <li class="nav-item">
-          <a class="nav-link position-relative" href="{% url 'view_cart' %}">
-            <i class="fas fa-shopping-cart fa-lg"></i>
-            {% if grand_total %}
-            <span
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-            >
-              {{ product_count }}
-            </span>
-            <small class="text-muted">${{ grand_total|floatformat:2 }}</small>
-            {% else %}
-            <span
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"
-            >
-              0
-            </span>
+          <a class="nav-link d-flex align-items-center" href="{% url 'view_cart' %}">
+            <i class="fas fa-shopping-cart me-1"></i>
+            <span class="d-none d-lg-inline">Cart</span>
+            {% if grand_total and product_count > 0 %}
+            <span class="badge bg-primary rounded-pill ms-2">{{ product_count }}</span>
             {% endif %}
           </a>
         </li>
