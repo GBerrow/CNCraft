@@ -94,13 +94,11 @@
 </section>
 
 <!-- Services Section -->
-<section id="services" class="py-5 bg-light">
+<section id="services" class="py-5 cnc-dark-section">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="h1">Our CNC Services</h2>
-      <p class="lead">
-        Comprehensive solutions for all your CNC manufacturing needs
-      </p>
+      <p class="lead">Comprehensive solutions for all your CNC manufacturing needs</p>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -198,7 +196,7 @@
 </section>
 
 <!-- Featured Products Section -->
-<section class="py-5">
+<section class="py-5 cnc-dark-section">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="h1">Featured Products</h2>
@@ -334,7 +332,7 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-5 bg-light">
+<section class="py-5 cnc-dark-section">
   <div class="container">
     <div class="text-center mb-5">
       <h2 class="h1">What Our Customers Say</h2>
@@ -434,6 +432,75 @@
                 <small class="text-muted">Production Engineer</small>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form Section -->
+<section id="contact" class="py-5 cnc-dark-section" style="background-color: #343a40 !important;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="h1" style="color: white !important;">Custom Enquiry</h2>
+      <p class="lead" style="color: #e9ecef !important;">Need any quick enquiries? Contact us today and we will get back to you as soon as possible.</p>
+      <p class="lead" style="color: #e9ecef !important;"> Please feel free to visit the contact page for more information.</p>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-sm" style="background-color: white !important;">
+          <div class="card-body p-4" style="background-color: white !important;">
+            <form id="contact-form" method="POST" action="{% url 'contact' %}">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="full_name" class="form-label" style="color: #333333 !important; background: none !important;">Full Name *</label>
+                  <input type="text" class="form-control" id="full_name" name="full_name" required 
+                         style="background-color: white !important; color: #333333 !important;">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label" style="color: #333333 !important; background: none !important;">Email Address *</label>
+                  <input type="email" class="form-control" id="email" name="email" required
+                         style="background-color: white !important; color: #333333 !important;">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label" style="color: #333333 !important; background: none !important;">Phone Number</label>
+                  <input type="tel" class="form-control" id="phone" name="phone"
+                         style="background-color: white !important; color: #333333 !important;">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="cnc_machine_type" class="form-label" style="color: #333333 !important; background: none !important;">Nature of Enquiry *</label>
+                  <select class="form-select" id="cnc_machine_type" name="cnc_machine_type" required
+                          style="background-color: white !important; color: #333333 !important;">
+                    <option value="" style="color: #333333 !important;"> </option>
+                    <option value="milling_machine" style="color: #333333 !important;">CNC Milling Machine</option>
+                    <option value="lathe" style="color: #333333 !important;">CNC Lathe</option>
+                    <option value="router" style="color: #333333 !important;">CNC Router</option>                    
+                    <option value="not_sure" style="color: #333333 !important;">Not Sure / Need Consultation</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="project_details" class="form-label" style="color: #333333 !important; background: none !important;">Project Details</label>
+                <textarea class="form-control" id="project_details" name="project_details" 
+                        rows="4"
+                        placeholder="Please describe your enquiry..."
+                        style="background-color: white !important; color: #333333 !important;"></textarea>
+              </div>
+
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="fas fa-paper-plane me-2"></i>
+                  Send Enquiry
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

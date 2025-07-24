@@ -1,249 +1,715 @@
 /* ========================================================================
-HOME PAGE STYLES
+   CNCraft - Home Page CSS Stylesheet
+   ========================================================================
+   1. Base Homepage Styles & Layout
+   2. Hero Section Styles
+   3. Dark Section Utility Classes & Text Visibility
+   4. About Section & Statistics
+   5. Services Section
+   6. Featured Products Section
+   7. Testimonials Section
+   8. Contact Form Section
+   9. Clients Section
+   10. Section Separators & Visual Elements
+   11. Responsive Design
+   12. Animations & Performance
+   13. Utility Classes & Overrides
    ======================================================================== */
 
-/* Hero section container - accounts for fixed navigation */
+/* ========================================================================
+   1. BASE HOMEPAGE STYLES & LAYOUT
+   ======================================================================== */
+
+/* Main hero section container - accounts for fixed navigation */
 .hero-section {
-    margin-top: 76px; /* Offset for fixed navbar height plus padding */
-    position: relative; /* Allows absolute positioning of overlay content */
+  margin-top: 76px; /* Offset for fixed navbar height plus padding */
+  position: relative; /* Allows absolute positioning of overlay content */
 }
 
-/* Main hero banner image styling */
+/* Main hero banner image styling for optimal display */
 .hero-banner img {
-    min-height: 70vh; /* Ensures hero takes significant viewport space */
-    max-height: 80vh; /* Prevents hero from taking entire screen */
-    object-fit: cover; /* Maintains aspect ratio while filling container */
-    width: 100%; /* Full width coverage */
-    filter: brightness(0.9); /* Slightly dims image for better text overlay */
+  min-height: 70vh; /* Ensures hero takes significant viewport space */
+  max-height: 80vh; /* Prevents hero from taking entire screen */
+  object-fit: cover; /* Maintains aspect ratio while filling container */
+  width: 100%; /* Full width coverage */
+  filter: brightness(0.9); /* Slightly dims image for better text overlay */
 }
 
-/* Hero content overlay for text readability */
+/* Hero content overlay for optimal text readability */
 .hero-overlay {
-    background: linear-gradient(
-        45deg, 
-        rgba(0, 0, 0, 0.6) 0%, 
-        rgba(0, 0, 0, 0.3) 100%
-    ); /* Gradient overlay for better text contrast */
+  background: linear-gradient(
+    45deg, 
+    rgba(0, 0, 0, 0.6) 0%, 
+    rgba(0, 0, 0, 0.3) 100%
+  ); /* Gradient overlay for better text contrast */
 }
 
-/* Hero section typography */
+/* ========================================================================
+   2. HERO SECTION STYLES
+   ======================================================================== */
+
+/* Hero section typography for maximum impact */
 .hero-section h1 {
-    font-size: 3.5rem; /* Large, impactful heading size */
-    font-weight: 700; /* Bold weight for maximum impact */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for text clarity */
-    margin-bottom: 1.5rem; /* Spacing below main heading */
-    line-height: 1.2; /* Tighter line height for display text */
+  font-size: 3.5rem; /* Large, impactful heading size */
+  font-weight: 700; /* Bold weight for maximum impact */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for text clarity */
+  margin-bottom: 1.5rem; /* Spacing below main heading */
+  line-height: 1.2; /* Tighter line height for display text */
 }
 
+/* Hero section lead text styling */
 .hero-section .lead {
-    font-size: 1.25rem; /* Larger than body text but smaller than heading */
-    font-weight: 300; /* Light weight for elegant appearance */
-    margin-bottom: 2rem; /* Generous spacing before CTA buttons */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+  font-size: 1.25rem; /* Larger than body text but smaller than heading */
+  font-weight: 300; /* Light weight for elegant appearance */
+  margin-bottom: 2rem; /* Generous spacing before CTA buttons */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
 }
 
-/* Hero buttons container */
+/* Hero call-to-action buttons container */
 .hero-buttons {
-    display: flex; /* Flexbox for better button layout */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    gap: 0.5rem; /* Consistent spacing between buttons */
+  display: flex; /* Flexbox for better button layout */
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 0.5rem; /* Consistent spacing between buttons */
 }
 
-/* About section enhancements */
+/* ========================================================================
+   3. DARK SECTION UTILITY CLASSES & TEXT VISIBILITY
+   ======================================================================== */
+
+/* Dark section utility class for consistent theming */
+.cnc-dark-section {
+  background-color: #343a40 !important;
+  position: relative;
+}
+
+/* Fix all text colors in dark sections for proper visibility */
+.cnc-dark-section,
+.cnc-dark-section h1,
+.cnc-dark-section h2,
+.cnc-dark-section h3,
+.cnc-dark-section h4,
+.cnc-dark-section h5,
+.cnc-dark-section h6,
+.cnc-dark-section p,
+.cnc-dark-section .lead,
+.cnc-dark-section .card-title,
+.cnc-dark-section .card-text {
+  color: #ffffff !important;
+}
+
+/* Ensure form labels are visible on dark backgrounds */
+.cnc-dark-section .form-label {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+/* Form inputs need white backgrounds for visibility and usability */
+.cnc-dark-section .form-control,
+.cnc-dark-section .form-select {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 2px solid #dee2e6 !important;
+}
+
+/* Form input focus states on dark backgrounds */
+.cnc-dark-section .form-control:focus,
+.cnc-dark-section .form-select:focus {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+/* Placeholder text visibility in dark sections */
+.cnc-dark-section .form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+}
+
+/* Cards in dark sections need proper white backgrounds */
+.cnc-dark-section .card {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+/* Card content text colors in dark sections */
+.cnc-dark-section .card .card-title {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .card .card-text {
+  color: #666666 !important;
+}
+
+/* Service cards specific styling in dark sections */
+.cnc-dark-section .service-card .card-body {
+  background-color: #ffffff !important;
+}
+
+.cnc-dark-section .service-card h5 {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .service-card p {
+  color: #666666 !important;
+}
+
+/* Product cards specific styling in dark sections */
+.cnc-dark-section .product-card .card-body {
+  background-color: #ffffff !important;
+}
+
+.cnc-dark-section .product-card h6 {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .product-card .card-text {
+  color: #666666 !important;
+}
+
+.cnc-dark-section .product-card .price {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .product-card .text-danger {
+  color: #dc3545 !important;
+}
+
+.cnc-dark-section .product-card .text-muted {
+  color: #6c757d !important;
+}
+
+/* Testimonial cards specific styling in dark sections */
+.cnc-dark-section .testimonial-card .card-body {
+  background-color: #ffffff !important;
+}
+
+.cnc-dark-section .testimonial-card p {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .testimonial-card h6 {
+  color: #333333 !important;
+}
+
+.cnc-dark-section .testimonial-card small {
+  color: #6c757d !important;
+}
+
+/* Contact form specific styling in dark sections */
+.cnc-dark-section .card .card-body {
+  background-color: #ffffff !important;
+}
+
+/* Preserve important brand colors in dark sections */
+.cnc-dark-section .fas.fa-star {
+  color: #ffc107 !important; /* Star ratings maintain their gold color */
+}
+
+.cnc-dark-section .text-primary {
+  color: #007bff !important; /* Brand blue */
+}
+
+.cnc-dark-section .text-success {
+  color: #28a745 !important; /* Success green */
+}
+
+.cnc-dark-section .text-warning {
+  color: #ffc107 !important; /* Warning yellow */
+}
+
+.cnc-dark-section .text-danger {
+  color: #dc3545 !important; /* Danger red */
+}
+
+.cnc-dark-section .text-info {
+  color: #17a2b8 !important; /* Info cyan */
+}
+
+/* Button styling in dark sections */
+.cnc-dark-section .btn-outline-light {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.cnc-dark-section .btn-outline-light:hover {
+  background-color: #ffffff !important;
+  color: #343a40 !important;
+}
+
+/* ========================================================================
+   4. ABOUT SECTION & STATISTICS
+   ======================================================================== */
+
+/* About section base styling */
 #about {
-    position: relative; /* For any absolute positioning needs */
+  position: relative; /* For any absolute positioning needs and separators */
+  background-color: #ffffff !important; /* Keep about section white */
 }
 
+/* Statistics section styling with visual separator */
 #about .row.text-center {
-    border-top: 1px solid #e9ecef; /* Subtle separator above stats */
-    padding-top: 2rem; /* Spacing above statistics */
+  border-top: 1px solid #e9ecef; /* Subtle separator above stats */
+  padding-top: 2rem; /* Spacing above statistics */
 }
 
+/* Large impact numbers for statistics */
 #about .col-4 h4 {
-    font-size: 2.5rem; /* Large, impactful numbers */
-    font-weight: 700; /* Bold for emphasis */
-    line-height: 1; /* Tight line height for numbers */
+  font-size: 2.5rem; /* Large, impactful numbers */
+  font-weight: 700; /* Bold for emphasis */
+  line-height: 1; /* Tight line height for numbers */
 }
 
-/* Services section enhancements */
+/* ========================================================================
+   5. SERVICES SECTION
+   ======================================================================== */
+
+/* Service cards with professional animations */
 .service-card {
-    transition: all 0.3s ease; /* Smooth animation for interactions */
-    border-radius: 12px; /* More pronounced rounded corners */
-    overflow: hidden; /* Ensures content doesn't overflow rounded corners */
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
+/* Service card hover effects for interactivity */
 .service-card:hover {
-    transform: translateY(-8px); /* More pronounced lift effect on hover */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-/* Service icon styling */
+/* Service icon container for consistent display */
 .service-icon {
-    height: 80px; /* Fixed height for icon consistency */
-    display: flex; /* Flexbox for easy centering */
-    align-items: center; /* Vertical centering */
-    justify-content: center; /* Horizontal centering */
-    margin-bottom: 1rem; /* Space below icon */
-    transition: transform 0.3s ease; /* Smooth icon animation */
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
 }
 
+/* Service icon hover animation */
 .service-card:hover .service-icon {
-    transform: scale(1.1); /* Slight scale increase on hover */
+  transform: scale(1.1);
 }
 
+/* Service icon color and animation */
 .service-icon i {
-    color: #007bff; /* Brand color for service icons */
-    transition: color 0.3s ease; /* Smooth color transition */
+  color: #007bff;
+  transition: color 0.3s ease;
 }
 
+/* Service icon color change on card hover */
 .service-card:hover .service-icon i {
-    color: #0056b3; /* Darker shade on hover */
+  color: #0056b3;
 }
 
-/* Featured products section enhancements */
+/* ========================================================================
+   6. FEATURED PRODUCTS SECTION
+   ======================================================================== */
+
+/* Featured product cards with interactive animations */
 .product-card {
-    transition: all 0.3s ease; /* Smooth hover effects */
-    border-radius: 12px; /* Rounded corners */
-    overflow: hidden; /* Clean edges */
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
+/* Product card hover effects */
 .product-card:hover {
-    transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Product image hover animation */
 .product-card .card-img-top {
-    transition: transform 0.3s ease; /* Image hover effect */
+  transition: transform 0.3s ease;
 }
 
+/* Product image zoom effect on card hover */
 .product-card:hover .card-img-top {
-    transform: scale(1.05); /* Slight zoom on hover */
+  transform: scale(1.05);
 }
 
-/* Testimonials section styling - IMPROVED ANIMATIONS */
+/* ========================================================================
+   7. TESTIMONIALS SECTION
+   ======================================================================== */
+
+/* Testimonial cards with smooth animations */
 .testimonial-card {
-    border-radius: 12px; /* Rounded corners */
-    transition: all 0.2s ease-out; /* FASTER, smoother transition */
-    cursor: pointer; /* Indicates interactivity */
+  border-radius: 12px;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
 }
 
+/* Testimonial card hover effects */
 .testimonial-card:hover {
-    transform: translateY(-4px); /* Subtle lift on hover - REDUCED from -8px */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Smooth shadow transition */
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Testimonial content animations */
+/* Testimonial card body animation */
 .testimonial-card .card-body {
-    transition: all 0.2s ease-out; /* Smooth content transition */
+  transition: all 0.2s ease-out;
 }
 
+/* Subtle scale animation for testimonial content */
 .testimonial-card:hover .card-body {
-    transform: scale(1.02); /* Very subtle scale for content */
+  transform: scale(1.02);
 }
 
-/* Star ratings smooth animation */
+/* Star rating animations in testimonials */
 .testimonial-card .fas.fa-star {
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
+/* Star scaling on testimonial hover */
 .testimonial-card:hover .fas.fa-star {
-    transform: scale(1.1); /* Slight star scale on hover */
+  transform: scale(1.1);
 }
 
-/* Client logos section */
+/* ========================================================================
+   8. CONTACT FORM SECTION
+   ======================================================================== */
+
+/* Custom enquiry form specific fixes for dark background */
+#contact.cnc-dark-section .form-label {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  background: none !important;
+  padding: 0 !important;
+  display: inline-block !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Contact form inputs and selects styling */
+#contact.cnc-dark-section .form-control,
+#contact.cnc-dark-section .form-select {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border: 2px solid #dee2e6 !important;
+  border-radius: 0.375rem !important;
+}
+
+/* Contact form focus states */
+#contact.cnc-dark-section .form-control:focus,
+#contact.cnc-dark-section .form-select:focus {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+/* Contact form placeholder styling */
+#contact.cnc-dark-section .form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 1 !important;
+}
+
+/* Contact form card styling */
+#contact.cnc-dark-section .card {
+  background-color: #ffffff !important;
+  border: 1px solid #dee2e6 !important;
+}
+
+#contact.cnc-dark-section .card-body {
+  background-color: #ffffff !important;
+}
+
+/* Contact form button styling */
+#contact.cnc-dark-section .btn-primary {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+}
+
+#contact.cnc-dark-section .btn-primary:hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+}
+
+/* Override Bootstrap label styling that might interfere */
+#contact.cnc-dark-section label.form-label {
+  background: transparent !important;
+  color: #ffffff !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  margin-bottom: 0.5rem !important;
+  padding: 0 !important;
+  border: none !important;
+  text-decoration: none !important;
+  display: block !important;
+}
+
+/* Remove any unwanted pseudo-elements from form labels */
+#contact.cnc-dark-section .form-label::before,
+#contact.cnc-dark-section .form-label::after {
+  display: none !important;
+}
+
+/* Additional specificity for stubborn Bootstrap label overrides */
+section#contact.cnc-dark-section.py-5 .form-label {
+  color: #ffffff !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* ========================================================================
+   9. CLIENTS SECTION
+   ======================================================================== */
+
+/* Clients section maintains white background */
+section#clients {
+  background-color: #ffffff !important;
+}
+
+/* Client logo styling with interactive effects */
 .client-logo {
-    max-height: 80px; /* Consistent logo height */
-    width: auto; /* Maintains aspect ratio */
-    filter: grayscale(100%); /* Initially desaturated for subtle appearance */
-    opacity: 0.7; /* Semi-transparent for subtle effect */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-    object-fit: contain; /* Prevents logo distortion */
-    padding: 1rem; /* Internal spacing for logos */
+  max-height: 80px;
+  width: auto;
+  filter: grayscale(100%); /* Initially desaturated for subtle appearance */
+  opacity: 0.7; /* Semi-transparent for subtle effect */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  object-fit: contain; /* Prevents logo distortion */
+  padding: 1rem; /* Internal spacing for logos */
 }
 
+/* Client logo hover effects for engagement */
 .client-logo:hover {
-    filter: grayscale(0%); /* Returns color on hover for engagement */
-    opacity: 1; /* Full opacity on hover */
-    transform: scale(1.05); /* Slight scale increase for interaction feedback */
+  filter: grayscale(0%); /* Returns color on hover for engagement */
+  opacity: 1; /* Full opacity on hover */
+  transform: scale(1.05); /* Slight scale increase for interaction feedback */
 }
 
-/* Client logo container animations */
+/* Client logo container animations */  
 .client-logo-container {
-    transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
+/* Client logo container hover effects */
 .client-logo-container:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
-/* Mobile responsiveness improvements */
+/* ========================================================================
+   10. SECTION SEPARATORS & VISUAL ELEMENTS
+   ======================================================================== */
+
+/* Section separators - thin white lines for dark sections */
+.cnc-dark-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+.cnc-dark-section:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+/* Separator between white sections */
+#about::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+#clients::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* Ensure sections have relative positioning for pseudo-elements */
+#about,
+#clients {
+  position: relative;
+}
+
+/* ========================================================================
+   11. RESPONSIVE DESIGN
+   ======================================================================== */
+
+/* Tablet and small desktop responsiveness */
 @media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2.5rem; /* Smaller heading on mobile */
-    }
-    
-    .hero-section .lead {
-        font-size: 1.1rem; /* Adjust lead text size */
-    }
-    
-    .hero-buttons {
-        justify-content: center; /* Center buttons on mobile */
-    }
-    
-    .hero-buttons .btn {
-        flex: 1; /* Full width buttons on mobile */
-        min-width: 150px; /* Minimum button width */
-    }
-    
-    #about .col-4 h4 {
-        font-size: 2rem; /* Smaller stats numbers on mobile */
-    }
-    
-    /* Reduce animation intensity on mobile for performance */
-    .service-card:hover,
-    .product-card:hover,
-    .testimonial-card:hover {
-        transform: translateY(-2px); /* Less movement on mobile */
-    }
+  .hero-section h1 {
+    font-size: 2.5rem; /* Smaller heading on mobile */
+  }
+  
+  .hero-section .lead {
+    font-size: 1.1rem; /* Adjust lead text size */
+  }
+  
+  .hero-buttons {
+    justify-content: center; /* Center buttons on mobile */
+  }
+  
+  .hero-buttons .btn {
+    flex: 1; /* Full width buttons on mobile */
+    min-width: 150px; /* Minimum button width */
+  }
+  
+  #about .col-4 h4 {
+    font-size: 2rem; /* Smaller stats numbers on mobile */
+  }
+  
+  /* Reduce animation intensity on mobile for performance */
+  .service-card:hover,
+  .product-card:hover,
+  .testimonial-card:hover {
+    transform: translateY(-2px); /* Less movement on mobile */
+  }
 }
 
+/* Mobile phone responsiveness */
 @media (max-width: 576px) {
-    .hero-section {
-        margin-top: 70px; /* Adjust for smaller navbar on mobile */
-    }
-    
-    .hero-section h1 {
-        font-size: 2rem; /* Even smaller on very small screens */
-    }
-    
-    .service-card,
-    .product-card,
-    .testimonial-card {
-        margin-bottom: 1rem; /* Consistent spacing on mobile */
-    }
+  .hero-section {
+    margin-top: 70px; /* Adjust for smaller navbar on mobile */
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem; /* Even smaller on very small screens */
+  }
+  
+  .service-card,
+  .product-card,
+  .testimonial-card {
+    margin-bottom: 1rem; /* Consistent spacing on mobile */
+  }
 }
 
-/* Performance optimization for animations */
+/* ========================================================================
+   12. ANIMATIONS & PERFORMANCE
+   ======================================================================== */
+
+/* Performance optimization for animations - GPU acceleration */
 .service-card,
 .product-card,
 .testimonial-card,
 .client-logo-container {
-    will-change: transform; /* Optimize for smooth animations */
+  will-change: transform; /* Optimize for smooth animations */
 }
 
-/* Reduce motion for users who prefer it */
+/* Accessibility - reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
-    .service-card,
-    .product-card,
-    .testimonial-card,
-    .client-logo-container {
-        transition: none;
-    }
-    
-    .service-card:hover,
-    .product-card:hover,
-    .testimonial-card:hover,
-    .client-logo-container:hover {
-        transform: none;
-    }
+  .service-card,
+  .product-card,
+  .testimonial-card,
+  .client-logo-container {
+    transition: none; /* Remove transitions for users who prefer reduced motion */
+  }
+  
+  .service-card:hover,
+  .product-card:hover,
+  .testimonial-card:hover,
+  .client-logo-container:hover {
+    transform: none; /* Remove transform animations */
+  }
+}
+
+/* ========================================================================
+   13. UTILITY CLASSES & OVERRIDES
+   ======================================================================== */
+
+/* Text color utilities that work in all contexts */
+.text-primary {
+  color: #007bff !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-info {
+  color: #17a2b8 !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Background color utilities */
+.bg-white {
+  background-color: #ffffff !important;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+/* Spacing utilities for consistent layout */
+.section-padding {
+  padding: 4rem 0;
+}
+
+.section-margin {
+  margin: 2rem 0;
+}
+
+/* Box shadow utilities for consistent elevation */
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.16) !important;
+}
+
+/* Border radius utilities for consistent styling */
+.rounded-lg {
+  border-radius: 12px !important;
+}
+
+.rounded-xl {
+  border-radius: 16px !important;
+}
+
+/* Transition utilities for consistent animations */
+.transition-fast {
+  transition: all 0.15s ease !important;
+}
+
+.transition-normal {
+  transition: all 0.3s ease !important;
+}
+
+.transition-slow {
+  transition: all 0.5s ease !important;
 }
