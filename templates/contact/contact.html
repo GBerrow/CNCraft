@@ -1,0 +1,545 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/contact/contact.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container-fluid" id="content">
+        <!-- Hero Section -->
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="contact-hero text-center">
+                        <h1 class="display-4 text-black">
+                            <strong>Get Your Custom Quote</strong>
+                        </h1>
+                        <p class="lead">Ready to bring your ideas to life? Contact our precision machining experts today.</p>
+                        <p class="text-muted">⚡ 24-hour quote turnaround • 📞 Same-day response • 🎯 ISO-certified quality</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Section with Full Width Black Background -->
+        <div class="contact-main-section">
+            <div class="container">
+                <div class="row">
+                    <!-- Contact Form -->
+                    <div class="col-lg-8">
+                        <div class="contact-form-wrapper">
+                            <div class="card shadow-sm">
+                                <div class="card-body p-4">
+                                    <h3 class="card-title mb-4">
+                                        <i class="fas fa-cogs text-primary me-2"></i>
+                                        Request Your Custom Quote
+                                    </h3>
+                                    <form id="contact-form" method="POST" action="{% url 'contact' %}">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="full_name" class="form-label">
+                                                    <strong>Full Name *</strong>
+                                                </label>
+                                                <input type="text" class="form-control" id="full_name" name="full_name" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="email" class="form-label">
+                                                    <strong>Email Address *</strong>
+                                                </label>
+                                                <input type="email" class="form-control" id="email" name="email" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="phone" class="form-label">
+                                                    <strong>Phone Number</strong>
+                                                </label>
+                                                <input type="tel" class="form-control" id="phone" name="phone">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="company_name" class="form-label">
+                                                    <strong>Company Name</strong>
+                                                    <small class="text-muted">(Optional)</small>
+                                                </label>
+                                                <input type="text" class="form-control" id="company_name" name="company_name">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="cnc_machine_type" class="form-label">
+                                                    <strong>CNC Machine Type of Interest *</strong>
+                                                </label>
+                                                <select class="form-select" id="cnc_machine_type" name="cnc_machine_type" required>
+                                                    <option value="">Select CNC Machine Type</option>
+                                                    <option value="milling_machine">CNC Milling Machine</option>
+                                                    <option value="lathe">CNC Lathe</option>
+                                                    <option value="router">CNC Router</option>
+                                                    <option value="plasma_cutter">CNC Plasma Cutter</option>
+                                                    <option value="laser_cutter">CNC Laser Cutter</option>
+                                                    <option value="waterjet">CNC Waterjet</option>
+                                                    <option value="multiple">Multiple Machines</option>
+                                                    <option value="not_sure">Not Sure / Need Consultation</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="nature_of_enquiry" class="form-label">
+                                                    <strong>Nature of Enquiry *</strong>
+                                                </label>
+                                                <select class="form-select" id="nature_of_enquiry" name="nature_of_enquiry" required>
+                                                    <option value="">Select Enquiry Type</option>
+                                                    <option value="quote_request">Request Quote</option>
+                                                    <option value="product_inquiry">Product Information</option>
+                                                    <option value="custom_work">Custom Work Enquiry</option>
+                                                    <option value="technical_support">Technical Support</option>
+                                                    <option value="partnership">Partnership Opportunity</option>
+                                                    <option value="general">General Enquiry</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="bespoke_requirements" class="form-label">
+                                                <strong>Bespoke Needs & Requirements</strong>
+                                            </label>
+                                            <textarea class="form-control" id="bespoke_requirements" name="bespoke_requirements" 
+                                                    rows="5"
+                                                    placeholder="Please describe any specific requirements, custom needs, or special considerations for your project..."></textarea>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="newsletter_signup" name="newsletter_signup">
+                                                <label class="form-check-label" for="newsletter_signup">
+                                                    Keep me updated on CNCraft news and manufacturing tips
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-lg w-100" id="submitBtn">
+                                            <i class="fas fa-paper-plane me-2"></i>
+                                            Send Quote Request
+                                        </button>
+
+                                        <!-- Form Success Message -->
+                                        <div class="form-success-message" id="formSuccessMessage" style="display: none;">
+                                            <div class="alert alert-success mt-3">
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                <strong>Thank you for your message!</strong> We will get back to you soon with your custom quote.
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Information -->
+                    <div class="col-lg-4">
+                        <div class="business-info-wrapper">
+                            <!-- Contact Information -->
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-3">
+                                        <i class="fas fa-building text-primary me-2"></i>
+                                        Contact Information
+                                    </h4>
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-envelope text-muted me-2"></i>
+                                        <strong>Email:</strong><br>
+                                        <a href="mailto:quotes@cncraft.com">quotes@cncraft.com</a>
+                                    </div>
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-phone text-muted me-2"></i>
+                                        <strong>Phone:</strong><br>
+                                        <a href="tel:555-CNC-SHOP">(555) CNC-SHOP</a>
+                                    </div>
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-clock text-muted me-2"></i>
+                                        <strong>Business Hours:</strong><br>
+                                        Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                        Saturday: 9:00 AM - 2:00 PM<br>
+                                        Sunday: Closed
+                                    </div>
+                                    <div class="contact-item">
+                                        <i class="fas fa-map-marker-alt text-muted me-2"></i>
+                                        <strong>Service Area:</strong><br>
+                                        Nationwide shipping available<br>
+                                        Local pickup welcome
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Support Section -->
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="customer-support-section">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-headset text-primary me-2"></i>
+                            Need Help?
+                        </h2>
+                        
+                        <div class="row justify-content-center">
+                            <!-- Email Support -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100 support-card">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+                                        <h5 class="card-title">Email Support</h5>
+                                        <p class="card-text">Get help with your questions and technical issues.</p>
+                                        <p class="text-muted mb-3"><strong>Response Time:</strong> ASAP</p>
+                                        <button class="btn btn-primary support-action w-100" data-action="email">
+                                            <i class="fas fa-envelope me-2"></i>Send Email
+                                        </button>
+                                        
+                                        <!-- Inline Feedback -->
+                                        <div class="support-feedback" style="display: none;">
+                                            <div class="alert alert-success mt-3 mb-0">
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                <strong>Email Ready!</strong><br>
+                                                <small>Send your questions to: <strong>support@cncraft.com</strong><br>
+                                                We typically respond within 4 hours during business hours.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Phone Support -->
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card h-100 support-card">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-phone fa-3x text-success mb-3"></i>
+                                        <h5 class="card-title">Phone Support</h5>
+                                        <p class="card-text">Speak directly with our technical experts.</p>
+                                        <p class="text-muted mb-3"><strong>Available:</strong> Mon-Fri: 9AM-5PM</p>
+                                        <button class="btn btn-success support-action w-100" data-action="phone">
+                                            <i class="fas fa-phone me-2"></i>Call Now
+                                        </button>
+                                        
+                                        <!-- Inline Feedback -->
+                                        <div class="support-feedback" style="display: none;">
+                                            <div class="alert alert-success mt-3 mb-0">
+                                                <i class="fas fa-check-circle me-2"></i>
+                                                <strong>Ready to Call!</strong><br>
+                                                <small>Our support number: <strong>(555) TECH-CNC</strong><br>
+                                                Available Monday-Friday, 9AM-5PM EST</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Section -->
+                        <div class="row mt-5">
+                            <div class="col-lg-8 mx-auto">
+                                <div class="faq-section">
+                                    <h3 class="text-center mb-4">
+                                        <i class="fas fa-question-circle text-info me-2"></i>
+                                        Frequently Asked Questions
+                                    </h3>
+                                    
+                                    <div class="accordion" id="faqAccordion">
+                                        <!-- FAQ Items (keeping existing) -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="faq1">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                                    How do I track my order?
+                                                </button>
+                                            </h2>
+                                            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Once your order ships, you'll receive an email with tracking information. You can also log into your account and check the order status in your dashboard.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="faq2">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                                    What's your warranty policy?
+                                                </button>
+                                            </h2>
+                                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    All CNC equipment comes with a comprehensive 2-year warranty covering manufacturing defects. Extended warranties are available for purchase. Consumable items like cutting tools have a 6-month warranty.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="faq3">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                                    Do you offer international shipping?
+                                                </button>
+                                            </h2>
+                                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Yes, we ship worldwide. International shipping rates vary by destination and product weight. Custom duties and taxes may apply depending on your country's regulations.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="faq4">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                                    Can I return a product if it doesn't meet my needs?
+                                                </button>
+                                            </h2>
+                                            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    We offer a 30-day return policy for most products. Items must be in original condition with all packaging. Large machinery may have different return terms due to shipping costs.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="faq5">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                                                    Do you provide technical specifications for products?
+                                                </button>
+                                            </h2>
+                                            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                                <div class="accordion-body">
+                                                    Detailed technical specifications are available on each product page. For additional technical documents, CAD files, or installation guides, please contact our technical support team.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Live Chat Widget with Predefined Prompts -->
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-container">
+                <div class="chat-label" id="chatLabel">
+                    <span class="chat-label-text">AI Assistance</span>
+                    <i class="fas fa-chevron-left chat-arrow"></i>
+                </div>
+                <div class="chat-button" id="chatButton">
+                    <i class="fas fa-comments"></i>
+                    <span class="chat-badge" id="chatBadge">1</span>
+                </div>
+            </div>
+            
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=40&q=80" alt="Support Agent" class="agent-avatar">
+                        <div>
+                            <h6 class="mb-0">CNCraft AI</h6>
+                            <small class="text-success">Online</small>
+                        </div>
+                    </div>
+                    <button class="chat-close" id="chatClose" title="Close Chat">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message agent-message">
+                        <div class="message-content">
+                            Hi! I'm here to help with questions about our CNC equipment. Choose a topic below:
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+                
+                <!-- Predefined Prompts -->
+                <div class="chat-prompts" id="chatPrompts">
+                    <div class="prompt-buttons">
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="products">
+                            <i class="fas fa-cogs me-1"></i>Product Information
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="shipping">
+                            <i class="fas fa-shipping-fast me-1"></i>Shipping & Delivery
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="pricing">
+                            <i class="fas fa-dollar-sign me-1"></i>Pricing & Quotes
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="support">
+                            <i class="fas fa-headset me-1"></i>Technical Support
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="warranty">
+                            <i class="fas fa-shield-alt me-1"></i>Warranty Info
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm prompt-btn" data-prompt="contact">
+                            <i class="fas fa-phone me-1"></i>Contact Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script>
+        // Form submission with confirmation (keeping existing)
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cncMachineType = document.getElementById('cnc_machine_type').value;
+            const natureOfEnquiry = document.getElementById('nature_of_enquiry').value;
+            
+            if (!cncMachineType) {
+                alert('Please select a CNC machine type of interest.');
+                return false;
+            }
+            
+            if (!natureOfEnquiry) {
+                alert('Please select the nature of your enquiry.');
+                return false;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                document.getElementById('formSuccessMessage').style.display = 'block';
+                document.getElementById('formSuccessMessage').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 2000);
+        });
+
+        // Auto-expand textarea (keeping existing)
+        document.getElementById('bespoke_requirements').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Updated Support Action Feedback with Auto-Close
+        document.querySelectorAll('.support-action').forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.support-card');
+                const feedback = card.querySelector('.support-feedback');
+                
+                // Show inline feedback immediately
+                feedback.style.display = 'block';
+                
+                // Disable button temporarily
+                this.disabled = true;
+                
+                // Auto-close feedback after 5 seconds and re-enable button
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                    this.disabled = false;
+                }, 5000);
+            });
+        });
+
+        // Enhanced Live Chat Widget with Predefined Prompts
+        const chatButton = document.getElementById('chatButton');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatBadge = document.getElementById('chatBadge');
+        const chatLabel = document.getElementById('chatLabel');
+        const chatMessages = document.getElementById('chatMessages');
+
+        // AI Response Database
+        const aiResponses = {
+            products: "We offer a wide range of CNC equipment including milling machines, lathes, routers, plasma cutters, and laser cutters. Each machine comes with detailed specifications on our product pages. Would you like information about a specific type of CNC machine?",
+            
+            shipping: "We offer worldwide shipping with tracking included. Domestic orders typically arrive within 3-5 business days, while international shipping takes 7-14 days depending on location. Large machinery may require special freight arrangements.",
+            
+            pricing: "Our pricing varies by product complexity and customization needs. We offer competitive rates and can provide custom quotes within 24 hours. Contact our sales team at quotes@cncraft.com for detailed pricing information.",
+            
+            support: "Our technical support team is available Monday-Friday, 9AM-5PM EST. You can reach us at (555) TECH-CNC or support@cncraft.com. We also offer remote troubleshooting and on-site service for complex issues.",
+            
+            warranty: "All CNC equipment comes with a comprehensive 2-year warranty covering manufacturing defects. Consumable items like cutting tools have a 6-month warranty. Extended warranties and service plans are available for purchase.",
+            
+            contact: "You can reach us at:\n📧 Email: support@cncraft.com\n📞 Phone: (555) TECH-CNC\n🕒 Hours: Mon-Fri 9AM-5PM EST\n📍 We serve customers nationwide with local pickup available."
+        };
+
+        // Chat Widget Controls
+        chatButton.addEventListener('mouseenter', function() {
+            chatLabel.classList.add('visible');
+        });
+
+        document.querySelector('.chat-container').addEventListener('mouseleave', function() {
+            if (!chatWindow.classList.contains('active')) {
+                chatLabel.classList.remove('visible');
+            }
+        });
+
+        chatButton.addEventListener('click', function() {
+            chatWindow.classList.add('active');
+            chatBadge.style.display = 'none';
+            chatLabel.classList.add('visible');
+        });
+
+        chatClose.addEventListener('click', function() {
+            chatWindow.classList.remove('active');
+            chatLabel.classList.remove('visible');
+        });
+
+        // Predefined Prompt Handling
+        document.querySelectorAll('.prompt-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const prompt = this.getAttribute('data-prompt');
+                const promptText = this.textContent.trim();
+                
+                // Add user message
+                addMessage('user', `Tell me about: ${promptText}`);
+                
+                // Disable all prompt buttons temporarily
+                document.querySelectorAll('.prompt-btn').forEach(btn => btn.disabled = true);
+                
+                // Add AI response after delay
+                setTimeout(() => {
+                    addMessage('agent', aiResponses[prompt]);
+                    
+                    // Re-enable prompt buttons
+                    document.querySelectorAll('.prompt-btn').forEach(btn => btn.disabled = false);
+                }, 1500);
+            });
+        });
+
+        // Helper function to add messages
+        function addMessage(type, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            
+            const messageContent = content.replace(/\n/g, '<br>');
+            
+            messageDiv.innerHTML = `
+                <div class="message-content">${messageContent}</div>
+                <div class="message-time">Just now</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+{% endblock %}

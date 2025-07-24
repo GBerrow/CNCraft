@@ -1,0 +1,1126 @@
+/* ========================================================================
+   CNCraft - Contact Page CSS Stylesheet
+   ========================================================================
+   1. Base Contact Page Styles
+   2. Hero Section Styles
+   3. Main Contact Form Section
+   4. Form Controls & Styling
+   5. Business Information Cards
+   6. Customer Support Section
+   7. FAQ Section
+   8. Live Chat Widget
+   9. Support Action Buttons & Feedback
+   10. Responsive Design
+   11. Animations & Effects
+   12. Utility Classes & Misc Styles
+   ======================================================================== */
+
+/* ========================================================================
+   1. BASE CONTACT PAGE STYLES
+   ======================================================================== */
+
+/* Main content container - accounts for fixed navigation */
+#content {
+  padding-top: 80px; /* Offset for navbar height */
+  overflow-x: hidden; /* Prevent horizontal scroll issues */
+}
+
+/* Dark section utility class for consistent theming */
+.cnc-dark-section {
+  background-color: #343a40 !important;
+  position: relative;
+}
+
+/* Section separators - thin white lines for dark sections */
+.cnc-dark-section::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+.cnc-dark-section:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+}
+
+/* White section separators for light backgrounds */
+#about::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+#clients::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* Ensure sections have relative positioning for pseudo-elements */
+#about,
+#clients {
+  position: relative;
+}
+
+/* ========================================================================
+   2. HERO SECTION STYLES
+   ======================================================================== */
+
+/* Contact page hero section */
+.contact-hero {
+  margin-bottom: 0; /* Remove margin to connect with dark section */
+  padding: 2rem 0;
+  background-color: #ffffff !important; /* Keep hero white */
+}
+
+/* Hero section heading */
+.contact-hero h1 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Hero section lead text */
+.contact-hero .lead {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+/* ========================================================================
+   3. MAIN CONTACT FORM SECTION
+   ======================================================================== */
+
+/* Full width black background section for main content */
+.contact-main-section {
+  background-color: #343a40 !important; /* Dark background matching footer */
+  padding: 4rem 0 !important; /* Generous padding for better spacing */
+  margin: 0 !important; /* Remove all margins */
+  width: 100% !important; /* Full width without viewport issues */
+  position: relative;
+}
+
+/* Container inside main section maintains proper width */
+.contact-main-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Contact form wrapper container */
+.contact-form-wrapper {
+  margin-bottom: 2rem;
+}
+
+/* Contact form card styling */
+.contact-form-wrapper .card {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact form card hover effects */
+.contact-form-wrapper .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Contact form card title styling */
+.contact-form-wrapper .card-title {
+  color: #333;
+  font-weight: 600;
+  border-bottom: 2px solid #f8f9fa;
+  padding-bottom: 0.5rem;
+}
+
+/* ========================================================================
+   4. FORM CONTROLS & STYLING
+   ======================================================================== */
+
+/* Form label styling for consistency */
+.form-label {
+  color: #333;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Base styling for form inputs and selects */
+.form-control,
+.form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Focus states for form controls */
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Large textarea fields for detailed input */
+#project_details,
+#bespoke_requirements {
+  min-height: 120px;
+  resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Placeholder text styling for textareas */
+#project_details::placeholder,
+#bespoke_requirements::placeholder {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Primary submit button styling */
+.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Primary button hover effects */
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* Disabled button states */
+.btn-primary:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Form check styling for checkboxes */
+.form-check-input:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.form-check-label {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ========================================================================
+   5. BUSINESS INFORMATION CARDS
+   ======================================================================== */
+
+/* Business information wrapper */
+.business-info-wrapper .card {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Business info card hover effects */
+.business-info-wrapper .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Business info card titles */
+.business-info-wrapper .card-title {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Contact information items */
+.contact-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+/* Contact item links */
+.contact-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* ========================================================================
+   6. CUSTOMER SUPPORT SECTION
+   ======================================================================== */
+
+/* Customer support section container */
+.customer-support-section {
+  margin: 4rem 0 !important;
+  background-color: #ffffff !important; /* Keep support section white */
+  padding: 3rem 0 !important;
+}
+
+/* Support section heading */
+.customer-support-section h2 {
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+/* Support section cards */
+.customer-support-section .card {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Ensure consistent card heights */
+}
+
+/* Support card hover effects */
+.customer-support-section .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Support card titles */
+.customer-support-section .card-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+/* Support card text content */
+.customer-support-section .card-text {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* Support section large icons */
+.customer-support-section .fa-3x {
+  margin-bottom: 1.5rem;
+}
+
+/* Support section buttons */
+.customer-support-section .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.customer-support-section .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* ========================================================================
+   7. FAQ SECTION
+   ======================================================================== */
+
+/* FAQ section container */
+.faq-section {
+  margin-top: 3rem;
+}
+
+/* FAQ section heading */
+.faq-section h3 {
+  color: #333;
+  font-weight: 600;
+}
+
+/* FAQ accordion items */
+.accordion-item {
+  border: 1px solid #e9ecef;
+  border-radius: 8px !important;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+/* FAQ accordion buttons */
+.accordion-button {
+  background-color: #f8f9fa;
+  border: none;
+  font-weight: 500;
+  padding: 1rem 1.25rem;
+  color: #333;
+}
+
+/* Active accordion button styling */
+.accordion-button:not(.collapsed) {
+  background-color: #e7f3ff;
+  color: #0056b3;
+  box-shadow: none;
+}
+
+/* Accordion button arrow icon */
+.accordion-button::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23007bff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* FAQ accordion body content */
+.accordion-body {
+  padding: 1.25rem;
+  background-color: #ffffff;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ========================================================================
+   8. LIVE CHAT WIDGET
+   ======================================================================== */
+
+/* Fixed position chat widget container */
+.chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Chat widget container with label and button */
+.chat-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Chat label that appears next to the button */
+.chat-label {
+  background: rgba(40, 167, 69, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Visible state for chat label */
+.chat-label.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Chat label text and arrow */
+.chat-label-text {
+  margin-right: 5px;
+}
+
+.chat-arrow {
+  font-size: 0.8rem;
+}
+
+/* Main chat button styling */
+.chat-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Chat button hover effects */
+.chat-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+}
+
+/* Chat button icon */
+.chat-button i {
+  font-size: 1.5rem;
+}
+
+/* Chat notification badge */
+.chat-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #dc3545;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+/* Chat window container */
+.chat-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  height: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+/* Active chat window state */
+.chat-window.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Chat window header */
+.chat-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Chat header information area */
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Agent avatar image */
+.agent-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Enhanced chat close button - RED with BLACK X */
+.chat-close {
+  background: #dc3545 !important; /* Red background */
+  border: 2px solid #c82333 !important; /* Darker red border */
+  color: #000000 !important; /* Black X */
+  font-size: 1.2rem !important;
+  cursor: pointer;
+  padding: 0;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3) !important;
+}
+
+/* Chat close button hover effects */
+.chat-close:hover {
+  background: #c82333 !important; /* Darker red on hover */
+  border-color: #bd2130 !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Chat close button focus and active states */
+.chat-close:focus {
+  outline: 2px solid #dc3545 !important;
+  outline-offset: 2px !important;
+}
+
+.chat-close:active {
+  transform: scale(0.95) !important;
+}
+
+/* Chat messages container */
+.chat-messages {
+  padding: 1rem;
+  height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Individual message styling */
+.message {
+  max-width: 80%;
+}
+
+/* Agent message alignment */
+.agent-message {
+  align-self: flex-start;
+}
+
+/* User message alignment */
+.user-message {
+  align-self: flex-end;
+}
+
+/* Message content bubble */
+.message-content {
+  background: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Agent message content styling */
+.agent-message .message-content {
+  background: #e7f3ff;
+  color: #333;
+}
+
+/* User message content styling */
+.user-message .message-content {
+  background: #007bff;
+  color: white;
+}
+
+/* Message timestamp */
+.message-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+
+/* Agent message timestamp alignment */
+.agent-message .message-time {
+  text-align: left;
+}
+
+/* Chat input area */
+.chat-input {
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  gap: 0.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Chat input field */
+.chat-input input {
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+/* Chat input send button */
+.chat-input button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Chat prompt buttons area */
+.chat-prompts {
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Prompt buttons container */
+.prompt-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Individual prompt button styling */
+.prompt-btn {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  border: 1px solid #007bff;
+  background: white;
+  color: #007bff;
+}
+
+/* Prompt button hover effects */
+.prompt-btn:hover:not(:disabled) {
+  background: #007bff;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Disabled prompt button */
+.prompt-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Prompt button focus state */
+.prompt-btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Prompt button icons */
+.prompt-btn i {
+  font-size: 0.8rem;
+}
+
+/* ========================================================================
+   9. SUPPORT ACTION BUTTONS & FEEDBACK
+   ======================================================================== */
+
+/* Base support action button styling */
+.support-action {
+  min-height: 45px; /* Ensure consistent button heights */
+  min-width: 140px; /* Consistent button widths */
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Support action hover effects */
+.support-action:hover {
+  transform: translateY(-2px);
+}
+
+/* Support action active state */
+.support-action:active {
+  transform: translateY(0);
+}
+
+/* Disabled support action buttons */
+.support-action:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Support action focus state */
+.support-action:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Support card layout improvements */
+.support-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+}
+
+/* Support card text content */
+.support-card .card-text {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+/* Support feedback container */
+.support-feedback {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Support feedback alert styling */
+.support-feedback .alert {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-left: 4px solid #28a745;
+  animation: expandDown 0.3s ease-out;
+  text-align: left;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress bar for auto-close feedback */
+.support-feedback .alert::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #28a745;
+  animation: shrinkWidth 5s linear;
+}
+
+/* Support feedback alert icons */
+.support-feedback .alert i {
+  color: #28a745;
+}
+
+/* Support feedback small text */
+.support-feedback .alert small {
+  display: block;
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+/* ========================================================================
+   10. RESPONSIVE DESIGN
+   ======================================================================== */
+
+/* Large tablet and small desktop breakpoint */
+@media (max-width: 991.98px) {
+  .contact-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .contact-hero .lead {
+    font-size: 1.1rem;
+  }
+
+  .business-info-wrapper {
+    margin-top: 2rem;
+  }
+
+  .chat-window {
+    height: 400px;
+    width: 300px;
+  }
+
+  .chat-messages {
+    height: 180px;
+  }
+
+  .support-card .card-body {
+    min-height: 250px;
+  }
+}
+
+/* Tablet breakpoint */
+@media (max-width: 767.98px) {
+  .contact-hero {
+    padding: 1rem 0;
+  }
+
+  .contact-hero h1 {
+    font-size: 2rem;
+  }
+
+  .contact-hero .lead {
+    font-size: 1rem;
+  }
+
+  .contact-form-wrapper .card-body {
+    padding: 1.5rem !important;
+  }
+
+  .contact-main-section {
+    padding: 2rem 0 !important;
+  }
+
+  .chat-widget {
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .chat-window {
+    width: 300px;
+    height: 350px;
+    right: -10px;
+  }
+
+  .chat-messages {
+    height: 160px;
+  }
+
+  .chat-label {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .chat-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .chat-button i {
+    font-size: 1.3rem;
+  }
+
+  .prompt-buttons {
+    gap: 0.25rem;
+  }
+
+  .prompt-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 575.98px) {
+  .contact-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .contact-form-wrapper .card-body {
+    padding: 1rem !important;
+  }
+
+  .btn-primary {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .business-info-wrapper .fa-3x {
+    font-size: 2rem !important;
+  }
+
+  .chat-window {
+    width: 280px;
+    height: 380px;
+    right: -20px;
+  }
+
+  .chat-messages {
+    height: 160px;
+  }
+
+  .chat-label {
+    display: none; /* Hide label on very small screens */
+  }
+
+  .prompt-buttons {
+    flex-direction: column;
+  }
+
+  .prompt-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ========================================================================
+   11. ANIMATIONS & EFFECTS
+   ======================================================================== */
+
+/* Slide in up animation for form elements */
+.form-control,
+.form-select {
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for chat badge */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Button press animation */
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.prompt-btn:active {
+  animation: buttonPress 0.1s ease;
+}
+
+/* Expand down animation for support feedback */
+@keyframes expandDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 100px;
+    transform: translateY(0);
+  }
+}
+
+/* Shrink width animation for progress bar */
+@keyframes shrinkWidth {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Fade out animation for hiding elements */
+.support-feedback[style*="display: none"] {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Form success message animation */
+.form-success-message {
+  animation: slideInUp 0.5s ease-out;
+}
+
+.form-success-message .alert {
+  border-left: 4px solid #28a745;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-radius: 8px;
+}
+
+/* ========================================================================
+12. UTILITY CLASSES & MISC STYLES
+   ======================================================================== */
+
+/* Text color utilities */
+.text-primary {
+  color: #007bff !important;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.text-black {
+  color: #333 !important;
+}
+
+/* General card styling improvements */
+.card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Alert styling improvements */
+.alert {
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  color: #721c24;
+}
+
+/* Toast container styling */
+.toast-container .toast {
+  background: white;
+  border-left: 4px solid #28a745;
+}
+
+.toast-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+/* Spacing utilities */
+.mt-5 {
+  margin-top: 3rem !important;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
