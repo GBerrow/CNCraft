@@ -38,17 +38,72 @@
       </form>
       {% endif %}
 
-      <!-- Navigation Links -->
+      <!-- Dynamic Navigation Links -->
       <ul class="navbar-nav ms-auto">
+        
+        <!-- Home Link - Show everywhere except home page -->
+        {% if request.resolver_match.url_name != 'home' %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'products' %}">Shop</a>
+          <a class="nav-link" href="{% url 'home' %}">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
         </li>
+        {% else %}
+        <!-- Current Page: Home -->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}#about">About Us</a>
+          <span class="nav-link text-primary fw-bold" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
+            <i class="fas fa-home me-1"></i>Home
+          </span>
         </li>
+        {% endif %}
+
+        <!-- Shop Link - Show everywhere except shop pages -->
+        {% if request.resolver_match.url_name != 'products' and request.resolver_match.url_name != 'product_detail' %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}#contact">Contact</a>
+          <a class="nav-link" href="{% url 'products' %}">
+            <i class="fas fa-store me-1"></i>Shop
+          </a>
         </li>
+        {% elif request.resolver_match.url_name == 'products' %}
+        <!-- Current Page: Shop -->
+        <li class="nav-item">
+          <span class="nav-link text-primary fw-bold" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
+            <i class="fas fa-store me-1"></i>Shop
+          </span>
+        </li>
+        {% elif request.resolver_match.url_name == 'product_detail' %}
+        <!-- Current Page: Product Detail -->
+        <li class="nav-item">
+          <span class="nav-link text-primary fw-bold" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
+            <i class="fas fa-box me-1"></i>Product
+          </span>
+        </li>
+        {% endif %}
+
+        <!-- About Us Link - Show everywhere except home page (since it's a section on home) -->
+        {% if request.resolver_match.url_name != 'home' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}#about">
+            <i class="fas fa-info-circle me-1"></i>About Us
+          </a>
+        </li>
+        {% endif %}
+        
+        <!-- Contact Link - Show everywhere except contact page -->
+        {% if request.resolver_match.url_name != 'contact' %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">
+            <i class="fas fa-envelope me-1"></i>Contact
+          </a>
+        </li>
+        {% else %}
+        <!-- Current Page: Contact -->
+        <li class="nav-item">
+          <span class="nav-link text-primary fw-bold" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
+            <i class="fas fa-envelope me-1"></i>Contact
+          </span>
+        </li>
+        {% endif %}
 
         <!-- User Account -->
         <li class="nav-item dropdown">
@@ -62,25 +117,37 @@
           </a>
           <ul class="dropdown-menu">
             {% if request.user.is_authenticated %}
+            
+            <!-- Profile Link - Show everywhere except profile page -->
+            {% if request.resolver_match.url_name != 'profile' %}
             <li>
-              <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
+              <a class="dropdown-item" href="{% url 'profile' %}">
+                <i class="fas fa-user me-2"></i>My Profile
+              </a>
             </li>
+            {% endif %}
+            
             <li>
               <form method="post" action="{% url 'account_logout' %}" style="display: inline;">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link" style="border: none; background: none; padding: 0;">
-                    Logout
+                <button type="submit" class="dropdown-item">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
                 </button>
               </form>
             </li>
             {% else %}
-            <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-            <li><a class="dropdown-item" href="#">Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'login' %}">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a></li>
+            <li><a class="dropdown-item" href="#">
+              <i class="fas fa-user-plus me-2"></i>Register
+            </a></li>
             {% endif %}
           </ul>
         </li>
 
-        <!-- Shopping Cart -->
+        <!-- Shopping Cart - Show everywhere except cart page -->
+        {% if request.resolver_match.url_name != 'view_cart' %}
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center" href="{% url 'view_cart' %}">
             <i class="fas fa-shopping-cart me-1"></i>
@@ -90,6 +157,18 @@
             {% endif %}
           </a>
         </li>
+        {% else %}
+        <!-- Current Page: Cart -->
+        <li class="nav-item">
+          <span class="nav-link text-primary fw-bold d-flex align-items-center" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
+            <i class="fas fa-shopping-cart me-1"></i>
+            <span class="d-none d-lg-inline">Cart</span>
+            {% if grand_total and product_count > 0 %}
+            <span class="badge bg-primary rounded-pill ms-2">{{ product_count }}</span>
+            {% endif %}
+          </span>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>
