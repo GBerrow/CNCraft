@@ -7,4 +7,6 @@ from . import views
 urlpatterns = [
     # Map the root URL to the index view, name it 'home'
     path('', views.index, name='home'),
+    # Map the contact URL to the contact view, name it 'contact'
+    path('contact/', views.contact, name='contact'),
 ]
