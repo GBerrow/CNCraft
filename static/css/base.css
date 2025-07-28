@@ -76,7 +76,7 @@ h4,
 h5,
 h6 {
   font-weight: 600; /* Semi-bold for professional appearance */
-  color: #2c3e50; /* Darker color for headings to create hierarchy */
+  color: #0080ff; /* Light blue color for headings to create hierarchy */
   margin-bottom: 1rem; /* Consistent spacing below headings */
   line-height: 1.3; /* Optimal line height for headings */
   letter-spacing: -0.01em; /* Slight negative letter spacing for large headings */
@@ -118,7 +118,7 @@ h6 {
 p {
   margin-bottom: 1rem; /* Consistent paragraph spacing */
   line-height: 1.6; /* Optimal readability */
-  color: #555; /* Slightly lighter than headings for hierarchy */
+  color: #ffffff; /* Color for body text */
 }
 
 /* Lead text for important introductory content */
