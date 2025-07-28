@@ -133,13 +133,56 @@
   <!-- Related Products Section -->
   <div class="related-products-section mt-5">
     <h4 class="section-title">You might also like</h4>
-    <div class="row">
-      <!-- Placeholder for related products - will be implemented later -->
-      <div class="col-12">
-        <p class="text-muted text-center py-4">Related products coming soon...</p>
-      </div>
-    </div>
-  </div>
+    {% if related_products %}
+        <div class="row g-4">
+            {% for related_product in related_products %}
+            <div class="col-md-6">
+                <div class="card h-100 border-0 shadow-sm product-card">
+                    <div class="position-relative">
+                        {% if related_product.image %}
+                            <img src="{{ related_product.image.url }}" alt="{{ related_product.name }}" 
+                                 class="card-img-top" style="height: 180px; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'images/no-image.png' %}" alt="{{ related_product.name }}" 
+                                 class="card-img-top" style="height: 180px; object-fit: cover;">
+                        {% endif %}
+                        
+                        {% if related_product.discount_price %}
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sale</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title">{{ related_product.name|truncatechars:40 }}</h6>
+                        <p class="card-text text-muted small flex-grow-1">
+                            {{ related_product.description|truncatewords:12 }}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <div class="price">
+                                {% if related_product.discount_price %}
+                                    <span class="text-danger fw-bold">${{ related_product.discount_price }}</span>
+                                    <small class="text-muted text-decoration-line-through ms-1">
+                                        ${{ related_product.price }}
+                                    </small>
+                                {% else %}
+                                    <span class="fw-bold">${{ related_product.price }}</span>
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'product_detail' related_product.id %}" class="btn btn-primary btn-sm">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-4">
+            <p class="text-muted">No related products available at the moment.</p>
+            <a href="{% url 'products' %}" class="btn btn-outline-primary">Browse All Products</a>
+        </div>
+    {% endif %}
+</div>
 
   <!-- Back to Products -->
   <div class="navigation-section mt-4">

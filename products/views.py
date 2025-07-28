@@ -93,8 +93,21 @@ def product_detail(request, product_id):
     
     product = get_object_or_404(Product, pk=product_id)
     
+    # Get related products from the same category (excluding current product)
+    related_products = Product.objects.filter(
+        category=product.category,
+        in_stock=True
+    ).exclude(id=product.id)[:2]  # Limit to 2 products
+    
+    # If no products in same category, get any 2 products
+    if not related_products:
+        related_products = Product.objects.filter(
+            in_stock=True
+        ).exclude(id=product.id)[:2]
+    
     context = {
         'product': product,
+        'related_products': related_products,
     }
 
     return render(request, 'products/product_detail.html', context)

@@ -228,19 +228,53 @@
 }
 
 /* ========================================================================
-   9. RELATED PRODUCTS SECTION
+   9. RELATED PRODUCTS SECTION 
    ======================================================================== */
 
+/* Related products section styling */
 .related-products-section {
   border-top: 2px solid #e9ecef;
   padding-top: 3rem;
+  margin-top: 3rem;
 }
 
+/* Section title styling */
 .section-title {
   color: #333;
   font-weight: 600;
   margin-bottom: 2rem;
   text-align: center;
+  font-size: 1.5rem;
+}
+
+/* Related product cards styling */
+.related-products-section .product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Related product card hover effect */
+.related-products-section .product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Consistent breadcrumb styling with shop page */
+.breadcrumb {
+  background: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+/* Breadcrumb styling */
+.breadcrumb-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Breadcrumb hover effect */
+.breadcrumb-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 
 /* ========================================================================
