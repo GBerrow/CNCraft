@@ -29,6 +29,7 @@ body {
   background-color: #fff; /* Clean white background */
   margin: 0; /* Remove default margins */
   padding: 0; /* Remove default padding */
+  padding-top: 80px; /* Add this line - accounts for fixed navbar height */
   overflow-x: hidden; /* Prevent horizontal scroll issues */
 }
 

@@ -24,6 +24,7 @@
 /* Main shop page container - ensures full viewport height for proper layout */
 .shop-page {
   min-height: 100vh; /* Prevents short content pages from looking awkward */
+  padding-top: 20px; /* Additional padding for shop page header */
 }
 
 /* ========================================================================
