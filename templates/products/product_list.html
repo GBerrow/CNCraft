@@ -10,7 +10,7 @@
 {% block content %}
 <div class="shop-page">
     <!-- Page Header -->
-    <div class="container-fluid bg-light py-4">
+    <div class="container-fluid shop-page-header py-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -20,10 +20,10 @@
                             <li class="breadcrumb-item active">Shop</li>
                         </ol>
                     </nav>
-                    <h1 class="h2 mb-0">CNC Equipment Shop</h1>
+                    <h1 class="h2 mb-0 text-white">CNC Equipment Shop</h1>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-muted">
+                    <p class="mb-0 text-white-50">
                         {% if products %}
                             Showing {{ products|length }} of {{ total_products }} products
                         {% else %}
@@ -137,11 +137,11 @@
             <!-- Products Grid -->
             <div class="col-lg-9">
                 <!-- Sorting and View Options -->
-                <div class="products-header mb-4">
+                <div class="products-header-dark mb-4">
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="sort-options">
-                                <label for="sort-select" class="form-label me-2">Sort by:</label>
+                                <label for="sort-select" class="form-label me-2 text-white">Sort by:</label>
                                 <select class="form-select form-select-sm d-inline-block w-auto" id="sort-select" onchange="sortProducts(this.value)">
                                     <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>Name (A-Z)</option>
                                     <option value="-name" {% if request.GET.sort == "-name" %}selected{% endif %}>Name (Z-A)</option>
@@ -152,16 +152,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 text-md-end">
-                            <div class="view-toggle">
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-outline-secondary active" onclick="toggleView('grid')">
-                                        <i class="fas fa-th"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary" onclick="toggleView('list')">
-                                        <i class="fas fa-list"></i>
-                                    </button>
-                                </div>
-                            </div>
+                            <!-- Space for future controls -->
                         </div>
                     </div>
                 </div>
@@ -367,23 +358,6 @@
             url.searchParams.delete('sort');
         }
         window.location.href = url.toString();
-    }
-
-    // Toggle view function (grid/list)
-    function toggleView(viewType) {
-        const buttons = document.querySelectorAll('.view-toggle .btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        
-        const clickedButton = document.querySelector(`[onclick="toggleView('${viewType}')"]`);
-        clickedButton.classList.add('active');
-
-        const container = document.getElementById('products-container');
-        
-        if (viewType === 'list') {
-            container.classList.add('list-view');
-        } else {
-            container.classList.remove('list-view');
-        }
     }
 
     // Add to wishlist function with event delegation

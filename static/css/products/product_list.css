@@ -6,36 +6,85 @@
    1. Shop Page Layout & Structure
    2. Navigation & Breadcrumb Styles
    3. Filter Sidebar & Search Components
+    - 3.1 Search Form Improvements
    4. Products Header & Controls
    5. Product Grid & Card Layouts
    6. Product Card Interactive Elements
    7. Product Information Display
-   8. Alternative View Modes (List View)
-   9. Empty States & Loading States
-   10. Pagination Controls
+   8. Empty States & Loading States
+   9. Pagination Controls
+   10. Large Screen Improvements  
    11. Mobile Responsive Design
    12. Accessibility & Enhancement Features
+   13. Print Styles
    ======================================================================== */
 
 /* ========================================================================
-   1. SHOP PAGE LAYOUT & STRUCTURE
+   1. SHOP PAGE LAYOUT & STRUCTURE 
    ======================================================================== */
+
+/* Override base container constraints for shop page */
+.shop-page .container {
+  max-width: 100% !important; /* Override base.css container max-width */
+  padding-left: 0 !important; /* Remove left padding to allow sidebar to extend */
+  padding-right: 15px; /* Keep right padding for content spacing */
+}
+
+/* Create custom spacing for the main shop content */
+.shop-page .row {
+  margin-left: 0; /* Remove negative margin from Bootstrap row */
+  margin-right: -15px; /* Keep right margin for proper grid alignment */
+}
+
+/* Sidebar column - extend further to the left */
+.shop-page .col-lg-3 {
+  padding-left: 0 !important; /* Remove left padding */
+  padding-right: 30px; /* Add right padding for separation from products */
+}
+
+/* Products column - maintain proper spacing */
+.shop-page .col-lg-9 {
+  padding-left: 15px; /* Standard left padding */
+  padding-right: 15px; /* Standard right padding */
+}
 
 /* Main shop page container - ensures full viewport height for proper layout */
 .shop-page {
-  min-height: 100vh; /* Prevents short content pages from looking awkward */
-  padding-top: 20px; /* Additional padding for shop page header */
+  min-height: 100vh;
+  padding-top: 20px;
+  width: 100%; /* Ensure full width usage */
+}
+
+/* Shop page header styling - dark background like footer */
+.shop-page-header {
+  background-color: #343a40 !important;
+  color: white;
+  margin-bottom: 2rem;
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Center the full-width header */
+}
+
+/* Restore container constraints within the header */
+.shop-page-header .container {
+  max-width: 1200px !important; /* Restore max-width for header content */
+  margin: 0 auto; /* Center the header content */
+  padding-left: 15px !important; /* Restore padding for header */
+  padding-right: 15px !important; /* Restore padding for header */
 }
 
 /* ========================================================================
    2. NAVIGATION & BREADCRUMB STYLES
    ======================================================================== */
 
-/* Breadcrumb navigation styling - provides clean, minimal navigation path */
-.shop-page .breadcrumb {
-  background: none; /* Removes Bootstrap default background for cleaner look */
-  padding: 0; /* Removes default padding to integrate seamlessly with page layout */
-  margin: 0; /* Eliminates default margins for precise positioning */
+/* Breadcrumb navigation styling for dark background */
+.shop-page-header .breadcrumb {
+  background: none;
+  padding: 0;
+  margin: 0 0 0.5rem 0;
+}
+
+.shop-page-header .breadcrumb-item + .breadcrumb-item::before {
+  color: #e9ecef; /* Light color for breadcrumb separators */
 }
 
 /* Breadcrumb link styling - maintains brand consistency */
@@ -48,62 +97,70 @@
    3. FILTER SIDEBAR & SEARCH COMPONENTS
    ======================================================================== */
 
-/* Sticky sidebar positioning - keeps filters visible during scroll for better UX */
+/* Normal sidebar positioning - scrolls naturally with page content */
 .filters-sidebar {
-  position: sticky; /* Maintains position while scrolling through products */
-  top: 100px; /* Accounts for fixed header height to prevent overlap */
+  position: relative; /* Normal document flow positioning */
+  height: auto; /* Allow natural height */
+  z-index: 1; /* Normal stacking context */
+  margin-left: -15px; /* Pull sidebar further to the left */
 }
 
-/* Filter card container - provides clean, professional appearance */
+/* Enhanced filter card for larger screens */
 .filter-card {
-  background: #fff; /* Clean white background for readability */
-  border-radius: 8px; /* Modern rounded corners for contemporary look */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth and separation */
-  padding: 1.5rem; /* Generous padding for comfortable content spacing */
-  margin-bottom: 2rem; /* Adequate spacing between filter sections */
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem; /* Increased padding for more spread */
+  margin-bottom: 2rem;
+  margin-left: 15px; /* Add left margin to create space from screen edge */
 }
 
-/* Individual filter section styling - organizes filter options clearly */
+/* Improved filter section spacing */
 .filter-section {
-  margin-bottom: 2rem; /* Vertical spacing between different filter categories */
-  padding-bottom: 1.5rem; /* Internal spacing before separator line */
-  border-bottom: 1px solid #e9ecef; /* Subtle separator between filter sections */
+  margin-bottom: 2.5rem; /* Increased spacing between sections */
+  padding-bottom: 2rem; /* More internal spacing */
+  border-bottom: 1px solid #e9ecef;
 }
 
-/* Last filter section - removes unnecessary bottom border and spacing */
 .filter-section:last-child {
-  border-bottom: none; /* No separator after final section */
-  margin-bottom: 0; /* Eliminates excess bottom margin */
-  padding-bottom: 0; /* Removes unnecessary bottom padding */
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
-/* Filter section headings - creates clear hierarchy and professional appearance */
+/* Enhanced filter headings */
 .filter-section h6 {
-  color: #333; /* Dark color for strong visual hierarchy */
-  font-weight: 600; /* Semi-bold weight for emphasis without being overwhelming */
-  margin-bottom: 1rem; /* Spacing between heading and filter options */
-  font-size: 0.9rem; /* Slightly smaller than body text for subtle hierarchy */
-  text-transform: uppercase; /* All caps for modern, professional appearance */
-  letter-spacing: 0.5px; /* Slight spacing improves readability of uppercase text */
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 1.5rem; /* More space below headings */
+  font-size: 1rem; /* Slightly larger text */
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Scrollable filter options container - handles long lists of filter options */
+/* SEARCH PRODUCTS section - extra spacing */
+.filter-section:first-child {
+  padding-bottom: 2.5rem; /* Extra spacing for search section */
+  margin-bottom: 3rem; /* More separation from categories */
+}
+
+/* Improved filter options spacing */
 .filter-options {
-  max-height: 200px; /* Prevents excessively long filter lists from dominating page */
-  overflow-y: auto; /* Enables scrolling when content exceeds max height */
+  max-height: 250px; /* Increased max height */
+  overflow-y: auto;
 }
 
-/* Individual filter option spacing - ensures comfortable selection targets */
 .filter-options .form-check {
-  margin-bottom: 0.75rem; /* Adequate spacing between clickable filter options */
+  margin-bottom: 1rem; /* More spacing between options */
+  padding-left: 2rem; /* More indentation */
 }
 
-/* Filter option labels - optimized for readability and interaction */
 .filter-options .form-check-label {
-  font-size: 0.9rem; /* Slightly smaller than body text for clean appearance */
-  color: #555; /* Medium gray for good readability without being harsh */
-  cursor: pointer; /* Indicates interactive element to users */
-  transition: color 0.2s ease; /* Smooth color change for better user feedback */
+  font-size: 0.95rem; /* Slightly larger text */
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1.5; /* Better line height */
 }
 
 /* Selected filter option styling - provides clear visual feedback */
@@ -113,44 +170,84 @@
 }
 
 /* ========================================================================
-   4. SEARCH FORM STYLING WITHIN FILTERS
+  3.1 SEARCH FORM IMPROVEMENTS
    ======================================================================== */
 
-/* Search input field - seamlessly connects with search button */
-.search-form .input-group-sm .form-control {
-  border-radius: 4px 0 0 4px; /* Rounded left corners, square right for button connection */
-  border-right: none; /* Eliminates border between input and button for seamless appearance */
+/* Search form styling with extra spacing */
+.search-form {
+  margin-top: 1rem; /* Extra space above search form */
 }
 
-/* Search button - completes the unified search interface */
+/* Search form input group styling */
+.search-form .input-group {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Search form input styling */
+.search-form .input-group-sm .form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 6px 0 0 6px; /* Proper rectangular corners */
+  border-right: none;
+  padding: 0.75rem 1rem; /* Better padding */
+  font-size: 0.95rem;
+  height: auto; /* Remove fixed height constraints */
+}
+
+/* Search form input focus styling */
+.search-form .input-group-sm .form-control:focus {
+  border-color: #007bff;
+  box-shadow: none; /* Remove default focus shadow */
+}
+
+/* Search form button styling */
 .search-form .input-group-sm .btn {
-  border-radius: 0 4px 4px 0; /* Rounded right corners, square left for input connection */
-  border-left: none; /* Eliminates border between button and input for seamless appearance */
+  border: 2px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 6px 6px 0; /* Proper rectangular corners */
+  border-left: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+/* Search form button hover styling */
+.search-form .input-group-sm .btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: none; /* Prevent button jumping */
+}
+
+/* Search form button focus styling */
+.search-form .input-group-sm .btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 /* ========================================================================
-   5. PRODUCTS HEADER & CONTROLS
+   4. PRODUCTS HEADER & CONTROLS
    ======================================================================== */
 
-/* Products header container - provides context and controls for product browsing */
-.products-header {
-  background: #f8f9fa; /* Light gray background separates controls from products */
-  padding: 1rem; /* Comfortable padding around header content */
-  border-radius: 8px; /* Consistent rounded corners with site design */
-  margin-bottom: 2rem; /* Clear separation between header and product grid */
+/* Products header container - dark background to match page header */
+.products-header-dark {
+  background-color: #343a40;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  color: white;
 }
 
-/* Sort options container - organizes sorting controls effectively */
-.sort-options {
-  display: flex; /* Flexible layout for responsive design */
-  align-items: center; /* Vertically centers sort elements */
+/* Sort options styling for dark background */
+.products-header-dark .sort-options {
+  display: flex;
+  align-items: center;
 }
 
-/* Sort option labels - ensures consistent styling with form elements */
-.sort-options .form-label {
-  margin-bottom: 0; /* Removes default margin for inline layout */
-  font-weight: 500; /* Medium weight for professional appearance */
-  white-space: nowrap; /* Prevents label text from wrapping awkwardly */
+.products-header-dark .sort-options .form-label {
+  margin-bottom: 0;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 /* View toggle button default state - provides clear inactive appearance */
@@ -167,7 +264,7 @@
 }
 
 /* ========================================================================
-   6. PRODUCT GRID & CARD LAYOUTS
+   5. PRODUCT GRID & CARD LAYOUTS
    ======================================================================== */
 
 /* Main products grid container - ensures minimum height for loading states */
@@ -209,7 +306,7 @@
 }
 
 /* ========================================================================
-   7. PRODUCT CARD INTERACTIVE ELEMENTS
+   6. PRODUCT CARD INTERACTIVE ELEMENTS
    ======================================================================== */
 
 /* Product overlay for hover actions - appears over product image on hover */
@@ -255,7 +352,7 @@
 }
 
 /* ========================================================================
-   8. PRODUCT INFORMATION DISPLAY
+   7. PRODUCT INFORMATION DISPLAY
    ======================================================================== */
 
 /* Product card content area - standardizes spacing and layout */
@@ -329,46 +426,7 @@
 }
 
 /* ========================================================================
-   9. ALTERNATIVE VIEW MODES (LIST VIEW)
-   ======================================================================== */
-
-/* List view layout modifications - transforms grid into vertical list */
-.products-grid.list-view .row {
-  flex-direction: column; /* Stacks products vertically instead of grid */
-}
-
-/* List view column adjustments - makes each product full width */
-.products-grid.list-view .col-xl-4,
-.products-grid.list-view .col-lg-6,
-.products-grid.list-view .col-md-6,
-.products-grid.list-view .col-sm-6 {
-  flex: 0 0 100%; /* Forces full width for each product */
-  max-width: 100%; /* Ensures complete width utilization */
-}
-
-/* List view product card layout - horizontal instead of vertical layout */
-.products-grid.list-view .product-card {
-  flex-direction: row; /* Places image and content side by side */
-  max-width: 100%; /* Full width utilization in list mode */
-}
-
-/* List view image sizing - smaller, fixed-width images for list layout */
-.products-grid.list-view .product-image {
-  width: 200px; /* Fixed width prevents image from dominating list item */
-  height: 150px; /* Shorter height appropriate for list view */
-  flex-shrink: 0; /* Prevents image from shrinking in flex layout */
-}
-
-/* List view content area - expands to fill available space */
-.products-grid.list-view .card-body {
-  flex: 1; /* Takes remaining space after image */
-  display: flex; /* Flexible layout for content organization */
-  flex-direction: column; /* Vertical stacking of content elements */
-  justify-content: space-between; /* Spreads content evenly in available space */
-}
-
-/* ========================================================================
-   10. EMPTY STATES & LOADING STATES
+   8. EMPTY STATES & LOADING STATES
    ======================================================================== */
    
 /* No products found state - provides user-friendly feedback when no results exist */
@@ -390,7 +448,7 @@
 }
 
 /* ========================================================================
-   11. PAGINATION CONTROLS
+   9. PAGINATION CONTROLS
    ======================================================================== */
 
 /* Pagination link styling - maintains brand consistency across navigation */
@@ -413,145 +471,135 @@
 }
 
 /* ========================================================================
-   12. MOBILE RESPONSIVE DESIGN
+   10. LARGE SCREEN IMPROVEMENTS
    ======================================================================== */
 
-/* Large tablet breakpoint (992px and down) - optimizes for tablet viewing */
-@media (max-width: 991.98px) {
-  /* Sidebar positioning adjustment - prevents sticky behavior on smaller screens */
+/* Enhanced styling for large screens (1400px and up) */
+@media (min-width: 1400px) {
   .filters-sidebar {
-    position: relative; /* Normal flow positioning for better mobile UX */
-    top: 0; /* Resets sticky positioning offset */
+    margin-left: -30px; /* Pull even further left on larger screens */
   }
-
-  /* Reduced filter card spacing - conserves vertical space on mobile */
+  
   .filter-card {
-    margin-bottom: 1rem; /* Smaller bottom margin for tighter mobile layout */
-  }
-
-  /* Centered products header - improves mobile layout balance */
-  .products-header {
-    text-align: center; /* Centers header content for better mobile appearance */
-  }
-
-  /* Centered sort options - creates balanced mobile header layout */
-  .sort-options {
-    justify-content: center; /* Centers sort controls horizontally */
-    margin-bottom: 1rem; /* Adds spacing below sort options */
-  }
-
-  /* Centered view toggle - maintains header balance on mobile */
-  .view-toggle {
-    text-align: center; /* Centers view toggle buttons */
+    padding: 3rem; /* Even more padding on large screens */
+    margin-left: 30px; /* More left margin on large screens */
   }
 }
 
-/* Medium mobile breakpoint (768px and down) - optimizes for mobile phones */
-@media (max-width: 767.98px) {
-  /* Reduced product image height - conserves screen real estate */
-  .product-image {
-    height: 200px; /* Shorter images for mobile viewing */
+/* Enhanced styling for very large screens (1920px and up) */
+@media (min-width: 1920px) {
+  .filters-sidebar {
+    margin-left: -50px; /* Maximum left extension on very large screens */
   }
-
-  /* Mobile container padding - ensures content doesn't touch screen edges */
-  .shop-page .container {
-    padding-left: 15px; /* Standard mobile padding */
-    padding-right: 15px; /* Standard mobile padding */
-  }
-
-  /* Centered header elements - improves mobile layout organization */
-  .products-header .row > div {
-    text-align: center; /* Centers all header sections */
-    margin-bottom: 1rem; /* Adds vertical spacing between sections */
-  }
-
-  /* Removes excess margin from last header element */
-  .products-header .row > div:last-child {
-    margin-bottom: 0; /* Eliminates unnecessary bottom margin */
-  }
-
-  /* Vertical sort options layout - better mobile space utilization */
-  .sort-options {
-    flex-direction: column; /* Stacks sort elements vertically */
-    gap: 0.5rem; /* Consistent spacing between stacked elements */
-  }
-
-  /* Adjusted sort label spacing - optimizes for vertical layout */
-  .sort-options .form-label {
-    margin-bottom: 0.25rem; /* Reduced margin for vertical arrangement */
-  }
-
-  /* Smaller pagination text - conserves mobile screen space */
-  .pagination {
-    font-size: 0.875rem; /* Slightly smaller text for mobile display */
-  }
-
-  /* Reduced pagination button padding - creates more compact navigation */
-  .pagination .page-link {
-    padding: 0.375rem 0.5rem; /* Smaller padding for mobile touch targets */
-  }
-}
-
-/* Small mobile breakpoint (576px and down) - optimizes for smallest screens */
-@media (max-width: 575.98px) {
-  /* Reduced card body padding - maximizes content space on small screens */
-  .product-card .card-body {
-    padding: 0.75rem; /* Tighter padding for small screen optimization */
-  }
-
-  /* Further reduced image height - prioritizes content over imagery */
-  .product-image {
-    height: 180px; /* Compact image size for small screens */
-  }
-
-  /* Smaller product title text - fits more content in limited space */
-  .product-card .card-title {
-    font-size: 0.9rem; /* Reduced title size for small screens */
-  }
-
-  /* Smaller description text - maximizes information density */
-  .product-card .card-text {
-    font-size: 0.8rem; /* Compact description text */
-    margin-bottom: 0.75rem; /* Reduced margin for tighter layout */
-  }
-
-  /* Smaller action buttons - appropriate for small screen touch targets */
-  .product-actions .btn {
-    width: 36px; /* Reduced button width for small screens */
-    height: 36px; /* Reduced button height for small screens */
-    font-size: 0.85rem; /* Smaller icon/text size */
-  }
-
-  /* Reduced filter card padding - maximizes filter space efficiency */
+  
   .filter-card {
-    padding: 1rem; /* Tighter padding for small screen filters */
+    padding: 3.5rem; /* Maximum padding on very large screens */
+    margin-left: 50px; /* Maximum left margin on very large screens */
   }
-
-  /* Smaller filter headings - conserves vertical space */
+  
+  .filter-section {
+    margin-bottom: 3rem; /* More spacing on large screens */
+    padding-bottom: 2.5rem;
+  }
+  
+  /* Extra spacing for search section on large screens */
+  .filter-section:first-child {
+    padding-bottom: 3rem;
+    margin-bottom: 3.5rem;
+  }
+  
   .filter-section h6 {
-    font-size: 0.85rem; /* Reduced heading size for compact display */
+    font-size: 1.1rem; /* Larger headings */
+    margin-bottom: 2rem;
   }
-
-  /* Vertical price/button layout - better utilization of narrow screens */
-  .product-card .d-flex.justify-content-between {
-    flex-direction: column; /* Stacks price and button vertically */
-    align-items: flex-start; /* Left-aligns stacked elements */
-    gap: 0.75rem; /* Consistent spacing between stacked elements */
+  
+  .filter-options .form-check {
+    margin-bottom: 1.25rem; /* Even more spacing */
   }
-
-  /* Full-width form buttons - easier touch targets on small screens */
-  .product-card form {
-    align-self: stretch; /* Stretches form to full width */
-  }
-
-  /* Full-width form buttons - maximizes touch target area */
-  .product-card form .btn {
-    width: 100%; /* Full width for easy mobile interaction */
+  
+  .filter-options .form-check-label {
+    font-size: 1rem; /* Larger text on big screens */
   }
 }
 
 /* ========================================================================
-   13. ACCESSIBILITY & ENHANCEMENT FEATURES
+   11. MOBILE RESPONSIVE DESIGN
+   ======================================================================== */
+
+/* Large tablet breakpoint */
+@media (max-width: 991.98px) {
+  /* Restore normal container behavior on mobile */
+  .shop-page .container {
+    max-width: 100% !important;
+    padding-left: 15px !important; /* Restore padding on mobile */
+    padding-right: 15px !important;
+  }
+  
+  .shop-page .row {
+    margin-left: -15px; /* Restore Bootstrap row margins */
+    margin-right: -15px;
+  }
+  
+  .shop-page .col-lg-3 {
+    padding-left: 15px !important; /* Restore padding on mobile */
+    padding-right: 15px !important;
+  }
+  
+  /* Normal sidebar positioning on smaller screens */
+  .filters-sidebar {
+    position: relative; /* Normal flow positioning */
+    margin-left: 0; /* Reset left margin on mobile */
+  }
+  
+  .filter-card {
+    margin-left: 0; /* Reset left margin on mobile */
+    padding: 1.5rem;
+  }
+  
+  .shop-page-header {
+    text-align: center;
+    width: 100%; /* Reset width on mobile */
+    margin-left: 0; /* Reset margin on mobile */
+  }
+  
+  .products-header-dark {
+    text-align: center;
+  }
+  
+  .products-header-dark .sort-options {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Medium mobile breakpoint updates */
+@media (max-width: 767.98px) {
+  .shop-page-header .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .products-header-dark .row > div {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .products-header-dark .row > div:last-child {
+    margin-bottom: 0;
+  }
+  
+  .products-header-dark .sort-options {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .products-header-dark .sort-options .form-label {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ========================================================================
+   12. ACCESSIBILITY & ENHANCEMENT FEATURES
    ======================================================================== */
 
 /* Collapse animation - smooth transitions for expandable content */
@@ -608,7 +656,7 @@
 }
 
 /* ========================================================================
-   14. PRINT STYLES
+  13. PRINT STYLES
    ======================================================================== */
 
 /* Print-optimized layout - removes unnecessary elements for clean printing */
