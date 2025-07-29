@@ -19,6 +19,8 @@
    1. GLOBAL CART STYLES & LAYOUT
    ======================================================================== */
 
+
+/* Cart Page Wrapper */
 .cart-page-wrapper {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   min-height: 100vh;
@@ -26,6 +28,7 @@
   padding-bottom: 3rem;
 }
 
+/* Page Header Spacer */
 .page-header-spacer {
   height: 20px;
 }
@@ -34,10 +37,12 @@
    2. CART HEADER & NAVIGATION
    ======================================================================== */
 
+/* Cart Breadcrumb */
 .cart-breadcrumb {
   margin-bottom: 2rem;
 }
 
+/* Cart Breadcrumb Container */
 .cart-breadcrumb .breadcrumb {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -47,6 +52,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Cart Breadcrumb Item Link */
 .cart-breadcrumb .breadcrumb-item a {
   color: #0080ff;
   text-decoration: none;
@@ -54,20 +60,24 @@
   transition: all 0.3s ease;
 }
 
+/* Cart Breadcrumb Item Link Hover */
 .cart-breadcrumb .breadcrumb-item a:hover {
   color: #0056b3;
   text-decoration: underline;
 }
 
+/* Cart Breadcrumb Item Active */
 .cart-breadcrumb .breadcrumb-item.active {
   color: #6c757d;
   font-weight: 600;
 }
 
+/* Cart Header */
 .cart-header {
   margin-bottom: 3rem;
 }
 
+/* Cart Title */
 .cart-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -76,11 +86,13 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Cart Title Icon */
 .cart-title i {
   color: #0080ff;
   margin-right: 1rem;
 }
 
+/* Cart Subtitle */
 .cart-subtitle {
   font-size: 1.1rem;
   color: #6c757d;
@@ -92,6 +104,7 @@
    3. CART ITEMS LIST & PRODUCT CARDS
    ======================================================================== */
 
+/* Cart Items Container */
 .cart-items-container {
   background: #fff;
   border-radius: 12px;
@@ -100,6 +113,7 @@
   overflow: hidden;
 }
 
+/* Cart Items Header */
 .cart-items-header {
   background: linear-gradient(135deg, #0080ff 0%, #0056b3 100%);
   color: white;
@@ -107,6 +121,7 @@
   border-bottom: 3px solid #004085;
 }
 
+/* Cart Items Header H5 & H6 */
 .cart-items-header h5,
 .cart-items-header h6 {
   color: white;
@@ -115,10 +130,12 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Cart Items List */
 .cart-items-list {
   padding: 0;
 }
 
+/* Cart Item */
 .cart-item {
   background: #fff;
   border-bottom: 1px solid #e9ecef;
@@ -127,17 +144,19 @@
   position: relative;
 }
 
+/* Cart Item Hover */
 .cart-item:hover {
   background: #f8f9fa;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* Cart Item Last Child */
 .cart-item:last-child {
   border-bottom: none;
 }
 
-/* Product Image Styling */
+/* Product Image Wrapper */
 .product-image-wrapper {
   position: relative;
   overflow: hidden;
@@ -149,6 +168,7 @@
   justify-content: center;
 }
 
+/* Product Image */
 .product-image {
   width: 100%;
   height: 100%;
@@ -157,10 +177,12 @@
   transition: transform 0.3s ease;
 }
 
+/* Product Image Hover */
 .product-image:hover {
   transform: scale(1.05);
 }
 
+/* Product Image Placeholder */
 .product-image-placeholder {
   width: 100%;
   height: 100%;
@@ -178,6 +200,7 @@
   padding-right: 1rem;
 }
 
+/* Product Name */
 .product-name {
   font-size: 1.25rem;
   font-weight: 600;
@@ -185,17 +208,20 @@
   line-height: 1.3;
 }
 
+/* Product Link */
 .product-link {
   color: #2c3e50;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
+/* Product Link Hover */
 .product-link:hover {
   color: #0080ff;
   text-decoration: underline;
 }
 
+/* Product Description */
 .product-description {
   color: #6c757d;
   font-size: 0.95rem;
@@ -203,13 +229,15 @@
   margin-bottom: 0.75rem;
 }
 
-.product-meta {
+/* Product Meta */
+.product-meta { 
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   font-size: 0.85rem;
 }
 
+/* Product SKU and Category Display */
 .product-sku,
 .product-category {
   color: #868e96;
@@ -218,18 +246,20 @@
   font-weight: 500;
 }
 
+/* Product SKU and Category Icons */
 .product-sku i,
 .product-category i {
   color: #0080ff;
   margin-right: 0.25rem;
 }
 
-/* Price Section */
+/* Product Price Section Container */
 .price-section {
   text-align: center;
   padding: 0.5rem;
 }
 
+/* Product Price Label (Mobile Only) */
 .price-label {
   font-size: 0.8rem;
   color: #6c757d;
@@ -239,6 +269,7 @@
   margin-bottom: 0.25rem;
 }
 
+/* Product Price Value Display */
 .price-value {
   font-size: 1.25rem;
   font-weight: 700;
@@ -250,11 +281,13 @@
    4. QUANTITY CONTROLS & INTERACTIVE ELEMENTS
    ======================================================================== */
 
+/* Quantity Section Container */
 .quantity-section {
   text-align: center;
   padding: 0.5rem;
 }
 
+/* Quantity Label (Mobile Only) */
 .quantity-label {
   font-size: 0.8rem;
   color: #6c757d;
@@ -264,6 +297,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* Quantity Controls Wrapper (Decrease, Input, Increase) */
 .quantity-controls {
   display: flex;
   align-items: center;
@@ -276,11 +310,13 @@
   transition: all 0.3s ease;
 }
 
+/* Quantity Controls Focus State */
 .quantity-controls:focus-within {
   border-color: #0080ff;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
+/* Quantity Increase/Decrease Buttons */
 .quantity-btn {
   background: #fff;
   border: none;
@@ -297,6 +333,7 @@
   position: relative;
 }
 
+/* Text symbols (+ and -) inside quantity buttons */
 .quantity-btn .btn-text {
   display: inline-block;
   line-height: 1;
@@ -306,11 +343,12 @@
   user-select: none;
 }
 
-/* Hide FontAwesome icons by default, let text show */
+/* Hide FontAwesome icons by default to ensure text symbols show */
 .quantity-btn .fas {
   display: none;
 }
 
+/* Quantity Button Hover Effect */
 .quantity-btn:hover:not(:disabled) {
   background: #0080ff;
   color: white;
@@ -318,6 +356,7 @@
   box-shadow: 0 2px 8px rgba(0, 128, 255, 0.3);
 }
 
+/* Quantity Button Disabled State */
 .quantity-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -325,6 +364,7 @@
   color: #adb5bd;
 }
 
+/* Quantity Number Input Field */
 .quantity-input {
   border: none;
   background: transparent;
@@ -339,15 +379,18 @@
   border-right: 1px solid #e9ecef;
 }
 
+/* Quantity Input Focus State */
 .quantity-input:focus {
   background: rgba(0, 128, 255, 0.05);
   color: #0080ff;
 }
 
+/* Quantity Actions Container */
 .quantity-actions {
   text-align: center;
 }
 
+/* Update Quantity Button */
 .btn-update {
   background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
   color: white;
@@ -364,18 +407,20 @@
   letter-spacing: 0.5px;
 }
 
+/* Update Button Hover Effect */
 .btn-update:hover {
   background: linear-gradient(135deg, #138496 0%, #117a8b 100%);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
 }
 
-/* Subtotal Section */
+/* Product Subtotal Section Container */
 .subtotal-section {
   text-align: center;
   padding: 0.5rem;
 }
 
+/* Subtotal Label (Mobile Only) */
 .subtotal-label {
   font-size: 0.8rem;
   color: #6c757d;
@@ -385,6 +430,7 @@
   margin-bottom: 0.25rem;
 }
 
+/* Product Subtotal Amount Display */
 .subtotal-value {
   font-size: 1.35rem;
   font-weight: 700;
@@ -392,12 +438,13 @@
   display: block;
 }
 
-/* Remove Button */
+/* Remove Item Section Container */
 .remove-section {
   text-align: center;
   margin-top: 1rem;
 }
 
+/* Remove Item from Cart Button */
 .btn-remove {
   background: transparent;
   color: #dc3545;
@@ -414,6 +461,7 @@
   letter-spacing: 0.5px;
 }
 
+/* Remove Button Hover Effect */
 .btn-remove:hover {
   background: #dc3545;
   color: white;
@@ -421,11 +469,12 @@
   box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
 }
 
+/* Remove Button Icon Spacing */
 .btn-remove i {
   margin-right: 0.5rem;
 }
 
-/* Continue Shopping */
+/* Continue Shopping Section at Bottom of Cart */
 .continue-shopping-section {
   padding: 2rem;
   text-align: center;
@@ -433,6 +482,7 @@
   background: #f8f9fa;
 }
 
+/* Continue Shopping Link Button */
 .btn-continue-shopping {
   background: transparent;
   color: #0080ff;
@@ -449,6 +499,7 @@
   letter-spacing: 0.5px;
 }
 
+/* Continue Shopping Button Hover Effect */
 .btn-continue-shopping:hover {
   background: #0080ff;
   color: white;
@@ -460,6 +511,7 @@
    5. ORDER SUMMARY PANEL
    ======================================================================== */
 
+/* Sticky Order Summary Panel (Desktop Right Sidebar) */
 .order-summary {
   background: #fff;
   border-radius: 12px;
@@ -471,12 +523,14 @@
   overflow-y: auto;
 }
 
+/* Order Summary Header with Green Gradient */
 .order-summary-header {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
   padding: 1.5rem 2rem;
 }
 
+/* Order Summary Title */
 .summary-title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -485,18 +539,22 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Order Summary Title Icon */
 .summary-title i {
   margin-right: 0.5rem;
 }
 
+/* Order Summary Content Container */
 .order-summary-content {
   padding: 2rem;
 }
 
+/* Price Breakdown Section Container */
 .price-breakdown {
   margin-bottom: 2rem;
 }
 
+/* Individual Price Line Row */
 .price-line {
   display: flex;
   justify-content: space-between;
@@ -505,10 +563,12 @@
   border-bottom: 1px solid #f1f3f4;
 }
 
+/* Remove border from last price line */
 .price-line:last-child {
   border-bottom: none;
 }
 
+/* Price Line Label (Left Side) */
 .price-label {
   color: #6c757d;
   font-size: 1rem;
@@ -517,12 +577,14 @@
   align-items: center;
 }
 
+/* Price Line Value (Right Side) */
 .price-value {
   color: #2c3e50;
   font-weight: 700;
   font-size: 1.1rem;
 }
 
+/* Grand Total Line with Special Styling */
 .total-line {
   border-top: 2px solid #e9ecef;
   margin-top: 1rem;
@@ -532,6 +594,7 @@
   padding: 1rem;
 }
 
+/* Grand Total Line Text and Value Styling */
 .total-line .price-label,
 .total-line .price-value {
   font-size: 1.3rem;
@@ -539,6 +602,7 @@
   color: #0080ff;
 }
 
+/* Decorative Divider Between Sections */
 .summary-divider {
   border: none;
   height: 2px;
@@ -546,7 +610,7 @@
   margin: 1.5rem 0;
 }
 
-/* Free Shipping Notice */
+/* Free Shipping Progress Notice Box */
 .free-shipping-notice {
   background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
   border: 1px solid #17a2b8;
@@ -558,11 +622,13 @@
   font-weight: 600;
 }
 
+/* Free Shipping Notice Icon */
 .free-shipping-notice i {
   color: #17a2b8;
   margin-right: 0.5rem;
 }
 
+/* Free Shipping Progress Bar Container */
 .progress {
   height: 8px;
   background: rgba(255, 255, 255, 0.3);
@@ -570,6 +636,7 @@
   overflow: hidden;
 }
 
+/* Free Shipping Progress Bar Fill */
 .progress-bar {
   background: linear-gradient(90deg, #17a2b8 0%, #20c997 100%);
   border-radius: 4px;
@@ -580,6 +647,7 @@
    6. TRUST INDICATORS & CHECKOUT ACTIONS
    ======================================================================== */
 
+/* Trust Indicators Section (Security, Returns, Support) */
 .trust-indicators {
   display: grid;
   grid-template-columns: 1fr;
@@ -591,6 +659,7 @@
   border: 1px solid rgba(40, 167, 69, 0.2);
 }
 
+/* Individual Trust Indicator Item */
 .trust-item {
   display: flex;
   align-items: center;
@@ -599,6 +668,7 @@
   font-size: 0.9rem;
 }
 
+/* Trust Indicator Icons */
 .trust-item i {
   color: #28a745;
   margin-right: 0.75rem;
@@ -607,10 +677,12 @@
   text-align: center;
 }
 
+/* Checkout Actions Section Container */
 .checkout-actions {
   margin-top: 2rem;
 }
 
+/* Main Checkout Button */
 .btn-checkout {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
@@ -630,6 +702,7 @@
   box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
 }
 
+/* Checkout Button Hover Effect */
 .btn-checkout:hover {
   background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
   color: white;
@@ -637,6 +710,7 @@
   box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
 }
 
+/* Checkout Button Shine Animation Pseudo-element */
 .btn-checkout::before {
   content: '';
   position: absolute;
@@ -648,10 +722,12 @@
   transition: left 0.5s;
 }
 
+/* Checkout Button Shine Animation Trigger */
 .btn-checkout:hover::before {
   left: 100%;
 }
 
+/* Checkout Button Subtext (Encrypted & Protected) */
 .checkout-btn-subtext {
   font-size: 0.8rem;
   font-weight: 400;
@@ -661,6 +737,7 @@
   margin-top: 0.25rem;
 }
 
+/* Payment Methods Section */
 .payment-methods {
   text-align: center;
   margin-top: 1.5rem;
@@ -668,6 +745,7 @@
   border-top: 1px solid #e9ecef;
 }
 
+/* Payment Method Icons Container */
 .payment-icons {
   display: flex;
   justify-content: center;
@@ -675,12 +753,14 @@
   margin-top: 0.5rem;
 }
 
+/* Individual Payment Method Icons */
 .payment-icons i {
   font-size: 1.5rem;
   color: #6c757d;
   transition: color 0.3s ease;
 }
 
+/* Payment Method Icon Hover Effect */
 .payment-icons i:hover {
   color: #0080ff;
 }
@@ -689,6 +769,7 @@
    7. RECOMMENDATIONS SECTION
    ======================================================================== */
 
+/* Product Recommendations Section (Desktop Only) */
 .recommendations-section {
   background: #fff;
   border-radius: 12px;
@@ -697,6 +778,7 @@
   overflow: hidden;
 }
 
+/* Recommendations Section Title with Purple Gradient */
 .recommendations-title {
   background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
   color: white;
@@ -707,16 +789,19 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Recommendations Placeholder Content Area */
 .recommendations-placeholder {
   padding: 2rem;
   text-align: center;
 }
 
+/* Recommendation Placeholder Item */
 .recommendation-item {
   color: #6c757d;
   font-style: italic;
 }
 
+/* Recommendation Placeholder Icon */
 .recommendation-item i {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -727,22 +812,32 @@
    8. EMPTY CART STATE
    ======================================================================== */
 
+/* Empty Cart State Container (Full Height Centered) */
 .empty-cart-state {
   min-height: 70vh;
   padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Empty Cart Bootstrap Row Override */
 .empty-cart-state .row {
   width: 100%;
   max-width: none;
+  margin: 0;
+  justify-content: center;
 }
 
+/* Empty Cart Bootstrap Column Override */
 .empty-cart-state .col-lg-6,
 .empty-cart-state .col-md-8 {
   max-width: 100%;
   flex: 0 0 100%;
+  padding: 0;
 }
 
+/* Main Empty Cart Content Card */
 .empty-cart-content {
   background: #fff;
   border-radius: 16px;
@@ -752,23 +847,28 @@
   min-width: 80vw;
   max-width: 1200px;
   margin: 0 auto;
+  text-align: center;
 }
 
+/* Empty Cart Shopping Cart Icon Container */
 .empty-cart-icon {
   margin-bottom: 2rem;
 }
 
+/* Animated Empty Cart Icon */
 .empty-cart-icon i {
   font-size: 4rem;
   color: #dee2e6;
   animation: float 3s ease-in-out infinite;
 }
 
+/* Floating Animation for Empty Cart Icon */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
 
+/* Empty Cart Main Title */
 .empty-cart-title {
   font-size: 2rem;
   font-weight: 700;
@@ -776,6 +876,7 @@
   margin-bottom: 1rem;
 }
 
+/* Empty Cart Descriptive Message */
 .empty-cart-message {
   font-size: 1.1rem;
   color: #6c757d;
@@ -783,6 +884,7 @@
   margin-bottom: 2rem;
 }
 
+/* Explore Products CTA Button */
 .btn-explore-products {
   background: linear-gradient(135deg, #0080ff 0%, #0056b3 100%);
   color: white;
@@ -800,6 +902,7 @@
   box-shadow: 0 4px 15px rgba(0, 128, 255, 0.3);
 }
 
+/* Explore Products Button Hover Effect */
 .btn-explore-products:hover {
   background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
   color: white;
@@ -807,12 +910,14 @@
   box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4);
 }
 
+/* Featured Categories Section */
 .featured-categories {
   margin-top: 4rem;
   padding-top: 2rem;
   border-top: 2px solid #e9ecef;
 }
 
+/* Featured Categories Section Title */
 .featured-categories h4 {
   color: #2c3e50;
   font-weight: 700;
@@ -821,6 +926,7 @@
   text-align: center;
 }
 
+/* Category Cards Grid Layout */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -828,6 +934,7 @@
   margin-top: 2rem;
 }
 
+/* Individual Category Card */
 .category-card {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border: 2px solid #dee2e6;
@@ -844,6 +951,7 @@
   justify-content: center;
 }
 
+/* Category Card Hover Effect */
 .category-card:hover {
   background: #0080ff;
   border-color: #0080ff;
@@ -852,11 +960,13 @@
   box-shadow: 0 6px 20px rgba(0, 128, 255, 0.3);
 }
 
+/* Category Card Icon */
 .category-card i {
   font-size: 2rem;
   margin-bottom: 0.5rem;
 }
 
+/* Category Card Text Label */
 .category-card span {
   font-weight: 600;
   font-size: 0.9rem;
@@ -866,6 +976,7 @@
    9. LOADING STATES & ANIMATIONS
    ======================================================================== */
 
+/* Full-Screen Loading Overlay for AJAX Operations */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -880,10 +991,12 @@
   backdrop-filter: blur(5px);
 }
 
+/* Loading Overlay Visible State */
 .loading-overlay.show {
   display: flex;
 }
 
+/* Loading Spinner Card Container */
 .loading-spinner {
   background: #fff;
   padding: 2rem;
@@ -892,18 +1005,21 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* Loading Spinner Icon */
 .loading-spinner i {
   font-size: 2rem;
   color: #0080ff;
   margin-bottom: 1rem;
 }
 
+/* Loading Spinner Text */
 .loading-spinner p {
   color: #6c757d;
   font-weight: 600;
   margin: 0;
 }
 
+/* Cart Item Updating State (Disabled & Faded) */
 .updating {
   opacity: 0.6;
   pointer-events: none;
@@ -914,8 +1030,11 @@
    10. RESPONSIVE DESIGN (Mobile-First)
    ======================================================================== */
 
-/* Tablet Styles */
+/* ========================================================================
+   10.1 TABLET STYLES (768px - 991px)
+   ======================================================================== */
 @media (max-width: 991.98px) {
+  /* Order Summary: Remove Sticky Positioning for Tablet */
   .order-summary {
     position: relative;
     top: 0;
@@ -923,63 +1042,106 @@
     margin-top: 2rem;
   }
 
+  /* Smaller Cart Title for Tablet Screens */
   .cart-title {
     font-size: 2rem;
   }
 
+  /* Reduced Header Padding for Tablet */
   .cart-items-header {
     padding: 1rem 1.5rem;
   }
 
+  /* Reduced Cart Item Padding for Tablet */
   .cart-item {
     padding: 1.5rem;
   }
 
+  /* Trust Indicators: Two Column Layout for Tablet */
   .trust-indicators {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Empty Cart: Wider Content for Tablet Screens */
   .empty-cart-content {
     min-width: 90vw;
     max-width: 90vw;
     padding: 3rem 2rem;
+    border-radius: 12px;
   }
 
+  /* Tablet Empty Cart Icon Size */
+  .empty-cart-icon i {
+    font-size: 3.5rem;
+  }
+
+  /* Tablet Empty Cart Title Size */
+  .empty-cart-title {
+    font-size: 1.75rem;
+  }
+
+  /* Tablet Empty Cart Message Size */
+  .empty-cart-message {
+    font-size: 1.05rem;
+  }
+
+  /* Category Grid: Smaller Minimum Width for Tablet */
   .category-grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Category Cards: Adjusted Size for Tablet */
+  .category-card {
+    padding: 1.75rem 1.25rem;
+    min-height: 90px;
+  }
+
+  /* Category Card Icons: Larger for Tablet Touch Targets */
+  .category-card i {
+    font-size: 1.75rem;
   }
 }
 
-/* Mobile Styles */
+/* ========================================================================
+   10.2 MOBILE STYLES (481px - 767px)
+   ======================================================================== */
 @media (max-width: 767.98px) {
+  /* Reduced Page Wrapper Padding for Mobile */
   .cart-page-wrapper {
     padding-top: 1rem;
     padding-bottom: 2rem;
   }
 
+  /* Mobile Cart Title: Smaller Size and Centered */
   .cart-title {
     font-size: 1.75rem;
     text-align: center;
   }
 
+  /* Mobile Cart Title Icon: Stacked Layout */
   .cart-title i {
     display: block;
     margin-bottom: 0.5rem;
   }
 
+  /* Mobile Cart Items: Reduced Padding */
   .cart-item {
     padding: 1rem;
   }
 
+  /* Mobile Product Info: Remove Right Padding, Add Bottom Margin */
   .product-info {
     padding-right: 0;
     margin-bottom: 1rem;
   }
 
+  /* Mobile Product Name: Smaller Font Size */
   .product-name {
     font-size: 1.1rem;
   }
 
+  /* Mobile Price/Quantity/Subtotal Sections: Left Aligned */
   .price-section,
   .quantity-section,
   .subtotal-section {
@@ -987,6 +1149,7 @@
     padding: 0.5rem 0;
   }
 
+  /* Mobile Section Labels: Visible and Bold */
   .price-label,
   .quantity-label,
   .subtotal-label {
@@ -996,108 +1159,258 @@
     color: #495057;
   }
 
+  /* Mobile Quantity Controls: Left Aligned with Max Width */
   .quantity-controls {
     justify-content: flex-start;
     max-width: 140px;
   }
 
+  /* Mobile Remove Section: Left Aligned */
   .remove-section {
     text-align: left;
     margin-top: 1rem;
   }
 
+  /* Mobile Remove Button: Full Width */
   .btn-remove {
     width: 100%;
     justify-content: center;
   }
 
+  /* Mobile Order Summary: Reduced Padding */
   .order-summary-content {
     padding: 1.5rem;
   }
 
+  /* Mobile Trust Indicators: Single Column */
   .trust-indicators {
     grid-template-columns: 1fr;
   }
 
+  /* Mobile Checkout Button: Smaller Padding and Font */
   .btn-checkout {
     padding: 1rem;
     font-size: 1rem;
   }
 
+  /* Mobile Payment Icons: Wrapped Layout */
   .payment-icons {
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
+  /* Mobile Continue Shopping: Reduced Padding */
   .continue-shopping-section {
     padding: 1.5rem 1rem;
   }
 
+  /* ========================================================================
+    10.3 MOBILE EMPTY CART STATE
+     ======================================================================== */
+  
+  /* Mobile Empty Cart: Optimized Height and Centering */
+  .empty-cart-state {
+    padding: 1rem;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile Empty Cart Content: Full Width with Padding */
   .empty-cart-content {
-    padding: 3rem 1.5rem;
-    min-width: 95vw;
-    max-width: 95vw;
+    padding: 2rem 1.5rem;
+    min-width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
   }
 
+  /* Mobile Empty Cart Icon: Reduced Size */
+  .empty-cart-icon i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Mobile Empty Cart Title: Smaller Font */
   .empty-cart-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 
+  /* Mobile Empty Cart Message: Optimized Size and Spacing */
+  .empty-cart-message {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  /* Mobile Explore Products Button: Adjusted Size */
+  .btn-explore-products {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Mobile Featured Categories: Reduced Spacing */
+  .featured-categories {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+  }
+
+  /* Mobile Categories Title: Smaller Font */
+  .featured-categories h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Mobile Category Grid: Single Column Layout */
   .category-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 0.75rem;
+    margin-top: 1rem;
   }
 
+  /* Mobile Category Cards: Compact Design */
   .category-card {
-    padding: 1.5rem 1rem;
-    min-height: 100px;
+    padding: 1.25rem 1rem;
+    min-height: 80px;
+    border-radius: 8px;
+  }
+
+  /* Mobile Category Icons: Smaller Size */
+  .category-card i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Mobile Category Text: Compact Font Size */
+  .category-card span {
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 }
 
-/* Small Mobile Styles */
+/* ========================================================================
+   10.4 SMALL MOBILE STYLES (320px - 575px)
+   ======================================================================== */
 @media (max-width: 575.98px) {
+  /* Small Mobile Breadcrumb: Compact Padding and Font */
   .cart-breadcrumb .breadcrumb {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
 
+  /* Small Mobile Cart Title: Smallest Font Size */
   .cart-title {
     font-size: 1.5rem;
   }
 
+  /* Small Mobile Product Image: Smaller Max Width */
   .product-image-wrapper {
     max-width: 100px;
     margin: 0 auto;
   }
 
+  /* Small Mobile Quantity Buttons: Compact Size */
   .quantity-btn {
     width: 35px;
     height: 35px;
   }
 
+  /* Small Mobile Quantity Input: Narrower Width */
   .quantity-input {
     width: 50px;
     height: 35px;
   }
 
+  /* Small Mobile Checkout Button: Smaller Font and Padding */
   .btn-checkout {
     font-size: 0.95rem;
     padding: 0.875rem;
   }
 
+  /* ========================================================================
+    10.5 SMALL MOBILE EMPTY CART STATE
+     ======================================================================== */
+  
+  /* Small Mobile Empty Cart: Minimal Padding, Optimized Height */
+  .empty-cart-state {
+    padding: 0.5rem;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Small Mobile Empty Cart Content: Maximum Width Usage */
   .empty-cart-content {
-    min-width: 98vw;
-    max-width: 98vw;
-    padding: 2rem 1rem;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
   }
 
+  /* Small Mobile Empty Cart Icon: Smallest Size */
+  .empty-cart-icon i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Small Mobile Empty Cart Title: Compact Font */
   .empty-cart-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
   }
 
+  /* Small Mobile Empty Cart Message: Minimal Size and Spacing */
+  .empty-cart-message {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  /* Small Mobile Explore Button: Compact Size */
+  .btn-explore-products {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Small Mobile Featured Categories: Minimal Spacing */
+  .featured-categories {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  /* Small Mobile Categories Title: Compact Font */
   .featured-categories h4 {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Small Mobile Category Grid: Tighter Spacing */
+  .category-grid {
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Small Mobile Category Cards: Most Compact Design */
+  .category-card {
+    padding: 1rem 0.75rem;
+    min-height: 70px;
+    border-radius: 6px;
+  }
+
+  /* Small Mobile Category Icons: Smallest Size */
+  .category-card i {
+    font-size: 1.25rem;
+    margin-bottom: 0.375rem;
+  }
+
+  /* Small Mobile Category Text: Smallest Font */
+  .category-card span {
+    font-size: 0.85rem;
+    font-weight: 600;
   }
 }
 
@@ -1105,7 +1418,11 @@
    11. ACCESSIBILITY FEATURES
    ======================================================================== */
 
-/* Focus States */
+/* ========================================================================
+   11.1 KEYBOARD FOCUS STATES
+   ======================================================================== */
+
+/* Enhanced Focus Indicators for All Interactive Elements */
 .quantity-btn:focus,
 .btn-update:focus,
 .btn-remove:focus,
@@ -1116,39 +1433,54 @@
   outline-offset: 2px;
 }
 
+/* Quantity Input Focus: Closer Outline for Better Visibility */
 .quantity-input:focus {
   outline: 2px solid #0080ff;
   outline-offset: 1px;
 }
 
-/* High Contrast Mode */
+/* ========================================================================
+   11.2 HIGH CONTRAST MODE SUPPORT
+   ======================================================================== */
+
+/* Enhanced Borders and Contrast for Accessibility */
 @media (prefers-contrast: high) {
+  /* Cart Items: Stronger Border Definition */
   .cart-item {
     border: 2px solid #000;
   }
 
+  /* Quantity Controls: Thicker Border for Better Visibility */
   .quantity-controls {
     border-width: 3px;
   }
 
+  /* Primary Buttons: Black Border for High Contrast */
   .btn-checkout,
   .btn-explore-products {
     border: 2px solid #000;
   }
 }
 
-/* Reduced Motion */
+/* ========================================================================
+   11.3 REDUCED MOTION PREFERENCES
+   ======================================================================== */
+
+/* Disable Animations for Users with Motion Sensitivity */
 @media (prefers-reduced-motion: reduce) {
+  /* Remove All Animations and Transitions */
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 
+  /* Disable Loading Spinner Animation */
   .loading-spinner i {
     animation: none;
   }
 
+  /* Disable Empty Cart Icon Float Animation */
   .empty-cart-icon i {
     animation: none;
   }
@@ -1158,7 +1490,16 @@
    12. PRINT STYLES
    ======================================================================== */
 
+/* ========================================================================
+   12.1 PRINT OPTIMIZATION STYLES
+   ======================================================================== */
+
 @media print {
+  /* ========================================================================
+     HIDE NON-ESSENTIAL ELEMENTS FOR PRINTING
+     ======================================================================== */
+  
+  /* Remove Interactive and Navigation Elements */
   .cart-breadcrumb,
   .checkout-actions,
   .recommendations-section,
@@ -1169,11 +1510,17 @@
     display: none !important;
   }
 
+  /* ========================================================================
+    12.2 OPTIMIZE LAYOUT FOR PRINT MEDIA
+     ======================================================================== */
+  
+  /* Cart Page: Clean White Background for Print */
   .cart-page-wrapper {
     background: white;
     box-shadow: none;
   }
 
+  /* Cart Items and Summary: Prevent Page Breaks, Add Borders */
   .cart-item,
   .order-summary {
     break-inside: avoid;
@@ -1181,12 +1528,19 @@
     border: 1px solid #000;
   }
 
+  /* ========================================================================
+    12.3 ENSURE BLACK TEXT FOR PRINT READABILITY
+     ======================================================================== */
+  
+  /* Cart Title: Black for Maximum Print Contrast */
   .cart-title {
     color: #000;
   }
 
+  /* Price Values: Black for Clear Print Visibility */
   .price-value,
   .subtotal-value {
     color: #000;
   }
 }
+
