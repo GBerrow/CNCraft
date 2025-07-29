@@ -14,20 +14,26 @@ def cart_contents(request):
     cart = request.session.get('cart', {})
 
     # Iterate through cart items
-    for product_id, quantity in cart.items():
+    for product_id, item_data in cart.items():
         # Retrieve the product or return 404 if not found
         product = get_object_or_404(Product, pk=product_id)
         # Get the product's display price
         price = product.get_display_price()
+        # Handle both legacy int and new dict format
+        if isinstance(item_data, dict):
+            quantity = item_data.get('quantity', 1)
+        else:
+            quantity = item_data
+        subtotal = quantity * price
         # Update total cost and product count
-        total += quantity * price
+        total += subtotal
         product_count += quantity
         # Add item details to cart_items list
         cart_items.append({
             'product_id': product_id,
             'quantity': quantity,
             'product': product,
-            'subtotal': quantity * price,
+            'subtotal': subtotal,
         })
     
     # Calculate delivery cost and amount needed for free delivery
