@@ -1,642 +1,1192 @@
 /* ========================================================================
-   CNCraft - Cart Page Stylesheet (Wireframe Aligned)
+   CNCraft - Modern Cart Page Stylesheet
    ========================================================================
-   Table of Contents:
-   1. Cart Items Section & Product Summary Blocks
-   2. Quantity Control Styles  
-   3. Order Summary Panel
-   4. Checkout CTA & Action Buttons
-   5. Cross-Selling Section
-   6. Empty Cart State
-   7. Mobile Responsive Design
+  1. GLOBAL CART STYLES & LAYOUT
+  2. CART HEADER & NAVIGATION
+  3. CART ITEMS LIST & PRODUCT CARDS
+  4. QUANTITY CONTROLS & INTERACTIVE ELEMENTS
+  5. ORDER SUMMARY PANEL
+  6. TRUST INDICATORS & CHECKOUT ACTIONS
+  7. RECOMMENDATIONS SECTION
+  8. EMPTY CART STATE
+  9. LOADING STATES & ANIMATIONS
+  10. RESPONSIVE DESIGN (Mobile-First)
+  11. ACCESSIBILITY FEATURES
+  12. PRINT STYLES
    ======================================================================== */
 
 /* ========================================================================
-   1. CART ITEMS SECTION & PRODUCT SUMMARY BLOCKS
-   ========================================================================
-   
-   These styles create individual product blocks that replace traditional
-   table layouts. Each block contains all product information in a scannable,
-   card-like format that works across all device sizes.
-   
-   Design Goals:
-   - Clear product identification with image and details
-   - Easy-to-read pricing and subtotal information
-   - Intuitive quantity adjustment controls
-   - Non-destructive update and remove actions
+   1. GLOBAL CART STYLES & LAYOUT
    ======================================================================== */
 
-/* Main container for all cart items with professional card styling */
-.cart-items-section {
-  background: #fff; /* Clean white background for better readability */
-  border-radius: 8px; /* Modern rounded corners for visual appeal */
-  padding: 1.5rem; /* Generous padding for breathing room */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth and separation */
+.cart-page-wrapper {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-/* Individual cart item styling - each product gets its own block */
-.cart-item-block {
-  background: #f8f9fa; /* Light gray background to distinguish from container */
-  border-radius: 8px; /* Consistent rounded corners throughout */
-  padding: 1.5rem; /* Comfortable padding for content spacing */
-  border: 1px solid #e9ecef; /* Subtle border for definition */
-  transition: box-shadow 0.3s ease; /* Smooth hover effect transition */
-}
-
-/* Interactive hover effect to provide user feedback */
-.cart-item-block:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover for interactivity */
-}
-
-/* Product image container with centered alignment */
-.cart-product-image-container {
-  text-align: center; /* Centers the product image within its container */
-}
-
-/* Product image styling for consistency and visual appeal */
-.cart-product-image {
-  max-width: 100px; /* Consistent maximum width across all product images */
-  border-radius: 6px; /* Rounded corners matching overall design language */
-  object-fit: cover; /* Maintains aspect ratio while filling container */
-  border: 1px solid #dee2e6; /* Light border for definition against background */
-}
-
-/* Product name styling - primary identifier for each item */
-.cart-product-info .product-name {
-  font-weight: 600; /* Semi-bold weight for prominence and hierarchy */
-  color: #2c3e50; /* Dark color for high contrast and readability */
-  margin-bottom: 0.5rem; /* Spacing below product name */
-  font-size: 1.1rem; /* Slightly larger than body text for emphasis */
-}
-
-/* Secondary product information - dimensions, specifications, etc. */
-.cart-product-info .product-details {
-  color: #6c757d; /* Muted color to indicate secondary importance */
-  margin-bottom: 0.25rem; /* Tight spacing for compact information display */
-  font-size: 0.9rem; /* Smaller font size for secondary details */
-}
-
-/* SKU styling - least prominent but still accessible information */
-.cart-product-info .product-sku {
-  color: #868e96; /* Most muted color for tertiary information */
-  font-size: 0.8rem; /* Smallest readable font size for SKU codes */
-}
-
-/* Price and subtotal containers with centered alignment */
-.item-price,
-.item-subtotal {
-  text-align: center; /* Centers price information for easy scanning */
-}
-
-/* Labels for price and subtotal - hidden on desktop, shown on mobile */
-.price-label,
-.subtotal-label {
-  font-size: 0.8rem; /* Small font size for contextual labels */
-  color: #6c757d; /* Muted color to not compete with actual values */
-  display: block; /* Block display for proper stacking */
-  margin-bottom: 0.25rem; /* Small gap between label and value */
-}
-
-/* Actual price and subtotal values - most important financial information */
-.price-value,
-.subtotal-value {
-  font-size: 1.1rem; /* Larger font for easy readability */
-  font-weight: 600; /* Semi-bold to emphasize monetary values */
-  color: #2c3e50; /* High contrast color for maximum legibility */
-}
-
-/* Container for update and remove actions */
-.item-actions {
-  text-align: left; /* Left alignment for natural reading flow */
-  padding-top: 0.5rem; /* Spacing above actions */
-  border-top: 1px solid #e9ecef; /* Visual separator from main content */
-}
-
-/* Styling for update and remove links */
-.update-link,
-.remove-item {
-  cursor: pointer; /* Pointer cursor to indicate clickable elements */
-  font-weight: 500; /* Medium weight for visibility without overwhelming */
-  text-decoration: none; /* Clean appearance without default underlines */
-  transition: all 0.2s ease; /* Smooth hover transitions for better UX */
-}
-
-/* Update link hover state with info-style blue color */
-.update-link:hover {
-  text-decoration: underline; /* Underline appears on hover for feedback */
-  color: #0d6efd !important; /* Bootstrap info blue for update actions */
-}
-
-/* Remove link hover state with danger-style red color */
-.remove-item:hover {
-  text-decoration: underline; /* Consistent underline behavior */
-  color: #dc3545 !important; /* Bootstrap danger red for destructive actions */
-  font-weight: 600; /* Slightly heavier weight on hover for emphasis */
+.page-header-spacer {
+  height: 20px;
 }
 
 /* ========================================================================
-   2. QUANTITY CONTROL STYLES
-   ========================================================================
-   
-   Quantity controls are critical for cart functionality. These styles
-   create an integrated input group with increment/decrement buttons
-   that are touch-friendly and accessible across all devices.
-   
-   Design Goals:
-   - Clear quantity display with large, readable numbers
-   - Easy-to-tap increment/decrement buttons
-   - Disabled states for min/max quantities
-   - Visual integration with overall design system
+   2. CART HEADER & NAVIGATION
    ======================================================================== */
 
-/* Container for quantity controls with centered alignment */
-.quantity-section {
-  display: flex; /* Flexbox for perfect alignment */
-  justify-content: center; /* Centers the quantity controls */
-  align-items: center; /* Vertical centering within available space */
+.cart-breadcrumb {
+  margin-bottom: 2rem;
 }
 
-/* Input group styling that visually connects all quantity elements */
-.qty-input-group {
-  display: flex; /* Flexbox for seamless button integration */
-  align-items: center; /* Vertical alignment of all elements */
-  max-width: 120px; /* Prevents overly wide quantity controls */
-  border: 1px solid #ced4da; /* Consistent border matching Bootstrap styles */
-  border-radius: 4px; /* Rounded corners for modern appearance */
-  overflow: hidden; /* Ensures clean corners when elements are joined */
+.cart-breadcrumb .breadcrumb {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Quantity input field with centered text and proper sizing */
-.qty_input {
-  width: 50px; /* Fixed width for consistent appearance */
-  text-align: center; /* Centers the quantity number */
-  font-weight: 600; /* Bold weight for clear number display */
-  border: none; /* No border - provided by parent container */
-  border-left: 1px solid #ced4da; /* Left border to separate from decrement button */
-  border-right: 1px solid #ced4da; /* Right border to separate from increment button */
-  outline: none; /* Removes browser default outline */
+.cart-breadcrumb .breadcrumb-item a {
+  color: #0080ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-/* Focus state for quantity input */
-.qty_input:focus {
-  box-shadow: none; /* Removes Bootstrap default focus shadow */
-  border-color: #007bff; /* Blue border on focus for visual feedback */
+.cart-breadcrumb .breadcrumb-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }
 
-/* Increment and decrement button styling */
-.qty-btn {
-  width: 35px; /* Fixed width for consistent button sizing */
-  height: 38px; /* Height matching input field for visual alignment */
-  display: flex; /* Flexbox for perfect icon centering */
-  align-items: center; /* Vertical centering of icons */
-  justify-content: center; /* Horizontal centering of icons */
-  border: none; /* No border - integrated with parent */
-  background: #f8f9fa; /* Light gray background for subtle appearance */
-  transition: all 0.2s ease; /* Smooth transition for all hover effects */
+.cart-breadcrumb .breadcrumb-item.active {
+  color: #6c757d;
+  font-weight: 600;
 }
 
-/* Hover state for quantity buttons */
-.qty-btn:hover {
-  background: #007bff; /* Blue background on hover for clear feedback */
-  color: white; /* White icon color for contrast against blue background */
+.cart-header {
+  margin-bottom: 3rem;
 }
 
-/* Disabled state for quantity buttons when at min/max limits */
-.qty-btn:disabled {
-  opacity: 0.5; /* Reduced opacity to indicate disabled state */
-  cursor: not-allowed; /* Cursor feedback for disabled interaction */
-  background: #f8f9fa; /* Maintains original background when disabled */
-  color: #6c757d; /* Muted text color for disabled state */
+.cart-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-title i {
+  color: #0080ff;
+  margin-right: 1rem;
+}
+
+.cart-subtitle {
+  font-size: 1.1rem;
+  color: #6c757d;
+  font-weight: 500;
+  margin-bottom: 0;
 }
 
 /* ========================================================================
-   3. ORDER SUMMARY PANEL
-   ========================================================================
-   
-   The order summary panel is crucial for building trust and transparency.
-   It provides a clear breakdown of costs and remains visible (sticky on
-   desktop) to help users make informed decisions throughout the process.
-   
-   Design Goals:
-   - Clear cost breakdown with visual hierarchy
-   - Sticky positioning on desktop for constant visibility
-   - Prominent total display to set clear expectations
-   - Free delivery messaging to encourage larger orders
+   3. CART ITEMS LIST & PRODUCT CARDS
    ======================================================================== */
 
-/* Main order summary container with elevated card styling */
-.order-summary-panel {
-  background: #fff; /* Clean white background for important financial information */
-  border-radius: 8px; /* Consistent rounded corners */
-  padding: 2rem; /* Generous padding for comfortable reading */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
-  border: 1px solid #e9ecef; /* Light border for definition */
-  position: sticky; /* Sticky positioning to keep visible during scroll */
-  top: 100px; /* Distance from top when sticky (accounts for header) */
+.cart-items-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-/* Order summary title styling */
-.summary-title {
-  color: #2c3e50; /* Dark color for strong heading hierarchy */
-  font-weight: 600; /* Semi-bold weight for section identification */
-  text-align: center; /* Centered alignment for balance */
-  margin-bottom: 1.5rem; /* Space below title */
-  padding-bottom: 1rem; /* Additional padding for visual separation */
-  border-bottom: 2px solid #e9ecef; /* Bottom border to separate from content */
+.cart-items-header {
+  background: linear-gradient(135deg, #0080ff 0%, #0056b3 100%);
+  color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 3px solid #004085;
 }
 
-/* Individual summary line containers (subtotal, delivery, etc.) */
-.summary-line {
-  display: flex; /* Flexbox for label-value alignment */
-  justify-content: space-between; /* Pushes label and value to opposite ends */
-  align-items: center; /* Vertical alignment of content */
-  padding: 0.75rem 0; /* Vertical padding for comfortable spacing */
-  border-bottom: 1px solid #f1f3f4; /* Subtle separator between lines */
+.cart-items-header h5,
+.cart-items-header h6 {
+  color: white;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Removes border from last summary line for clean appearance */
-.summary-line:last-child {
+.cart-items-list {
+  padding: 0;
+}
+
+.cart-item {
+  background: #fff;
+  border-bottom: 1px solid #e9ecef;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.cart-item:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item:last-child {
   border-bottom: none;
 }
 
-/* Labels for summary items (Subtotal, Delivery, etc.) */
-.summary-label {
-  color: #6c757d; /* Muted color for labels to emphasize values */
-  font-size: 1rem; /* Standard body font size */
+/* Product Image Styling */
+.product-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f8f9fa;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Values for summary items (actual prices and totals) */
-.summary-value {
-  color: #2c3e50; /* High contrast for important financial information */
-  font-weight: 600; /* Semi-bold to emphasize monetary values */
-  font-size: 1rem; /* Consistent with labels for balanced appearance */
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
 }
 
-/* Special styling for the final total line */
+.product-image:hover {
+  transform: scale(1.05);
+}
+
+.product-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  color: #6c757d;
+  font-size: 2rem;
+  border-radius: 8px;
+}
+
+/* Product Information */
+.product-info {
+  padding-right: 1rem;
+}
+
+.product-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.product-link {
+  color: #2c3e50;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.product-link:hover {
+  color: #0080ff;
+  text-decoration: underline;
+}
+
+.product-description {
+  color: #6c757d;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+.product-sku,
+.product-category {
+  color: #868e96;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.product-sku i,
+.product-category i {
+  color: #0080ff;
+  margin-right: 0.25rem;
+}
+
+/* Price Section */
+.price-section {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.price-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.price-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #28a745;
+  display: block;
+}
+
+/* ========================================================================
+   4. QUANTITY CONTROLS & INTERACTIVE ELEMENTS
+   ======================================================================== */
+
+.quantity-section {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.quantity-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.quantity-controls:focus-within {
+  border-color: #0080ff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.quantity-btn {
+  background: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #495057;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.quantity-btn .btn-text {
+  display: inline-block;
+  line-height: 1;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: inherit;
+  user-select: none;
+}
+
+/* Hide FontAwesome icons by default, let text show */
+.quantity-btn .fas {
+  display: none;
+}
+
+.quantity-btn:hover:not(:disabled) {
+  background: #0080ff;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 128, 255, 0.3);
+}
+
+.quantity-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #e9ecef;
+  color: #adb5bd;
+}
+
+.quantity-input {
+  border: none;
+  background: transparent;
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2c3e50;
+  outline: none;
+  border-left: 1px solid #e9ecef;
+  border-right: 1px solid #e9ecef;
+}
+
+.quantity-input:focus {
+  background: rgba(0, 128, 255, 0.05);
+  color: #0080ff;
+}
+
+.quantity-actions {
+  text-align: center;
+}
+
+.btn-update {
+  background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-update:hover {
+  background: linear-gradient(135deg, #138496 0%, #117a8b 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+/* Subtotal Section */
+.subtotal-section {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.subtotal-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.subtotal-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #2c3e50;
+  display: block;
+}
+
+/* Remove Button */
+.remove-section {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.btn-remove {
+  background: transparent;
+  color: #dc3545;
+  border: 2px solid #dc3545;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-remove:hover {
+  background: #dc3545;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-remove i {
+  margin-right: 0.5rem;
+}
+
+/* Continue Shopping */
+.continue-shopping-section {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid #e9ecef;
+  background: #f8f9fa;
+}
+
+.btn-continue-shopping {
+  background: transparent;
+  color: #0080ff;
+  border: 2px solid #0080ff;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-continue-shopping:hover {
+  background: #0080ff;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 128, 255, 0.3);
+}
+
+/* ========================================================================
+   5. ORDER SUMMARY PANEL
+   ======================================================================== */
+
+.order-summary {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.order-summary-header {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 1.5rem 2rem;
+}
+
+.summary-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.summary-title i {
+  margin-right: 0.5rem;
+}
+
+.order-summary-content {
+  padding: 2rem;
+}
+
+.price-breakdown {
+  margin-bottom: 2rem;
+}
+
+.price-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f3f4;
+}
+
+.price-line:last-child {
+  border-bottom: none;
+}
+
+.price-label {
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.price-value {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
 .total-line {
-  border-top: 2px solid #e9ecef; /* Stronger top border for visual separation */
-  margin-top: 1rem; /* Additional space above total */
-  padding-top: 1rem; /* Padding to separate from border */
+  border-top: 2px solid #e9ecef;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  background: rgba(0, 128, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
 }
 
-/* Enhanced styling for total line label and value */
-.total-line .summary-label,
-.total-line .summary-value {
-  font-size: 1.2rem; /* Larger font size for final total prominence */
-  color: #2c3e50; /* Both label and value use high contrast color */
+.total-line .price-label,
+.total-line .price-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0080ff;
 }
 
-/* Horizontal divider for visual separation */
 .summary-divider {
-  margin: 1rem 0; /* Vertical margin for spacing */
-  border-color: #e9ecef; /* Consistent border color */
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #e9ecef 50%, transparent 100%);
+  margin: 1.5rem 0;
 }
 
-/* Free delivery promotional message styling */
-.free-delivery-message {
-  background: #d1ecf1; /* Light cyan background for positive messaging */
-  border: 1px solid #bee5eb; /* Matching border color */
-  border-radius: 4px; /* Rounded corners for consistency */
-  padding: 0.75rem 1rem; /* Comfortable padding for message text */
-  text-align: center; /* Centered text for emphasis */
+/* Free Shipping Notice */
+.free-shipping-notice {
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  border: 1px solid #17a2b8;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin: 1rem 0;
+  color: #0c5460;
+  font-weight: 600;
+}
+
+.free-shipping-notice i {
+  color: #17a2b8;
+  margin-right: 0.5rem;
+}
+
+.progress {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #17a2b8 0%, #20c997 100%);
+  border-radius: 4px;
+  transition: width 0.6s ease;
 }
 
 /* ========================================================================
-   4. CHECKOUT CTA & ACTION BUTTONS
-   ========================================================================
-   
-   The checkout section contains the most important conversion elements.
-   These styles ensure the primary CTA (checkout) is prominent while
-   secondary actions (continue shopping) remain accessible but less dominant.
-   
-   Design Goals:
-   - Prominent checkout button that drives conversions
-   - Clear visual hierarchy between primary and secondary actions
-   - Trust indicators (security icons) to reduce checkout anxiety
-   - Responsive button sizing for all devices
+   6. TRUST INDICATORS & CHECKOUT ACTIONS
    ======================================================================== */
 
-/* Container for all checkout action buttons */
+.trust-indicators {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(40, 167, 69, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  color: #155724;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.trust-item i {
+  color: #28a745;
+  margin-right: 0.75rem;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
 .checkout-actions {
-  margin-top: 2rem; /* Space above actions for visual separation */
+  margin-top: 2rem;
 }
 
-/* Primary checkout button styling - the main conversion driver */
-.checkout-btn {
-  background: #28a745; /* Success green to indicate positive action */
-  border-color: #28a745; /* Matching border color */
-  font-weight: 600; /* Semi-bold text for prominence */
-  font-size: 1.1rem; /* Slightly larger text for importance */
-  padding: 0.875rem; /* Generous padding for better click targets */
-  transition: all 0.3s ease; /* Smooth transitions for all hover effects */
+.btn-checkout {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
 }
 
-/* Checkout button hover state with enhanced visual feedback */
-.checkout-btn:hover {
-  background: #218838; /* Darker green on hover */
-  border-color: #1e7e34; /* Matching darker border */
-  transform: translateY(-1px); /* Subtle lift effect for interaction feedback */
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); /* Enhanced shadow for depth */
+.btn-checkout:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
 }
 
-/* Secondary continue shopping button styling */
-.continue-shopping-btn {
-  font-weight: 500; /* Medium weight for secondary importance */
-  color: #6c757d; /* Muted color to indicate secondary action */
-  border-color: #6c757d; /* Matching border color for consistency */
-  transition: all 0.3s ease; /* Smooth hover transitions */
+.btn-checkout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
 }
 
-/* Continue shopping button hover state */
-.continue-shopping-btn:hover {
-  background: #6c757d; /* Fill background on hover for clear feedback */
-  color: white; /* White text for contrast against filled background */
-  border-color: #6c757d; /* Maintain consistent border color */
+.btn-checkout:hover::before {
+  left: 100%;
+}
+
+.checkout-btn-subtext {
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.9;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-top: 0.25rem;
+}
+
+.payment-methods {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.payment-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.payment-icons i {
+  font-size: 1.5rem;
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.payment-icons i:hover {
+  color: #0080ff;
 }
 
 /* ========================================================================
-   5. CROSS-SELLING SECTION
-   ========================================================================
-   
-   The cross-selling section implements the "Explore More Items" feature
-   mentioned in the wireframe. This area encourages users to discover
-   additional CNC-related products, accessories, or complementary items
-   before completing their purchase, potentially increasing order value.
-   
-   Design Goals:
-   - Non-intrusive placement that doesn't disrupt checkout flow
-   - Clear section identification with appropriate spacing
-   - Placeholder structure ready for dynamic content integration
-   - Consistent styling with overall page design
+   7. RECOMMENDATIONS SECTION
    ======================================================================== */
 
-/* Main cross-selling section container */
-.cross-selling-section {
-  background: #f8f9fa; /* Light background to distinguish from main content */
-  border-radius: 8px; /* Consistent rounded corners */
-  padding: 2rem; /* Generous padding for content breathing room */
-  border: 1px solid #e9ecef; /* Subtle border for section definition */
+.recommendations-section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  overflow: hidden;
 }
 
-/* Cross-selling section title */
-.cross-selling-section .section-title {
-  color: #2c3e50; /* High contrast color for clear section identification */
-  font-weight: 600; /* Semi-bold weight for heading hierarchy */
-  text-align: center; /* Centered alignment for balanced appearance */
-  margin-bottom: 2rem; /* Space below title for content separation */
+.recommendations-title {
+  background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Placeholder content area for future product recommendations */
-.cross-sell-placeholder {
-  background: white; /* Clean white background for placeholder content */
-  border-radius: 4px; /* Slightly smaller radius for nested elements */
-  padding: 3rem 2rem; /* Large padding to create substantial placeholder area */
-  border: 2px dashed #dee2e6; /* Dashed border to indicate placeholder status */
+.recommendations-placeholder {
+  padding: 2rem;
+  text-align: center;
+}
+
+.recommendation-item {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.recommendation-item i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #dee2e6;
 }
 
 /* ========================================================================
-   6. EMPTY CART STATE
-   ========================================================================
-   
-   The empty cart state handles the scenario when users have no items
-   in their cart. This state should be welcoming rather than frustrating,
-   guiding users toward productive actions while maintaining brand consistency.
-   
-   Design Goals:
-   - Clear but friendly indication of empty state
-   - Prominent call-to-action to start shopping
-   - Consistent visual styling with rest of application
-   - Accessible and encouraging messaging
+   8. EMPTY CART STATE
    ======================================================================== */
 
-/* Main container for empty cart messaging and actions */
+.empty-cart-state {
+  min-height: 70vh;
+  padding: 2rem 1rem;
+}
+
+.empty-cart-state .row {
+  width: 100%;
+  max-width: none;
+}
+
+.empty-cart-state .col-lg-6,
+.empty-cart-state .col-md-8 {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+
+.empty-cart-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 4rem 3rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  min-width: 80vw;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.empty-cart-icon {
+  margin-bottom: 2rem;
+}
+
+.empty-cart-icon i {
+  font-size: 4rem;
+  color: #dee2e6;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.empty-cart-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
 .empty-cart-message {
-  background: #f8f9fa; /* Light background for gentle, non-alarming appearance */
-  border-radius: 8px; /* Consistent rounded corners throughout application */
-  padding: 4rem 2rem; /* Large padding for spacious, welcoming layout */
-  border: 1px solid #e9ecef; /* Subtle border for container definition */
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 2rem;
 }
 
-/* Icon styling within empty cart message */
-.empty-cart-message .fas {
-  opacity: 0.5; /* Reduced opacity for subtle, non-threatening icon appearance */
+.btn-explore-products {
+  background: linear-gradient(135deg, #0080ff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(0, 128, 255, 0.3);
 }
 
-/* Lead text styling for empty cart message */
-.empty-cart-message .lead {
-  color: #6c757d; /* Muted color for friendly rather than harsh messaging */
-  font-size: 1.375rem; /* Large enough to be clearly readable and prominent */
+.btn-explore-products:hover {
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4);
 }
 
-/* ========================================================================
-   7. MOBILE RESPONSIVE DESIGN
-   ========================================================================
-   
-   Mobile responsiveness is critical for cart functionality as many users
-   complete purchases on mobile devices. These styles ensure the cart
-   remains fully functional and visually appealing across all screen sizes.
-   
-   Responsive Strategy:
-   - Large screens: Side-by-side layout with sticky summary panel
-   - Medium screens: Stack summary panel below cart items
-   - Small screens: Optimize spacing and touch targets
-   - Extra small screens: Minimize padding while maintaining usability
-   ======================================================================== */
-
-/* Tablet and smaller desktop breakpoint adjustments */
-@media (max-width: 991.98px) {
-  /* Remove sticky positioning on smaller screens to prevent layout issues */
-  .order-summary-panel {
-    position: relative; /* Switch from sticky to normal positioning */
-    top: 0; /* Reset top position */
-    margin-top: 2rem; /* Add margin to separate from cart items */
-  }
+.featured-categories {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e9ecef;
 }
 
-/* Mobile phone landscape and smaller tablet adjustments */
-@media (max-width: 767.98px) {
-  /* Reduce padding in cart items section for more screen real estate */
-  .cart-items-section {
-    padding: 1rem; /* Reduced from 1.5rem for mobile space optimization */
-  }
-
-  /* Reduce padding in individual cart item blocks */
-  .cart-item-block {
-    padding: 1rem; /* Reduced from 1.5rem for mobile optimization */
-  }
-
-  /* Smaller product images on mobile to save space */
-  .cart-product-image {
-    max-width: 80px; /* Reduced from 100px for mobile layout */
-  }
-
-  /* Adjust product name font size for mobile readability */
-  .cart-product-info .product-name {
-    font-size: 1rem; /* Reduced from 1.1rem for mobile screens */
-  }
-
-  /* Convert price labels from block to inline for mobile layout efficiency */
-  .price-label,
-  .subtotal-label {
-    display: inline; /* Change from block to inline for horizontal layout */
-    margin-right: 0.5rem; /* Right margin instead of bottom margin */
-    margin-bottom: 0; /* Remove bottom margin for inline layout */
-  }
-
-  /* Adjust price and subtotal alignment for mobile */
-  .item-price,
-  .item-subtotal {
-    text-align: left; /* Left align instead of center for mobile reading flow */
-    margin-top: 0.5rem; /* Top margin for separation from other elements */
-  }
-
-  /* Reduce quantity control size for mobile touch targets */
-  .qty-input-group {
-    max-width: 100px; /* Reduced from 120px for mobile space efficiency */
-  }
-
-  /* Narrower quantity input for mobile */
-  .qty_input {
-    width: 40px; /* Reduced from 50px for mobile layout */
-  }
-
-  /* Smaller quantity buttons for mobile */
-  .qty-btn {
-    width: 30px; /* Reduced from 35px for mobile */
-    height: 32px; /* Reduced from 38px for mobile */
-  }
-
-  /* Reduce order summary padding for mobile */
-  .order-summary-panel {
-    padding: 1.5rem; /* Reduced from 2rem for mobile optimization */
-  }
-
-  /* Reduce cross-selling section padding for mobile */
-  .cross-selling-section {
-    padding: 1.5rem; /* Reduced from 2rem for mobile */
-  }
-
-  /* Adjust cross-sell placeholder for mobile */
-  .cross-sell-placeholder {
-    padding: 2rem 1rem; /* Reduced padding for mobile screens */
-  }
+.featured-categories h4 {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-/* Extra small mobile phone adjustments */
-@media (max-width: 575.98px) {
-  /* Further reduce cart item padding for very small screens */
-  .cart-item-block {
-    padding: 0.75rem; /* Minimal padding while maintaining usability */
-  }
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
 
-  /* Adjust button sizing for small mobile screens */
-  .checkout-btn,
-  .continue-shopping-btn {
-    font-size: 1rem; /* Reduced from 1.1rem for small screens */
-    padding: 0.75rem; /* Reduced padding for small screen optimization */
-  }
+.category-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-decoration: none;
+  color: #495057;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120px;
+  justify-content: center;
+}
 
-  /* Tighter summary line spacing for small screens */
-  .summary-line {
-    padding: 0.5rem 0; /* Reduced from 0.75rem for space efficiency */
-  }
+.category-card:hover {
+  background: #0080ff;
+  border-color: #0080ff;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 128, 255, 0.3);
+}
 
-  /* Center item actions on very small screens for better thumb access */
-  .item-actions {
-    text-align: center; /* Center align for easier mobile interaction */
-    margin-top: 0.75rem; /* Top margin for visual separation */
-  }
+.category-card i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.category-card span {
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 /* ========================================================================
-   LOADING AND STATE MANAGEMENT
-   ========================================================================
-   
-   These styles handle dynamic states during cart operations like updating
-   quantities or removing items. They provide visual feedback to users
-   during AJAX operations and prevent multiple simultaneous actions.
-   
-   State Goals:
-   - Clear visual indication during processing
-   - Prevention of accidental multiple clicks
-   - Smooth transitions that don't disrupt user experience
-   - Consistent feedback across all cart operations
+   9. LOADING STATES & ANIMATIONS
    ======================================================================== */
 
-/* General updating state for any cart operation in progress */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.loading-overlay.show {
+  display: flex;
+}
+
+.loading-spinner {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.loading-spinner i {
+  font-size: 2rem;
+  color: #0080ff;
+  margin-bottom: 1rem;
+}
+
+.loading-spinner p {
+  color: #6c757d;
+  font-weight: 600;
+  margin: 0;
+}
+
 .updating {
-  opacity: 0.6; /* Reduce opacity to indicate processing state */
-  pointer-events: none; /* Disable all interactions during processing */
-}
-
-/* Specific styling for cart item blocks during updates */
-.cart-item-block.updating {
-  background: #e9ecef; /* Gray background to clearly indicate updating state */
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 /* ========================================================================
-   ACCESSIBILITY AND ENHANCEMENT FEATURES
-   ========================================================================
-   
-   Additional styles to ensure the cart is accessible to all users and
-   provides enhanced experiences where possible. These styles improve
-   usability for keyboard navigation, screen readers, and users with
-   different abilities or preferences.
-   
-   Accessibility Goals:
-   - Clear focus states for keyboard navigation
-   - High contrast colors for visibility
-   - Appropriate sizing for touch targets
-   - Semantic color usage for different action types
+   10. RESPONSIVE DESIGN (Mobile-First)
    ======================================================================== */
 
-/* Enhanced focus states for better keyboard navigation accessibility */
-.qty-btn:focus,
-.checkout-btn:focus,
-.continue-shopping-btn:focus {
-  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Blue focus ring */
-  outline: none; /* Remove browser default outline */
-}
-
-/* Focus state for quantity input */
-.qty_input:focus {
-  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Consistent focus ring */
-}
-
-/* Print styles for cart page (useful for order confirmation) */
-@media print {
-  .checkout-actions,
-  .cross-selling-section {
-    display: none; /* Hide action buttons and cross-sell when printing */
+/* Tablet Styles */
+@media (max-width: 991.98px) {
+  .order-summary {
+    position: relative;
+    top: 0;
+    max-height: none;
+    margin-top: 2rem;
   }
 
-  .order-summary-panel {
-    position: static; /* Remove sticky positioning for print */
-    box-shadow: none; /* Remove shadows for clean print appearance */
+  .cart-title {
+    font-size: 2rem;
+  }
+
+  .cart-items-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .cart-item {
+    padding: 1.5rem;
+  }
+
+  .trust-indicators {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .empty-cart-content {
+    min-width: 90vw;
+    max-width: 90vw;
+    padding: 3rem 2rem;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 }
 
-/* High contrast mode support for accessibility */
+/* Mobile Styles */
+@media (max-width: 767.98px) {
+  .cart-page-wrapper {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .cart-title {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+
+  .cart-title i {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-item {
+    padding: 1rem;
+  }
+
+  .product-info {
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .product-name {
+    font-size: 1.1rem;
+  }
+
+  .price-section,
+  .quantity-section,
+  .subtotal-section {
+    text-align: left;
+    padding: 0.5rem 0;
+  }
+
+  .price-label,
+  .quantity-label,
+  .subtotal-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: #495057;
+  }
+
+  .quantity-controls {
+    justify-content: flex-start;
+    max-width: 140px;
+  }
+
+  .remove-section {
+    text-align: left;
+    margin-top: 1rem;
+  }
+
+  .btn-remove {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .order-summary-content {
+    padding: 1.5rem;
+  }
+
+  .trust-indicators {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-checkout {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .payment-icons {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .continue-shopping-section {
+    padding: 1.5rem 1rem;
+  }
+
+  .empty-cart-content {
+    padding: 3rem 1.5rem;
+    min-width: 95vw;
+    max-width: 95vw;
+  }
+
+  .empty-cart-title {
+    font-size: 1.75rem;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .category-card {
+    padding: 1.5rem 1rem;
+    min-height: 100px;
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 575.98px) {
+  .cart-breadcrumb .breadcrumb {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .cart-title {
+    font-size: 1.5rem;
+  }
+
+  .product-image-wrapper {
+    max-width: 100px;
+    margin: 0 auto;
+  }
+
+  .quantity-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .quantity-input {
+    width: 50px;
+    height: 35px;
+  }
+
+  .btn-checkout {
+    font-size: 0.95rem;
+    padding: 0.875rem;
+  }
+
+  .empty-cart-content {
+    min-width: 98vw;
+    max-width: 98vw;
+    padding: 2rem 1rem;
+  }
+
+  .empty-cart-title {
+    font-size: 1.5rem;
+  }
+
+  .featured-categories h4 {
+    font-size: 1.3rem;
+  }
+}
+
+/* ========================================================================
+   11. ACCESSIBILITY FEATURES
+   ======================================================================== */
+
+/* Focus States */
+.quantity-btn:focus,
+.btn-update:focus,
+.btn-remove:focus,
+.btn-checkout:focus,
+.btn-continue-shopping:focus,
+.btn-explore-products:focus {
+  outline: 3px solid #0080ff;
+  outline-offset: 2px;
+}
+
+.quantity-input:focus {
+  outline: 2px solid #0080ff;
+  outline-offset: 1px;
+}
+
+/* High Contrast Mode */
 @media (prefers-contrast: high) {
-  .cart-item-block {
-    border-width: 2px; /* Thicker borders for high contrast mode */
+  .cart-item {
+    border: 2px solid #000;
   }
 
-  .qty-btn {
-    border: 2px solid #000; /* High contrast borders for buttons */
+  .quantity-controls {
+    border-width: 3px;
+  }
+
+  .btn-checkout,
+  .btn-explore-products {
+    border: 2px solid #000;
   }
 }
 
-/* Reduced motion preferences for users sensitive to animations */
+/* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .cart-item-block,
-  .qty-btn,
-  .checkout-btn,
-  .continue-shopping-btn {
-    transition: none; /* Remove all transitions for reduced motion preference */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .checkout-btn:hover {
-    transform: none; /* Remove hover lift effect */
+  .loading-spinner i {
+    animation: none;
+  }
+
+  .empty-cart-icon i {
+    animation: none;
+  }
+}
+
+/* ========================================================================
+   12. PRINT STYLES
+   ======================================================================== */
+
+@media print {
+  .cart-breadcrumb,
+  .checkout-actions,
+  .recommendations-section,
+  .continue-shopping-section,
+  .loading-overlay,
+  .quantity-actions,
+  .remove-section {
+    display: none !important;
+  }
+
+  .cart-page-wrapper {
+    background: white;
+    box-shadow: none;
+  }
+
+  .cart-item,
+  .order-summary {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .cart-title {
+    color: #000;
+  }
+
+  .price-value,
+  .subtotal-value {
+    color: #000;
   }
 }
