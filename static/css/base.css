@@ -20,6 +20,66 @@
    1. BASE & GLOBAL STYLES
    ======================================================================== */
 
+/* Hide any floating debug tools, browser extensions, or inspector elements.
+Also hide any blue circle/dot indicators.*/
+*[class*="debug"],
+*[id*="debug"],
+*[class*="inspect"],
+*[id*="inspect"],
+*[class*="extension"],
+*[id*="extension"],
+*[class*="chrome"],
+*[id*="chrome"],
+*[class*="devtools"],
+*[id*="devtools"],
+*[class*="floating"],
+*[id*="floating"],
+div[style*="position: fixed"][style*="z-index"],
+div[style*="position: absolute"][style*="z-index: 999"],
+[data-extension],
+[data-debug],
+.vscode-light,
+.vscode-dark,
+.__react-devtools-container,
+[class*="__"],
+[id*="__"],
+/* Common browser extension and dev tool indicators */
+*[class*="live-server"],
+*[id*="live-server"],
+*[class*="browser-sync"],
+*[id*="browser-sync"],
+.chrome-extension-mutated,
+*[class*="responsively"],
+*[id*="responsively"],
+*[class*="pixel-perfect"],
+*[id*="pixel-perfect"],
+/* Hide any blue circle/dot indicators */
+div[style*="background: blue"],
+div[style*="background-color: blue"],
+div[style*="background: #"],
+div[style*="border-radius: 50%"][style*="position: fixed"],
+div[style*="border-radius: 100%"][style*="position: fixed"],
+span[style*="border-radius: 50%"][style*="position: fixed"],
+/* Hide Cursor.so or similar tools */
+*[class*="cursor"],
+*[id*="cursor"],
+*[data-cursor],
+/* Hide any dynamically injected inspection indicators */
+div[style*="position: fixed"][style*="top: 0"][style*="right: 0"],
+div[style*="position: absolute"][style*="top: 0"][style*="right: 0"],
+div[style*="width: 20px"][style*="height: 20px"][style*="border-radius"],
+span[style*="width: 20px"][style*="height: 20px"][style*="border-radius"],
+/* Hide responsive design testing tools */
+*[data-responsive],
+*[class*="responsive-indicator"],
+*[id*="responsive-indicator"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
 /* Primary font and typography settings for entire site */
 body {
   font-family: "Roboto", sans-serif; /* Professional, clean font for CNC industry */
@@ -142,6 +202,31 @@ small,
 /* ========================================================================
    3. HEADER & NAVIGATION STYLES
    ======================================================================== */
+
+/* Remove any injected pseudo-elements that might create blue circles */
+header::before,
+header::after,
+.navbar::before,
+.navbar::after,
+.container-fluid::before,
+.container-fluid::after,
+nav::before,
+nav::after {
+  display: none !important;
+  content: none !important;
+  visibility: hidden !important;
+}
+
+/* Clean up header container and ensure proper styling */
+header.container-fluid.fixed-top {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1030 !important;
+  background: white !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
 
 /* Main navigation brand logo styling */
 .navbar-brand {
