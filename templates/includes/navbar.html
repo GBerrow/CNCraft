@@ -146,29 +146,18 @@
           </ul>
         </li>
 
-        <!-- Shopping Cart - Show everywhere except cart page -->
-        {% if request.resolver_match.url_name != 'view_cart' %}
-        <li class="nav-item">
-          <a class="nav-link d-flex align-items-center" href="{% url 'view_cart' %}">
-            <i class="fas fa-shopping-cart me-1"></i>
-            <span class="d-none d-lg-inline">Cart</span>
-            {% if grand_total and product_count > 0 %}
-            <span class="badge bg-primary rounded-pill ms-2">{{ product_count }}</span>
+        <!-- Shopping Cart - Always show -->
+        <li class="nav-item position-relative">
+          <a class="nav-link" href="{% url 'view_cart' %}">
+            <i class="fas fa-shopping-cart"></i>
+            Cart
+            {% if product_count > 0 %}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                {{ product_count }}
+              </span>
             {% endif %}
           </a>
         </li>
-        {% else %}
-        <!-- Current Page: Cart -->
-        <li class="nav-item">
-          <span class="nav-link text-primary fw-bold d-flex align-items-center" style="border-bottom: 2px solid #007bff; padding-bottom: 4px; cursor: default;">
-            <i class="fas fa-shopping-cart me-1"></i>
-            <span class="d-none d-lg-inline">Cart</span>
-            {% if grand_total and product_count > 0 %}
-            <span class="badge bg-primary rounded-pill ms-2">{{ product_count }}</span>
-            {% endif %}
-          </span>
-        </li>
-        {% endif %}
       </ul>
     </div>
   </div>
