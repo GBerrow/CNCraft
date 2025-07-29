@@ -1,284 +1,387 @@
-{% extends "base.html" %} {% load static %} {% block page_header %}
-<div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
-</div>
-{% endblock %} {% block content %}
-<div class="overlay"></div>
-<div class="container mb-4">
-  <div class="row">
-    <div class="col">
-      <hr />
-      <h2 class="logo-font mb-4">Shopping Cart</h2>
-      <hr />
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}| Your Cart{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="page-header-spacer"></div>
+{% endblock %}
+
+{% block content %}
+<div class="cart-page-wrapper">
+  <div class="container-fluid px-3 px-lg-5">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="cart-breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'products' %}">Products</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+      </ol>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="cart-header text-center mb-5">
+      <h1 class="cart-title">
+        <i class="fas fa-shopping-cart me-3"></i>
+        Your Shopping Cart
+      </h1>
+      {% if cart_items %}
+        <p class="cart-subtitle">{{ cart_items|length }} item{{ cart_items|length|pluralize }} in your cart</p>
+      {% endif %}
     </div>
-  </div>
 
-  {% if cart_items %}
-  <div class="row">
-    <!-- Cart Items Section -->
-    <div class="col-lg-8">
-      <div class="cart-items-section">
-        {% for item in cart_items %}
-        <div class="cart-item-block mb-4">
-          <div class="row align-items-center">
-            <!-- Product Image -->
-            <div class="col-md-3 col-4">
-              <div class="cart-product-image-container">
-                {% if item.product.image %}
-                <img
-                  class="cart-product-image img-fluid"
-                  src="{{ item.product.image.url }}"
-                  alt="{{ item.product.name }}"
-                />
-                {% else %}
-                <img
-                  class="cart-product-image img-fluid"
-                  src="{{ MEDIA_URL }}noimage.png"
-                  alt="{{ item.product.name }}"
-                />
-                {% endif %}
+    {% if cart_items %}
+    <div class="row g-4">
+      <!-- Main Cart Items Section -->
+      <div class="col-lg-8">
+        <div class="cart-items-container">
+          <!-- Cart Items Header (Desktop Only) -->
+          <div class="cart-items-header d-none d-md-block">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h5 class="mb-0">Product Details</h5>
+              </div>
+              <div class="col-md-2 text-center">
+                <h6 class="mb-0">Price</h6>
+              </div>
+              <div class="col-md-2 text-center">
+                <h6 class="mb-0">Quantity</h6>
+              </div>
+              <div class="col-md-2 text-center">
+                <h6 class="mb-0">Subtotal</h6>
               </div>
             </div>
+          </div>
 
-            <!-- Product Info -->
-            <div class="col-md-4 col-8">
-              <div class="cart-product-info">
-                <h6 class="product-name">{{ item.product.name }}</h6>
-                <p class="product-details mb-1">
-                  {% if item.product.dimensions %}
-                  <strong>Size:</strong> {{ item.product.dimensions }} {% else
-                  %} <strong>Size:</strong> N/A {% endif %}
-                </p>
-                <p class="product-sku text-muted small mb-0">
-                  SKU: {{ item.product.sku|upper }}
-                </p>
-              </div>
-            </div>
+          <!-- Cart Items List -->
+          <div class="cart-items-list" role="list">
+            {% for item in cart_items %}
+            <article class="cart-item" role="listitem" data-product-id="{{ item.product.id }}">
+              <div class="row align-items-center g-3">
+                <!-- Product Image -->
+                <div class="col-12 col-md-2">
+                  <div class="product-image-wrapper">
+                    {% if item.product.image %}
+                      <img src="{{ item.product.image.url }}" 
+                           alt="{{ item.product.name }}" 
+                           class="product-image"
+                           loading="lazy" />
+                    {% else %}
+                      <div class="product-image-placeholder">
+                        <i class="fas fa-image"></i>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
 
-            <!-- Price -->
-            <div class="col-md-2 col-6 text-center">
-              <div class="item-price">
-                <span class="price-label d-md-none">Price:</span>
-                <span class="price-value"
-                  >${{ item.product.get_display_price }}</span
-                >
-              </div>
-            </div>
+                <!-- Product Information -->
+                <div class="col-12 col-md-4">
+                  <div class="product-info">
+                    <h3 class="product-name">
+                      <a href="{% url 'product_detail' item.product.id %}" 
+                         class="product-link">
+                        {{ item.product.name }}
+                      </a>
+                    </h3>
+                    <p class="product-description">
+                      {{ item.product.description|truncatechars:80 }}
+                    </p>
+                    <div class="product-meta">
+                      <span class="product-sku">
+                        <i class="fas fa-barcode me-1"></i>
+                        SKU: {{ item.product.sku }}
+                      </span>
+                      {% if item.product.category %}
+                        <span class="product-category">
+                          <i class="fas fa-tag me-1"></i>
+                          {{ item.product.category.friendly_name }}
+                        </span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
 
-            <!-- Quantity Controls -->
-            <div class="col-md-2 col-6">
-              <div class="quantity-section">
-                <form
-                  class="form update-form"
-                  method="POST"
-                  action="{% url 'adjust_cart' item.product.id %}"
-                >
-                  {% csrf_token %}
-                  <div class="qty-input-group">
-                    <button
-                      class="qty-btn decrement-qty btn btn-sm btn-outline-secondary"
-                      data-item_id="{{ item.product.id }}"
-                      id="decrement-qty_{{ item.product.id }}"
-                      type="button"
-                    >
-                      <i class="fas fa-minus fa-sm"></i>
-                    </button>
-                    <input
-                      class="qty_input form-control form-control-sm"
-                      type="number"
-                      name="quantity"
-                      value="{{ item.quantity }}"
-                      min="1"
-                      max="99"
-                      data-item_id="{{ item.product.id }}"
-                      id="id_qty_{{ item.product.id }}"
-                    />
-                    <button
-                      class="qty-btn increment-qty btn btn-sm btn-outline-secondary"
-                      data-item_id="{{ item.product.id }}"
-                      id="increment-qty_{{ item.product.id }}"
-                      type="button"
-                    >
-                      <i class="fas fa-plus fa-sm"></i>
+                <!-- Price (Mobile: Full Width, Desktop: Column) -->
+                <div class="col-6 col-md-2">
+                  <div class="price-section">
+                    <div class="price-label d-md-none">Price</div>
+                    <div class="price-value">${{ item.product.price|floatformat:2 }}</div>
+                  </div>
+                </div>
+
+                <!-- Quantity Controls -->
+                <div class="col-6 col-md-2">
+                  <div class="quantity-section">
+                    <div class="quantity-label d-md-none">Quantity</div>
+                    <form class="quantity-form" method="POST" action="{% url 'adjust_cart' item.product.id %}">
+                      {% csrf_token %}
+                      <div class="quantity-controls" role="group" aria-label="Quantity controls for {{ item.product.name }}">
+                        <button type="button" 
+                                class="quantity-btn quantity-decrease" 
+                                aria-label="Decrease quantity"
+                                data-product-id="{{ item.product.id }}">
+                          <i class="fas fa-minus"></i>
+                          <span class="btn-text">−</span>
+                        </button>
+                        <input type="number" 
+                               name="quantity" 
+                               value="{{ item.quantity }}" 
+                               min="1" 
+                               max="99" 
+                               class="quantity-input" 
+                               aria-label="Quantity for {{ item.product.name }}"
+                               data-product-id="{{ item.product.id }}" />
+                        <button type="button" 
+                                class="quantity-btn quantity-increase" 
+                                aria-label="Increase quantity"
+                                data-product-id="{{ item.product.id }}">
+                          <i class="fas fa-plus"></i>
+                          <span class="btn-text">+</span>
+                        </button>
+                      </div>
+                      <div class="quantity-actions">
+                        <button type="submit" class="btn-update" aria-label="Update quantity">
+                          <i class="fas fa-sync-alt me-1"></i>Update
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- Subtotal -->
+                <div class="col-6 col-md-2">
+                  <div class="subtotal-section">
+                    <div class="subtotal-label d-md-none">Subtotal</div>
+                    <div class="subtotal-value" data-product-id="{{ item.product.id }}">
+                      ${{ item.subtotal|floatformat:2 }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Remove Button (Mobile: Full Width) -->
+                <div class="col-6 col-md-12">
+                  <div class="remove-section">
+                    <button type="button" 
+                            class="btn-remove" 
+                            data-product-id="{{ item.product.id }}"
+                            aria-label="Remove {{ item.product.name }} from cart">
+                      <i class="fas fa-trash-alt me-1"></i>
+                      <span>Remove Item</span>
                     </button>
                   </div>
-                </form>
+                </div>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+
+          <!-- Continue Shopping Section -->
+          <div class="continue-shopping-section">
+            <a href="{% url 'products' %}" class="btn-continue-shopping">
+              <i class="fas fa-arrow-left me-2"></i>
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary Sidebar -->
+      <div class="col-lg-4">
+        <aside class="order-summary" role="complementary" aria-label="Order Summary">
+          <div class="order-summary-header">
+            <h2 class="summary-title">
+              <i class="fas fa-receipt me-2"></i>
+              Order Summary
+            </h2>
+          </div>
+
+          <div class="order-summary-content">
+            <!-- Price Breakdown -->
+            <div class="price-breakdown">
+              <div class="price-line">
+                <span class="price-label">Subtotal ({{ cart_items|length }} item{{ cart_items|length|pluralize }})</span>
+                <span class="price-value" id="cart-subtotal">${{ total|floatformat:2 }}</span>
+              </div>
+              
+              <div class="price-line">
+                <span class="price-label">
+                  Shipping
+                  <i class="fas fa-info-circle ms-1" 
+                     data-bs-toggle="tooltip" 
+                     title="Free shipping on orders over ${{ free_delivery_threshold }}"></i>
+                </span>
+                <span class="price-value" id="cart-delivery">
+                  {% if delivery > 0 %}
+                    ${{ delivery|floatformat:2 }}
+                  {% else %}
+                    <span class="text-success">FREE</span>
+                  {% endif %}
+                </span>
+              </div>
+
+              {% if free_delivery_delta > 0 %}
+              <div class="free-shipping-notice">
+                <i class="fas fa-truck me-2"></i>
+                <strong>Add ${{ free_delivery_delta|floatformat:2 }} more for FREE shipping!</strong>
+                                 <div class="progress mt-2">
+                   <div class="progress-bar" 
+                        role="progressbar" 
+                        style="width: 0%"
+                        data-current="{{ total|floatformat:0 }}"
+                        data-threshold="{{ free_delivery_threshold }}"
+                        aria-valuenow="{{ total|floatformat:0 }}" 
+                        aria-valuemin="0" 
+                        aria-valuemax="{{ free_delivery_threshold }}">
+                   </div>
+                 </div>
+              </div>
+              {% endif %}
+
+              <hr class="summary-divider">
+
+              <div class="price-line total-line">
+                <span class="price-label">Total</span>
+                <span class="price-value total-value" id="cart-total">${{ grand_total|floatformat:2 }}</span>
               </div>
             </div>
 
-            <!-- Subtotal -->
-            <div class="col-md-1 col-6 text-end">
-              <div class="item-subtotal">
-                <span class="subtotal-label d-md-none">Subtotal:</span>
-                <span class="subtotal-value font-weight-bold"
-                  >${{ item.subtotal|floatformat:2 }}</span
-                >
+            <!-- Trust Indicators -->
+            <div class="trust-indicators">
+              <div class="trust-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Secure Checkout ✔️</span>
+              </div>
+              <div class="trust-item">
+                <i class="fas fa-undo"></i>
+                <span>30-Day Returns ✔️</span>
+              </div>
+              <div class="trust-item">
+                <i class="fas fa-headset"></i>
+                <span>24/7 Support ✔️</span>
+              </div>
+            </div>
+
+            <!-- Checkout Actions -->
+            <div class="checkout-actions">
+              <a href="{% url 'checkout' %}" 
+                 class="btn-checkout"
+                 role="button">
+                <i class="fas fa-lock me-2"></i>
+                Proceed to Secure Checkout
+                <div class="checkout-btn-subtext">Encrypted & Protected</div>
+              </a>
+              
+              <!-- Payment Methods -->
+              <div class="payment-methods">
+                <div class="payment-icons">
+                  <i class="fab fa-cc-visa" aria-label="Visa"></i>
+                  <i class="fab fa-cc-mastercard" aria-label="Mastercard"></i>
+                  <i class="fab fa-cc-amex" aria-label="American Express"></i>
+                  <i class="fab fa-cc-paypal" aria-label="PayPal"></i>
+                </div>
               </div>
             </div>
           </div>
+        </aside>
 
-          <!-- Item Actions -->
-          <div class="row mt-2">
-            <div class="col-12">
-              <div class="item-actions">
-                <a class="update-link text-info me-3"><small>Update</small></a>
-                <a
-                  class="remove-item text-danger"
-                  id="remove_{{ item.product.id }}"
-                  ><small>Remove</small></a
-                >
+        <!-- Recommendations Section -->
+        <section class="recommendations-section d-none d-lg-block" aria-label="Product Recommendations">
+          <h3 class="recommendations-title">
+            <i class="fas fa-star me-2"></i>
+            You Might Also Like
+          </h3>
+          <div class="recommendations-placeholder">
+            <div class="recommendation-item">
+              <i class="fas fa-tools"></i>
+              <p>Premium CNC accessories and cutting tools will appear here</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    {% else %}
+    <!-- Empty Cart State -->
+    <div class="empty-cart-state">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="empty-cart-content text-center">
+            <div class="empty-cart-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <h2 class="empty-cart-title">Your Cart is Empty</h2>
+            <p class="empty-cart-message">
+              Ready to start building your CNC workshop? 
+              Explore our professional-grade machines and precision tools.
+            </p>
+            <div class="empty-cart-actions">
+              <a href="{% url 'products' %}" class="btn-explore-products">
+                <i class="fas fa-tools me-2"></i>
+                Explore Our Products
+              </a>
+            </div>
+            
+            <!-- Featured Categories -->
+            <div class="featured-categories">
+              <h4>Popular Categories</h4>
+              <div class="category-grid">
+                <a href="{% url 'products' %}?category=cnc_machines" class="category-card">
+                  <i class="fas fa-cog"></i>
+                  <span>CNC Machines</span>
+                </a>
+                <a href="{% url 'products' %}?category=cutting_tools" class="category-card">
+                  <i class="fas fa-cut"></i>
+                  <span>Cutting Tools</span>
+                </a>
+                <a href="{% url 'products' %}?category=accessories" class="category-card">
+                  <i class="fas fa-wrench"></i>
+                  <span>Accessories</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %}
       </div>
     </div>
-
-    <!-- Order Summary Panel -->
-    <div class="col-lg-4">
-      <div class="order-summary-panel">
-        <h5 class="summary-title mb-4">Order Summary</h5>
-
-        <div class="summary-line">
-          <span class="summary-label">Subtotal:</span>
-          <span class="summary-value">${{ total|floatformat:2 }}</span>
-        </div>
-
-        <div class="summary-line">
-          <span class="summary-label">Delivery:</span>
-          <span class="summary-value">${{ delivery|floatformat:2 }}</span>
-        </div>
-
-        <hr class="summary-divider" />
-
-        <div class="summary-line total-line">
-          <span class="summary-label"><strong>Total:</strong></span>
-          <span class="summary-value"
-            ><strong>${{ grand_total|floatformat:2 }}</strong></span
-          >
-        </div>
-
-        {% if free_delivery_delta > 0 %}
-        <div class="free-delivery-message mt-3">
-          <small class="text-success">
-            <i class="fas fa-truck me-1"></i>
-            Add <strong>${{ free_delivery_delta }}</strong> more for free
-            delivery!
-          </small>
-        </div>
-        {% endif %}
-
-        <!-- Checkout CTA -->
-        <div class="checkout-actions mt-4">
-          <a
-            href="{% url 'checkout' %}"
-            class="btn btn-success btn-lg checkout-btn w-100 mb-3"
-          >
-            <i class="fas fa-lock me-2"></i>
-            Secure Checkout
-          </a>
-          <a
-            href="{% url 'products' %}"
-            class="btn btn-outline-secondary continue-shopping-btn w-100"
-          >
-            <i class="fas fa-chevron-left me-2"></i>
-            Continue Shopping
-          </a>
-        </div>
-      </div>
-    </div>
+    {% endif %}
   </div>
-
-  <!-- Cross-Selling Section (Placeholder) -->
-  <div class="row mt-5">
-    <div class="col-12">
-      <div class="cross-selling-section">
-        <h5 class="section-title mb-4">You might also need</h5>
-        <div class="cross-sell-placeholder text-center py-4">
-          <p class="text-muted">
-            Recommended accessories and tools coming soon...
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {% else %}
-  <!-- Empty Cart State -->
-  <div class="row">
-    <div class="col-12">
-      <div class="empty-cart-message text-center py-5">
-        <i class="fas fa-shopping-cart fa-3x text-muted mb-4"></i>
-        <p class="lead mb-4">Your cart is empty</p>
-        <a href="{% url 'products' %}" class="btn btn-primary btn-lg">
-          <i class="fas fa-chevron-left me-2"></i>
-          Start Shopping
-        </a>
-      </div>
-    </div>
-  </div>
-  {% endif %}
 </div>
-{% endblock %} {% block postloadjs %} {{ block.super }}
-<script type="text/javascript">
-  // Update quantity on click
-  $(".update-link").click(function (e) {
-    var form = $(this).closest(".cart-item-block").find(".update-form");
-    form.submit();
-  });
 
-  // Remove item functionality
-  $(".remove-item").click(function (e) {
-    var csrfToken = "{{ csrf_token }}";
-    var productId = $(this).attr("id").split("remove_")[1];
-    var url = `/cart/remove/${productId}/`;
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Updating cart...</p>
+  </div>
+</div>
+{% endblock %}
 
-    $.post(url, { csrfmiddlewaretoken: csrfToken }).done(function () {
-      location.reload();
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'javascript/cart/cart.js' %}"></script>
+<script>
+$(document).ready(function() {
+    // Initialize cart functionality
+    CartManager.init();
+    
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-  });
-
-  // Disable +/- buttons outside 1-99 range
-  function handleEnableDisable(productId) {
-    var currentValue = parseInt($(`#id_qty_${productId}`).val());
-    var minusDisabled = currentValue < 2;
-    var plusDisabled = currentValue > 98;
-    $(`#decrement-qty_${productId}`).prop("disabled", minusDisabled);
-    $(`#increment-qty_${productId}`).prop("disabled", plusDisabled);
-  }
-
-  // Ensure proper enabling/disabling of all inputs on page load
-  var allQtyInputs = $(".qty_input");
-  for (var i = 0; i < allQtyInputs.length; i++) {
-    var productId = $(allQtyInputs[i]).data("item_id");
-    handleEnableDisable(productId);
-  }
-
-  // Check enable/disable every time the input is changed
-  $(".qty_input").change(function () {
-    var productId = $(this).data("item_id");
-    handleEnableDisable(productId);
-  });
-
-  // Increment quantity
-  $(".increment-qty").click(function (e) {
-    e.preventDefault();
-    var productId = $(this).data("item_id");
-    var currentValue = parseInt($(`#id_qty_${productId}`).val());
-    $(`#id_qty_${productId}`).val(currentValue + 1);
-    handleEnableDisable(productId);
-  });
-
-  // Decrement quantity
-  $(".decrement-qty").click(function (e) {
-    e.preventDefault();
-    var productId = $(this).data("item_id");
-    var currentValue = parseInt($(`#id_qty_${productId}`).val());
-    $(`#id_qty_${productId}`).val(currentValue - 1);
-    handleEnableDisable(productId);
-  });
+    
+    // Set progress bar width
+    const $progressBar = $('.progress-bar');
+    if ($progressBar.length) {
+        const current = parseFloat($progressBar.data('current')) || 0;
+        const threshold = parseFloat($progressBar.data('threshold')) || 250;
+        const percentage = Math.min((current / threshold) * 100, 100);
+        $progressBar.css('width', percentage + '%');
+    }
+});
 </script>
 {% endblock %}
