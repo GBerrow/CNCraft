@@ -167,10 +167,10 @@
                                 <!-- Stripe Card Element Container -->
                                 <div class="payment-form-container">
                                     <div class="card-element-wrapper">
-                                        <label for="card-element" class="payment-label">
+                                        <div class="payment-label">
                                             Card Information <span class="required-asterisk">*</span>
-                                        </label>
-                                        <div id="card-element" class="stripe-element">
+                                        </div>
+                                        <div id="card-element" class="stripe-element" role="textbox" aria-label="Card Information">
                                             <!-- Stripe Elements will create form elements here -->
                                         </div>
                                         <div id="card-errors" class="payment-errors" role="alert" aria-live="polite"></div>
@@ -219,6 +219,9 @@
                     </form>
                 </div>
 
+                <!-- Mobile Spacer for Clear Section Separation -->
+                <div class="d-block d-lg-none mobile-checkout-spacer"></div>
+                
                 <!-- Right Column: Order Summary -->
                 <div class="col-12 col-lg-5 order-summary-column">
                     <aside class="order-summary sticky-summary">

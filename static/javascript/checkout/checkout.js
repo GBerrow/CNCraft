@@ -543,22 +543,27 @@ const CheckoutManager = {
     // Enhance form for mobile devices
     enhanceFormForMobile() {
         // Add appropriate input types and attributes for mobile
-        const emailField = document.querySelector('[name="email"]');
-        if (emailField) {
-            emailField.setAttribute('autocomplete', 'email');
-            emailField.setAttribute('inputmode', 'email');
-        }
-        
-        const phoneField = document.querySelector('[name="phone_number"]');
-        if (phoneField) {
-            phoneField.setAttribute('autocomplete', 'tel');
-            phoneField.setAttribute('inputmode', 'tel');
-        }
-        
-        const postcodeField = document.querySelector('[name="postcode"]');
-        if (postcodeField) {
-            postcodeField.setAttribute('autocomplete', 'postal-code');
-        }
+        const fieldMappings = [
+            { selector: '[name="email"]', autocomplete: 'email', inputmode: 'email' },
+            { selector: '[name="phone_number"]', autocomplete: 'tel', inputmode: 'tel' },
+            { selector: '[name="postcode"]', autocomplete: 'postal-code' },
+            { selector: '[name="full_name"]', autocomplete: 'name' },
+            { selector: '[name="street_address1"]', autocomplete: 'address-line1' },
+            { selector: '[name="street_address2"]', autocomplete: 'address-line2' },
+            { selector: '[name="town_or_city"]', autocomplete: 'address-level2' },
+            { selector: '[name="county"]', autocomplete: 'address-level1' },
+            { selector: '[name="country"]', autocomplete: 'country' }
+        ];
+
+        fieldMappings.forEach(field => {
+            const element = document.querySelector(field.selector);
+            if (element && !element.hasAttribute('autocomplete')) {
+                element.setAttribute('autocomplete', field.autocomplete);
+                if (field.inputmode) {
+                    element.setAttribute('inputmode', field.inputmode);
+                }
+            }
+        });
     },
 
     // Add mobile touch feedback
