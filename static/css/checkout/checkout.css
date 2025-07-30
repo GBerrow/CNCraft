@@ -51,21 +51,29 @@
 /* Two-column layout for desktop */
 @media (min-width: 992px) {
     .checkout-content {
-        display: flex;
+        display: flex !important;
         align-items: flex-start;
         gap: 3rem;
     }
     
-    .checkout-form-column {
-        flex: 1;
-        max-width: 60%;
+    .checkout-content .checkout-form-column {
+        flex: 1 !important;
+        max-width: 60% !important;
         padding-right: 0;
+        padding-left: 15px;
     }
     
-    .order-summary-column {
-        flex: 0 0 40%;
-        max-width: 40%;
+    .checkout-content .order-summary-column {
+        flex: 0 0 40% !important;
+        max-width: 40% !important;
         padding-left: 0;
+        padding-right: 15px;
+        order: 0 !important; /* Reset mobile order */
+    }
+    
+    /* Hide mobile spacer on desktop */
+    .mobile-checkout-spacer {
+        display: none !important;
     }
 }
 
