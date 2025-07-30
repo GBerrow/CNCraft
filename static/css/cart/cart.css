@@ -34,6 +34,96 @@
 }
 
 /* ========================================================================
+   PROGRESS INDICATOR
+   ======================================================================== */
+
+/* Progress indicator container */
+.cart-progress {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress steps container */
+.progress-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Individual progress step */
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Step number circle */
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Step label */
+.step-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Progress line between steps */
+.progress-line {
+    width: 80px;
+    height: 2px;
+    background: #e9ecef;
+    margin: 0 1rem;
+    position: relative;
+    top: -20px;
+}
+
+/* Active step styling (Cart is active) */
+.progress-step.active .step-number {
+    background: #0080ff;
+    color: white;
+    box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.2);
+}
+
+.progress-step.active .step-label {
+    color: #0080ff;
+    font-weight: 600;
+}
+
+/* Completed step styling */
+.progress-step.completed .step-number {
+    background: #28a745;
+    color: white;
+}
+
+.progress-step.completed .step-label {
+    color: #28a745;
+}
+
+/* Active progress line */
+.progress-line.active {
+    background: #0080ff;
+}
+
+/* ========================================================================
    2. CART HEADER & NAVIGATION
    ======================================================================== */
 
@@ -1113,6 +1203,31 @@
     padding-bottom: 2rem;
   }
 
+  /* Progress indicator mobile adjustments */
+  .cart-progress {
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+  }
+  
+  .progress-steps {
+    padding: 0 1rem;
+  }
+  
+  .step-number {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .step-label {
+    font-size: 0.8rem;
+  }
+  
+  .progress-line {
+    width: 60px;
+    margin: 0 0.5rem;
+  }
+
   /* Mobile Cart Title: Smaller Size and Centered */
   .cart-title {
     font-size: 1.75rem;
@@ -1294,6 +1409,29 @@
    10.4 SMALL MOBILE STYLES (320px - 575px)
    ======================================================================== */
 @media (max-width: 575.98px) {
+  /* Progress indicator extra small mobile adjustments */
+  .cart-progress {
+    padding: 1rem 0;
+  }
+  
+  .progress-steps {
+    padding: 0 0.5rem;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .step-label {
+    font-size: 0.75rem;
+  }
+  
+  .progress-line {
+    width: 40px;
+  }
+
   /* Small Mobile Breadcrumb: Compact Padding and Font */
   .cart-breadcrumb .breadcrumb {
     padding: 0.5rem 1rem;
