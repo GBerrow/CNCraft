@@ -1,446 +1,1145 @@
 /* ========================================================================
-   CNCraft - User Dashboard CSS Stylesheet
+   CNCraft - Modern User Dashboard Stylesheet
    ========================================================================
-1. Dashboard Layout & Structure
-2. Profile Section Styles
-3. Orders Section Styles
-4. Account Section Styles
-5. Preferences Section Styles
-6. Responsive Design & Mobile Optimizations
-
-/* ========================================================================
-   1. DASHBOARD LAYOUT & STRUCTURE
+   1. Page Layout & Global Styles
+   2. Dashboard Header & Navigation
+   3. Modern Card System
+   4. Profile Section
+   5. Orders Section  
+   6. Account Section
+   7. Preferences Section
+   8. Interactive Elements
+   9. Responsive Design
+   10. Accessibility Features
    ======================================================================== */
 
-/* Main dashboard content area styling */
-.dashboard-content {
-  margin-top: 2rem; /* Spacing from page header */
-  margin-bottom: 2rem; /* Bottom spacing for clean layout */
+/* ========================================================================
+   1. PAGE LAYOUT & GLOBAL STYLES
+   ======================================================================== */
+
+/* Dashboard page wrapper */
+.dashboard-page-wrapper {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    width: 100%;
 }
 
-/* Universal dashboard section styling for consistent appearance */
+/* Override any global container constraints for dashboard */
+.dashboard-page-wrapper .container-fluid {
+    max-width: none !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin: 0 auto;
+    width: 100% !important;
+}
+
+/* Ensure dashboard doesn't inherit shop page styles */
+.dashboard-page-wrapper .container-fluid:not(.shop-page .container) {
+    max-width: none !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+/* Main dashboard content container - force centering */
+.dashboard-content {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    padding: 0 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* Content wrapper for proper 2/3 width */
+.dashboard-content-wrapper {
+    max-width: 85%; /* Increased from 66.67% to take up more screen space */
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 0 1rem;
+}
+
+/* Dashboard header styling */
+.dashboard-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 2rem 0;
+    margin: 0 auto 2rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    text-align: center;
+    max-width: 1400px;
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.dashboard-title i {
+    color: #0080ff;
+    font-size: 2rem;
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    margin: 0.5rem auto 0 auto;
+    opacity: 0.9;
+    text-align: center;
+    max-width: 600px;
+}
+
+/* Modern card system */
 .dashboard-section {
-  background-color: #fff; /* Clean white background for each section */
-  border: 1px solid #e9ecef; /* Subtle border for section definition */
-  border-radius: 8px; /* Modern rounded corners */
-  padding: 1.5rem; /* Adequate internal spacing */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  transition: box-shadow 0.3s ease; /* Smooth hover effect */
-  height: 100%; /* Ensures equal height sections in grid */
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 128, 255, 0.1);
+    min-height: 300px;
 }
 
 .dashboard-section:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 128, 255, 0.2);
 }
 
-/* Section header styling for consistent typography hierarchy */
+/* Ensure consistent card heights on mobile */
+@media (max-width: 767.98px) {
+    .dashboard-section {
+        min-height: auto;
+        height: auto;
+    }
+}
+
+/* ========================================================================
+   2. SECTION HEADERS & CONTENT
+   ======================================================================== */
+
+/* Section header styling */
 .section-header {
-  border-bottom: 2px solid #f8f9fa; /* Separates header from content */
-  padding-bottom: 1rem; /* Space between header text and border */
-  margin-bottom: 1.5rem; /* Space between header and content */
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid #0080ff;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #0080ff;
 }
 
 .section-header h3 {
-  color: #2c3e50; /* Dark color for primary headings */
-  font-weight: 600; /* Semi-bold for emphasis */
-  margin-bottom: 0.5rem; /* Spacing below main heading */
+    color: white;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.section-header h3 i {
+    color: #0080ff;
+    font-size: 1.1rem;
 }
 
 .section-header h4 {
-  color: #2c3e50; /* Consistent heading color */
-  font-weight: 500; /* Medium weight for sub-headings */
-  margin-bottom: 0.5rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
 }
 
 .section-header p {
-  margin-bottom: 0; /* Removes default paragraph margin */
-  font-size: 0.9rem; /* Slightly smaller descriptive text */
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    opacity: 0.9;
 }
 
-/* Content area styling within each section */
+/* Section content area */
 .section-content {
-  line-height: 1.6; /* Improved readability */
+    padding: 2rem;
+    line-height: 1.6;
 }
 
 /* ========================================================================
-   2. PROFILE SECTION STYLES
+   3. PROFILE SECTION STYLES
    ======================================================================== */
 
-/* Profile information display styling */
+/* Profile information container */
 .profile-info {
-  margin-bottom: 1.5rem; /* Space before action buttons */
+    margin-bottom: 2rem;
 }
 
-/* Individual profile detail line styling */
+/* Profile name styling */
+.profile-name {
+    background: linear-gradient(135deg, #0080ff 0%, #20c997 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 128, 255, 0.3);
+}
+
+.profile-name strong {
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: block;
+}
+
+/* Profile detail styling */
 .profile-detail {
-  display: flex; /* Flexbox for label-value alignment */
-  margin-bottom: 0.75rem; /* Consistent spacing between details */
-  padding: 0.5rem 0; /* Vertical padding for better touch targets */
-  border-bottom: 1px solid #f8f9fa; /* Subtle separator between details */
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f1f3f4;
+    transition: background-color 0.3s ease;
+}
+
+.profile-detail:hover {
+    background-color: rgba(0, 128, 255, 0.02);
 }
 
 .profile-detail:last-child {
-  border-bottom: none; /* Removes border from last item */
+    border-bottom: none;
 }
 
-/* Profile detail labels (e.g., "Email:", "Phone:") */
+/* Profile detail labels */
 .detail-label {
-  font-weight: 500; /* Medium weight for labels */
-  color: #6c757d; /* Muted color for labels */
-  min-width: 80px; /* Consistent label width for alignment */
-  margin-right: 1rem; /* Space between label and value */
+    font-weight: 600;
+    color: #495057;
+    min-width: 80px;
+    margin-right: 1rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-/* Profile detail values (actual user data) */
+.detail-label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #0080ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Profile detail values */
 .detail-value {
-  color: #2c3e50; /* Darker color for actual values */
-  font-weight: 400; /* Regular weight for values */
-  flex: 1; /* Takes remaining space in flexbox */
+    color: #2c3e50;
+    font-weight: 500;
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
 }
 
-/* Profile action buttons container */
+/* Profile actions */
 .profile-actions {
-  text-align: left; /* Left-aligned buttons */
+    padding-top: 1rem;
+    border-top: 2px solid #f1f3f4;
+    text-align: center;
 }
 
-/* Edit profile form section styling */
-.edit-profile-section {
-  background-color: #f8f9fa; /* Light gray background to distinguish from main profile */
-  border-color: #dee2e6; /* Slightly darker border */
+/* Preferences preview */
+.preferences-preview {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f1f3f4;
+}
+
+.preferences-preview h5 {
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.preferences-preview h5 i {
+    color: #0080ff;
+}
+
+.preference-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.preferences-preview .preference-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.preferences-preview .preference-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.preferences-preview .preference-item i {
+    color: #6c757d;
+    margin-right: 0.75rem;
+    width: 16px;
+    text-align: center;
+}
+
+.preferences-preview .preference-item span:first-of-type {
+    flex: 1;
+    color: #495057;
+    font-weight: 500;
+}
+
+.preferences-preview .badge {
+    background: #6c757d;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+}
+
+/* Edit profile form section */
+.edit-profile-form {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.edit-form-container {
+    background: #f8f9fa;
+    border: 2px solid #e3f2fd;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.edit-form-container .form-control {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.edit-form-container .form-control:focus {
+    border-color: #0080ff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 255, 0.15);
+}
+
+.edit-form-container .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
 }
 
 /* ========================================================================
-   3. ORDERS SECTION STYLES
+   4. ORDERS SECTION STYLES
    ======================================================================== */
 
 /* Orders list container */
 .order-list {
-  max-height: 400px; /* Prevents section from becoming too tall */
-  overflow-y: auto; /* Scrollable if many orders */
+    max-height: 450px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #0080ff rgba(0, 0, 0, 0.1);
 }
 
-/* Individual order item styling */
+.order-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-list::-webkit-scrollbar-track {
+    background: #f1f3f4;
+    border-radius: 3px;
+}
+
+.order-list::-webkit-scrollbar-thumb {
+    background: #0080ff;
+    border-radius: 3px;
+}
+
+/* Individual order item */
 .order-item {
-  background-color: #f8f9fa; /* Light background for order items */
-  border: 1px solid #e9ecef; /* Border for definition */
-  border-radius: 6px; /* Rounded corners */
-  padding: 1rem; /* Internal spacing */
-  margin-bottom: 1rem; /* Space between order items */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #0080ff 0%, #28a745 100%);
 }
 
 .order-item:hover {
-  background-color: #e9ecef; /* Darker background on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 128, 255, 0.15);
+    border-color: rgba(0, 128, 255, 0.3);
 }
 
-.order-item:last-child {
-  margin-bottom: 0; /* Removes margin from last order */
-}
-
-/* Order header containing order number and date */
+/* Order header */
 .order-header {
-  display: flex; /* Flexbox for horizontal layout */
-  justify-content: space-between; /* Spreads content to edges */
-  align-items: center; /* Vertically centers content */
-  margin-bottom: 0.75rem; /* Space below header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #f1f3f4;
 }
 
-/* Order number styling */
 .order-number {
-  font-size: 1rem; /* Standard font size */
-  color: #2c3e50; /* Dark color for emphasis */
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-/* Order date styling */
+.order-number::before {
+    content: '#';
+    color: #0080ff;
+    font-weight: 800;
+}
+
 .order-date {
-  font-size: 0.9rem; /* Slightly smaller for secondary information */
-  color: #6c757d; /* Muted color for dates */
+    font-size: 0.9rem;
+    color: #6c757d;
+    background: #f8f9fa;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
 }
 
-/* Order details section containing total and status */
+/* Order details */
 .order-details {
-  display: flex; /* Flexbox layout */
-  justify-content: space-between; /* Spreads items across width */
-  align-items: center; /* Vertically centers items */
-  margin-bottom: 0.75rem; /* Space before action buttons */
-  padding: 0.5rem 0; /* Vertical padding */
-  border-top: 1px solid #dee2e6; /* Top border for separation */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 128, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 128, 255, 0.1);
 }
 
-/* Order total amount styling */
+.order-total {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .order-total .detail-label {
-  font-weight: 500; /* Medium weight for total label */
-  color: #6c757d; /* Muted color */
-  margin-right: 0.5rem; /* Space between label and amount */
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
 }
 
 .order-total .detail-value {
-  font-weight: 600; /* Bold for monetary amounts */
-  color: #28a745; /* Green color for positive monetary values */
-  font-size: 1.1rem; /* Slightly larger for emphasis */
+    font-weight: 700;
+    color: #28a745;
+    font-size: 1.2rem;
+    background: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #28a745;
 }
 
-/* Status badge styling */
+/* Status badges */
 .status-badge {
-  padding: 0.25rem 0.75rem; /* Internal padding for badge */
-  border-radius: 15px; /* Rounded pill shape */
-  font-size: 0.8rem; /* Smaller font for badges */
-  font-weight: 500; /* Medium weight */
-  text-transform: uppercase; /* Uppercase for status consistency */
-  letter-spacing: 0.5px; /* Spacing for readability */
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .status-completed {
-  background-color: #d4edda; /* Light green background */
-  color: #155724; /* Dark green text */
-  border: 1px solid #c3e6cb; /* Green border */
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border: 2px solid #28a745;
 }
 
-/* Order action buttons */
+.status-completed::before {
+    content: '✓';
+    font-weight: bold;
+}
+
+/* Order actions */
 .order-actions {
-  text-align: right; /* Right-aligned action buttons */
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f3f4;
 }
 
-/* No orders placeholder styling */
+/* No orders placeholder */
 .no-orders {
-  text-align: center; /* Center-aligned placeholder */
-  padding: 2rem 1rem; /* Generous padding */
-  color: #6c757d; /* Muted color */
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+.no-orders i {
+    font-size: 3rem;
+    color: #0080ff;
+    margin-bottom: 1rem;
+    opacity: 0.7;
 }
 
 .no-orders p {
-  margin-bottom: 1.5rem; /* Space before call-to-action button */
-  font-size: 1.1rem; /* Slightly larger for readability */
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.cart-info {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 128, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 128, 255, 0.2);
+}
+
+.cart-info small {
+    color: #0080ff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.cart-info i {
+    font-size: 1rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.action-buttons .btn {
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
 }
 
 /* ========================================================================
-   4. ACCOUNT SECTION STYLES
+   5. ACCOUNT SECTION STYLES
    ======================================================================== */
 
-/* Individual account option styling */
+/* Account options container */
+.account-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Individual account option */
 .account-option {
-  display: flex; /* Flexbox for layout */
-  justify-content: space-between; /* Spreads content across width */
-  align-items: flex-start; /* Aligns items to top */
-  padding: 1rem; /* Internal padding */
-  background-color: #f8f9fa; /* Light background */
-  border: 1px solid #e9ecef; /* Subtle border */
-  border-radius: 6px; /* Rounded corners */
-  margin-bottom: 1rem; /* Space between options - this handles the spacing */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+    display: flex;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.account-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
 }
 
 .account-option:hover {
-  background-color: #e9ecef; /* Darker background on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
+    border-color: rgba(255, 193, 7, 0.3);
 }
 
-.account-option:last-child {
-  margin-bottom: 0; /* Removes margin from last option */
-}
-
-/* Account option information section */
+/* Option information */
 .option-info {
-  flex: 1; /* Takes available space */
-  margin-right: 1rem; /* Space before action button */
+    flex: 1;
+    margin-right: 1.5rem;
 }
 
 .option-info strong {
-  color: #2c3e50; /* Dark color for option titles */
-  font-size: 1rem; /* Standard font size */
-  display: block; /* Block display for proper spacing */
-  margin-bottom: 0.25rem; /* Space below title */
+    color: #2c3e50;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.option-info strong::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #ffc107;
+    border-radius: 50%;
+    display: block;
 }
 
 .option-info p {
-  margin-bottom: 0; /* Removes default paragraph margin */
-  line-height: 1.4; /* Tighter line height for descriptions */
+    margin: 0;
+    color: #6c757d;
+    line-height: 1.5;
+    font-size: 0.95rem;
 }
 
-/* Account option action section */
+/* Option action */
 .option-action {
-  flex-shrink: 0; /* Prevents button from shrinking */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 /* ========================================================================
-   5. PREFERENCES SECTION STYLES
+   6. PREFERENCES SECTION STYLES
    ======================================================================== */
 
-/* Preferences placeholder container */
+/* Preferences placeholder */
 .preferences-placeholder {
-  position: relative; /* Allows absolute positioning of coming soon badge */
-  text-align: center; /* Center-aligned content */
-  padding: 2rem 1rem; /* Generous padding */
-  background-color: #f8f9fa; /* Light background */
-  border-radius: 6px; /* Rounded corners */
-  border: 2px dashed #dee2e6; /* Dashed border for placeholder effect */
+    position: relative;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-radius: 16px;
+    border: 2px dashed #ffc107;
+    overflow: hidden;
 }
 
-/* Individual preference item styling */
+.preferences-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* Preference items */
 .preference-item {
-  margin-bottom: 1.5rem; /* Space between preference items */
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 .preference-item:last-child {
-  margin-bottom: 0; /* Removes margin from last item */
+    margin-bottom: 1rem;
 }
 
 .preference-item.coming-soon {
-  opacity: 0.7; /* Reduced opacity for coming soon items */
-  cursor: default; /* Default cursor since items aren't interactive */
+    opacity: 0.8;
+}
+
+.preference-item i {
+    display: block;
+    margin-bottom: 1rem;
+    color: #ffc107;
+    filter: drop-shadow(0 2px 4px rgba(255, 193, 7, 0.3));
 }
 
 .preference-item h5 {
-  color: #2c3e50; /* Dark color for preference titles */
-  font-weight: 500; /* Medium weight */
-  margin-bottom: 0.5rem; /* Space below titles */
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
 }
 
 .preference-item p {
-  color: #6c757d; /* Muted color for descriptions */
-  font-size: 0.9rem; /* Slightly smaller font */
-  margin-bottom: 0; /* Removes default margin */
-  line-height: 1.4; /* Improved readability */
+    color: #6c757d;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
 }
 
-/* Coming soon badge positioning */
+/* Coming soon badge */
 .coming-soon-badge {
-  position: absolute; /* Absolute positioning within placeholder */
-  top: 1rem; /* Distance from top */
-  right: 1rem; /* Distance from right */
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
 }
 
 .coming-soon-badge .badge {
-  font-size: 0.8rem; /* Smaller font for badge */
-  padding: 0.5rem 1rem; /* Padding for badge */
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================================================
-   6. RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+   7. MODERN BUTTON STYLES
    ======================================================================== */
 
-/* Tablet and small desktop adjustments */
+/* Button enhancements */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-black {
+    background: transparent;
+    color: #2c3e50;
+    border-color: #2c3e50;
+}
+
+.btn-outline-black:hover {
+    background: #2c3e50;
+    color: white;
+    border-color: #2c3e50;
+}
+
+.btn-black {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    border: none;
+}
+
+.btn-black:hover {
+    background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+    color: white;
+}
+
+.btn-outline-info {
+    background: transparent;
+    color: #0080ff;
+    border-color: #0080ff;
+}
+
+.btn-outline-info:hover {
+    background: #0080ff;
+    color: white;
+    border-color: #0080ff;
+}
+
+/* ========================================================================
+   8. RESPONSIVE DESIGN (Mobile-First)
+   ======================================================================== */
+
+/* Extra large screens (≥1400px) - Optimize for very large displays */
+@media (min-width: 1400px) {
+    .dashboard-content-wrapper {
+        max-width: 1400px; /* Increased from 1200px for better space usage */
+    }
+    
+    .dashboard-content .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 0 1.5rem;
+    }
+}
+
+/* Large screens (1200px-1399px) - Wider screen usage */
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .dashboard-content-wrapper {
+        max-width: 90%; /* Increased from 75% for better space usage */
+    }
+    
+    .dashboard-content .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 0 1rem;
+    }
+}
+
+/* Medium-large screens (992px-1199px) - Optimize space usage */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .dashboard-content-wrapper {
+        max-width: 95%; /* Increased from 85% for better space usage */
+    }
+    
+    .dashboard-content .col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 0 0.75rem;
+    }
+}
+
+/* Tablet styles (≤991px) */
 @media (max-width: 991.98px) {
-  .dashboard-section {
-    margin-bottom: 1.5rem; /* Increased bottom margin for stacked sections */
-  }
-  
-  .order-header {
-    flex-direction: column; /* Stacks order number and date vertically */
-    align-items: flex-start; /* Left-aligns stacked items */
-  }
-  
-  .order-date {
-    margin-top: 0.25rem; /* Space between order number and date */
-  }
-  
-  .order-details {
-    flex-direction: column; /* Stacks total and status vertically */
-    align-items: flex-start; /* Left-aligns stacked items */
-  }
-  
-  .order-total {
-    margin-bottom: 0.5rem; /* Space between total and status */
-  }
+    .dashboard-content-wrapper {
+        max-width: 98%; /* Use almost full screen on tablet */
+    }
+    
+    .dashboard-title {
+        font-size: 2rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .dashboard-header {
+        padding: 1.5rem 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Make sections take full width on tablet */
+    .dashboard-content .col-lg-6 {
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-bottom: 2rem;
+        padding: 0 0.75rem;
+    }
+    
+    .dashboard-content {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 1.5rem;
+    }
+    
+    .dashboard-section {
+        margin-bottom: 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .section-header {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .section-content {
+        padding: 1.5rem;
+    }
+    
+    .edit-form-container {
+        padding: 1.5rem;
+    }
+    
+    .preferences-preview .preference-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        text-align: left;
+    }
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .order-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .account-option {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .option-info {
+        margin-right: 0;
+    }
+    
+    .action-buttons .btn {
+        min-width: 120px;
+    }
 }
 
-/* Mobile phone optimizations */
+/* Mobile styles (≤767px) */
 @media (max-width: 767.98px) {
-  .dashboard-content {
-    margin-top: 1rem; /* Reduced top margin on mobile */
-  }
-  
-  .dashboard-section {
-    padding: 1rem; /* Reduced padding for mobile screens */
-    margin-bottom: 1rem; /* Reduced bottom margin */
-  }
-  
-  .section-header {
-    margin-bottom: 1rem; /* Reduced header margin */
-  }
-  
-  .section-header h3 {
-    font-size: 1.25rem; /* Smaller heading size for mobile */
-  }
-  
-  .profile-detail {
-    flex-direction: column; /* Stacks labels and values vertically */
-    align-items: flex-start; /* Left-aligns stacked items */
-  }
-  
-  .detail-label {
-    min-width: auto; /* Removes fixed width on mobile */
-    margin-right: 0; /* Removes right margin */
-    margin-bottom: 0.25rem; /* Space below label */
-  }
-  
-  .account-option {
-    flex-direction: column; /* Stacks info and action vertically */
-    align-items: flex-start; /* Left-aligns stacked items */
-  }
-  
-  .option-info {
-    margin-right: 0; /* Removes right margin */
-    margin-bottom: 1rem; /* Space below info section */
-  }
-  
-  .option-action {
-    align-self: flex-start; /* Aligns button to left */
-  }
-  
-  .order-actions {
-    text-align: left; /* Left-aligns action buttons on mobile */
-    margin-top: 0.5rem; /* Space above action buttons */
-  }
-  
-  .preferences-placeholder {
-    padding: 1.5rem 1rem; /* Reduced padding on mobile */
-  }
-  
-  .coming-soon-badge {
-    position: static; /* Removes absolute positioning on mobile */
-    margin-top: 1rem; /* Space above badge */
-  }
+    .dashboard-page-wrapper {
+        padding-top: 0.5rem;
+        padding-bottom: 2rem;
+    }
+    
+    .dashboard-content-wrapper {
+        max-width: 100%; /* Use full width on mobile */
+        padding: 0 0.75rem;
+    }
+    
+    .dashboard-content {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: 0;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .dashboard-content .col-lg-6 {
+        padding: 0 0.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .dashboard-title {
+        font-size: 1.75rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .dashboard-title i {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-header {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem 1rem;
+        border-radius: 8px;
+    }
+    
+    .dashboard-section {
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-header {
+        padding: 1rem;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .section-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .section-content {
+        padding: 1rem;
+    }
+    
+    .edit-form-container {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .edit-form-container .col-md-6 {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+    
+    .profile-detail {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 0;
+    }
+    
+    .detail-label {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .detail-value {
+        width: 100%;
+    }
+    
+    .order-item {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .account-option {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .preferences-placeholder {
+        padding: 2rem 1rem;
+        border-radius: 8px;
+    }
+    
+    .coming-soon-badge {
+        position: static;
+        margin-top: 1rem;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons .btn {
+        min-width: auto;
+        max-width: none;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
 }
 
-/* Extra small mobile devices */
+/* Small mobile styles (≤575px) */
 @media (max-width: 575.98px) {
-  .dashboard-section {
-    padding: 0.75rem; /* Further reduced padding for very small screens */
-  }
-  
-  .section-header h3 {
-    font-size: 1.1rem; /* Even smaller heading for tiny screens */
-  }
-  
-  .order-item {
-    padding: 0.75rem; /* Reduced padding for order items */
-  }
-  
-  .account-option {
-    padding: 0.75rem; /* Reduced padding for account options */
-  }
-  
-  .preferences-placeholder {
-    padding: 1rem 0.75rem; /* Minimal padding for very small screens */
-  }
+    .dashboard-content-wrapper {
+        padding: 0 0.5rem;
+    }
+    
+    .dashboard-title {
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-header {
+        padding: 1rem 0.75rem;
+        margin-bottom: 1rem;
+    }
+    
+    .section-header {
+        padding: 0.75rem;
+    }
+    
+    .section-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .section-content {
+        padding: 0.75rem;
+    }
+    
+    .order-item,
+    .account-option {
+        padding: 0.75rem;
+    }
+    
+    .preferences-placeholder {
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .edit-form-container {
+        padding: 0.75rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .action-buttons {
+        gap: 0.25rem;
+    }
 }
 
-/* Print styles for dashboard printing */
+/* ========================================================================
+   9. ACCESSIBILITY & PRINT STYLES
+   ======================================================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .dashboard-section {
+        border-width: 3px;
+    }
+    
+    .btn {
+        border-width: 3px;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
 @media print {
-  .dashboard-section {
-    box-shadow: none; /* Removes shadows for print */
-    border: 1px solid #000; /* Black borders for print clarity */
-    page-break-inside: avoid; /* Prevents sections from breaking across pages */
-    margin-bottom: 1rem; /* Space between sections in print */
-  }
-  
-  .profile-actions,
-  .order-actions,
-  .option-action {
-    display: none; /* Hides interactive elements in print */
-  }
-  
-  .coming-soon-badge {
-    display: none; /* Hides coming soon badge in print */
-  }
+    .dashboard-section {
+        box-shadow: none;
+        border: 2px solid #000;
+        page-break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-actions,
+    .order-actions,
+    .option-action,
+    .coming-soon-badge {
+        display: none;
+    }
+    
+    .dashboard-title {
+        color: #000;
+    }
 }
