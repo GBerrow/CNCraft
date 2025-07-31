@@ -179,7 +179,7 @@ h6 {
 p {
   margin-bottom: 1rem; /* Consistent paragraph spacing */
   line-height: 1.6; /* Optimal readability */
-  color: #ffffff; /* Color for body text */
+  color: #333; /* Default dark color for body text */
 }
 
 /* Lead text for important introductory content */

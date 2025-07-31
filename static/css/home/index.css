@@ -21,8 +21,7 @@
    ======================================================================== */
 
 /* Main hero section container - accounts for fixed navigation */
-.hero-section {
-  margin-top: 76px; /* Offset for fixed navbar height plus padding */
+.hero-section { 
   position: relative; /* Allows absolute positioning of overlay content */
 }
 
@@ -63,6 +62,12 @@
   font-weight: 300; /* Light weight for elegant appearance */
   margin-bottom: 2rem; /* Generous spacing before CTA buttons */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+  color: #ffffff !important; /* White text for hero overlay */
+}
+
+/* Hero section paragraph styling */
+.hero-section p {
+  color: #ffffff !important; /* White text for hero overlay */
 }
 
 /* Hero call-to-action buttons container */
@@ -95,6 +100,15 @@
 .cnc-dark-section .card-title,
 .cnc-dark-section .card-text {
   color: #ffffff !important;
+}
+
+/* Specific paragraph styling for dark sections */
+.cnc-dark-section p {
+  color: #f8f9fa !important; /* Light gray for better readability on dark backgrounds */
+}
+
+.cnc-dark-section .lead {
+  color: #f8f9fa !important; /* Consistent with other paragraphs in dark sections */
 }
 
 /* Ensure form labels are visible on dark backgrounds */
@@ -248,6 +262,15 @@
   background-color: #ffffff !important; /* Keep about section white */
 }
 
+/* About section paragraph styling - specific color for readability */
+#about p {
+  color: #666 !important; /* Dark gray for readability on white background */
+}
+
+#about .lead {
+  color: #666 !important; /* Consistent with other paragraphs */
+}
+
 /* Statistics section styling with visual separator */
 #about .row.text-center {
   border-top: 1px solid #e9ecef; /* Subtle separator above stats */
@@ -293,7 +316,24 @@
   transform: scale(1.1);
 }
 
-/* Service icon color and animation */
+/* Service image styling */
+.service-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Service image hover effects */
+.service-card:hover .service-image {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Legacy icon styling for fallback */
 .service-icon i {
   color: #007bff;
   transition: color 0.3s ease;
@@ -465,6 +505,24 @@ section#clients {
   background-color: #ffffff !important;
 }
 
+/* Footer paragraph styling - ensure white text on dark background */
+footer p {
+  color: #f8f9fa !important; /* Light gray for readability on dark footer */
+}
+
+footer .lead {
+  color: #f8f9fa !important; /* Consistent with other footer text */
+}
+
+/* Clients section paragraph styling - dark text on white background */
+#clients p {
+  color: #666 !important; /* Dark gray for readability on white background */
+}
+
+#clients .lead {
+  color: #666 !important; /* Consistent with other paragraphs */
+}
+
 /* Client logo styling with interactive effects */
 .client-logo {
   max-height: 80px;
@@ -589,7 +647,7 @@ section#clients {
 /* Mobile phone responsiveness */
 @media (max-width: 576px) {
   .hero-section {
-    margin-top: 70px; /* Adjust for smaller navbar on mobile */
+    margin-top: 0px; /* Adjust for smaller navbar on mobile */
   }
   
   .hero-section h1 {
