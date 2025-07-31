@@ -1,162 +1,117 @@
-/* Sign Up Page Styles */
-.auth-container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin: 2rem 0;
+/* ========================================================================
+   CNCraft - Sign Up CSS Stylesheet
+   ========================================================================
+   Purpose: Styling for the user registration / sign up form page
+   
+   Sections:
+   1. Base Layout & Container Styles
+   2. Form Elements & Controls
+   3. Button Styles & Interactions
+   4. Link & Text Styling
+   5. Responsive Design
+   ======================================================================== */
+
+/* ========================================================================
+   1. BASE LAYOUT & CONTAINER STYLES
+   ======================================================================== */
+
+/* Ensure full viewport height for authentication pages */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Main content area with centered authentication forms */
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 200px); /* Account for navbar and footer */
+}
+
+/* Primary container for the sign up form */
+.auth-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e1e5e9; /* Added border for better visibility */
+    padding: 2.5rem;
+    margin: 0 auto;
+    max-width: 500px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Page title styling for sign up form */
 .auth-title {
     text-align: center;
     color: #333;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 1.3;
 }
 
+/* Form visibility control */
 .auth-form {
     display: none;
 }
 
 .auth-form.active {
     display: block;
+    animation: fadeIn 0.3s ease-out;
 }
 
-/* Form Groups */
+/* ========================================================================
+   2. FORM ELEMENTS & CONTROLS
+   ======================================================================== */
+
+/* Form group spacing and organization */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
 }
 
+/* Form label styling for better accessibility */
 .form-group label {
     font-weight: 500;
     color: #555;
     margin-bottom: 0.5rem;
+    display: block;
+    font-size: 0.9rem;
 }
 
+/* Base form control styling with modern appearance */
 .form-control {
     border: 2px solid #e1e5e9;
     border-radius: 8px;
     padding: 0.75rem;
     font-size: 1rem;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+    color: #333;
+    width: 100%;
+    line-height: 1.5;
 }
 
+/* Focus state with brand color emphasis */
 .form-control:focus {
     border-color: #28a745;
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    outline: none;
 }
 
-/* Auth Button */
-.btn-auth {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    background-color: #28a745;
-    border-color: #28a745;
+/* Disabled state styling */
+.form-control:disabled {
+    background-color: #f8f9fa;
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
-.btn-auth:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
-    background-color: #218838;
-    border-color: #1e7e34;
-}
-
-/* Auth Links */
-.auth-links {
-    text-align: center;
-    margin-top: 1.5rem;
-}
-
-.auth-links p {
-    color: #6c757d;
-    margin: 0;
-}
-
-.auth-links a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.auth-links a:hover {
-    text-decoration: underline;
-}
-
-/* Mobile Toggle Buttons */
-.auth-toggle {
-    display: flex;
-    margin-bottom: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 0.25rem;
-}
-
-.toggle-btn {
-    flex: 1;
-    padding: 0.75rem;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    color: #6c757d;
-    transition: all 0.3s ease;
-}
-
-.toggle-btn.active {
-    background: #fff;
-    color: #28a745;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Password Strength Indicator (Future Enhancement) */
-.password-strength {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-}
-
-.password-strength.weak {
-    color: #dc3545;
-}
-
-.password-strength.medium {
-    color: #ffc107;
-}
-
-.password-strength.strong {
-    color: #28a745;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 767px) {
-    .auth-container {
-        margin: 1rem 0;
-        padding: 1.5rem;
-    }
-    
-    .form-control {
-        padding: 1rem;
-        font-size: 16px; /* Prevent zoom on iOS */
-    }
-    
-    .form-group {
-        margin-bottom: 1.25rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .auth-container {
-        padding: 3rem;
-        max-width: 500px;
-        margin: 2rem auto;
-    }
-}
-
-/* Form Validation Styles */
+/* Form validation states */
 .form-control.is-invalid {
     border-color: #dc3545;
 }
@@ -175,4 +130,206 @@
     color: #28a745;
     font-size: 0.875rem;
     margin-top: 0.25rem;
+}
+
+/* ========================================================================
+   3. BUTTON STYLES & INTERACTIONS
+   ======================================================================== */
+
+/* Primary authentication button styling */
+.btn-auth {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover effects for authentication buttons */
+.btn-auth:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+    background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+}
+
+/* Active state for button interactions */
+.btn-auth:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Focus state for accessibility */
+.btn-auth:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+}
+
+/* ========================================================================
+   4. LINK & TEXT STYLING
+   ======================================================================== */
+
+/* Authentication links container */
+.auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Link styling within auth container */
+.auth-links p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.auth-links a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* ========================================================================
+   5. RESPONSIVE DESIGN
+   ======================================================================== */
+
+/* Mobile responsive adjustments */
+@media (max-width: 767px) {
+    main {
+        padding: 1rem;
+        min-height: calc(100vh - 150px);
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .auth-container {
+        margin: 0;
+        padding: 2rem;
+        max-width: none;
+        border-radius: 8px;
+        width: 100%;
+    }
+    
+    .auth-title {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-control {
+        padding: 1rem;
+        font-size: 16px; /* Prevent zoom on iOS */
+        border-radius: 6px;
+    }
+    
+    .btn-auth {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        padding: 0.875rem;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    main {
+        padding: 0.5rem;
+    }
+    
+    .auth-container {
+        padding: 1.5rem;
+        margin: 0;
+    }
+    
+    .auth-title {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-auth {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+/* Desktop layout enhancements */
+@media (min-width: 768px) {
+    .auth-container {
+        padding: 3rem;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* ========================================================================
+   6. ANIMATION & TRANSITION EFFECTS
+   ======================================================================== */
+
+/* Fade in animation for form transitions */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================================================
+   7. ACCESSIBILITY & FOCUS STATES
+   ======================================================================== */
+
+/* Enhanced focus states for better accessibility */
+.form-control:focus-visible {
+    outline: 2px solid #28a745;
+    outline-offset: 2px;
+}
+
+.btn-auth:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .form-control {
+        border-width: 2px;
+    }
+    
+    .btn-auth {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

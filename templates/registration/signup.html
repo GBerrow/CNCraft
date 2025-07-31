@@ -8,20 +8,12 @@
 </div>
 {% endblock %} {% block content %}
 <div class="overlay"></div>
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-6 offset-md-3">
-      <div class="auth-container">
-        <!-- Mobile Toggle Buttons -->
-        <div class="auth-toggle d-md-none">
-          <button class="toggle-btn" data-target="login">Login</button>
-          <button class="toggle-btn active" data-target="signup">
-            Sign Up
-          </button>
-        </div>
-
-        <!-- Sign Up Form -->
-        <div class="auth-forms-container">
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6 offset-md-3">
+        <div class="auth-container">
+          <!-- Sign Up Form -->
           <div class="auth-form signup-form active">
             <h3 class="auth-title">Create Account</h3>
             <form method="POST" action="{% url 'account_signup' %}">
@@ -110,7 +102,5 @@
       </div>
     </div>
   </div>
-</div>
-{% endblock %} {% block postloadjs %} {{ block.super }}
-<script src="{% static 'js/registration/auth-toggle.js' %}"></script>
-{% endblock %}
+</main>
+{% endblock %} {% block postloadjs %} {{ block.super }} {% endblock %}
