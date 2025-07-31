@@ -1,241 +1,257 @@
-{% extends "base.html" %} {% load static %} {% block extra_css %}
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Dashboard - {% endblock %}
+
+{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/profiles/dashboard.css' %}" />
-{% endblock %} {% block page_header %}
-<div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
+{% endblock %}
+
+{% block page_header %}
+<div class="page-header-spacer"></div>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page-wrapper">
+    <div class="container-fluid">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <h1 class="dashboard-title">
+                            <i class="fas fa-tachometer-alt"></i>
+                            My Dashboard
+                        </h1>
+                        <p class="dashboard-subtitle">Manage your account, orders, and preferences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="container-fluid">
+            <div class="dashboard-content-wrapper">
+                <div class="row dashboard-content justify-content-center">
+                <!-- My Profile Section -->
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="dashboard-section profile-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-user"></i>My Profile</h3>
+                            <p>Your personal information and preferences</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="profile-info">
+                                <div class="profile-detail">
+                                    <div class="profile-name">
+                                        <strong>{{ request.user.get_full_name|default:request.user.username }}</strong>
+                                    </div>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Email:</span>
+                                    <span class="detail-value">{{ request.user.email }}</span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Phone:</span>
+                                    <span class="detail-value">{{ form.default_phone_number.value|default:"Not provided" }}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Preferences Preview -->
+                            <div class="preferences-preview">
+                                <h5><i class="fas fa-sliders-h"></i>My Preferences</h5>
+                                <div class="preference-items">
+                                    <div class="preference-item">
+                                        <i class="fas fa-cog"></i>
+                                        <span>CNC Configurations</span>
+                                        <span class="badge badge-secondary">Coming Soon</span>
+                                    </div>
+                                    <div class="preference-item">
+                                        <i class="fas fa-bell"></i>
+                                        <span>Notifications</span>
+                                        <span class="badge badge-secondary">Coming Soon</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Orders Section -->
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="dashboard-section orders-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-shopping-bag"></i>My Orders</h3>
+                            <p>View your order history and track shipments</p>
+                        </div>
+                        <div class="section-content">
+                            {% if orders %}
+                            <div class="order-list">
+                                {% for order in orders %}
+                                <div class="order-item">
+                                    <div class="order-header">
+                                        <div class="order-number">
+                                            <strong>Order #{{ order.order_number|truncatechars:10 }}</strong>
+                                        </div>
+                                        <div class="order-date">{{ order.date|date:"M d, Y" }}</div>
+                                    </div>
+                                    <div class="order-details">
+                                        <div class="order-total">
+                                            <span class="detail-label">Total:</span>
+                                            <span class="detail-value">${{ order.grand_total }}</span>
+                                        </div>
+                                        <div class="order-status">
+                                            <span class="status-badge status-completed">Completed</span>
+                                        </div>
+                                    </div>
+                                    <div class="order-actions">
+                                        <a href="{% url 'order_history' order.order_number %}" class="btn btn-outline-info btn-sm">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <div class="no-orders">
+                                <i class="fas fa-shopping-bag"></i>
+                                <p>No completed orders yet</p>
+                                <div class="cart-info">
+                                    <small>
+                                        <i class="fas fa-info-circle"></i>
+                                        {% if product_count > 0 %}
+                                            You have {{ product_count }} item{{ product_count|pluralize }} in your cart ready for checkout.
+                                        {% else %}
+                                            Start shopping to place your first order.
+                                        {% endif %}
+                                    </small>
+                                </div>
+                                <div class="action-buttons">
+                                    {% if product_count > 0 %}
+                                        <a href="{% url 'view_cart' %}" class="btn btn-outline-info">
+                                            <i class="fas fa-shopping-cart"></i> View Cart ({{ product_count }})
+                                        </a>
+                                    {% endif %}
+                                    <a href="{% url 'products' %}" class="btn btn-outline-black">
+                                        <i class="fas fa-store"></i> {% if product_count > 0 %}Continue Shopping{% else %}Start Shopping{% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Account Section -->
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="dashboard-section account-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-cog"></i>My Account</h3>
+                            <p>Edit your profile and manage account settings</p>
+                        </div>
+                        <div class="section-content">
+                            <!-- Edit Profile Form -->
+                            <div class="edit-profile-form">
+                                <div class="profile-actions mb-3">
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-black"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#editProfile"
+                                        id="editProfileBtn"
+                                    >
+                                        <i class="fas fa-edit"></i> Edit Profile
+                                    </button>
+                                </div>
+
+                                <!-- Collapsible Edit Profile Form -->
+                                <div class="collapse" id="editProfile">
+                                    <div class="edit-form-container">
+                                        <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                                            {% csrf_token %}
+                                            
+                                            <div class="row">
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_phone_number" class="form-label">Phone Number</label>
+                                                    {{ form.default_phone_number }}
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_street_address1" class="form-label">Street Address 1</label>
+                                                    {{ form.default_street_address1 }}
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_street_address2" class="form-label">Street Address 2</label>
+                                                    {{ form.default_street_address2 }}
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_town_or_city" class="form-label">Town or City</label>
+                                                    {{ form.default_town_or_city }}
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_county" class="form-label">County, State or Locality</label>
+                                                    {{ form.default_county }}
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="id_default_postcode" class="form-label">Postal Code</label>
+                                                    {{ form.default_postcode }}
+                                                </div>
+                                                <div class="col-12 mb-3">
+                                                    <label for="id_default_country" class="form-label">Country</label>
+                                                    {{ form.default_country }}
+                                                </div>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-black text-uppercase">
+                                                <i class="fas fa-save"></i> Update Information
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Account Options -->
+                            <div class="account-options mt-4">
+                                <div class="account-option">
+                                    <div class="option-info">
+                                        <strong><i class="fas fa-key"></i> Change Password</strong>
+                                        <p>Update your account password for security</p>
+                                    </div>
+                                    <div class="option-action">
+                                        <button class="btn btn-outline-black btn-sm" disabled>
+                                            Coming Soon
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="account-option">
+                                    <div class="option-info">
+                                        <strong><i class="fas fa-envelope"></i> Email Preferences</strong>
+                                        <p>Manage your email notifications</p>
+                                    </div>
+                                    <div class="option-action">
+                                        <button class="btn btn-outline-black btn-sm" disabled>
+                                            Coming Soon
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %} {% block content %}
-<div class="overlay"></div>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12 col-lg-6">
-      <hr />
-      <h2 class="logo-font mb-4">My Dashboard</h2>
-      <hr />
-    </div>
-  </div>
+{% endblock %}
 
-  <div class="row dashboard-content">
-    <!-- My Profile Section -->
-    <div class="col-12 col-lg-6 mb-4">
-      <div class="dashboard-section profile-section">
-        <div class="section-header">
-          <h3>My Profile</h3>
-          <p class="text-muted">Manage your personal information</p>
-        </div>
-        <div class="section-content">
-          <div class="profile-info">
-            <div class="profile-detail">
-              <strong
-                >{{ request.user.get_full_name|default:request.user.username
-                }}</strong
-              >
-            </div>
-            <div class="profile-detail">
-              <span class="detail-label">Email:</span>
-              <span class="detail-value">{{ request.user.email }}</span>
-            </div>
-            <div class="profile-detail">
-              <span class="detail-label">Phone:</span>
-              <span class="detail-value"
-                >{{ form.default_phone_number.value|default:"Not provided"
-                }}</span
-              >
-            </div>
-          </div>
-          <div class="profile-actions">
-            <button
-              type="button"
-              class="btn btn-outline-black rounded-0"
-              data-bs-toggle="collapse"
-              data-bs-target="#editProfile"
-            >
-              Edit Profile
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Collapsible Edit Profile Form -->
-      <div class="collapse mt-3" id="editProfile">
-        <div class="dashboard-section edit-profile-section">
-          <div class="section-header">
-            <h4>Edit Profile Information</h4>
-          </div>
-          <div class="section-content">
-            <form
-              class="mt-3"
-              action="{% url 'profile' %}"
-              method="POST"
-              id="profile-update-form"
-            >
-              {% csrf_token %}
-              
-              <!-- Render form fields manually -->
-              <div class="row">
-                  {% for field in form %}
-                      <div class="col-12 col-md-6 mb-3">
-                          <label for="{{ field.id_for_label }}" class="form-label">
-                              {{ field.label }}
-                          </label>
-                          {{ field }}
-                          {% if field.help_text %}
-                              <div class="form-text">{{ field.help_text }}</div>
-                          {% endif %}
-                          {% if field.errors %}
-                              <div class="text-danger small">
-                                  {{ field.errors }}
-                              </div>
-                          {% endif %}
-                      </div>
-                  {% endfor %}
-              </div>
-              
-              <button
-                class="btn btn-black rounded-0 text-uppercase float-right"
-              >
-                Update Information
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- My Orders Section -->
-    <div class="col-12 col-lg-6 mb-4">
-      <div class="dashboard-section orders-section">
-        <div class="section-header">
-          <h3>My Orders</h3>
-          <p class="text-muted">View your order history and track shipments</p>
-        </div>
-        <div class="section-content">
-          {% if orders %}
-          <div class="order-list">
-            {% for order in orders %}
-            <div class="order-item">
-              <div class="order-header">
-                <div class="order-number">
-                  <strong
-                    >Order #{{ order.order_number|truncatechars:10 }}</strong
-                  >
-                </div>
-                <div class="order-date">{{ order.date|date:"M d, Y" }}</div>
-              </div>
-              <div class="order-details">
-                <div class="order-total">
-                  <span class="detail-label">Total:</span>
-                  <span class="detail-value">${{ order.grand_total }}</span>
-                </div>
-                <div class="order-status">
-                  <span class="status-badge status-completed">Completed</span>
-                </div>
-              </div>
-              <div class="order-actions">
-                <a
-                  href="{% url 'order_history' order.order_number %}"
-                  class="btn btn-outline-info btn-sm"
-                >
-                  View Details
-                </a>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-          {% else %}
-          <div class="no-orders">
-            <p class="text-muted">You haven't placed any orders yet.</p>
-            <a
-              href="{% url 'products' %}"
-              class="btn btn-outline-black rounded-0"
-            >
-              Start Shopping
-            </a>
-          </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row dashboard-content">
-    <!-- My Account Section -->
-    <div class="col-12 col-lg-6 mb-4">
-      <div class="dashboard-section account-section">
-        <div class="section-header">
-          <h3>My Account</h3>
-          <p class="text-muted">Manage your account settings and security</p>
-        </div>
-        <div class="section-content">
-          <div class="account-options">
-            <div class="account-option">
-              <div class="option-info">
-                <strong>Change Password</strong>
-                <p class="text-muted small">
-                  Update your account password for security
-                </p>
-              </div>
-              <div class="option-action">
-                <!-- Temporary placeholder until auth is configured -->
-                <button class="btn btn-outline-black btn-sm rounded-0" disabled>
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-            <div class="account-option">
-              <div class="option-info">
-                <strong>Email Preferences</strong>
-                <p class="text-muted small">Manage your email notifications</p>
-              </div>
-              <div class="option-action">
-                <button class="btn btn-outline-black btn-sm rounded-0" disabled>
-                  Coming Soon
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- My Preferences Section -->
-    <div class="col-12 col-lg-6 mb-4">
-      <div class="dashboard-section preferences-section">
-        <div class="section-header">
-          <h3>My Preferences</h3>
-          <p class="text-muted">Customize your CNCraft experience</p>
-        </div>
-        <div class="section-content">
-          <div class="preferences-placeholder">
-            <div class="preference-item coming-soon">
-              <i class="fas fa-cog fa-2x text-muted mb-3"></i>
-              <h5>Saved CNC Configurations</h5>
-              <p class="text-muted">
-                Save your frequently used machine settings and configurations.
-              </p>
-            </div>
-            <div class="preference-item coming-soon">
-              <i class="fas fa-bell fa-2x text-muted mb-3"></i>
-              <h5>Notification Settings</h5>
-              <p class="text-muted">
-                Choose how you want to receive updates about orders and new
-                products.
-              </p>
-            </div>
-            <div class="coming-soon-badge">
-              <span class="badge badge-secondary">Coming Soon</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %} {% block postloadjs %} {{ block.super }}
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'javascript/profiles/dashboard.js' %}"></script>
 <script type="text/javascript">
-  // Form styling for bootstrap
-  $("#profile-update-form .form-control").addClass("border-black rounded-0");
+  // Enhanced form styling
+  $(document).ready(function() {
+    $("#profile-update-form .form-control").addClass("border-2");
+    $("#profile-update-form select").addClass("form-select");
+  });
 </script>
 {% endblock %}
