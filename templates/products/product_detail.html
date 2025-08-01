@@ -20,18 +20,33 @@
     <!-- Product Image Section -->
     <div class="col-lg-6 mb-4">
       <div class="product-image-container">
-        {% if product.image %}
-        <img
-          src="{{ product.image.url }}"
-          alt="{{ product.name }}"
-          class="product-main-image img-fluid"
-        />
-        {% else %}
-        <img
-          src="{% static 'images/no-image.png' %}"
-          alt="{{ product.name }}"
-          class="product-main-image img-fluid"
-        />
+        <!-- Main Product Image -->
+        <div class="main-image-container mb-3">
+          <img
+            src="{% static product.get_main_image %}"
+            alt="{{ product.name }}"
+            class="product-main-image img-fluid"
+            id="main-product-image"
+          />
+        </div>
+        
+        <!-- Product Image Gallery -->
+        {% if product.get_product_images|length > 1 %}
+        <div class="product-gallery">
+          <h6 class="gallery-title mb-2">Product Images</h6>
+          <div class="gallery-thumbnails">
+            {% for image_path in product.get_product_images %}
+            <div class="gallery-thumbnail" onclick="changeMainImage('{% static image_path %}', '{{ product.name }}')">
+              <img 
+                src="{% static image_path %}" 
+                alt="{{ product.name }} - Image {{ forloop.counter }}"
+                class="thumbnail-img"
+                {% if forloop.first %}id="active-thumbnail"{% endif %}
+              />
+            </div>
+            {% endfor %}
+          </div>
+        </div>
         {% endif %}
       </div>
     </div>
@@ -139,13 +154,8 @@
             <div class="col-md-6">
                 <div class="card h-100 border-0 shadow-sm product-card">
                     <div class="position-relative">
-                        {% if related_product.image %}
-                            <img src="{{ related_product.image.url }}" alt="{{ related_product.name }}" 
-                                 class="card-img-top" style="height: 180px; object-fit: cover;">
-                        {% else %}
-                            <img src="{% static 'images/no-image.png' %}" alt="{{ related_product.name }}" 
-                                 class="card-img-top" style="height: 180px; object-fit: cover;">
-                        {% endif %}
+                        <img src="{% static related_product.get_main_image %}" alt="{{ related_product.name }}" 
+                             class="card-img-top" style="height: 180px; object-fit: cover;">
                         
                         {% if related_product.discount_price %}
                             <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sale</span>
@@ -191,4 +201,39 @@
     </a>
   </div>
 </div>
+
+<script>
+  // Product image gallery functionality
+  function changeMainImage(imageSrc, productName) {
+    const mainImage = document.getElementById('main-product-image');
+    const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+    
+    // Update main image
+    mainImage.src = imageSrc;
+    mainImage.alt = productName;
+    
+    // Update active thumbnail
+    thumbnails.forEach(thumb => {
+      const img = thumb.querySelector('img');
+      if (img.src === imageSrc) {
+        thumb.classList.add('active');
+        img.id = 'active-thumbnail';
+      } else {
+        thumb.classList.remove('active');
+        img.removeAttribute('id');
+      }
+    });
+  }
+  
+  // Add click event listeners to thumbnails
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        changeMainImage(img.src, img.alt);
+      });
+    });
+  });
+</script>
 {% endblock %}

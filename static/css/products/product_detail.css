@@ -6,15 +6,17 @@
    1. Main Layout & Structure
    2. Breadcrumb Navigation
    3. Product Image Section
-   4. Product Information Panel
-   5. Pricing and Stock
-   6. Product Description
-   7. Add to Cart Section
-   8. Key features List
-   9. Related Products Section
-   10. Navigation
-   11. Mobile Responsiveness
-   12. Accessibility & Enhancement Features
+   4. Product Image Gallery
+   5. Product information panel
+   6. Pricing and stock
+   7. Product description
+   8. Add to cart section
+   9. Key features list
+   10. Related products section
+   11. Navigation
+   12. Mobile responsiveness
+   13. Accessibility and enhancement
+
 
 /* ========================================================================
    1. MAIN LAYOUT & STRUCTURE
@@ -76,7 +78,79 @@
 }
 
 /* ========================================================================
-   4. PRODUCT INFORMATION PANEL
+   4. PRODUCT IMAGE GALLERY
+   ======================================================================== */
+
+/* Main image container styling */
+.main-image-container {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+/* Product gallery section */
+.product-gallery {
+  margin-top: 1rem;
+}
+
+.gallery-title {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Gallery thumbnails container */
+.gallery-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Individual thumbnail styling */
+.gallery-thumbnail {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.gallery-thumbnail:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.gallery-thumbnail.active {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Thumbnail image styling */
+.thumbnail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-thumbnail:hover .thumbnail-img {
+  transform: scale(1.05);
+}
+
+/* Active thumbnail indicator */
+#active-thumbnail {
+  border: 2px solid #007bff;
+}
+
+/* ========================================================================
+   5. PRODUCT INFORMATION PANEL
    ======================================================================== */
 
 .product-info-panel {
@@ -99,7 +173,7 @@
 }
 
 /* ========================================================================
-   5. PRICING & STOCK
+   6. PRICING & STOCK
    ======================================================================== */
 
 .product-pricing {
@@ -138,7 +212,7 @@
 }
 
 /* ========================================================================
-   6. PRODUCT DESCRIPTION
+   7. PRODUCT DESCRIPTION
    ======================================================================== */
 
 .product-description {
@@ -153,7 +227,7 @@
 }
 
 /* ========================================================================
-   7. ADD TO CART SECTION
+   8. ADD TO CART SECTION
    ======================================================================== */
 
 .add-to-cart-section {
@@ -186,7 +260,7 @@
 }
 
 /* ========================================================================
-   8. KEY FEATURES LIST
+   9. KEY FEATURES LIST
    ======================================================================== */
 
 .key-features {
@@ -228,7 +302,7 @@
 }
 
 /* ========================================================================
-   9. RELATED PRODUCTS SECTION 
+   10. RELATED PRODUCTS SECTION 
    ======================================================================== */
 
 /* Related products section styling */
@@ -278,7 +352,7 @@
 }
 
 /* ========================================================================
-   10. NAVIGATION
+   11. NAVIGATION
    ======================================================================== */
 
 .navigation-section {
@@ -288,7 +362,7 @@
 }
 
 /* ========================================================================
-   11. MOBILE RESPONSIVE
+   12. MOBILE RESPONSIVE
    ======================================================================== */
 
 @media (max-width: 991.98px) {
@@ -351,7 +425,7 @@
 }
 
 /* ========================================================================
-   12. ACCESSIBILITY & ENHANCEMENT
+  13. ACCESSIBILITY & ENHANCEMENT
    ======================================================================== */
 
 .add-to-cart-btn:focus,
