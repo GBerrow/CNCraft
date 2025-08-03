@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
 from products.models import Product
 
 # View function to render the index page
@@ -17,6 +18,38 @@ def index(request):
     
     # Render and return the 'home/index.html' template
     return render(request, 'home/index.html', context)
+
+def homepage_enquiry(request):
+    """Handle homepage enquiry form submissions with AJAX"""
+    
+    if request.method == 'POST':
+        # Get form data
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone', '')
+        enquiry_type = request.POST.get('enquiry_type')
+        project_details = request.POST.get('project_details', '')
+        
+        # Basic validation
+        if not all([full_name, email, enquiry_type]):
+            return JsonResponse({
+                'success': False,
+                'message': 'Please fill in all required fields.'
+            })
+        
+        # Return success immediately for better UX
+        # Email sending can be handled asynchronously later if needed
+        return JsonResponse({
+            'success': True,
+            'message': f'Thank you! Your enquiry has been sent. We\'ll get back to you as soon as possible.'
+        })
+    
+    # GET request - return error
+    return JsonResponse({
+        'success': False,
+        'message': 'Invalid request method.'
+    })
+
 def contact(request):
     """A view to handle contact form submissions"""
     

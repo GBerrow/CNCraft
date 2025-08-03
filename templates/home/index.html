@@ -443,7 +443,7 @@
       <div class="col-lg-8">
         <div class="card shadow-sm" style="background-color: white !important;">
           <div class="card-body p-4" style="background-color: white !important;">
-            <form id="contact-form" method="POST" action="{% url 'contact' %}">
+            <form id="homepage-enquiry-form" method="POST" action="{% url 'homepage_enquiry' %}">
               {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 mb-3">
@@ -465,14 +465,16 @@
                          style="background-color: white !important; color: #333333 !important;">
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="cnc_machine_type" class="form-label" style="color: #333333 !important; background: none !important;">Nature of Enquiry *</label>
-                  <select class="form-select" id="cnc_machine_type" name="cnc_machine_type" required
+                  <label for="enquiry_type" class="form-label" style="color: #333333 !important; background: none !important;">Nature of Enquiry *</label>
+                  <select class="form-select" id="enquiry_type" name="enquiry_type" required
                           style="background-color: white !important; color: #333333 !important;">
-                    <option value="" style="color: #333333 !important;"> </option>
-                    <option value="milling_machine" style="color: #333333 !important;">CNC Milling Machine</option>
-                    <option value="lathe" style="color: #333333 !important;">CNC Lathe</option>
-                    <option value="router" style="color: #333333 !important;">CNC Router</option>                    
-                    <option value="not_sure" style="color: #333333 !important;">Not Sure / Need Consultation</option>
+                    <option value="">Select an option</option>
+                    <option value="Services">Services</option>
+                    <option value="Products">Products</option>
+                    <option value="Careers">Careers</option>
+                    <option value="Support">Support</option>
+                    <option value="Delivery Times">Delivery Times</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
@@ -486,10 +488,19 @@
               </div>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-lg">
+                <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">
                   <i class="fas fa-paper-plane me-2"></i>
                   Send Enquiry
                 </button>
+              </div>
+              
+              <!-- Success/Error Message Container -->
+              <div id="message-container" class="mt-3" style="display: none;">
+                <div id="message-content" class="alert" role="alert" style="position: relative; overflow: hidden;">
+                  <div id="message-text"></div>
+                  <!-- Progress bar for auto-dismiss -->
+                  <div id="progress-bar" style="position: absolute; bottom: 0; left: 0; height: 3px; background: #28a745; width: 100%; animation: shrinkWidth 5s linear;"></div>
+                </div>
               </div>
             </form>
           </div>
@@ -560,6 +571,92 @@
     card.addEventListener("mouseleave", function () {
       this.style.transform = "translateY(0)";
     });
+  });
+
+  // Homepage enquiry form AJAX handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('homepage-enquiry-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const messageContainer = document.getElementById('message-container');
+    const messageContent = document.getElementById('message-content');
+
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Disable submit button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+        
+        // Hide any previous messages
+        messageContainer.style.display = 'none';
+        
+        // Get form data
+        const formData = new FormData(form);
+        
+        // Send AJAX request
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Show message
+          messageContainer.style.display = 'block';
+          
+          if (data.success) {
+            messageContent.className = 'alert alert-success';
+            document.getElementById('message-text').innerHTML = data.message;
+            // Reset form on success
+            form.reset();
+          } else {
+            messageContent.className = 'alert alert-danger';
+            document.getElementById('message-text').innerHTML = data.message;
+          }
+          
+          // Ensure progress bar is visible and animating
+          const progressBar = document.getElementById('progress-bar');
+          progressBar.style.animation = 'none';
+          progressBar.offsetHeight; // Trigger reflow
+          progressBar.style.animation = 'shrinkWidth 5s linear';
+          
+          // Scroll to message
+          messageContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Auto-dismiss message after 5 seconds with progress bar
+          setTimeout(() => {
+            messageContainer.style.display = 'none';
+          }, 5000);
+        })
+        .catch(error => {
+          // Show error message
+          messageContainer.style.display = 'block';
+          messageContent.className = 'alert alert-danger';
+          document.getElementById('message-text').innerHTML = 'Sorry, there was an error sending your message. Please try again or contact us directly.';
+          
+          // Ensure progress bar is visible and animating
+          const progressBar = document.getElementById('progress-bar');
+          progressBar.style.animation = 'none';
+          progressBar.offsetHeight; // Trigger reflow
+          progressBar.style.animation = 'shrinkWidth 5s linear';
+          
+          messageContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Auto-dismiss error message after 5 seconds with progress bar
+          setTimeout(() => {
+            messageContainer.style.display = 'none';
+          }, 5000);
+        })
+        .finally(() => {
+          // Re-enable submit button
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send Enquiry';
+        });
+      });
+    }
   });
 </script>
 {% endblock %}

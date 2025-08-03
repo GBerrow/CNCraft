@@ -9,4 +9,6 @@ urlpatterns = [
     path('', views.index, name='home'),
     # Map the contact URL to the contact view, name it 'contact'
     path('contact/', views.contact, name='contact'),
+    # Map the homepage enquiry URL to the homepage_enquiry view
+    path('homepage-enquiry/', views.homepage_enquiry, name='homepage_enquiry'),
 ]
