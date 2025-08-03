@@ -203,6 +203,16 @@ small,
    3. HEADER & NAVIGATION STYLES
    ======================================================================== */
 
+/* Footer paragraph styling - ensures white text on dark background across all pages */
+footer p {
+  color: #f8f9fa !important; /* Light gray for readability on dark footer */
+}
+
+/* Footer lead text styling - ensures white text on dark background across all pages */
+footer .lead {
+  color: #f8f9fa !important; /* Consistent with other footer text */
+}
+
 /* Remove any injected pseudo-elements that might create blue circles */
 header::before,
 header::after,

@@ -505,15 +505,6 @@ section#clients {
   background-color: #ffffff !important;
 }
 
-/* Footer paragraph styling - ensure white text on dark background */
-footer p {
-  color: #f8f9fa !important; /* Light gray for readability on dark footer */
-}
-
-footer .lead {
-  color: #f8f9fa !important; /* Consistent with other footer text */
-}
-
 /* Clients section paragraph styling - dark text on white background */
 #clients p {
   color: #666 !important; /* Dark gray for readability on white background */
