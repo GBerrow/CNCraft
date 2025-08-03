@@ -208,21 +208,12 @@
       <div class="col">
         <div class="card h-100 border-0 shadow-sm product-card">
           <div class="position-relative">
-            {% if product.image %}
             <img
-              src="{{ product.image.url }}"
+              src="{% static product.get_main_image %}"
               alt="{{ product.name }}"
               class="card-img-top"
               style="height: 200px; object-fit: cover;"
             />
-            {% else %}
-            <img
-              src="https://images.unsplash.com/photo-1581092782421-c6a7f7b8d57a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-              alt="{{ product.name }}"
-              class="card-img-top"
-              style="height: 200px; object-fit: cover;"
-            />
-            {% endif %}
             {% if product.is_on_sale %}
             <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sale</span>
             {% endif %}
