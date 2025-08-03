@@ -292,6 +292,17 @@
   height: 220px; /* Fixed height ensures consistent grid layout */
 }
 
+/* Product image link - makes entire image clickable */
+.product-image-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
 /* Product images - optimized for consistent display and smooth interactions */
 .product-image img {
   width: 100%; /* Full width utilization of container */
@@ -303,6 +314,11 @@
 /* Image zoom effect on card hover - adds premium feel to product browsing */
 .product-card:hover .product-image img {
   transform: scale(1.05); /* Subtle zoom creates engaging visual effect */
+}
+
+/* Hover effect for clickable image link */
+.product-image-link:hover {
+  transform: scale(1.02); /* Subtle scale effect on image hover */
 }
 
 /* ========================================================================
@@ -384,11 +400,15 @@
 .product-card .card-title a {
   color: #333; /* Dark color for strong readability */
   transition: color 0.2s ease; /* Smooth color change on interaction */
+  text-decoration: none; /* Remove default underline */
+  display: inline-block; /* Ensure proper hover area */
+  padding: 2px 0; /* Small padding for better hover area */
 }
 
 /* Product title link hover - provides interaction feedback */
 .product-card .card-title a:hover {
   color: #007bff; /* Brand color on hover indicates clickable element */
+  text-decoration: underline; /* Underline on hover for clarity */
 }
 
 /* Product description text - balances readability with space efficiency */
@@ -644,13 +664,17 @@
 
 /* Hover-capable device enhancements - prevents hover effects on touch devices */
 @media (hover: hover) {
-  /* Cursor indication for interactive cards - improves user experience clarity */
-  .product-card {
-    cursor: pointer; /* Indicates entire card is clickable */
+  /* Cursor indication for interactive elements - improves user experience clarity */
+  .product-image-link {
+    cursor: pointer; /* Indicates image is clickable */
   }
 
-  /* Enhanced hover effect for product titles - reinforces card interactivity */
-  .product-card:hover .card-title a {
+  .product-card .card-title a {
+    cursor: pointer; /* Indicates title is clickable */
+  }
+
+  /* Enhanced hover effect for product titles - reinforces title interactivity */
+  .product-card .card-title a:hover {
     color: #007bff; /* Brand color on hover reinforces clickability */
   }
 }
