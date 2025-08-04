@@ -10,6 +10,7 @@ urlpatterns = [
     # Account management URLs
     path('account/update/', views.update_user_view, name='update_user'),
     path('account/delete/', views.delete_account_view, name='delete_account'),
+    path('delete_order/<str:order_number>/', views.delete_order_view, name='delete_order'),
     # Authentication URLs
     path('signup/', views.signup_view, name='account_signup'),
     path('login/', views.login_view, name='account_login'),

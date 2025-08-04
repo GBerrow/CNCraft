@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
 from .forms import UserProfileForm
 from .models import UserProfile
 from checkout.models import Order
@@ -50,7 +51,8 @@ def profile(request):
         form = UserProfileForm(instance=profile)
     
     # Get all orders related to the user's profile, ordered by date descending
-    orders = profile.orders.all().order_by('-date')
+    # Limit to last 10 orders to prevent dashboard clutter
+    orders = profile.orders.all().order_by('-date')[:10]
     
     # Get cart item count for the orders section
     from cart.contexts import cart_contents
@@ -83,13 +85,13 @@ def order_history(request, order_number):
         'A confirmation email was sent on the order date.'
     ))
 
-    template = 'checkout/checkout_success.html'
+    template = 'profiles/order_history.html'
     context = {
         'order': order,
         'from_profile': True,
     }
 
-    # Render the checkout success template with the context
+    # Render the order history template with the context
     return render(request, template, context)
 
 def login_view(request):
@@ -418,3 +420,26 @@ def delete_account_view(request):
         return redirect('home')
     
     return render(request, 'profiles/delete_account.html')
+
+@login_required
+@require_POST
+def delete_order_view(request, order_number):
+    """
+    Delete a specific order for the authenticated user
+    """
+    try:
+        # Get the order and ensure it belongs to the current user
+        order = get_object_or_404(Order, order_number=order_number, user_profile__user=request.user)
+        
+        # Delete the order
+        order.delete()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Order deleted successfully'
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)
