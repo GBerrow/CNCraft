@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}Delete Account - {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profiles/dashboard.css' %}" />
+{% endblock %}
+
+{% block page_header %}
+<div class="page-header-spacer"></div>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page-wrapper delete-account-page">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="dashboard-header">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center">
+                        <h1 class="dashboard-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Delete Account
+                        </h1>
+                        <p class="dashboard-subtitle">Permanently remove your account and all associated data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="dashboard-content-wrapper">
+                <div class="row dashboard-content justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3><i class="fas fa-trash-alt"></i>Account Deletion Warning</h3>
+                                <p>This action cannot be undone</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading">
+                                        <i class="fas fa-exclamation-triangle"></i> 
+                                        Warning: Permanent Deletion
+                                    </h4>
+                                    <p class="mb-0">
+                                        <strong>Are you absolutely sure you want to delete your account?</strong>
+                                    </p>
+                                </div>
+
+                                <div class="deletion-consequences mb-4">
+                                    <h5 class="text-danger">
+                                        <i class="fas fa-times-circle"></i> 
+                                        This will permanently delete:
+                                    </h5>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <i class="fas fa-user text-danger"></i> 
+                                            Your user account and profile
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-shopping-bag text-danger"></i> 
+                                            All your order history
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-cog text-danger"></i> 
+                                            All your preferences and settings
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-envelope text-danger"></i> 
+                                            All associated email addresses
+                                        </li>
+                                    </ul>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-info-circle"></i> 
+                                        This action cannot be reversed. All data will be permanently removed from our systems.
+                                    </p>
+                                </div>
+
+                                <div class="confirmation-form">
+                                    <form method="POST" class="text-center">
+                                        {% csrf_token %}
+                                        <div class="form-group mb-4">
+                                            <label for="confirm-deletion" class="form-label">
+                                                Type "DELETE" to confirm:
+                                            </label>
+                                            <input type="text" class="form-control" id="confirm-deletion" 
+                                                   name="confirm_deletion" placeholder="DELETE" required
+                                                   pattern="DELETE" title="Please type DELETE to confirm">
+                                            <small class="form-text text-muted">
+                                                This helps prevent accidental deletions
+                                            </small>
+                                        </div>
+                                        
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button type="submit" class="btn btn-danger btn-lg" 
+                                                    onclick="return confirm('Are you absolutely sure? This action cannot be undone.')">
+                                                <i class="fas fa-trash-alt"></i> 
+                                                Yes, Delete My Account
+                                            </button>
+                                            <a href="{% url 'profile' %}" class="btn btn-outline-secondary btn-lg">
+                                                <i class="fas fa-times"></i> 
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alternative Actions -->
+                        <div class="dashboard-section mt-4">
+                            <div class="section-header">
+                                <h3><i class="fas fa-lightbulb"></i>Consider These Alternatives</h3>
+                                <p>Before deleting your account, consider these options</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="alternative-option text-center p-3 border rounded">
+                                            <i class="fas fa-user-edit fa-2x text-primary mb-2"></i>
+                                            <h6>Update Account</h6>
+                                            <p class="small">Change your email or password instead</p>
+                                            <a href="{% url 'update_user' %}" class="btn btn-outline-primary btn-sm">
+                                                Update Account
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="alternative-option text-center p-3 border rounded">
+                                            <i class="fas fa-sign-out-alt fa-2x text-warning mb-2"></i>
+                                            <h6>Logout Instead</h6>
+                                            <p class="small">Simply log out and stop using the account</p>
+                                            <a href="{% url 'account_logout' %}" class="btn btn-outline-warning btn-sm">
+                                                Logout
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'javascript/profiles/dashboard.js' %}"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // Add confirmation validation
+    $('#confirm-deletion').on('input', function() {
+      if ($(this).val() === 'DELETE') {
+        $(this).removeClass('is-invalid').addClass('is-valid');
+      } else {
+        $(this).removeClass('is-valid').addClass('is-invalid');
+      }
+    });
+  });
+</script>
+{% endblock %} 
