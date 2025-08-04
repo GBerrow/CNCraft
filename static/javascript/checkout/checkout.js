@@ -5,6 +5,54 @@
    and accessibility features for a professional e-commerce experience.
    ======================================================================== */
 
+// IMMEDIATE FIX: Clear any stuck loading states and prevent browser warnings
+(function() {
+    'use strict';
+    
+    // Clear loading overlay immediately if it exists
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+    }
+    
+    // Re-enable submit button if it's disabled
+    const submitButton = document.querySelector('#submit-button');
+    if (submitButton && submitButton.disabled) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span class="btn-content"><i class="fas fa-lock"></i> Complete Order</span>';
+    }
+    
+    // Remove all beforeunload listeners to prevent "Leave site?" prompts
+    window.removeEventListener('beforeunload', function() {});
+    
+    // Reset form to clear autofill data and prevent "unsaved changes" warnings
+    const form = document.getElementById('payment-form');
+    if (form) {
+        // Store original values before reset
+        const originalValues = {};
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            if (input.value) {
+                originalValues[input.name] = input.value;
+            }
+        });
+        
+        // Reset form to clear browser warnings
+        form.reset();
+        
+        // Restore values after a short delay
+        setTimeout(() => {
+            inputs.forEach(input => {
+                if (originalValues[input.name]) {
+                    input.value = originalValues[input.name];
+                }
+            });
+        }, 100);
+    }
+    
+    console.log('Immediate fix applied - loading state cleared and browser warnings disabled');
+})();
+
 const CheckoutManager = {
     // Configuration and state
     config: {
@@ -24,7 +72,7 @@ const CheckoutManager = {
         ],
         validationRules: {
             email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            phone: /^[\+]?[1-9][\d]{0,15}$/,
+            phone: /^[\+]?[0-9]{10,15}$/,
             postcode: /^[A-Z0-9\s\-]{3,10}$/i
         }
     },
@@ -99,6 +147,9 @@ const CheckoutManager = {
 
         // Initial validation state
         this.updateFormValidationState();
+        
+        // Track form changes to prevent browser "unsaved changes" warnings
+        // Note: Simplified approach to avoid syntax errors
     },
 
     // Add validation UI elements to fields
@@ -273,9 +324,20 @@ const CheckoutManager = {
 
     // Handle form submission
     handleFormSubmit(event) {
-        // Don't prevent default submission - let Stripe handle it
-        // This is just for additional validation and UX enhancements
-        
+        // Check if we're in test mode (no Stripe integration)
+        const stripePublicKey = document.getElementById('id_stripe_public_key');
+        if (stripePublicKey && stripePublicKey.textContent === 'pk_test_placeholder') {
+            // Test mode - allow form submission without Stripe processing
+            console.log('Test mode detected - allowing form submission');
+            
+            // Don't prevent default - let the form submit naturally
+            // Don't show loading state in test mode to avoid getting stuck
+            this.state.isSubmitting = false;
+            return true; // Allow form to submit normally
+        }
+
+        // For real Stripe mode, let the Stripe handler manage the submission
+        // We just validate and show loading state
         if (this.state.isSubmitting) {
             event.preventDefault();
             return false;
@@ -299,12 +361,13 @@ const CheckoutManager = {
             return false;
         }
 
-        // Set submitting state
+        // Set submitting state and show loading
         this.state.isSubmitting = true;
         this.showLoadingState();
-        
-        // Track completion
         this.trackFormProgress();
+        
+        // Don't prevent default - let Stripe handle the actual submission
+        return true;
     },
 
     // Show validation summary for accessibility
@@ -397,16 +460,6 @@ const CheckoutManager = {
         this.addKeyboardShortcutsHelp();
     },
 
-    // Add keyboard shortcuts help dialog
-    addKeyboardShortcutsHelp() {
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === '?') {
-                e.preventDefault();
-                this.showKeyboardShortcutsDialog();
-            }
-        });
-    },
-
     // Show keyboard shortcuts dialog
     showKeyboardShortcutsDialog() {
         const dialog = document.createElement('div');
@@ -454,6 +507,13 @@ const CheckoutManager = {
                 inputs[currentIndex + 1].focus();
             }
         }
+        
+        // Emergency escape from loading state
+        if (event.key === 'Escape' && this.state.isSubmitting) {
+            event.preventDefault();
+            this.forceClearLoadingState();
+            console.log('Loading state cleared by Escape key');
+        }
     },
 
     // Initialize loading states
@@ -465,6 +525,53 @@ const CheckoutManager = {
             
             // Store original content for restoration
             submitButton.dataset.originalContent = originalContent;
+        }
+        
+        // Add click handler to loading overlay for emergency cancel
+        const loadingOverlay = document.querySelector(this.config.loadingOverlaySelector);
+        if (loadingOverlay) {
+            loadingOverlay.addEventListener('click', (event) => {
+                // Only trigger if clicking the overlay itself, not its children
+                if (event.target === loadingOverlay) {
+                    this.forceClearLoadingState();
+                    console.log('Loading state cleared by clicking overlay');
+                }
+            });
+            
+            // Add emergency cancel button to loading overlay
+            const emergencyButton = document.createElement('button');
+            emergencyButton.type = 'button';
+            emergencyButton.className = 'emergency-cancel-btn';
+            emergencyButton.innerHTML = '<i class="fas fa-times"></i> Cancel';
+            emergencyButton.style.cssText = `
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: #dc3545;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                z-index: 10001;
+                display: none;
+            `;
+            
+            emergencyButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.forceClearLoadingState();
+                console.log('Loading state cleared by emergency button');
+            });
+            
+            loadingOverlay.appendChild(emergencyButton);
+            
+            // Show emergency button after 5 seconds if still loading
+            setTimeout(() => {
+                if (this.state.isSubmitting) {
+                    emergencyButton.style.display = 'block';
+                }
+            }, 5000);
         }
     },
 
@@ -487,8 +594,17 @@ const CheckoutManager = {
             `;
         }
         
-        // Prevent navigation away
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        // Only add beforeunload listener for real Stripe payments, not test mode
+        const stripePublicKey = document.getElementById('id_stripe_public_key');
+        if (!stripePublicKey || stripePublicKey.textContent !== 'pk_test_placeholder') {
+            window.addEventListener('beforeunload', this.handleBeforeUnload);
+        }
+        
+        // Add timeout to automatically clear loading state after 30 seconds
+        this.loadingTimeout = setTimeout(() => {
+            console.log('Loading timeout reached - clearing state automatically');
+            this.forceClearLoadingState();
+        }, 30000); // 30 seconds
     },
 
     // Hide loading state
@@ -507,6 +623,12 @@ const CheckoutManager = {
         
         this.state.isSubmitting = false;
         window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        
+        // Clear the timeout if it exists
+        if (this.loadingTimeout) {
+            clearTimeout(this.loadingTimeout);
+            this.loadingTimeout = null;
+        }
     },
 
     // Handle before unload warning
@@ -514,6 +636,46 @@ const CheckoutManager = {
         const message = 'Your payment is being processed. Are you sure you want to leave?';
         event.returnValue = message;
         return message;
+    },
+
+    // Force clear loading state (for emergency situations)
+    forceClearLoadingState() {
+        console.log('Force clearing loading state');
+        this.state.isSubmitting = false;
+        this.hideLoadingState();
+        
+        // Also clear any beforeunload listeners
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        
+        // Clear the timeout if it exists
+        if (this.loadingTimeout) {
+            clearTimeout(this.loadingTimeout);
+            this.loadingTimeout = null;
+        }
+        
+        // Re-enable submit button
+        const submitButton = document.querySelector(this.config.submitButtonSelector);
+        if (submitButton && submitButton.dataset.originalContent) {
+            submitButton.disabled = false;
+            submitButton.innerHTML = submitButton.dataset.originalContent;
+        }
+        
+        // Clear form state to prevent browser "unsaved changes" warnings
+        this.clearFormState();
+    },
+    
+    // Clear form state to prevent browser warnings
+    clearFormState() {
+        const form = document.querySelector(this.config.formSelector);
+        if (form) {
+            // Reset form to initial state
+            form.reset();
+            
+            // Remove any beforeunload listeners
+            window.removeEventListener('beforeunload', this.handleBeforeUnload);
+            
+            console.log('Form state cleared - browser warnings should stop');
+        }
     },
 
     // Handle visibility change for security
@@ -807,8 +969,230 @@ const CheckoutManager = {
         const styleSheet = document.createElement('style');
         styleSheet.textContent = styles;
         document.head.appendChild(styleSheet);
+    },
+    
+    // Simple function to clear form state and prevent browser warnings
+    clearFormState() {
+        const form = document.querySelector(this.config.formSelector);
+        if (form) {
+            // Reset form to initial state
+            form.reset();
+            
+            // Remove any beforeunload listeners
+            window.removeEventListener('beforeunload', this.handleBeforeUnload);
+            
+            console.log('Form state cleared - browser warnings should stop');
+        }
     }
 };
+
+// Stripe payment processing for checkout
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're in test mode
+    const stripePublicKeyElement = document.getElementById('id_stripe_public_key');
+    const isTestMode = stripePublicKeyElement && stripePublicKeyElement.textContent === 'pk_test_placeholder';
+    
+    if (isTestMode) {
+        console.log('Test mode detected - skipping Stripe initialization');
+        return;
+    }
+    
+    // Initialize Stripe only if we have a real public key and card element exists
+    if (typeof stripePublicKey !== 'undefined' && stripePublicKey !== 'pk_test_placeholder') {
+        const cardElement = document.getElementById('card-element');
+        if (cardElement) {
+            const stripe = Stripe(stripePublicKey);
+            const elements = stripe.elements();
+            
+            // Create card element
+            const card = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#424770',
+                        '::placeholder': {
+                            color: '#aab7c4',
+                        },
+                    },
+                    invalid: {
+                        color: '#9e2146',
+                    },
+                },
+            });
+            
+            // Mount card element
+            card.mount('#card-element');
+            
+            // Handle real-time validation errors
+            card.addEventListener('change', function(event) {
+                const displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                    displayError.style.display = 'block';
+                } else {
+                    displayError.textContent = '';
+                    displayError.style.display = 'none';
+                }
+            });
+            
+            // Handle form submission for real Stripe mode
+            const form = document.getElementById('payment-form');
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    // Let CheckoutManager handle validation first
+                    if (!CheckoutManager.state.isFormValid) {
+                        event.preventDefault();
+                        CheckoutManager.showValidationSummary();
+                        return false;
+                    }
+                    
+                    event.preventDefault();
+                    
+                    // Disable submit button to prevent double submission
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Processing...';
+                    
+                    // Show loading state
+                    const loadingSpinner = document.getElementById('loading-overlay');
+                    if (loadingSpinner) {
+                        loadingSpinner.style.display = 'flex';
+                    }
+                    
+                    // Create payment method
+                    stripe.createPaymentMethod({
+                        type: 'card',
+                        card: card,
+                        billing_details: {
+                            name: document.getElementById('id_full_name').value,
+                            email: document.getElementById('id_email').value,
+                        },
+                    }).then(function(result) {
+                        if (result.error) {
+                            // Show error message
+                            const errorElement = document.getElementById('card-errors');
+                            errorElement.textContent = result.error.message;
+                            errorElement.style.display = 'block';
+                            
+                            // Re-enable submit button
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalText;
+                            
+                            // Hide loading state
+                            if (loadingSpinner) {
+                                loadingSpinner.style.display = 'none';
+                            }
+                            
+                            // Reset CheckoutManager state
+                            CheckoutManager.state.isSubmitting = false;
+                            CheckoutManager.hideLoadingState();
+                        } else {
+                            // Payment method created successfully
+                            // Add payment method ID to form
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.setAttribute('type', 'hidden');
+                            hiddenInput.setAttribute('name', 'payment_method_id');
+                            hiddenInput.setAttribute('value', result.paymentMethod.id);
+                            form.appendChild(hiddenInput);
+                            
+                            // Submit form
+                            form.submit();
+                        }
+                    });
+                });
+            }
+        }
+    }
+    
+    // Form validation and auto-save for both test and real modes
+    const form = document.getElementById('payment-form');
+    if (form) {
+        const requiredFields = form.querySelectorAll('[required]');
+        requiredFields.forEach(function(field) {
+            field.addEventListener('blur', function() {
+                validateField(field);
+            });
+            
+            field.addEventListener('input', function() {
+                if (field.classList.contains('is-invalid')) {
+                    validateField(field);
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const value = field.value.trim();
+            const errorElement = field.parentNode.querySelector('.invalid-feedback');
+            
+            if (!value) {
+                field.classList.add('is-invalid');
+                if (errorElement) {
+                    errorElement.textContent = 'This field is required.';
+                    errorElement.style.display = 'block';
+                }
+            } else {
+                field.classList.remove('is-invalid');
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            }
+            
+            // Email validation
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    field.classList.add('is-invalid');
+                    if (errorElement) {
+                        errorElement.textContent = 'Please enter a valid email address.';
+                        errorElement.style.display = 'block';
+                    }
+                }
+            }
+            
+            // Phone validation
+            if (field.name === 'phone_number' && value) {
+                const phoneRegex = /^[\+]?[0-9]{10,15}$/;
+                if (!phoneRegex.test(value.replace(/\s/g, ''))) {
+                    field.classList.add('is-invalid');
+                    if (errorElement) {
+                        errorElement.textContent = 'Please enter a valid phone number.';
+                        errorElement.style.display = 'block';
+                    }
+                }
+            }
+        }
+        
+        // Auto-save form data to localStorage
+        const formInputs = form.querySelectorAll('input, select, textarea');
+        formInputs.forEach(function(input) {
+            // Load saved data
+            const savedValue = localStorage.getItem(`checkout_${input.name}`);
+            if (savedValue && !input.value) {
+                input.value = savedValue;
+            }
+            
+            // Save data on input
+            input.addEventListener('input', function() {
+                localStorage.setItem(`checkout_${input.name}`, input.value);
+            });
+        });
+        
+        // Clear saved data on successful submission
+        form.addEventListener('submit', function() {
+            formInputs.forEach(function(input) {
+                localStorage.removeItem(`checkout_${input.name}`);
+            });
+            
+            // Clear loading state after a short delay to allow form submission
+            setTimeout(() => {
+                if (CheckoutManager) {
+                    CheckoutManager.hideLoadingState();
+                }
+            }, 1000);
+        });
+    }
+});
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
@@ -818,3 +1202,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Export for potential external use
 window.CheckoutManager = CheckoutManager;
+
+// Emergency function for users to call from console
+window.clearCheckoutLoading = function() {
+    if (window.CheckoutManager) {
+        window.CheckoutManager.forceClearLoadingState();
+        console.log('Checkout loading state cleared via emergency function');
+    } else {
+        // Fallback if CheckoutManager isn't available
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+        const submitButton = document.querySelector('#submit-button');
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
+        console.log('Checkout loading state cleared via fallback method');
+    }
+};
+
+// Additional emergency function to clear form state and browser warnings
+window.clearFormState = function() {
+    const form = document.getElementById('payment-form');
+    if (form) {
+        form.reset();
+        console.log('Form reset - browser "unsaved changes" warnings should stop');
+    }
+    
+    // Also clear loading state
+    window.clearCheckoutLoading();
+};

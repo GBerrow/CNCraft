@@ -156,49 +156,75 @@
                                 <span class="section-badge">Required</span>
                             </div>
                             <div class="section-content">
-                                <!-- Payment Method Tabs -->
-                                <div class="payment-methods">
-                                    <div class="payment-method active" data-method="card">
-                                        <i class="fas fa-credit-card"></i>
-                                        Credit / Debit Card
-                                    </div>
-                                </div>
-
-                                <!-- Stripe Card Element Container -->
-                                <div class="payment-form-container">
-                                    <div class="card-element-wrapper">
-                                        <div class="payment-label">
-                                            Card Information <span class="required-asterisk">*</span>
+                                {% if stripe_public_key == 'pk_test_placeholder' %}
+                                    <!-- Test Mode Notice -->
+                                    <div class="test-mode-notice">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-flask"></i>
+                                            <strong>Test Mode Active</strong>
+                                            <p>You're currently in test mode. No real payments will be processed. Your order will be completed successfully for testing purposes.</p>
                                         </div>
-                                        <div id="card-element" class="stripe-element" role="textbox" aria-label="Card Information">
-                                            <!-- Stripe Elements will create form elements here -->
-                                        </div>
-                                        <div id="card-errors" class="payment-errors" role="alert" aria-live="polite"></div>
                                     </div>
-
-                                    <!-- Security Badges -->
-                                    <div class="payment-security">
-                                        <div class="security-badges">
-                                            <div class="security-badge">
-                                                <i class="fas fa-shield-alt"></i>
-                                                <span>SSL Encrypted</span>
+                                    
+                                    <!-- Test Mode Payment Form -->
+                                    <div class="payment-form-container">
+                                        <div class="card-element-wrapper">
+                                            <div class="payment-label">
+                                                Test Card Information <span class="required-asterisk">*</span>
                                             </div>
-                                            <div class="security-badge">
-                                                <i class="fab fa-cc-stripe"></i>
-                                                <span>Powered by Stripe</span>
+                                            <div class="test-card-info">
+                                                <p><strong>Test Card Number:</strong> 4242 4242 4242 4242</p>
+                                                <p><strong>Expiry Date:</strong> Any future date (e.g., 12/25)</p>
+                                                <p><strong>CVC:</strong> Any 3 digits (e.g., 123)</p>
+                                                <p><strong>ZIP Code:</strong> Any 5 digits (e.g., 12345)</p>
                                             </div>
                                         </div>
-                                        <div class="accepted-cards">
-                                            <i class="fab fa-cc-visa"></i>
-                                            <i class="fab fa-cc-mastercard"></i>
-                                            <i class="fab fa-cc-amex"></i>
-                                            <i class="fab fa-cc-discover"></i>
+                                    </div>
+                                {% else %}
+                                    <!-- Payment Method Tabs -->
+                                    <div class="payment-methods">
+                                        <div class="payment-method active" data-method="card">
+                                            <i class="fas fa-credit-card"></i>
+                                            Credit / Debit Card
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Hidden form field for Stripe -->
-                                <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                                    <!-- Stripe Card Element Container -->
+                                    <div class="payment-form-container">
+                                        <div class="card-element-wrapper">
+                                            <div class="payment-label">
+                                                Card Information <span class="required-asterisk">*</span>
+                                            </div>
+                                            <div id="card-element" class="stripe-element" role="textbox" aria-label="Card Information">
+                                                <!-- Stripe Elements will create form elements here -->
+                                            </div>
+                                            <div id="card-errors" class="payment-errors" role="alert" aria-live="polite"></div>
+                                        </div>
+
+                                        <!-- Security Badges -->
+                                        <div class="payment-security">
+                                            <div class="security-badges">
+                                                <div class="security-badge">
+                                                    <i class="fas fa-shield-alt"></i>
+                                                    <span>SSL Encrypted</span>
+                                                </div>
+                                                <div class="security-badge">
+                                                    <i class="fab fa-cc-stripe"></i>
+                                                    <span>Powered by Stripe</span>
+                                                </div>
+                                            </div>
+                                            <div class="accepted-cards">
+                                                <i class="fab fa-cc-visa"></i>
+                                                <i class="fab fa-cc-mastercard"></i>
+                                                <i class="fab fa-cc-amex"></i>
+                                                <i class="fab fa-cc-discover"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hidden form field for Stripe -->
+                                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                                {% endif %}
                             </div>
                         </div>
 
@@ -325,6 +351,10 @@
             <i class="fas fa-sync-alt fa-spin"></i>
             <h3>Processing your order...</h3>
             <p>Please do not refresh or close this page</p>
+            <!-- Emergency Reset Button -->
+            <button type="button" id="emergency-reset-btn" class="btn btn-danger" style="margin-top: 20px; display: none;">
+                <i class="fas fa-times"></i> Cancel Processing
+            </button>
         </div>
     </div>
 </div>
@@ -333,7 +363,50 @@
 {% block postloadjs %}
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-    {{ client_secret|json_script:"id_client_secret" }}
-    <script src="{% static 'js/stripe_elements.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="{% static 'javascript/checkout/checkout.js' %}"></script>
+    <script>
+        // Get Stripe public key from Django template
+        const stripePublicKey = document.getElementById('id_stripe_public_key').textContent;
+        
+        // Emergency reset functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const emergencyBtn = document.getElementById('emergency-reset-btn');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            
+            if (emergencyBtn && loadingOverlay) {
+                // Show emergency button after 3 seconds if loading overlay is visible
+                setTimeout(() => {
+                    if (loadingOverlay.style.display === 'flex' || loadingOverlay.classList.contains('show')) {
+                        emergencyBtn.style.display = 'inline-block';
+                    }
+                }, 3000);
+                
+                // Handle emergency reset
+                emergencyBtn.addEventListener('click', function() {
+                    // Clear loading state
+                    loadingOverlay.style.display = 'none';
+                    loadingOverlay.classList.remove('show');
+                    
+                    // Re-enable submit button
+                    const submitButton = document.querySelector('#submit-button');
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<span class="btn-content"><i class="fas fa-lock"></i> Complete Order</span>';
+                    }
+                    
+                    // Reset form to clear browser warnings
+                    const form = document.getElementById('payment-form');
+                    if (form) {
+                        form.reset();
+                    }
+                    
+                    // Remove beforeunload listeners
+                    window.removeEventListener('beforeunload', function() {});
+                    
+                    console.log('Emergency reset completed');
+                });
+            }
+        });
+    </script>
 {% endblock %}
