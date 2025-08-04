@@ -29,6 +29,15 @@ class UserProfileForm(forms.ModelForm):
 
         # Iterate through all fields in the form
         for field in self.fields:
+            # Skip notification preference fields (they are checkboxes)
+            if field in ['default_email_notifications', 'default_order_status_updates', 
+                        'default_promotional_emails', 'default_newsletter_subscription']:
+                continue
+            
+            # Skip e-commerce preference fields (they are choice fields and checkboxes)
+            if field in ['currency', 'language', 'display_mode', 'cart_auto_save']:
+                continue
+                
             if field != 'default_country':
                 # Add '*' to placeholder if the field is required
                 if self.fields[field].required:
@@ -41,3 +50,9 @@ class UserProfileForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'profile-form-input'
             # Remove the label for each field
             self.fields[field].label = False
+
+        # Add notification preferences as checkboxes
+        self.fields['default_email_notifications'].widget = forms.CheckboxInput()
+        self.fields['default_order_status_updates'].widget = forms.CheckboxInput()
+        self.fields['default_promotional_emails'].widget = forms.CheckboxInput()
+        self.fields['default_newsletter_subscription'].widget = forms.CheckboxInput()
