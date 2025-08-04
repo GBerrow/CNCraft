@@ -27,6 +27,7 @@
                 id="id_login"
                 class="form-control"
                 placeholder="Enter your email"
+                value="{{ request.COOKIES.remembered_email|default:'' }}"
                 required
               />
             </div>
@@ -34,27 +35,31 @@
             <!-- Password Field -->
             <div class="form-group">
               <label for="id_password">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="id_password"
-                class="form-control"
-                placeholder="Enter your password"
-                required
-              />
+              <div class="password-input-container">
+                <input
+                  type="password"
+                  name="password"
+                  id="id_password"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  required
+                />
+                <button type="button" class="password-toggle" id="password-toggle" title="Show password">
+                  <i class="fas fa-eye" id="password-icon"></i>
+                </button>
+              </div>
             </div>
 
-            <!-- Remember Me -->
+            <!-- Remember Me Checkbox -->
             <div class="form-check">
               <input
                 type="checkbox"
-                name="remember"
-                id="id_remember"
+                name="remember_me"
+                id="remember_me"
                 class="form-check-input"
+                {% if request.COOKIES.remembered_email %}checked{% endif %}
               />
-              <label for="id_remember" class="form-check-label"
-                >Remember Me</label
-              >
+              <label for="remember_me" class="form-check-label">Remember Me</label>
             </div>
 
             <!-- Submit Button -->
@@ -89,4 +94,7 @@
     </div>
   </div>
 </div>
-{% endblock %} {% block postloadjs %} {{ block.super }} {% endblock %}
+{% endblock %} {% block postloadjs %} 
+{{ block.super }}
+<script src="{% static 'javascript/registration/login.js' %}"></script>
+{% endblock %}
