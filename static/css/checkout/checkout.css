@@ -472,6 +472,57 @@ label {
     margin-bottom: 1.5rem;
 }
 
+/* Test mode notice */
+.test-mode-notice {
+    margin-bottom: 1.5rem;
+}
+
+.test-mode-notice .alert {
+    border: 2px solid #17a2b8;
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);
+}
+
+.test-mode-notice .alert i {
+    color: #17a2b8;
+    margin-right: 0.5rem;
+    font-size: 1.1em;
+}
+
+.test-mode-notice .alert strong {
+    color: #0c5460;
+    font-weight: 600;
+}
+
+.test-mode-notice .alert p {
+    margin: 0.5rem 0 0 0;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Test card information */
+.test-card-info {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-top: 1rem;
+}
+
+.test-card-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.test-card-info strong {
+    color: #212529;
+    font-weight: 600;
+}
+
 .payment-label {
     display: block;
     font-weight: 600;
