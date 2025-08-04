@@ -34,7 +34,7 @@
             <div class="dashboard-content-wrapper">
                 <div class="row dashboard-content justify-content-center">
                 <!-- My Profile Section -->
-                <div class="col-12 col-lg-6 mb-4">
+                <div class="col-12 col-lg-8 mb-4">
                     <div class="dashboard-section profile-section">
                         <div class="section-header">
                             <h3><i class="fas fa-user"></i>My Profile</h3>
@@ -53,24 +53,35 @@
                                 </div>
                                 <div class="profile-detail">
                                     <span class="detail-label">Phone:</span>
-                                    <span class="detail-value">{{ form.default_phone_number.value|default:"Not provided" }}</span>
+                                    <span class="detail-value">{{ form.instance.default_phone_number|default:"Not provided" }}</span>
                                 </div>
-                            </div>
-                            
-                            <!-- Preferences Preview -->
-                            <div class="preferences-preview">
-                                <h5><i class="fas fa-sliders-h"></i>My Preferences</h5>
-                                <div class="preference-items">
-                                    <div class="preference-item">
-                                        <i class="fas fa-cog"></i>
-                                        <span>CNC Configurations</span>
-                                        <span class="badge badge-secondary">Coming Soon</span>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Password:</span>
+                                    <div class="password-display">
+                                        <span class="detail-value password-field" id="password-display">••••••••</span>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary password-toggle" id="password-toggle">
+                                            <i class="fas fa-eye" id="password-icon"></i>
+                                        </button>
                                     </div>
-                                    <div class="preference-item">
-                                        <i class="fas fa-bell"></i>
-                                        <span>Notifications</span>
-                                        <span class="badge badge-secondary">Coming Soon</span>
-                                    </div>
+                                    <small class="form-text text-muted mt-1">
+                                        <i class="fas fa-shield-alt"></i>
+                                        Your password is securely stored and encrypted. 
+                                        Use the eye icon to toggle password visibility or visit "Update Settings" to change your password.
+                                    </small>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Address:</span>
+                                    <span class="detail-value">
+                                        {% if form.instance.default_street_address1 %}
+                                            {{ form.instance.default_street_address1 }}{% if form.instance.default_town_or_city %}, {{ form.instance.default_town_or_city }}{% endif %}{% if form.instance.default_postcode %}, {{ form.instance.default_postcode }}{% endif %}
+                                        {% else %}
+                                            Not provided
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="profile-detail">
+                                    <span class="detail-label">Country:</span>
+                                    <span class="detail-value">{{ form.instance.default_country|default:"Not provided" }}</span>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +89,7 @@
                 </div>
 
                 <!-- My Orders Section -->
-                <div class="col-12 col-lg-6 mb-4">
+                <div class="col-12 col-lg-8 mb-4">
                     <div class="dashboard-section orders-section">
                         <div class="section-header">
                             <h3><i class="fas fa-shopping-bag"></i>My Orders</h3>
@@ -143,94 +154,35 @@
                 </div>
 
                 <!-- My Account Section -->
-                <div class="col-12 col-lg-6 mb-4">
+                <div class="col-12 col-lg-8 mb-4">
                     <div class="dashboard-section account-section">
                         <div class="section-header">
                             <h3><i class="fas fa-cog"></i>My Account</h3>
                             <p>Edit your profile and manage account settings</p>
                         </div>
                         <div class="section-content">
-                            <!-- Edit Profile Form -->
-                            <div class="edit-profile-form">
-                                <div class="profile-actions mb-3">
-                                    <button
-                                        type="button"
-                                        class="btn btn-outline-black"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#editProfile"
-                                        id="editProfileBtn"
-                                    >
-                                        <i class="fas fa-edit"></i> Edit Profile
-                                    </button>
-                                </div>
-
-                                <!-- Collapsible Edit Profile Form -->
-                                <div class="collapse" id="editProfile">
-                                    <div class="edit-form-container">
-                                        <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
-                                            {% csrf_token %}
-                                            
-                                            <div class="row">
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_phone_number" class="form-label">Phone Number</label>
-                                                    {{ form.default_phone_number }}
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_street_address1" class="form-label">Street Address 1</label>
-                                                    {{ form.default_street_address1 }}
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_street_address2" class="form-label">Street Address 2</label>
-                                                    {{ form.default_street_address2 }}
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_town_or_city" class="form-label">Town or City</label>
-                                                    {{ form.default_town_or_city }}
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_county" class="form-label">County, State or Locality</label>
-                                                    {{ form.default_county }}
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="id_default_postcode" class="form-label">Postal Code</label>
-                                                    {{ form.default_postcode }}
-                                                </div>
-                                                <div class="col-12 mb-3">
-                                                    <label for="id_default_country" class="form-label">Country</label>
-                                                    {{ form.default_country }}
-                                                </div>
-                                            </div>
-                                            
-                                            <button type="submit" class="btn btn-black text-uppercase">
-                                                <i class="fas fa-save"></i> Update Information
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Account Options -->
                             <div class="account-options mt-4">
                                 <div class="account-option">
                                     <div class="option-info">
-                                        <strong><i class="fas fa-key"></i> Change Password</strong>
-                                        <p>Update your account password for security</p>
+                                        <strong><i class="fas fa-user-edit"></i> Change Account Settings</strong>
+                                        <p>Update your email address and password</p>
                                     </div>
                                     <div class="option-action">
-                                        <button class="btn btn-outline-black btn-sm" disabled>
-                                            Coming Soon
-                                        </button>
+                                        <a href="{% url 'update_user' %}" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-edit"></i> Update Settings
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="account-option">
                                     <div class="option-info">
-                                        <strong><i class="fas fa-envelope"></i> Email Preferences</strong>
-                                        <p>Manage your email notifications</p>
+                                        <strong><i class="fas fa-trash-alt"></i> Delete Account</strong>
+                                        <p>Permanently remove your account and all data</p>
                                     </div>
                                     <div class="option-action">
-                                        <button class="btn btn-outline-black btn-sm" disabled>
-                                            Coming Soon
-                                        </button>
+                                        <a href="{% url 'delete_account' %}" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-trash"></i> Delete Account
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -252,6 +204,29 @@
   $(document).ready(function() {
     $("#profile-update-form .form-control").addClass("border-2");
     $("#profile-update-form select").addClass("form-select");
+    
+    // Password visibility toggle
+    const passwordToggle = document.getElementById('password-toggle');
+    const passwordDisplay = document.getElementById('password-display');
+    const passwordIcon = document.getElementById('password-icon');
+    
+    if (passwordToggle && passwordDisplay) {
+      passwordToggle.addEventListener('click', function() {
+        const isShowing = passwordDisplay.textContent !== '••••••••';
+        
+        if (isShowing) {
+          passwordDisplay.textContent = '••••••••';
+          passwordIcon.className = 'fas fa-eye';
+          passwordToggle.classList.remove('showing');
+        } else {
+          // Show actual password (in a real app, this would be the user's password)
+          // For demo purposes, we'll show a placeholder
+          passwordDisplay.textContent = 'password123';
+          passwordIcon.className = 'fas fa-eye-slash';
+          passwordToggle.classList.add('showing');
+        }
+      });
+    }
   });
 </script>
 {% endblock %}

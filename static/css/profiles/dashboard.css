@@ -103,6 +103,10 @@
     max-width: 600px;
 }
 
+.dashboard-subtitle {
+    color: rgba(255, 255, 255, 0.9) !important;
+}   
+
 /* Modern card system */
 .dashboard-section {
     background: #fff;
@@ -137,7 +141,7 @@
 /* Section header styling */
 .section-header {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    color: white;
+    color: white !important;
     padding: 1.5rem 2rem;
     border-bottom: 3px solid #0080ff;
     position: relative;
@@ -155,7 +159,7 @@
 }
 
 .section-header h3 {
-    color: white;
+    color: white !important;
     font-weight: 700;
     font-size: 1.3rem;
     margin: 0 0 0.5rem 0;
@@ -170,7 +174,7 @@
 }
 
 .section-header h4 {
-    color: white;
+    color: white !important;
     font-weight: 600;
     font-size: 1.1rem;
     margin: 0 0 0.5rem 0;
@@ -178,7 +182,7 @@
 
 .section-header p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9) !important;
     font-size: 0.95rem;
     opacity: 0.9;
 }
@@ -366,6 +370,54 @@
     font-weight: 600;
     color: #2c3e50;
     margin-bottom: 0.5rem;
+}
+
+/* Form section styling */
+.form-section {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-section-title {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.form-section-title i {
+    color: #0080ff;
+}
+
+/* Readonly input styling */
+.form-control[readonly] {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Payment form security notice */
+.payment-security-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #856404;
+}
+
+.payment-security-notice i {
+    color: #f39c12;
+    margin-right: 0.5rem;
 }
 
 /* ========================================================================
@@ -809,9 +861,9 @@
         max-width: 1400px; /* Increased from 1200px for better space usage */
     }
     
-    .dashboard-content .col-lg-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
+    .dashboard-content .col-lg-8 {
+        flex: 0 0 66.67%;
+        max-width: 66.67%;
         padding: 0 1.5rem;
     }
 }
@@ -822,9 +874,9 @@
         max-width: 90%; /* Increased from 75% for better space usage */
     }
     
-    .dashboard-content .col-lg-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
+    .dashboard-content .col-lg-8 {
+        flex: 0 0 66.67%;
+        max-width: 66.67%;
         padding: 0 1rem;
     }
 }
@@ -835,9 +887,9 @@
         max-width: 95%; /* Increased from 85% for better space usage */
     }
     
-    .dashboard-content .col-lg-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
+    .dashboard-content .col-lg-8 {
+        flex: 0 0 66.67%;
+        max-width: 66.67%;
         padding: 0 0.75rem;
     }
 }
@@ -861,7 +913,7 @@
     }
     
     /* Make sections take full width on tablet */
-    .dashboard-content .col-lg-6 {
+    .dashboard-content .col-lg-8 {
         max-width: 100%;
         flex: 0 0 100%;
         margin-bottom: 2rem;
@@ -946,7 +998,7 @@
         gap: 1rem;
     }
     
-    .dashboard-content .col-lg-6 {
+    .dashboard-content .col-lg-8 {
         padding: 0 0.25rem;
         margin-bottom: 1rem;
     }
@@ -1142,4 +1194,49 @@
     .dashboard-title {
         color: #000;
     }
+}
+
+/* Password display styling */
+.password-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.password-field {
+    flex: 1;
+    font-family: monospace;
+    letter-spacing: 2px;
+}
+
+.password-toggle {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+    background-color: #0080ff;
+    color: white;
+    border-color: #0080ff;
+}
+
+.password-toggle.showing {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+/* Delete Account Page Specific Styles */
+.delete-account-page .section-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+}
+
+.delete-account-page .section-header h3 {
+    color: white !important;
+}
+
+.delete-account-page .section-header p {
+    color: rgba(255, 255, 255, 0.9) !important;
 }
