@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.http import HttpResponse
 from products.models import Product
+import json
 
 def view_cart(request):
     """ A view that renders the cart contents page """
@@ -11,7 +13,15 @@ def add_to_cart(request, item_id):
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity', 1))
     redirect_url = request.POST.get('redirect_url')
+    
+    # Get cart from session first, then from cookies if empty
     cart = request.session.get('cart', {})
+    if not cart:
+        persistent_cart = request.COOKIES.get('persistent_cart', '{}')
+        try:
+            cart = json.loads(persistent_cart)
+        except (json.JSONDecodeError, TypeError):
+            cart = {}
 
     item_id_str = str(item_id)
     if item_id_str in cart:
@@ -21,12 +31,24 @@ def add_to_cart(request, item_id):
         cart[item_id_str] = {'quantity': quantity}
         messages.success(request, f'Added {product.name} to your cart')
 
+    # Save to session
     request.session['cart'] = cart
-    return redirect(redirect_url)
+    
+    # Also save to persistent cookie
+    response = redirect(redirect_url)
+    response.set_cookie('persistent_cart', json.dumps(cart), max_age=30 * 24 * 60 * 60)  # 30 days
+    return response
 
 def adjust_cart(request, item_id):
     """Adjust the quantity of the specified product to the specified amount"""
     cart = request.session.get('cart', {})
+    if not cart:
+        persistent_cart = request.COOKIES.get('persistent_cart', '{}')
+        try:
+            cart = json.loads(persistent_cart)
+        except (json.JSONDecodeError, TypeError):
+            cart = {}
+    
     item_id_str = str(item_id)
     try:
         quantity = int(request.POST.get('quantity'))
@@ -45,16 +67,35 @@ def adjust_cart(request, item_id):
             messages.success(request, "Item removed from cart.")
         else:
             messages.error(request, "Item not found in cart.")
+    
+    # Save to session
     request.session['cart'] = cart
-    return redirect('view_cart')
+    
+    # Also save to persistent cookie
+    response = redirect('view_cart')
+    response.set_cookie('persistent_cart', json.dumps(cart), max_age=30 * 24 * 60 * 60)  # 30 days
+    return response
 
 def remove_cart(request, item_id):
     """Remove the item from the cart"""
     cart = request.session.get('cart', {})
+    if not cart:
+        persistent_cart = request.COOKIES.get('persistent_cart', '{}')
+        try:
+            cart = json.loads(persistent_cart)
+        except (json.JSONDecodeError, TypeError):
+            cart = {}
+    
     item_id_str = str(item_id)
     if cart.pop(item_id_str, None) is not None:
         messages.success(request, "Item removed from cart.")
     else:
         messages.error(request, "Item not found in cart.")
+    
+    # Save to session
     request.session['cart'] = cart
-    return redirect('view_cart')
+    
+    # Also save to persistent cookie
+    response = redirect('view_cart')
+    response.set_cookie('persistent_cart', json.dumps(cart), max_age=30 * 24 * 60 * 60)  # 30 days
+    return response
