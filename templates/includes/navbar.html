@@ -30,11 +30,23 @@
             name="q"
             placeholder="Search CNC products..."
             aria-label="Search"
+            value="{{ request.GET.q }}"
           />
           <button class="btn btn-outline-dark" type="submit">
             <i class="fas fa-search"></i>
           </button>
         </div>
+        
+        <!-- Preserve existing filters when searching -->
+        {% if request.GET.category %}
+        <input type="hidden" name="category" value="{{ request.GET.category }}">
+        {% endif %}
+        {% if request.GET.price_range %}
+        <input type="hidden" name="price_range" value="{{ request.GET.price_range }}">
+        {% endif %}
+        {% if request.GET.sort %}
+        <input type="hidden" name="sort" value="{{ request.GET.sort }}">
+        {% endif %}
       </form>
       {% endif %}
 

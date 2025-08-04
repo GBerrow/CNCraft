@@ -53,15 +53,13 @@
                             <!-- Search Within Results -->
                             <div class="filter-section">
                                 <h6>Search Products</h6>
-                                <form method="GET" class="search-form">
-                                    <div class="input-group input-group-sm">
-                                        <input type="search" class="form-control" name="q" 
-                                               placeholder="Search..." value="{{ request.GET.q }}">
-                                        <button class="btn btn-outline-secondary" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                                <div class="input-group input-group-sm">
+                                    <input type="search" class="form-control" name="q" id="search-input"
+                                           placeholder="Search..." value="{{ request.GET.q }}">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="applyFilters()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Categories Filter -->
@@ -122,6 +120,9 @@
 
                             <!-- Apply Filters Button -->
                             <div class="filter-section">
+                                <small class="text-muted mb-2 d-block">
+                                    <i class="fas fa-info-circle"></i> Filters apply automatically when selected
+                                </small>
                                 <button type="button" class="btn btn-primary w-100" onclick="applyFilters()">
                                     Apply Filters
                                 </button>
@@ -165,10 +166,7 @@
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                                 <div class="product-card card h-100 border-0 shadow-sm">
                                     <div class="product-image position-relative">
-                                        <!-- Clickable Product Image -->
-                                        <a href="{% url 'product_detail' product.id %}" class="product-image-link">
-                                            <img src="{% static product.get_main_image %}" alt="{{ product.name }}" class="card-img-top">
-                                        </a>
+                                        <img src="{% static product.get_main_image %}" alt="{{ product.name }}" class="card-img-top">
                                         
                                         <!-- Sale Badge -->
                                         {% if product.discount_price %}
@@ -298,6 +296,12 @@
 <script>
     // Apply filters function
     function applyFilters() {
+        // Show loading indicator
+        const productsContainer = document.getElementById('products-container');
+        if (productsContainer) {
+            productsContainer.innerHTML = '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div><p class="mt-2">Applying filters...</p></div>';
+        }
+        
         const form = document.createElement('form');
         form.method = 'GET';
         form.action = '{% url "products" %}';
@@ -305,7 +309,7 @@
         // Get all checked filter values
         const categoryRadio = document.querySelector('input[name="category"]:checked');
         const priceRadio = document.querySelector('input[name="price_range"]:checked');
-        const searchInput = document.querySelector('input[name="q"]');
+        const searchInput = document.getElementById('search-input');
         const sortSelect = document.getElementById('sort-select');
 
         // Add category filter
@@ -380,9 +384,20 @@
     // Auto-apply filters when radio buttons change
     document.querySelectorAll('input[name="category"], input[name="price_range"]').forEach(radio => {
         radio.addEventListener('change', function() {
-            // Optional: Auto-apply filters on change, or keep manual apply button
-            // applyFilters();
+            // Auto-apply filters on change for better user experience
+            applyFilters();
         });
     });
+
+    // Handle search input Enter key
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyFilters();
+            }
+        });
+    }
 </script>
 {% endblock %}
