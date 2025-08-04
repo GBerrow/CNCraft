@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse
+from django.http import HttpResponse
 from .forms import UserProfileForm
 from .models import UserProfile
 from checkout.models import Order
+import json
 
 @login_required
 def profile(request):
@@ -92,21 +94,41 @@ def order_history(request, order_number):
 
 def login_view(request):
     """
-    Handle user login
+    Handle user login with enhanced validation
     """
     if request.user.is_authenticated:
         return redirect('profile')
     
     if request.method == 'POST':
-        email = request.POST.get('login')
+        email = request.POST.get('login', '').strip()
         password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me') == 'on'  # Check if remember me is checked
+        
+        # Enhanced validation
+        errors = {}
+        
+        # Email validation
+        if not email:
+            errors['email'] = 'Email is required'
+        elif not '@' in email or not '.' in email:
+            errors['email'] = 'Please enter a valid email address'
+        
+        # Password validation
+        if not password:
+            errors['password'] = 'Password is required'
+        
+        # If there are validation errors, return them
+        if errors:
+            for field, error in errors.items():
+                messages.error(request, f'{field.title()}: {error}')
+            return render(request, 'registration/login.html', {'errors': errors})
         
         # Try to get user by email
         try:
             user = User.objects.get(email=email)
             username = user.username
         except User.DoesNotExist:
-            messages.error(request, 'Invalid email or password')
+            messages.error(request, 'Invalid email or password. Please check your credentials and try again.')
             return render(request, 'registration/login.html')
         
         # Authenticate user
@@ -114,46 +136,111 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            messages.success(request, f'Welcome back, {user.first_name or user.username}!')
             
-            # Redirect to next page or profile
-            next_page = request.GET.get('next', 'profile')
-            return redirect(next_page)
+            # Merge persistent cart with session cart if user had items as guest
+            persistent_cart = request.COOKIES.get('persistent_cart', '{}')
+            try:
+                persistent_cart_data = json.loads(persistent_cart)
+                if persistent_cart_data:
+                    # Get current session cart
+                    session_cart = request.session.get('cart', {})
+                    # Merge carts (session cart takes precedence for conflicts)
+                    merged_cart = {**persistent_cart_data, **session_cart}
+                    request.session['cart'] = merged_cart
+                    # Clear the persistent cart cookie since it's now in session
+                    response = redirect(request.GET.get('next', 'profile'))
+                    response.delete_cookie('persistent_cart')
+                    
+                    # Handle remember me functionality
+                    if remember_me:
+                        # Set session to expire in 30 days (remember me)
+                        request.session.set_expiry(30 * 24 * 60 * 60)  # 30 days in seconds
+                        messages.success(request, f'Welcome back, {user.first_name or user.username}! You will stay logged in for 30 days.')
+                        response.set_cookie('remembered_email', email, max_age=30 * 24 * 60 * 60)  # 30 days
+                    else:
+                        # Set session to expire when browser closes (default behavior)
+                        request.session.set_expiry(0)
+                        messages.success(request, f'Welcome back, {user.first_name or user.username}!')
+                        response.delete_cookie('remembered_email')
+                    
+                    return response
+            except (json.JSONDecodeError, TypeError):
+                pass  # If persistent cart is invalid, just continue normally
+            
+            # Handle remember me functionality (if no cart merging was needed)
+            if remember_me:
+                # Set session to expire in 30 days (remember me)
+                request.session.set_expiry(30 * 24 * 60 * 60)  # 30 days in seconds
+                messages.success(request, f'Welcome back, {user.first_name or user.username}! You will stay logged in for 30 days.')
+                
+                # Create response with cookie for remembered email
+                response = redirect(request.GET.get('next', 'profile'))
+                response.set_cookie('remembered_email', email, max_age=30 * 24 * 60 * 60)  # 30 days
+                return response
+            else:
+                # Set session to expire when browser closes (default behavior)
+                request.session.set_expiry(0)
+                messages.success(request, f'Welcome back, {user.first_name or user.username}!')
+                
+                # Remove the remembered email cookie if it exists
+                response = redirect(request.GET.get('next', 'profile'))
+                response.delete_cookie('remembered_email')
+                return response
         else:
-            messages.error(request, 'Invalid email or password')
+            messages.error(request, 'Invalid email or password. Please check your credentials and try again.')
     
     return render(request, 'registration/login.html')
 
 def signup_view(request):
     """
-    Handle user registration
+    Handle user registration with enhanced validation
     """
     if request.user.is_authenticated:
         return redirect('profile')
     
     if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
+        first_name = request.POST.get('first_name', '').strip()
+        last_name = request.POST.get('last_name', '').strip()
+        email = request.POST.get('email', '').strip()
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         
-        # Basic validation
-        if password1 != password2:
-            messages.error(request, 'Passwords do not match')
-            return render(request, 'registration/signup.html')
+        # Enhanced validation
+        errors = {}
         
-        if len(password1) < 8:
-            messages.error(request, 'Password must be at least 8 characters long')
-            return render(request, 'registration/signup.html')
+        # Name validation
+        if not first_name:
+            errors['first_name'] = 'First name is required'
+        if not last_name:
+            errors['last_name'] = 'Last name is required'
         
-        # Check if email already exists
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'An account with this email already exists')
-            return render(request, 'registration/signup.html')
+        # Email validation
+        if not email:
+            errors['email'] = 'Email is required'
+        elif not '@' in email or not '.' in email:
+            errors['email'] = 'Please enter a valid email address'
+        elif User.objects.filter(email=email).exists():
+            errors['email'] = 'An account with this email already exists'
+        
+        # Password validation
+        if not password1:
+            errors['password1'] = 'Password is required'
+        elif len(password1) < 8:
+            errors['password1'] = 'Password must be at least 8 characters long'
+        
+        if not password2:
+            errors['password2'] = 'Please confirm your password'
+        elif password1 != password2:
+            errors['password2'] = 'Passwords do not match'
+        
+        # If there are validation errors, return them
+        if errors:
+            for field, error in errors.items():
+                messages.error(request, f'{field.title()}: {error}')
+            return render(request, 'registration/signup.html', {'errors': errors})
         
         try:
-            # Create user
+            # Create user with email as username
             user = User.objects.create_user(
                 username=email,  # Use email as username
                 email=email,
@@ -167,12 +254,13 @@ def signup_view(request):
             
             # Log the user in
             login(request, user)
-            messages.success(request, f'Welcome to CNCraft, {first_name}! Your account has been created.')
+            messages.success(request, f'Welcome to CNCraft, {first_name}! Your account has been created successfully.')
             
             return redirect('profile')
             
         except Exception as e:
             messages.error(request, 'An error occurred while creating your account. Please try again.')
+            print(f"Signup error: {e}")  # For debugging
     
     return render(request, 'registration/signup.html')
 
@@ -186,9 +274,10 @@ def logout_view(request):
         logout(request)
         messages.success(request, f'Goodbye {user_name}! You have been successfully logged out.')
     
-    # Redirect to homepage or wherever they came from
-    next_page = request.GET.get('next', 'home')
-    return redirect(next_page)
+    # Clear the remembered email cookie
+    response = redirect(request.GET.get('next', 'home'))
+    response.delete_cookie('remembered_email')
+    return response
 
 def forgot_password_view(request):
     """
