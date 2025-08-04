@@ -17,6 +17,30 @@ class UserProfile(models.Model):
     default_county = models.CharField(max_length=80, null=True, blank=True)
     default_postcode = models.CharField(max_length=20, null=True, blank=True)
     default_country = models.CharField(max_length=40, null=True, blank=True)
+    default_email_notifications = models.BooleanField(default=False)
+    default_order_status_updates = models.BooleanField(default=False)
+    default_promotional_emails = models.BooleanField(default=False)
+    default_newsletter_subscription = models.BooleanField(default=False)
+    
+    # E-commerce preferences
+    currency = models.CharField(max_length=3, default='USD', choices=[
+        ('USD', 'USD ($)'),
+        ('EUR', 'EUR (€)'),
+        ('GBP', 'GBP (£)'),
+        ('CAD', 'CAD (C$)'),
+    ])
+    language = models.CharField(max_length=2, default='en', choices=[
+        ('en', 'English'),
+        ('es', 'Español'),
+        ('fr', 'Français'),
+        ('de', 'Deutsch'),
+    ])
+    display_mode = models.CharField(max_length=10, default='light', choices=[
+        ('light', 'Light'),
+        ('dark', 'Dark'),
+        ('auto', 'Auto'),
+    ])
+    cart_auto_save = models.BooleanField(default=True)
     
     def __str__(self):
         return self.user.username
