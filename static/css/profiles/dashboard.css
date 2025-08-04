@@ -1196,38 +1196,6 @@
     }
 }
 
-/* Password display styling */
-.password-display {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.password-field {
-    flex: 1;
-    font-family: monospace;
-    letter-spacing: 2px;
-}
-
-.password-toggle {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.password-toggle:hover {
-    background-color: #0080ff;
-    color: white;
-    border-color: #0080ff;
-}
-
-.password-toggle.showing {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
-}
-
 /* Delete Account Page Specific Styles */
 .delete-account-page .section-header {
     background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
