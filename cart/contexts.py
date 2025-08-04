@@ -31,11 +31,23 @@ def cart_contents(request):
             product = get_object_or_404(Product, pk=product_id)
             # Get the product's display price
             price = product.get_display_price()
-            # Handle both legacy int and new dict format
-            if isinstance(item_data, dict):
+            # Handle different cart data formats
+            if isinstance(item_data, int):
+                # Simple integer quantity
+                quantity = item_data
+            elif isinstance(item_data, list):
+                # List format from persistent cart
+                quantity = 1  # Default quantity
+                for item in item_data:
+                    if isinstance(item, dict) and 'quantity' in item:
+                        quantity = item['quantity']
+                        break
+            elif isinstance(item_data, dict):
+                # Dictionary format
                 quantity = item_data.get('quantity', 1)
             else:
-                quantity = item_data
+                # Fallback
+                quantity = 1
             subtotal = quantity * price
             # Update total cost and product count
             total += subtotal

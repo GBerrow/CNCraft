@@ -25,8 +25,18 @@ def add_to_cart(request, item_id):
 
     item_id_str = str(item_id)
     if item_id_str in cart:
-        cart[item_id_str]['quantity'] += quantity
-        messages.success(request, f'Updated {product.name} quantity to {cart[item_id_str]["quantity"]}')
+        # Handle existing item - check format and update accordingly
+        if isinstance(cart[item_id_str], dict):
+            cart[item_id_str]['quantity'] += quantity
+            messages.success(request, f'Updated {product.name} quantity to {cart[item_id_str]["quantity"]}')
+        elif isinstance(cart[item_id_str], list):
+            # Convert list format to dict format
+            cart[item_id_str] = {'quantity': quantity}
+            messages.success(request, f'Updated {product.name} quantity to {quantity}')
+        else:
+            # Handle integer format
+            cart[item_id_str] = {'quantity': int(cart[item_id_str]) + quantity}
+            messages.success(request, f'Updated {product.name} quantity to {cart[item_id_str]["quantity"]}')
     else:
         cart[item_id_str] = {'quantity': quantity}
         messages.success(request, f'Added {product.name} to your cart')
@@ -58,7 +68,15 @@ def adjust_cart(request, item_id):
 
     if quantity > 0:
         if item_id_str in cart:
-            cart[item_id_str]['quantity'] = quantity
+            # Handle different cart item formats
+            if isinstance(cart[item_id_str], dict):
+                cart[item_id_str]['quantity'] = quantity
+            elif isinstance(cart[item_id_str], list):
+                # Convert list format to dict format
+                cart[item_id_str] = {'quantity': quantity}
+            else:
+                # Convert integer format to dict format
+                cart[item_id_str] = {'quantity': quantity}
             messages.success(request, "Cart updated.")
         else:
             messages.error(request, "Item not found in cart.")
