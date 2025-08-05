@@ -32,6 +32,19 @@ class OrderForm(forms.ModelForm):
         # Set autofocus on the 'full_name' field
         self.fields['full_name'].widget.attrs['autofocus'] = True
 
+        # Define autocomplete attributes for each field
+        autocomplete_attrs = {
+            'full_name': 'name',
+            'email': 'email',
+            'phone_number': 'tel',
+            'street_address1': 'street-address',
+            'street_address2': 'street-address',
+            'town_or_city': 'address-level2',
+            'county': 'address-level1',
+            'postcode': 'postal-code',
+            'country': 'country',
+        }
+
         # Loop through each field in the form
         for field in self.fields:
             # Add an asterisk to required fields' placeholders
@@ -43,5 +56,8 @@ class OrderForm(forms.ModelForm):
             self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add a CSS class for styling
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+            # Add autocomplete attribute
+            if field in autocomplete_attrs:
+                self.fields[field].widget.attrs['autocomplete'] = autocomplete_attrs[field]
             # Remove the default label
             self.fields[field].label = False

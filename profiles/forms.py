@@ -27,6 +27,17 @@ class UserProfileForm(forms.ModelForm):
         # Set autofocus on the phone number field
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
 
+        # Define autocomplete attributes for each field
+        autocomplete_attrs = {
+            'default_phone_number': 'tel',
+            'default_street_address1': 'street-address',
+            'default_street_address2': 'street-address',
+            'default_town_or_city': 'address-level2',
+            'default_county': 'address-level1',
+            'default_postcode': 'postal-code',
+            'default_country': 'country',
+        }
+
         # Iterate through all fields in the form
         for field in self.fields:
             # Skip notification preference fields (they are checkboxes)
@@ -48,6 +59,9 @@ class UserProfileForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             # Add a CSS class to each field
             self.fields[field].widget.attrs['class'] = 'profile-form-input'
+            # Add autocomplete attribute
+            if field in autocomplete_attrs:
+                self.fields[field].widget.attrs['autocomplete'] = autocomplete_attrs[field]
             # Remove the label for each field
             self.fields[field].label = False
 
