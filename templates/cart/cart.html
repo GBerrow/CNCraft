@@ -87,16 +87,10 @@
                 <!-- Product Image -->
                 <div class="col-12 col-md-2">
                   <div class="product-image-wrapper">
-                    {% if item.product.image %}
-                      <img src="{{ item.product.image.url }}" 
-                           alt="{{ item.product.name }}" 
-                           class="product-image"
-                           loading="lazy" />
-                    {% else %}
-                      <div class="product-image-placeholder">
-                        <i class="fas fa-image"></i>
-                      </div>
-                    {% endif %}
+                    <img src="{% static item.product.get_main_image %}" 
+                         alt="{{ item.product.name }}" 
+                         class="product-image"
+                         loading="lazy" />
                   </div>
                 </div>
 

@@ -460,6 +460,17 @@ const CheckoutManager = {
         this.addKeyboardShortcutsHelp();
     },
 
+    // Add keyboard shortcuts help
+    addKeyboardShortcutsHelp() {
+        // Add keyboard shortcut listener for Ctrl+? to show shortcuts dialog
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey && event.key === '?') {
+                event.preventDefault();
+                this.showKeyboardShortcutsDialog();
+            }
+        });
+    },
+
     // Show keyboard shortcuts dialog
     showKeyboardShortcutsDialog() {
         const dialog = document.createElement('div');
@@ -597,7 +608,7 @@ const CheckoutManager = {
         // Only add beforeunload listener for real Stripe payments, not test mode
         const stripePublicKey = document.getElementById('id_stripe_public_key');
         if (!stripePublicKey || stripePublicKey.textContent !== 'pk_test_placeholder') {
-            window.addEventListener('beforeunload', this.handleBeforeUnload);
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
         }
         
         // Add timeout to automatically clear loading state after 30 seconds

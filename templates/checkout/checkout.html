@@ -266,13 +266,7 @@
                                 <div class="order-item">
                                     <div class="item-image">
                                         <a href="{% url 'product_detail' item.product.id %}" class="item-image-link">
-                                            {% if item.product.image %}
-                                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-thumbnail">
-                                            {% else %}
-                                                <div class="product-placeholder">
-                                                    <i class="fas fa-image"></i>
-                                                </div>
-                                            {% endif %}
+                                            <img src="{% static item.product.get_main_image %}" alt="{{ item.product.name }}" class="product-thumbnail">
                                         </a>
                                         <span class="item-quantity">{{ item.quantity }}</span>
                                     </div>
