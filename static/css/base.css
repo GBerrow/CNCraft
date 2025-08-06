@@ -236,6 +236,10 @@ header.container-fluid.fixed-top {
   z-index: 1030 !important;
   background: white !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Main navigation brand logo styling */
@@ -315,6 +319,15 @@ header.container-fluid.fixed-top {
   padding: 0 15px; /* Consistent padding for fluid containers */
 }
 
+/* Fix navbar container to prevent thin rectangles */
+.navbar .container-fluid {
+  padding: 0 15px !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 /* Section spacing for consistent layout */
 section {
   padding: 4rem 0; /* Generous vertical padding for sections */
@@ -343,6 +356,37 @@ footer {
   color: #ffffff; /* White text */
   padding: 3rem 0 1rem; /* Generous top padding, minimal bottom */
   margin-top: auto; /* Push footer to bottom */
+}
+
+/* Enhanced social media links */
+.social-links {
+  margin-top: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.social-link:hover {
+  background: #007bff;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  border-color: #007bff;
+}
+
+.social-link i {
+  font-size: 1.2rem;
 }
 
 /* ========================================================================

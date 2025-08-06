@@ -34,6 +34,13 @@
   filter: brightness(0.9); /* Slightly dims image for better text overlay */
 }
 
+/* Hero image border styling */
+.hero-image {
+  border: 3px solid #666;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
 /* Hero content overlay for optimal text readability */
 .hero-overlay {
   background: linear-gradient(
@@ -54,6 +61,9 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for text clarity */
   margin-bottom: 1.5rem; /* Spacing below main heading */
   line-height: 1.2; /* Tighter line height for display text */
+  opacity: 1 !important; /* Ensure titles are always visible */
+  visibility: visible !important; /* Ensure titles are always visible */
+  transform: none !important; /* Prevent any transform animations */
 }
 
 /* Hero section lead text styling */
@@ -264,11 +274,33 @@
 
 /* About section paragraph styling - specific color for readability */
 #about p {
-  color: #666 !important; /* Dark gray for readability on white background */
+  color: #333 !important; /* Darker color for better readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 #about .lead {
-  color: #666 !important; /* Consistent with other paragraphs */
+  color: #333 !important; /* Consistent with other paragraphs */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* About section image border styling */
+.about-image {
+  border: 3px solid #666;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.about-image:hover {
+  border-color: rgba(0, 123, 255, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }
 
 /* Statistics section styling with visual separator */
@@ -293,12 +325,15 @@
   transition: all 0.3s ease;
   border-radius: 12px;
   overflow: hidden;
+  border: 2px solid #666; /* Changed to #666 for white backgrounds */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Service card hover effects for interactivity */
 .service-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border-color: #000; /* Changed to #000 on hover */
 }
 
 /* Service icon container for consistent display */
@@ -353,12 +388,15 @@
   transition: all 0.3s ease;
   border-radius: 12px;
   overflow: hidden;
+  border: 2px solid #666; /* Changed to #666 for white backgrounds */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Product card hover effects */
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-color: #000; /* Changed to #000 on hover */
 }
 
 /* Product image hover animation */
@@ -380,12 +418,15 @@
   border-radius: 12px;
   transition: all 0.2s ease-out;
   cursor: pointer;
+  border: 2px solid #666; /* Changed to #666 for white backgrounds */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Testimonial card hover effects */
 .testimonial-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: #000; /* Changed to #000 on hover */
 }
 
 /* Testimonial card body animation */
@@ -449,11 +490,49 @@
 /* Contact form card styling */
 #contact.cnc-dark-section .card {
   background-color: #ffffff !important;
-  border: 1px solid #dee2e6 !important;
+  border: 2px solid rgba(0, 123, 255, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
 }
 
 #contact.cnc-dark-section .card-body {
   background-color: #ffffff !important;
+}
+
+/* Contact form card hover effects */
+#contact.cnc-dark-section .card {
+  transition: all 0.3s ease !important;
+}
+
+#contact.cnc-dark-section .card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+  border-color: #000 !important; /* Changed to #000 for dark backgrounds */
+}
+
+/* Dark section card borders - override for dark backgrounds */
+.cnc-dark-section .service-card {
+  border: 2px solid #000 !important; /* #000 for dark backgrounds */
+}
+
+.cnc-dark-section .service-card:hover {
+  border-color: #666 !important; /* #666 on hover for dark backgrounds */
+}
+
+.cnc-dark-section .product-card {
+  border: 2px solid #000 !important; /* #000 for dark backgrounds */
+}
+
+.cnc-dark-section .product-card:hover {
+  border-color: #666 !important; /* #666 on hover for dark backgrounds */
+}
+
+.cnc-dark-section .testimonial-card {
+  border: 2px solid #000 !important; /* #000 for dark backgrounds */
+}
+
+.cnc-dark-section .testimonial-card:hover {
+  border-color: #666 !important; /* #666 on hover for dark backgrounds */
 }
 
 /* Contact form button styling */
@@ -503,6 +582,11 @@ section#contact.cnc-dark-section.py-5 .form-label {
 /* Clients section maintains white background */
 section#clients {
   background-color: #ffffff !important;
+  border: none !important; /* Remove border to blend with background */
+  border-radius: 0 !important; /* Remove border radius */
+  box-shadow: none !important; /* Remove shadow */
+  padding: 2rem !important;
+  margin: 0 !important; /* Removed margin to close the gap */
 }
 
 /* Clients section paragraph styling - dark text on white background */
@@ -514,7 +598,7 @@ section#clients {
   color: #666 !important; /* Consistent with other paragraphs */
 }
 
-/* Client logo styling with interactive effects */
+/* Client logo styling with interactive effects - cleaned up */
 .client-logo {
   max-height: 80px;
   width: auto;
@@ -522,7 +606,22 @@ section#clients {
   opacity: 0.7; /* Semi-transparent for subtle effect */
   transition: all 0.3s ease; /* Smooth transition for hover effects */
   object-fit: contain; /* Prevents logo distortion */
-  padding: 1rem; /* Internal spacing for logos */
+  padding: 1.5rem; /* Increased padding for better spacing */
+  border-radius: 8px; /* Added border radius for cleaner look */
+}
+
+/* Ensure SVG logos are properly contained */
+.client-logo-container svg {
+  overflow: visible;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Ensure all SVG elements stay within their viewBox */
+.client-logo-container svg * {
+  vector-effect: non-scaling-stroke;
 }
 
 /* Client logo hover effects for engagement */
@@ -530,31 +629,93 @@ section#clients {
   filter: grayscale(0%); /* Returns color on hover for engagement */
   opacity: 1; /* Full opacity on hover */
   transform: scale(1.05); /* Slight scale increase for interaction feedback */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Added shadow on hover */
 }
 
-/* Client logo container animations */  
+/* Client logo container animations - cleaned up */  
 .client-logo-container {
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease; /* Smoother transition */
+  padding: 0.5rem; /* Added padding for better spacing */
+  border-radius: 8px; /* Added border radius */
+  margin: 0 auto; /* Center the container */
+  max-width: 100%; /* Ensure it doesn't overflow */
 }
 
-/* Client logo container hover effects */
+/* Client logo container hover effects - cleaned up */
 .client-logo-container:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px); /* Slightly more movement */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); /* Added shadow on hover */
+}
+
+/* Mobile-specific client logo improvements */
+@media (max-width: 767.98px) {
+  /* Force paragraph below title on mobile */
+  #clients .text-center {
+    display: block !important;
+  }
+  
+  #clients .text-center h2 {
+    display: block !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  #clients .text-center .lead {
+    display: block !important;
+    margin-top: 1rem !important;
+    text-align: center !important;
+  }
+
+  /* Make client cards appropriately sized for mobile */
+  .client-logo-container {
+    padding: 0.5rem !important;
+    margin-bottom: 1rem;
+    width: 100% !important;
+    height: 80px !important;
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .client-logo-container svg {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: contain;
+    display: block;
+    transform: scale(1.0) !important;
+  }
+
+  /* Ensure SVG elements stay within bounds */
+  .client-logo-container svg rect,
+  .client-logo-container svg polygon,
+  .client-logo-container svg circle,
+  .client-logo-container svg path {
+    transform: scale(1.0) !important;
+  }
+
+  #clients .col-6 {
+    margin-bottom: 2rem;
+  }
 }
 
 /* ========================================================================
    10. SECTION SEPARATORS & VISUAL ELEMENTS
    ======================================================================== */
 
-/* Section separators - thin white lines for dark sections */
+/* Section separators - chrome/silver lines for dark sections */
 .cnc-dark-section::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.2);
+  height: 3px;
+  background: linear-gradient(90deg, #c0c0c0, #e5e5e5, #f0f0f0, #d3d3d3);
+  opacity: 0.8;
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
   z-index: 1;
 }
 
@@ -564,34 +725,91 @@ section#clients {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.2);
+  height: 3px;
+  background: linear-gradient(90deg, #c0c0c0, #e5e5e5, #f0f0f0, #d3d3d3);
+  opacity: 0.8;
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
   z-index: 1;
 }
 
-/* Separator between white sections */
-#about::after {
-  content: "";
+/* Enhanced section styling with sharp borders */
+.cnc-dark-section {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced section headers with sharp styling */
+.cnc-dark-section h2,
+.cnc-dark-section h3 {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  opacity: 1 !important; /* Ensure titles are always visible */
+  visibility: visible !important; /* Ensure titles are always visible */
+  transform: none !important; /* Prevent any transform animations */
+}
+
+.cnc-dark-section h2::after,
+.cnc-dark-section h3::after {
+  content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #c0c0c0, #e5e5e5);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
 }
 
+/* Enhanced separators between white sections */
+/* Removed the bottom separator line that was causing the random line issue */
+
 #clients::before {
-  content: "";
+  display: none; /* Remove the highlighted line */
+}
+
+/* Enhanced white section styling */
+#about,
+#clients {
+  border: 2px solid #666;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced section headers for white sections */
+#about h2,
+#clients h2 {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  opacity: 1 !important; /* Ensure titles are always visible */
+  visibility: visible !important; /* Ensure titles are always visible */
+  transform: none !important; /* Prevent any transform animations */
+}
+
+/* Removed #about h2::after to eliminate the floating line */
+#clients h2::after {
+  content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #c0c0c0, #e5e5e5);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(192, 192, 192, 0.3);
 }
 
 /* Ensure sections have relative positioning for pseudo-elements */
@@ -632,6 +850,22 @@ section#clients {
   .product-card:hover,
   .testimonial-card:hover {
     transform: translateY(-2px); /* Less movement on mobile */
+  }
+}
+
+@media (max-width: 991.98px) {
+  section#clients {
+    margin: 0 !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  section#clients {
+    margin: 0 !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
   }
 }
 
@@ -748,6 +982,19 @@ section#clients {
 /* ========================================================================
    13. UTILITY CLASSES & OVERRIDES
    ======================================================================== */
+
+/* Ensure all section titles are immediately visible */
+section h1,
+section h2,
+section h3,
+section .h1,
+section .h2 {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
 
 /* Text color utilities that work in all contexts */
 .text-primary {
