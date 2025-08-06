@@ -78,6 +78,9 @@ class OrderLineItem(models.Model):
         """
         self.lineitem_total = self.product.get_display_price() * self.quantity
         super().save(*args, **kwargs)
+        
+        # Update the order total after saving the line item
+        self.order.update_total()
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'

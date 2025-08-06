@@ -19,6 +19,15 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request):
     """Handle checkout process"""
+    # Check if user just completed an order
+    recent_order = request.COOKIES.get('order_completed')
+    if recent_order:
+        # Remove the cookie and redirect to products
+        response = redirect('products')
+        response.delete_cookie('order_completed')
+        messages.info(request, f"Your order {recent_order} was already completed successfully. You've been redirected to continue shopping.")
+        return response
+    
     # Get cart from session first
     cart = request.session.get('cart', {})
     
@@ -109,8 +118,15 @@ def checkout(request):
                 settings.STRIPE_PUBLISHABLE_KEY == 'pk_test_placeholder'):
                 # Test mode - simulate successful payment
                 messages.success(request, f'Test order successful! Order number: {order.order_number}')
+                # Clear cart immediately after successful order creation
                 request.session['cart'] = {}
-                return redirect('checkout_success', order_number=order.order_number)
+                if 'cart' in request.session:
+                    del request.session['cart']
+                # Create response and clear persistent cart
+                response = redirect('checkout_success', order_number=order.order_number)
+                response.delete_cookie('persistent_cart')
+                response.set_cookie('order_completed', order.order_number, max_age=300)  # 5 minutes
+                return response
             
             # Real Stripe integration
             try:
@@ -123,7 +139,15 @@ def checkout(request):
                     }
                 )
                 request.session['payment_intent_id'] = intent.id
-                return redirect('checkout_success', order_number=order.order_number)
+                # Clear cart immediately after successful order creation
+                request.session['cart'] = {}
+                if 'cart' in request.session:
+                    del request.session['cart']
+                # Create response and clear persistent cart
+                response = redirect('checkout_success', order_number=order.order_number)
+                response.delete_cookie('persistent_cart')
+                response.set_cookie('order_completed', order.order_number, max_age=300)  # 5 minutes
+                return response
             except stripe.error.StripeError as e:
                 messages.error(request, f'Payment error: {e}')
                 order.delete()
@@ -162,7 +186,7 @@ def checkout(request):
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'stripe_public_key': 'pk_test_placeholder' if settings.DEBUG else settings.STRIPE_PUBLISHABLE_KEY,
         'client_secret': None,
     }
     
@@ -174,6 +198,9 @@ def checkout_success(request, order_number):
     """
     # Retrieve the order by order number, or return 404 if not found
     order = get_object_or_404(Order, order_number=order_number)
+    
+    # Ensure order totals are properly calculated
+    order.update_total()
     
     # If the user is authenticated, attach their profile to the order
     if request.user.is_authenticated:
