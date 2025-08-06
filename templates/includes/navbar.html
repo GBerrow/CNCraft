@@ -1,16 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
   <div class="container-fluid">
     <!-- Logo -->
-    <a class="navbar-brand" href="{% url 'home' %}">
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">
       <strong>CNCraft</strong>
     </a>
 
-    <!-- Mobile toggle button -->
+    <!-- Mobile toggle button with improved styling -->
     <button
-      class="navbar-toggler"
+      class="navbar-toggler border-0 p-2"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -164,8 +167,8 @@
             <i class="fas fa-shopping-cart"></i>
             Cart
             {% if product_count > 0 %}
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                {{ product_count }}
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
+                {% if product_count > 10 %}10+{% else %}{{ product_count }}{% endif %}
               </span>
             {% endif %}
           </a>

@@ -3,6 +3,47 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/products/product_list.css' %}">
+    <style>
+        /* Cart notification styling */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            max-width: 350px;
+            min-width: 280px;
+        }
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+        .cart-notification .alert {
+            margin-bottom: 0;
+            border: none;
+            border-radius: 8px;
+        }
+        .cart-notification .btn-close {
+            padding: 0.25rem;
+            font-size: 0.875rem;
+        }
+        /* Improve cart badge styling */
+        .navbar .badge {
+            font-size: 0.65rem !important;
+            font-weight: bold !important;
+            min-width: 1.3rem !important;
+            height: 1.3rem !important;
+            line-height: 1.3rem !important;
+            text-align: center !important;
+            padding: 0 !important;
+            border: 2px solid white !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+            z-index: 1000 !important;
+            background-color: #dc3545 !important;
+            color: white !important;
+        }
+    </style>
 {% endblock %}
 
 {% block extra_title %} - Shop CNC Equipment{% endblock %}
@@ -227,7 +268,7 @@
                                                     <span class="fw-bold">${{ product.price }}</span>
                                                 {% endif %}
                                             </div>
-                                            <form action="{% url 'add_to_cart' product.id %}" method="POST" class="d-inline">
+                                            <form action="{% url 'add_to_cart' product.id %}" method="POST" class="d-inline quick-add-form">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="redirect_url" value="{{ request.get_full_path }}">
                                                 <button type="submit" class="btn btn-primary btn-sm">
@@ -294,6 +335,203 @@
 
 {% block postloadjs %}
 <script>
+    // Handle quick-add form submissions with AJAX
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.quick-add-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Stop the form from submitting normally
+                
+                const productId = this.action.split('/').pop().replace('/', '');
+                const csrfToken = this.querySelector('[name="csrfmiddlewaretoken"]').value;
+                const redirectUrl = this.querySelector('[name="redirect_url"]').value;
+                const button = this.querySelector('button');
+                
+                // Show loading state
+                const originalContent = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+                
+                // Send AJAX request
+                fetch(this.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({
+                        'csrfmiddlewaretoken': csrfToken,
+                        'redirect_url': redirectUrl
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    
+                    // Parse the response to check if it's a redirect
+                    return response.text();
+                })
+                .then(html => {
+                    // Handle success
+                    showCartNotification('Product added to cart successfully');
+                    
+                    // Animate button for visual feedback
+                    button.classList.add('btn-success');
+                    button.innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    // Reset button state
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.classList.remove('btn-success');
+                        button.innerHTML = originalContent;
+                    }, 800);
+                    
+                    // Update cart count in navbar with slight delay to ensure server processing
+                    setTimeout(() => {
+                        updateCartCountInNavbar();
+                    }, 200);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showCartNotification('Error adding product to cart', true);
+                    
+                    // Reset button state
+                    button.disabled = false;
+                    button.innerHTML = originalContent;
+                });
+            });
+        });
+    });
+    
+    // Show cart notification
+    function showCartNotification(message, isError = false) {
+        // Remove any existing notifications first
+        const existingNotifications = document.querySelectorAll('.cart-notification');
+        existingNotifications.forEach(notification => {
+            notification.remove();
+        });
+        
+        // Create new notification element
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        document.body.appendChild(notification);
+        
+        // Set notification content and style
+        notification.innerHTML = `
+            <div class="alert ${isError ? 'alert-danger' : 'alert-success'} d-flex align-items-center m-0 shadow">
+                <i class="${isError ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle'} me-2"></i>
+                <span>${message}</span>
+                <button type="button" class="btn-close ms-auto" onclick="this.closest('.cart-notification').remove()"></button>
+            </div>
+        `;
+        
+        // Show notification with animation
+        requestAnimationFrame(() => {
+            notification.classList.add('show');
+        });
+        
+        // Auto-hide after 4 seconds
+        setTimeout(() => {
+            if (notification && notification.parentNode) {
+                notification.classList.remove('show');
+                // Remove from DOM after animation completes
+                setTimeout(() => {
+                    if (notification && notification.parentNode) {
+                        notification.remove();
+                    }
+                }, 300);
+            }
+        }, 4000);
+    }
+    
+    // Function to update cart count in the navbar
+    function updateCartCountInNavbar() {
+        // Fetch the current cart contents
+        fetch('{% url "get_cart_count" %}', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Cache-Control': 'no-cache'
+            },
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Cart count response:', data); // Debug log
+            
+            // Find the cart link in the navbar - try multiple selectors
+            let cartLinkElement = document.querySelector('a[href*="view_cart"]');
+            if (!cartLinkElement) {
+                cartLinkElement = document.querySelector('.nav-item a[href*="cart"]');
+            }
+            if (!cartLinkElement) {
+                cartLinkElement = document.querySelector('nav a[href*="cart"]');
+            }
+            
+            if (cartLinkElement) {
+                // Remove any existing badge
+                const existingBadge = cartLinkElement.querySelector('.badge');
+                if (existingBadge) {
+                    existingBadge.remove();
+                }
+                
+                // Add new badge if there are products in the cart
+                if (data.product_count > 0) {
+                    const badge = document.createElement('span');
+                    badge.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger';
+                    
+                    // Limit display to 10+ for robustness
+                    const displayCount = data.product_count > 10 ? '10+' : data.product_count.toString();
+                    badge.textContent = displayCount;
+                    
+                    // Enhanced styling for better visibility
+                    badge.style.fontSize = '0.65rem';
+                    badge.style.fontWeight = 'bold';
+                    badge.style.minWidth = '1.3rem';
+                    badge.style.height = '1.3rem';
+                    badge.style.lineHeight = '1.3rem';
+                    badge.style.textAlign = 'center';
+                    badge.style.padding = '0';
+                    badge.style.border = '2px solid white';
+                    badge.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+                    badge.style.zIndex = '1000';
+                    cartLinkElement.appendChild(badge);
+                    
+                    // Add animation effect to badge
+                    if (badge.animate) {
+                        badge.animate([
+                            { transform: 'scale(0.5)', opacity: 0 },
+                            { transform: 'scale(1.2)', opacity: 1 },
+                            { transform: 'scale(1)', opacity: 1 }
+                        ], {
+                            duration: 400,
+                            easing: 'ease-out'
+                        });
+                    }
+                }
+                
+                console.log('Cart badge updated with count:', data.product_count); // Debug log
+            } else {
+                console.error('Cart link element not found in navbar');
+                // Try to find any element with cart text
+                const allLinks = document.querySelectorAll('nav a');
+                allLinks.forEach(link => {
+                    if (link.textContent.toLowerCase().includes('cart')) {
+                        console.log('Found cart link:', link);
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error updating cart count:', error);
+        });
+    }
+    
     // Apply filters function
     function applyFilters() {
         // Show loading indicator
