@@ -14,6 +14,9 @@
 {% block content %}
 <div class="cart-page-wrapper">
   <div class="container-fluid px-3 px-lg-5">
+    <!-- CSRF Token for AJAX requests -->
+    {% csrf_token %}
+    
     <!-- Breadcrumb Navigation -->
     <nav aria-label="breadcrumb" class="cart-breadcrumb">
       <ol class="breadcrumb">
@@ -196,11 +199,18 @@
           </div>
 
           <!-- Continue Shopping Section -->
-          <div class="continue-shopping-section">
+          <div class="continue-shopping-section d-flex justify-content-between align-items-center flex-wrap gap-3">
             <a href="{% url 'products' %}" class="btn-continue-shopping">
               <i class="fas fa-arrow-left me-2"></i>
               Continue Shopping
             </a>
+            
+            <!-- Clear All Cart Button -->
+            <button type="button" class="btn btn-outline-danger btn-lg" id="clearAllCartBtn" onclick="showClearAllConfirmation()">
+              <i class="fas fa-trash-alt fa-lg me-2"></i>
+              <span class="d-none d-sm-inline">Clear All Items</span>
+              <span class="d-sm-none">Clear All</span>
+            </button>
           </div>
         </div>
       </div>
@@ -399,5 +409,46 @@ $(document).ready(function() {
         $progressBar.css('width', percentage + '%');
     }
 });
+
+// Clear All Cart Items Functionality
+function showClearAllConfirmation() {
+    if (confirm('Are you sure you want to remove all items from your cart? This action cannot be undone.')) {
+        clearAllCartItems();
+    }
+}
+
+function clearAllCartItems() {
+    // Show loading state
+    const clearBtn = document.getElementById('clearAllCartBtn');
+    const originalContent = clearBtn.innerHTML;
+    clearBtn.disabled = true;
+    clearBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Clearing...';
+    
+    // Send request to clear all items
+    fetch('{% url "clear_all_cart" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (response.ok) {
+            // Reload the page to show empty cart
+            window.location.reload();
+        } else {
+            throw new Error('Failed to clear cart');
+        }
+    })
+    .catch(error => {
+        console.error('Error clearing cart:', error);
+        alert('Error clearing cart. Please try again.');
+        
+        // Reset button state
+        clearBtn.disabled = false;
+        clearBtn.innerHTML = originalContent;
+    });
+}
 </script>
 {% endblock %}

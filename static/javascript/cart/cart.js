@@ -405,24 +405,15 @@ const CartManager = {
         this.setLoadingState(true);
         const $cartItem = $(`.cart-item[data-product-id="${productId}"]`);
         
-        $.ajax({
-            url: `${this.config.endpoints.remove}${productId}/`,
-            type: 'POST',
-            data: {
-                csrfmiddlewaretoken: $('[name=csrfmiddlewaretoken]').val()
-            },
-            success: () => {
-                this.handleRemoveSuccess(productId);
-                this.showNotification('Item removed from cart', 'success');
-            },
-            error: (xhr) => {
-                this.handleRemoveError(productId, xhr);
-                this.showNotification('Failed to remove item', 'error');
-            },
-            complete: () => {
-                this.setLoadingState(false);
-            }
-        });
+        // Create a form and submit it normally (not AJAX) since backend returns redirect
+        const $form = $(`
+            <form method="POST" action="${this.config.endpoints.remove}${productId}/" style="display: none;">
+                <input type="hidden" name="csrfmiddlewaretoken" value="${$('[name=csrfmiddlewaretoken]').val()}">
+            </form>
+        `);
+        
+        $('body').append($form);
+        $form.submit();
     },
 
     // ========================================================================
@@ -574,20 +565,32 @@ const CartManager = {
         
         $('body').append($dialog);
         
-        // Event handlers
-        $dialog.find('.btn-cancel, .dialog-backdrop').on('click', () => {
+        // Function to hide and remove dialog
+        const hideDialog = () => {
             $dialog.removeClass('show');
             setTimeout(() => $dialog.remove(), this.config.animationDuration);
-        });
+        };
+        
+        // Event handlers
+        $dialog.find('.btn-cancel, .dialog-backdrop').on('click', hideDialog);
         
         $dialog.find('.btn-confirm').on('click', () => {
+            // Hide dialog immediately when confirm is clicked
+            hideDialog();
+            // Execute the confirmation action
             onConfirm();
-            $dialog.removeClass('show');
-            setTimeout(() => $dialog.remove(), this.config.animationDuration);
         });
         
         // Show dialog
         setTimeout(() => $dialog.addClass('show'), 100);
+        
+        // Handle escape key
+        $(document).on('keydown.confirmDialog', (e) => {
+            if (e.key === 'Escape') {
+                hideDialog();
+                $(document).off('keydown.confirmDialog');
+            }
+        });
     },
 
     // ========================================================================
