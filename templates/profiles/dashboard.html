@@ -14,6 +14,9 @@
 {% block content %}
 <div class="dashboard-page-wrapper">
     <div class="container-fluid">
+        <!-- CSRF Token for AJAX requests -->
+        {% csrf_token %}
+        
         <!-- Dashboard Header -->
         <div class="dashboard-header">
             <div class="container-fluid">
@@ -85,9 +88,25 @@
                 <!-- My Orders Section -->
                 <div class="col-12 col-lg-8 mb-4">
                     <div class="dashboard-section orders-section">
-                        <div class="section-header">
-                            <h3><i class="fas fa-shopping-bag"></i>My Orders</h3>
-                            <p>View your order history and track shipments</p>
+                        <div class="section-header d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h3><i class="fas fa-shopping-bag"></i>My Orders</h3>
+                                <p>View your order history and track shipments</p>
+                            </div>
+                            {% if orders %}
+                            <div class="orders-actions">
+                                <button type="button" class="btn btn-outline-danger btn-lg" id="deleteAllOrdersBtn" onclick="showDeleteAllOrdersConfirmation()">
+                                    <i class="fas fa-trash-alt fa-lg me-2"></i>
+                                    {% if orders.count > 1 %}
+                                        <span class="d-none d-sm-inline">Delete All Orders</span>
+                                        <span class="d-sm-none">Delete All</span>
+                                    {% else %}
+                                        <span class="d-none d-sm-inline">Delete Order</span>
+                                        <span class="d-sm-none">Delete</span>
+                                    {% endif %}
+                                </button>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="section-content">
                             {% if orders %}

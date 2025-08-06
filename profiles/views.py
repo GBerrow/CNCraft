@@ -443,3 +443,31 @@ def delete_order_view(request, order_number):
             'success': False,
             'error': str(e)
         }, status=400)
+
+@login_required
+@require_POST
+def delete_all_orders_view(request):
+    """
+    Delete all orders for the authenticated user
+    """
+    try:
+        # Get user profile
+        profile = get_object_or_404(UserProfile, user=request.user)
+        
+        # Get all orders for this user
+        orders = Order.objects.filter(user_profile=profile)
+        orders_count = orders.count()
+        
+        # Delete all orders
+        orders.delete()
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Successfully deleted {orders_count} orders',
+            'deleted_count': orders_count
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)

@@ -655,3 +655,81 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Export for potential external use
 window.DashboardManager = DashboardManager;
+
+// Delete All Orders Functionality
+function showDeleteAllOrdersConfirmation() {
+    // Check how many orders exist by counting order items on the page
+    const orderItems = document.querySelectorAll('.order-item');
+    const orderCount = orderItems.length;
+    
+    let confirmMessage;
+    if (orderCount > 1) {
+        confirmMessage = `Are you sure you want to delete ALL your ${orderCount} orders? This action cannot be undone and will permanently remove your entire order history.`;
+    } else {
+        confirmMessage = 'Are you sure you want to delete this order? This action cannot be undone.';
+    }
+    
+    if (confirm(confirmMessage)) {
+        deleteAllOrders();
+    }
+}
+
+function deleteAllOrders() {
+    // Show loading state
+    const deleteBtn = document.getElementById('deleteAllOrdersBtn');
+    if (!deleteBtn) {
+        console.error('Delete button not found');
+        return;
+    }
+    
+    const originalContent = deleteBtn.innerHTML;
+    deleteBtn.disabled = true;
+    deleteBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Deleting...';
+    
+    // Get CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        DashboardManager.showNotification('Error: CSRF token not found. Please refresh the page.', 'error');
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = originalContent;
+        return;
+    }
+    
+    // Send request to delete all orders
+    fetch('/profile/delete_all_orders/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': csrfToken.value,
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response data:', data);
+        if (data.success) {
+            // Show success message
+            DashboardManager.showNotification(`Successfully deleted ${data.deleted_count} orders`, 'success');
+            
+            // Reload the page to show updated state
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        } else {
+            throw new Error(data.error || 'Failed to delete orders');
+        }
+    })
+    .catch(error => {
+        console.error('Error deleting all orders:', error);
+        DashboardManager.showNotification('Error deleting orders. Please try again.', 'error');
+        
+        // Reset button state
+        deleteBtn.disabled = false;
+        deleteBtn.innerHTML = originalContent;
+    });
+}
