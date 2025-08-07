@@ -1,6 +1,6 @@
 # CNCraft
 
-![CNCraft Banner](documentation\readme\images\CNCraft_intro_image.png)  
+![CNCraft Banner](documentation/readme/images/CNCraft_intro_image.png)  
 
 # Introduction
 
@@ -24,13 +24,13 @@ This comprehensive documentation provides detailed information about the CNCraft
 ### Specialized Expertise
 
 
-![CNCraft About Image](documentation\readme\images\CNCraft_about_image.png)
+![CNCraft About Image](documentation/readme/images/CNCraft_about_image.png)
 
 CNCraft is built specifically for the CNC manufacturing industry, offering deep technical knowledge and product expertise that general e-commerce platforms lack. Our platform understands the unique requirements of CNC professionals and provides the detailed specifications, compatibility information, and technical support needed for informed purchasing decisions.
 
 ### Comprehensive Product Range
 
-![CNCraft Shop Image](documentation\readme\images\CNCraft_shop_image.png)
+![CNCraft Shop Image](documentation/readme/images/CNCraft_shop_image.png)
 
 From entry-level desktop CNC mills to industrial-grade machining centers, CNCraft offers one of the most extensive catalogs of CNC equipment available online. Our product categories include:
 - **CNC Mills & Machining Centers** - Precision milling solutions for various applications
@@ -42,19 +42,19 @@ From entry-level desktop CNC mills to industrial-grade machining centers, CNCraf
 
 ### User-Centric Design
 
-![CNCraft filter Image](documentation\readme\images\CNCraft_filter_image.png)
+![CNCraft filter Image](documentation/readme/images/CNCraft_filter_image.png)
 
 Our platform prioritizes user experience with intuitive navigation, advanced filtering capabilities, and responsive design that works seamlessly across all devices. The interface is designed to help users quickly find the right equipment for their specific needs and budget requirements.
 
 ### Secure & Reliable
 
-![CNCraft Order Image](documentation\readme\images\CNCraft_order_image.png)
+![CNCraft Order Image](documentation/readme/images/CNCraft_order_image.png)
 
 Built with enterprise-grade security practices, CNCraft ensures safe transactions through Stripe payment processing, secure user authentication, and data protection measures. Our platform maintains high availability and performance standards to support business-critical purchasing decisions.
 
 ### Technical Support & Resources
 
-![CNCraft_product_image](documentation\readme\images\CNCraft_product_image.png)
+![CNCraft Product Image](documentation/readme/images/CNCraft_product_image.png)
 
 Beyond just selling products, CNCraft provides valuable resources including detailed product specifications, compatibility guides, and technical documentation to help users make informed decisions and maximize their investment in CNC technology.
 
@@ -1030,3 +1030,272 @@ Key elements include:
 - **Responsive Flow**: On smaller screens, the forms stack vertically and maintain padding for finger-friendly form completion.
 
 The page's neutral tone and focus on form clarity help create a trusted and frictionless entry point to the platform. In e-commerce, seamless account access is critical to customer retention—this wireframe sets the foundation for that experience while adhering to accessibility and UX best practices.
+
+---
+
+## Features
+
+CNCraft delivers a comprehensive e-commerce platform specifically designed for the CNC machinery market. The following features combine intuitive user experience with robust functionality to serve both hobbyist makers and professional machinists.
+
+### Core E-commerce Functionality
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Product Discovery** | Comprehensive Product Listings | Browse CNC machines, tools, and accessories with detailed specifications and high-quality images |
+| | Advanced Filtering System | Filter products by category, price range, brand, and technical specifications |
+| | Product Categories | Organized catalog with clear categorization (Mills, Lathes, Routers, Tools, Accessories) |
+| | Product Search | Powerful search functionality to quickly locate specific products or brands |
+| | Product Details | Detailed product pages with technical specifications, features, and compatibility information |
+| **Shopping & Checkout** | Shopping Cart Management | Add, remove, and update product quantities with real-time price calculations |
+| | Secure Checkout Process | Streamlined checkout flow with billing address collection and order summary |
+| | Payment Processing | Secure payment integration with Stripe for reliable transaction processing |
+| | Order Confirmation | Clear order confirmation with order number and details for customer records |
+| | Guest Checkout | Option to purchase without creating an account for quick transactions |
+
+### User Account Management
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Authentication** | User Registration | Simple account creation process with email verification |
+| | Secure Login System | Password-based authentication with "Remember Me" functionality |
+| | User Profiles | Personal profile management with contact information and preferences |
+| | Password Management | Secure password change functionality with validation |
+| | Account Dashboard | Centralized hub for managing account settings and order history |
+| **Order Tracking** | Order History | Complete history of past purchases with order details and status tracking |
+| | Order Details | Detailed view of individual orders including products, quantities, and pricing |
+| | Delivery Information | Saved delivery addresses for streamlined repeat purchases |
+| | Order Status Updates | Track order progress from placement to delivery |
+
+### Administrative Features
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Store Management** | Admin Dashboard | Comprehensive overview of store performance with key metrics |
+| | Product Management | Add, edit, and manage product catalog with pricing and inventory |
+| | Order Management | View and process customer orders with status updates |
+| | User Management | Oversee customer accounts and provide support when needed |
+| | Inventory Tracking | Monitor stock levels and product availability |
+| **Analytics** | Sales Analytics | Track sales performance and identify popular products |
+| | Customer Insights | Understand customer behavior and purchasing patterns |
+| | Revenue Reporting | Monitor financial performance and growth trends |
+| | Order Analytics | Analyze order patterns and fulfillment efficiency |
+
+### Technical Implementation
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Responsive Design** | Mobile-First Approach | Optimized experience across all device sizes |
+| | Cross-Browser Compatibility | Consistent functionality across modern web browsers |
+| | Touch-Friendly Interface | Intuitive navigation optimized for touchscreen devices |
+| | Accessible Design | WCAG-compliant features for users with varying abilities |
+| **Security & Performance** | Fast Loading Times | Optimized images and efficient code for quick page loads |
+| | Secure Data Handling | Encrypted data transmission and secure storage practices |
+| | Payment Security | PCI-compliant payment processing through Stripe integration |
+| | Form Validation | Client and server-side validation for data integrity |
+| | Error Handling | Graceful error management with user-friendly messages |
+
+### Specialized CNC Features
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Technical Specifications** | Detailed Machine Specs | Comprehensive technical specifications for each CNC machine |
+| | Compatibility Information | Software and tooling compatibility details |
+| | Working Area Dimensions | Clear dimensional specifications for workshop planning |
+| | Power Requirements | Electrical specifications for facility planning |
+| | Precision Ratings | Accuracy and tolerance specifications for quality assessment |
+| **Industry Content** | Application Guides | Use case examples for different industries and projects |
+| | Material Compatibility | Information about suitable materials for each machine |
+| | Skill Level Indicators | Guidance on appropriate equipment for different experience levels |
+| | Safety Information | Important safety considerations and requirements |
+| | Setup Requirements | Space and infrastructure requirements for installation |
+
+### User Experience Enhancements
+
+| Feature Category | Feature | Description |
+|------------------|---------|-------------|
+| **Navigation** | Intuitive Menu Structure | Clear menu organization with logical product categorization |
+| | Breadcrumb Navigation | Easy orientation and navigation back through product categories |
+| | Related Products | Suggestions for complementary equipment and accessories |
+| | Featured Products | Highlighted equipment and special offers on the homepage |
+| | Quick Access Tools | Easy access to cart, account, and search functionality |
+| **Information Design** | Clear Product Hierarchy | Logical organization from general categories to specific products |
+| | Consistent Layout Patterns | Familiar page structures across the entire platform |
+| | Progressive Disclosure | Layered information presentation to avoid overwhelming users |
+| | Visual Hierarchy | Clear distinction between different types of information and actions |
+| | Contextual Help | Guidance and explanations for technical terms and specifications |
+
+### Platform Highlights
+
+🎯 **Specialized Focus**: Built specifically for the CNC machinery market with industry-specific features and terminology
+
+⚡ **Performance Optimized**: Fast, responsive design that works seamlessly across all devices
+
+🔒 **Enterprise Security**: Bank-level security with encrypted transactions and secure data handling
+
+📊 **Business Intelligence**: Comprehensive analytics and reporting for data-driven business decisions
+
+🛠️ **Technical Depth**: Detailed specifications and compatibility information for informed purchasing decisions
+
+🌐 **Accessible Design**: WCAG-compliant features ensuring usability for all customers
+
+These features work together to create a specialized e-commerce platform that addresses the unique needs of the CNC community while maintaining the usability and functionality expected from modern online shopping experiences.
+
+---
+
+## Technologies Used
+
+CNCraft is built using a modern, robust technology stack that ensures scalability, security, and exceptional performance. The platform leverages industry-standard technologies and frameworks to deliver a professional e-commerce experience tailored for the CNC machinery market.
+
+### Backend Technologies
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Python** | 3.11+ | Core programming language providing robust, scalable backend development |
+| **Django** | 4.2+ | High-level Python web framework enabling rapid development with built-in security features |
+| **Django Allauth** | Latest | Comprehensive authentication system supporting multiple authentication methods |
+| **SQLite3** | Built-in | Lightweight, file-based database perfect for development and small-to-medium deployments |
+| **Pillow** | Latest | Python Imaging Library for handling product image processing and optimization |
+
+### Frontend Technologies
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **HTML5** | Latest | Semantic markup language providing structure and accessibility foundation |
+| **CSS3** | Latest | Modern styling with advanced layout capabilities and responsive design features |
+| **JavaScript** | ES6+ | Client-side interactivity and dynamic user interface enhancements |
+| **Bootstrap** | 5.1.3 | CSS framework providing responsive grid system and pre-built components |
+| **Font Awesome** | 6.0+ | Comprehensive icon library via kit.fontawesome.com for consistent iconography |
+
+### Payment & E-commerce
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Stripe** | Latest API | Secure payment processing with PCI compliance and fraud protection |
+| **Stripe Elements** | Latest | Secure, customizable payment form components for seamless checkout experience |
+| **Webhooks** | Stripe API | Real-time payment status updates and order confirmation handling |
+
+### Development & Deployment Tools
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Git** | Latest | Version control system for code management and collaboration |
+| **GitHub** | Platform | Repository hosting, issue tracking, and collaborative development |
+| **VS Code** | Latest | Primary development environment with Python and Django extensions |
+| **Django Debug Toolbar** | Latest | Development tool for performance monitoring and debugging |
+| **WhiteNoise** | Latest | Static file serving for production deployment |
+
+### Security & Data Protection
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django CSRF Protection** | Built-in | Cross-Site Request Forgery protection for secure form submissions |
+| **Django Security Middleware** | Built-in | Comprehensive security headers and protection mechanisms |
+| **HTTPS/SSL** | TLS 1.3 | Encrypted data transmission ensuring secure communication |
+| **Environment Variables** | Python-decouple | Secure configuration management separating secrets from codebase |
+| **Password Hashing** | Django PBKDF2 | Secure password storage using industry-standard hashing algorithms |
+
+### Code Quality & Standards
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **PEP 8** | Standard | Python code style guide ensuring consistent, readable code |
+| **Django Best Practices** | Framework | Following Django conventions for maintainable, scalable applications |
+| **Responsive Design** | CSS3/Bootstrap | Mobile-first approach ensuring optimal experience across all devices |
+| **Web Accessibility** | WCAG 2.1 | Compliance standards ensuring inclusive design for all users |
+
+### Database & Data Management
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django ORM** | Built-in | Object-Relational Mapping for database interactions and migrations |
+| **SQLite3** | 3.39+ | Lightweight database engine suitable for development and moderate traffic |
+| **Django Migrations** | Built-in | Version-controlled database schema changes and data migrations |
+| **Database Indexing** | SQLite | Optimized query performance for product searches and filtering |
+
+### Static Files & Media Management
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django Static Files** | Built-in | Efficient static asset management and organization |
+| **Pillow** | Latest | Image processing for product photos, thumbnails, and optimization |
+| **CSS Minification** | Production | Optimized stylesheet delivery for improved performance |
+| **Image Optimization** | Pillow | Compressed product images maintaining quality while reducing load times |
+
+### Testing & Quality Assurance
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django Testing Framework** | Built-in | Comprehensive unit and integration testing capabilities |
+| **Python unittest** | Standard Library | Core testing framework for backend functionality validation |
+| **Browser Testing** | Manual | Cross-browser compatibility testing across major browsers |
+| **Responsive Testing** | Manual | Device compatibility testing for optimal mobile experience |
+
+### Performance & Optimization
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django Caching Framework** | Built-in | Performance optimization through strategic content caching |
+| **Database Query Optimization** | Django ORM | Efficient database queries minimizing response times |
+| **Static File Compression** | WhiteNoise | Compressed asset delivery for faster page loads |
+| **Lazy Loading** | JavaScript | Progressive content loading for improved perceived performance |
+
+### API & Integration Technologies
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Django REST Framework** | Latest | API development framework for potential future integrations |
+| **JSON** | Standard | Data interchange format for AJAX requests and API responses |
+| **AJAX** | JavaScript | Asynchronous requests for dynamic content updates |
+| **Stripe API** | Latest | Payment processing integration with comprehensive transaction handling |
+
+### Development Methodology
+
+| Approach | Implementation | Purpose |
+|----------|----------------|---------|
+| **Model-View-Template (MVT)** | Django Architecture | Clean separation of concerns following Django's architectural pattern |
+| **Object-Oriented Programming** | Python Classes | Maintainable, reusable code structure with clear inheritance hierarchies |
+| **RESTful Design** | URL Patterns | Intuitive URL structure following REST principles for better UX |
+| **Progressive Enhancement** | Frontend Strategy | Baseline functionality with enhanced features for capable browsers |
+| **Mobile-First Design** | CSS/Bootstrap | Responsive design starting with mobile constraints and expanding up |
+
+### Browser & Platform Support
+
+| Platform | Versions | Support Level |
+|----------|----------|---------------|
+| **Chrome** | 90+ | Full Support |
+| **Firefox** | 88+ | Full Support |
+| **Safari** | 14+ | Full Support |
+| **Edge** | 90+ | Full Support |
+| **Mobile Safari** | iOS 13+ | Full Support |
+| **Chrome Mobile** | Android 8+ | Full Support |
+
+### Key Technology Decisions
+
+**Why Django?**
+- Rapid development with built-in admin interface perfect for CNC product management
+- Robust security features essential for e-commerce applications
+- Excellent ORM for complex product relationships and inventory management
+- Strong community support and extensive documentation
+
+**Why Bootstrap?**
+- Proven responsive framework ensuring consistent cross-device experience
+- Comprehensive component library accelerating development timeline
+- Excellent accessibility features supporting WCAG compliance goals
+- Easy customization for CNC industry-specific design requirements
+
+**Why Stripe?**
+- Industry-leading security with PCI DSS compliance built-in
+- Comprehensive payment method support for global CNC market
+- Excellent developer experience with clear documentation
+- Robust fraud protection essential for high-value CNC equipment sales
+
+**Why SQLite?**
+- Perfect for development and moderate traffic volumes
+- Zero-configuration database reducing deployment complexity
+- Reliable and well-tested for e-commerce applications
+- Easy migration path to PostgreSQL for future scaling needs
+
+This technology stack provides a solid foundation for CNCraft's current needs while maintaining flexibility for future enhancements and scaling requirements. Each technology was selected for its reliability, community support, and alignment with modern web development best practices.
+
+---
+
