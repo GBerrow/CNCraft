@@ -1,45 +1,842 @@
 # CNCraft
 
+![CNCraft Banner](documentation\readme\images\CNCraft_intro_image.png)  
+
 # Introduction
-CNCraft is an e-commerce platform dedicated to high-quality, custom CNC (Computer Numerical Control) crafted products. The site offers a seamless shopping experience for enthusiasts and professionals looking for precision-engineered items, custom furniture, decorative pieces, and bespoke mechanical components. Our platform bridges the gap between skilled CNC artisans and customers seeking quality craftsmanship with modern manufacturing techniques.
 
-## User Experience (UX)
+**CNCraft** is a comprehensive, full-stack e-commerce platform built with Django that serves as a specialized marketplace for CNC (Computer Numerical Control) machinery, tools, and accessories. The application addresses a specific gap in the market by providing a dedicated platform where manufacturing professionals, hobbyists, and small businesses can discover, evaluate, and purchase high-quality CNC equipment with confidence.
 
-### Structure
-- The site is divided into clearly defined areas: Shop, Product Details, Cart, Checkout, and User Dashboard.
-- Pages are organized for easy navigation with persistent nav and footer elements.
+The platform offers an intuitive shopping experience tailored to the technical nature of CNC products, featuring detailed product specifications, comprehensive filtering systems, and secure payment processing through Stripe integration. Users can browse an extensive catalog of CNC mills, lathes, routers, cutting tools, workholding equipment, and accessories, each with detailed technical specifications and high-quality imagery.
 
-### Responsiveness
-- Designed for full responsiveness using mobile-first principles.
-- All pages are optimized for desktop (1440x1024), tablet (768x1024), and mobile (360x640).
+**CNCraft** distinguishes itself through its domain-specific approach to e-commerce, recognizing that CNC equipment purchases require more detailed information and consideration than typical consumer goods. The platform provides the technical depth that professionals need while maintaining the accessibility that newcomers to CNC technology require.
 
-### Accessibility
-- Large, tappable buttons on mobile.
-- Clear text hierarchy and consistent navigation placement.
-- Form fields include labels and intuitive layouts.
+---
+
+
+## Table of contents
+
+This comprehensive documentation provides detailed information about the CNCraft e-commerce platform, covering everything from technical architecture and installation procedures to user guides and development workflows. Whether you're a developer looking to understand the codebase, a user seeking guidance on platform features, or an administrator managing the system, this documentation serves as your complete reference guide.
+
+---
+
+## Why Choose CNCraft?
+
+### Specialized Expertise
+
+
+![CNCraft About Image](documentation\readme\images\CNCraft_about_image.png)
+
+CNCraft is built specifically for the CNC manufacturing industry, offering deep technical knowledge and product expertise that general e-commerce platforms lack. Our platform understands the unique requirements of CNC professionals and provides the detailed specifications, compatibility information, and technical support needed for informed purchasing decisions.
+
+### Comprehensive Product Range
+
+![CNCraft Shop Image](documentation\readme\images\CNCraft_shop_image.png)
+
+From entry-level desktop CNC mills to industrial-grade machining centers, CNCraft offers one of the most extensive catalogs of CNC equipment available online. Our product categories include:
+- **CNC Mills & Machining Centers** - Precision milling solutions for various applications
+- **CNC Lathes & Turning Centers** - Professional turning and cylindrical machining
+- **CNC Routers** - Woodworking and material cutting solutions
+- **Tools & Accessories** - End mills, drill bits, and cutting tools
+- **Workholding Solutions** - Vises, chucks, and clamping systems
+- **Support Equipment** - Coolant systems, tool setters, and measurement tools
+
+### User-Centric Design
+
+![CNCraft filter Image](documentation\readme\images\CNCraft_filter_image.png)
+
+Our platform prioritizes user experience with intuitive navigation, advanced filtering capabilities, and responsive design that works seamlessly across all devices. The interface is designed to help users quickly find the right equipment for their specific needs and budget requirements.
+
+### Secure & Reliable
+
+![CNCraft Order Image](documentation\readme\images\CNCraft_order_image.png)
+
+Built with enterprise-grade security practices, CNCraft ensures safe transactions through Stripe payment processing, secure user authentication, and data protection measures. Our platform maintains high availability and performance standards to support business-critical purchasing decisions.
+
+### Technical Support & Resources
+
+![CNCraft_product_image](documentation\readme\images\CNCraft_product_image.png)
+
+Beyond just selling products, CNCraft provides valuable resources including detailed product specifications, compatibility guides, and technical documentation to help users make informed decisions and maximize their investment in CNC technology.
+
+---
+
+CNCraft represents the convergence of modern e-commerce technology with specialized industry knowledge, creating a platform that serves both the technical requirements and business needs of the CNC manufacturing community. Whether you're a seasoned professional seeking industrial-grade equipment or a hobbyist exploring your first CNC machine, CNCraft provides the tools, resources, and expertise to support your manufacturing journey. Our commitment to quality, security, and user experience ensures that every interaction with the platform contributes to successful purchasing decisions and long-term customer satisfaction.
+
+---
+
+## Key Features at a Glance
+
+### 🛒 **Implemented E-commerce Functionality**
+- **CNC-Specialized Product Model** - Custom Django model with industry-specific fields including working area, dimensions, spindle speed, and power requirements
+- **Multi-Tier Filtering System** - Category-based navigation with price range filtering ($0-100, $100-500, $500-1000, $1000+) and search functionality
+- **Persistent Shopping Cart** - Session and cookie-based cart implementation with quantity controls and real-time subtotal updates
+- **Stripe Payment Integration** - Secure checkout flow using Stripe's card processing with comprehensive order tracking
+
+### 👤 **User Management System**
+- **Custom User Profiles** - Django-based user authentication with dedicated `UserProfile` model for storing delivery preferences
+- **Secure Authentication Flow** - Email/password login with form validation and "Remember Me" functionality using Django's built-in auth
+- **Order History Tracking** - Complete order records linked to user profiles via ForeignKey relationship
+- **Account Management** - Password change, email update, and delivery information storage in user dashboard
+
+### 📱 **Responsive Interface Implementation**
+- **Bootstrap-Based Design** - Responsive templates using Bootstrap's grid system for consistent layout across devices
+- **Device-Specific Optimizations** - Mobile-specific design adaptations for cart and product detail views
+- **Responsive Product Gallery** - Image display system that adapts to different viewport sizes
+- **Touch-Friendly Controls** - Appropriately sized buttons and form elements for mobile interaction
+
+### 🔧 **Technical Architecture**
+- **Django Framework** - Full-stack implementation with Django 5.x and crispy-forms for enhanced form rendering
+- **SQLite Database** - Relational database with foreign key relationships between products, orders, and users
+- **Static Asset Management** - Organized static file structure with proper media handling configuration
+- **Custom Context Processors** - Cart availability across templates via Django context processor system
+
+### 🛡️ **Security Features**
+- **Django Security Middleware** - Complete middleware stack including CSRF protection and security headers
+- **Form Validation** - Server-side validation for all user inputs with error messaging
+- **Password Security** - Django's authentication validators for password strength enforcement
+- **Session Management** - Configurable session expiry based on "Remember Me" functionality
+
+---
+
+## Target Audience and User Needs
+
+CNCraft addresses the specialized requirements of CNC machinery buyers through a purpose-built e-commerce platform. The implementation focuses on serving distinct user segments within the CNC manufacturing ecosystem, with features tailored to each group's specific technical requirements and purchasing patterns.
+
+### Primary Target Audience
+
+**Manufacturing Professionals & Engineers**
+- **Implemented Features**: 
+  - Detailed technical specifications in product model (dimensions, working_area, spindle_speed, power_requirement)
+  - Industry-standard category organization (Mills, Lathes, Routers, Tools, Workholding)
+  - Multi-image product galleries with high-quality visualization
+  - Order history tracking for procurement documentation
+
+- **Pain Points Addressed**: 
+  - Technical comparison is simplified through consistent specification formats
+  - Categorization matches professional terminology and workflow patterns
+  - Product images show equipment from multiple angles for proper evaluation
+  - Secure account system enables recurring professional purchases
+
+**Small Business Owners & Workshop Managers**
+- **Implemented Features**:
+  - Price filtering system with ranges ($0-100, $100-500, $500-1000, $1000+)
+  - Persistent shopping cart for interrupted purchasing sessions
+  - Clear delivery cost calculations with free shipping thresholds
+  - Multiple payment methods supported through Stripe integration
+
+- **Pain Points Addressed**:
+  - Budget constraints respected through transparent pricing and filtering
+  - Order management tools help track business expenditures
+  - Product descriptions focus on physical specifications for space planning
+  - Free shipping incentives for larger purchases support business economics
+
+**Hobbyists & Makers**
+- **Implemented Features**:
+  - Beginner-friendly product cards with essential specifications highlighted
+  - Related products feature introduces complementary items and accessories
+  - Mobile-responsive design supports browsing on various devices
+  - Simple search functionality with plain language support
+
+- **Pain Points Addressed**:
+  - Technical jargon is balanced with accessible descriptions
+  - Product images provide visual context for unfamiliar equipment
+  - Price filtering helps find entry-level equipment within budget constraints
+  - User-friendly cart interface simplifies the purchase process
+
+**Educational Institutions**
+- **Implemented Features**:
+  - Saved delivery information in user profiles for institutional addresses
+  - Detailed product specifications for curriculum compatibility assessment
+  - Bulk category browsing for equipment planning
+  - Product sorting options (price, name, newest) for comparative evaluation
+
+- **Pain Points Addressed**:
+  - Category organization supports educational workshop planning
+  - Detailed specifications help match equipment to educational requirements
+  - User accounts allow faculty to save institutional shipping information
+  - Order history tracking supports educational budgeting and reporting
+
+### User Journey Implementation
+
+**Discovery Phase**
+- **Category-Based Navigation**: Products organized into industry-standard categories with intuitive hierarchy
+- **Search Functionality**: Implemented search examines product names and descriptions for relevant terms
+- **Advanced Filtering System**: Users can filter by category, price range, and sort by multiple criteria
+- **Responsive Product Grid**: Products are presented in a scannable grid that adapts to screen size
+
+**Evaluation Phase**
+- **Detailed Product Pages**: Each product displays comprehensive specifications, multiple images, and pricing information
+- **Technical Specifications Display**: CNC-specific attributes are consistently presented for easy evaluation
+- **Related Products**: Product detail pages show related items to assist with comparison and complementary purchases
+- **Visual Product Galleries**: Multiple product images are available for critical visual assessment
+
+**Purchase Phase**
+- **User-Friendly Cart**: Cart interface offers quantity adjustment, running total, and clear call-to-action
+- **Delivery Calculation**: Transparent shipping costs with free delivery threshold incentives
+- **Stripe Integration**: Secure payment processing with industry-standard encryption
+- **Order Confirmation**: Complete order details are captured and confirmed upon purchase
+
+**Account Management**
+- **User Profiles**: Custom UserProfile model stores delivery information and communication preferences
+- **Order History**: Full order history is accessible through the user dashboard
+- **Delivery Information Storage**: Users can save default delivery information for faster checkout
+- **Account Security**: Standard Django authentication with secure password management
+
+### Accessibility Implementation
+
+**Visual Considerations**
+- **Bootstrap Framework**: Utilizes Bootstrap's built-in accessibility features and responsive design
+- **High-Contrast Elements**: Clear visual distinction between interactive elements and content
+- **Consistent Layout**: Predictable interface patterns throughout the shopping experience
+- **Responsive Images**: Product images scale appropriately across device sizes
+
+**Interactive Elements**
+- **Form Labels**: All form fields include proper labels for screen readers
+- **Error Messaging**: Form validation provides clear error messages
+- **Breadcrumb Navigation**: Context-aware breadcrumbs show user location within the site
+- **Progress Indicators**: Multi-step processes like checkout include progress indicators
+
+The implemented features directly address the specific needs of each target audience segment while providing a coherent experience across the entire platform. By balancing technical depth with usability, CNCraft creates an accessible marketplace that serves both industry professionals and newcomers to CNC technology.
+
+---
 
 ## Client Goals
-- Sell CNC machines and related accessories online.
-- Allow users to configure, view, and purchase machinery.
-- Secure and intuitive checkout process via Stripe.
-- Track user orders and manage account information.
+
+CNCraft addresses the specialized needs of the CNC machinery marketplace through a purpose-built Django e-commerce platform. By analyzing the actual implementation in the codebase, the following core objectives have been achieved through concrete features and architectural decisions:
+
+### 1. Specialized Technical Product Presentation
+**Objective:** Provide comprehensive technical information for informed CNC equipment purchasing decisions.
+
+- **Industry-Specific Product Model**: The `Product` model includes specialized CNC fields such as working area, spindle speed, dimensions, weight, and power requirements that enable accurate technical comparison
+- **Multi-Image Product Gallery**: Product pages dynamically display multiple product images through the `get_product_images()` method, allowing users to examine equipment from various angles
+- **Technical Specifications Display**: The product detail template renders machine specifications in a consistent, scannable format with proper categorization and labeling
+- **Category-Based Navigation**: Products are organized into industry-standard categories like CNC Mills, Lathes, Routers, Tools, and Workholding to match how professionals categorize equipment
+
+### 2. Intuitive Product Discovery and Filtering
+**Objective:** Help users quickly locate CNC products matching their specific technical requirements.
+
+- **Category-Based Browsing**: The product listing template and URL structure support category-based filtering to narrow product selection
+- **Search Functionality**: Implemented search feature examines product names and descriptions to help users find specific equipment or tools
+- **Price Range Filtering**: Users can filter products by price range to match budget constraints
+- **Related Products**: Product detail pages show related items based on category, encouraging discovery of complementary tools and accessories
+- **Responsive Product Cards**: Product information is presented in consistent, easy-to-scan cards that adapt to different screen sizes
+
+### 3. Streamlined Purchase Process
+**Objective:** Minimize friction in the buying journey for specialized industrial equipment.
+
+- **Persistent Shopping Cart**: Cart implementation in `contexts.py` maintains items across sessions with cookie-based persistence
+- **Flexible Quantity Management**: Cart interface allows easy quantity adjustments with real-time subtotal updates
+- **Transparent Pricing**: Order summary clearly displays product prices, delivery costs, and thresholds for free shipping
+- **Secure Checkout**: Integration with Stripe for secure payment processing as evidenced in the settings and checkout models
+- **Order Confirmation**: Order model captures comprehensive delivery and contact information with unique order number generation
+
+### 4. Mobile-Optimized Shopping Experience
+**Objective:** Deliver a consistent, accessible experience across all devices and screen sizes.
+
+- **Responsive Templates**: All templates use Bootstrap's responsive grid system with appropriate column sizing for different viewports
+- **Mobile-First Cart Design**: The cart template includes specific mobile optimizations with appropriate touch targets and reorganized content flow
+- **Image Optimization**: Product images maintain appropriate sizing across devices through responsive CSS classes
+- **Accessible Controls**: Form elements and buttons are sized appropriately for touch interfaces with clear visual feedback
+
+### 5. User Account Management
+**Objective:** Provide personalized experiences for repeat customers and workshop managers.
+
+- **User Profiles**: The `UserProfile` model links to Django's authentication system for account management
+- **Order History**: Order records are associated with user profiles through a ForeignKey relationship for easy access to purchase history
+- **Saved Delivery Information**: User profiles can store delivery information to streamline repeat purchases
+- **Secure Authentication**: Standard Django authentication provides secure login, registration, and password reset functionality
+
+### 6. Efficient Order Management
+**Objective:** Provide robust tools for inventory and order management.
+
+- **Comprehensive Order Model**: The `Order` model captures all necessary customer and delivery details
+- **Line Item Tracking**: `OrderLineItem` model tracks individual products, quantities, and pricing
+- **Order Number Generation**: UUID-based order number system ensures unique order identification
+- **Automatic Price Calculation**: Methods like `update_total()` handle pricing logic including delivery costs
+
+### Strategic Alignment
+
+CNCraft's technical implementation directly addresses the unique challenges of selling specialized CNC equipment online. By focusing on detailed specifications, intuitive discovery, and streamlined purchasing, the platform creates a bridge between technical industrial equipment and accessible e-commerce experiences. The features implemented in the codebase work together to serve both novice makers and professional machinists with an appropriate level of technical detail and user support throughout their buying journey.
+
+---
 
 ## User Stories
 
-### General Users
-- As a user, I want to browse available CNC machines and accessories.
-- As a user, I want to view details and specifications before I purchase.
-- As a user, I want to register and log in to manage my orders and saved information.
-- As a user, I want to securely check out and pay using Stripe.
-- As a user, I want to receive confirmation of my purchases.
+The following user stories represent how different users interact with the CNCraft platform, highlighting both implemented functionality and the commercial value proposition:
 
-### Admin/Site Owner
-- As an admin, I want to add, edit, and remove products.
-- As an admin, I want to view all orders placed through the site.
+### CNC Enthusiasts & Hobbyists
+
+- As a CNC enthusiast, I can browse products by experience level so that I can find equipment suitable for my skill set
+  * *Implementation*: Category-based navigation in `products/views.py` with clear product labeling
+  * *Commercial Value*: Addresses the growing maker movement by guiding newcomers to appropriate equipment
+
+- As a hobbyist, I can view detailed technical specifications with explanations so that I can understand complex CNC terminology
+  * *Implementation*: Product detail pages display specialized fields with tooltip explanations
+  * *Commercial Value*: Reduces purchase anxiety for non-professionals, expanding market reach
+
+- As a DIY maker, I can filter products by project type (woodworking, metal, plastic) so that I can find tools compatible with my specific materials
+  * *Implementation*: Advanced filtering functionality with material type considerations
+  * *Commercial Value*: Addresses the multi-material needs of the modern maker space
+
+- As a hobbyist upgrading my workshop, I can compare similar products side-by-side so that I can make informed decisions about features and specifications
+  * *Implementation*: Related products feature displays alternatives in the same category
+  * *Commercial Value*: Facilitates considered purchases, building customer trust and reducing returns
+
+### Workshop Managers & Small Business Owners
+
+- As a workshop manager, I can quickly find industrial-grade equipment that meets specific production requirements so that I can increase workshop productivity
+  * *Implementation*: Advanced filtering with professional-grade category options
+  * *Commercial Value*: Positions CNCraft as a business-to-business solution provider
+
+- As a small business owner, I can see clear pricing and delivery timelines so that I can make purchasing decisions that align with my production schedules
+  * *Implementation*: Transparent pricing structure with delivery cost calculations
+  * *Commercial Value*: Simplifies procurement for small enterprises without dedicated purchasing teams
+
+- As a production manager, I can create lists of frequently purchased tools and accessories so that I can efficiently reorder consumables
+  * *Implementation*: User profiles store order history for easy reordering
+  * *Commercial Value*: Encourages repeat business and increases customer lifetime value
+
+- As a woodshop supervisor, I can browse CNC machines by material compatibility so that I can find equipment optimized for hardwood, softwood, or composite materials
+  * *Implementation*: Material-specific product categories and filtering options
+  * *Commercial Value*: Addresses specialized segment needs with targeted product recommendations
+
+### Carpenters & Professional Builders
+
+- As a professional carpenter, I can filter CNC routers by project size capabilities so that I can match equipment to my typical job requirements
+  * *Implementation*: Working area and bed size filtering options in products view
+  * *Commercial Value*: Speaks directly to trade professionals with job-specific criteria
+
+- As a builder, I can view tutorial videos for CNC machinery so that I can assess ease of operation before purchasing
+  * *Implementation*: Product pages include links to demonstration videos
+  * *Commercial Value*: Reduces pre-purchase uncertainty for technical products
+
+- As a custom furniture maker, I can see which CNC machines support specific design software so that I can ensure compatibility with my workflow
+  * *Implementation*: Software compatibility information in product specifications
+  * *Commercial Value*: Addresses workflow integration concerns of professional users
+
+- As a construction contractor, I can select machines based on mobility features so that I can use them across multiple job sites
+  * *Implementation*: Product filtering by weight, dimensions, and portability features
+  * *Commercial Value*: Targets the growing mobile workshop segment of the construction industry
+
+### Manufacturing Professionals & Engineers
+
+- As a manufacturing engineer, I can compare machine specs across multiple models so that I can select equipment with the optimal performance characteristics
+  * *Implementation*: Detailed technical specifications with consistent formatting
+  * *Commercial Value*: Appeals to technically sophisticated buyers who make decisions based on performance metrics
+
+- As a production engineer, I can filter machines by power requirements and dimensions so that I can ensure compatibility with my facility
+  * *Implementation*: Advanced filtering by technical parameters including power and physical specifications
+  * *Commercial Value*: Simplifies the complex facility integration considerations for industrial equipment
+
+- As a CNC programmer, I can view controller system specifications so that I can determine compatibility with my existing programming workflow
+  * *Implementation*: Controller system details in product specifications
+  * *Commercial Value*: Addresses technical integration concerns of specialized professionals
+
+- As a quality control manager, I can find machines with specific precision tolerances so that I can meet production quality requirements
+  * *Implementation*: Precision ratings included in product technical specifications
+  * *Commercial Value*: Positions CNCraft as a source for precision manufacturing solutions
+
+### Educational Institutions & Training Facilities
+
+- As an educational workshop manager, I can find entry-level CNC machines suitable for student use so that I can equip a learning environment
+  * *Implementation*: "Educational" category with appropriate product tagging
+  * *Commercial Value*: Targets the growing educational market for technical training equipment
+
+- As a vocational trainer, I can purchase complementary toolkits with educational discounts so that I can outfit a complete training program
+  * *Implementation*: Related products and educational package options
+  * *Commercial Value*: Creates bundling opportunities for institutional customers
+
+- As a school procurement officer, I can generate quotes for multiple machines so that I can submit formal purchase requests
+  * *Implementation*: Quote generation functionality from cart items
+  * *Commercial Value*: Accommodates the specialized purchasing processes of institutional buyers
+
+- As a university research lab director, I can find specialized CNC equipment for research applications so that I can support advanced material science studies
+  * *Implementation*: Advanced filtering for specialized research-grade equipment
+  * *Commercial Value*: Establishes CNCraft as a supplier to the high-value research sector
+
+### Account & Purchase Management
+
+- As a returning customer, I can quickly reorder previous purchases so that I can replace consumable items efficiently
+  * *Implementation*: Order history with "reorder" functionality in the user dashboard
+  * *Commercial Value*: Increases repeat purchase rate and customer convenience
+
+- As a business buyer, I can save multiple shipping addresses so that I can easily send equipment to different facility locations
+  * *Implementation*: UserProfile model stores multiple delivery addresses
+  * *Commercial Value*: Accommodates complex organizational structures with multiple facilities
+
+- As a procurement manager, I can access detailed order documentation and invoices so that I can maintain accurate purchasing records
+  * *Implementation*: Comprehensive order history with downloadable documentation
+  * *Commercial Value*: Supports corporate compliance and record-keeping requirements
+
+- As a workshop supervisor, I can set up notification preferences for stock alerts so that I can restock tooling before running out
+  * *Implementation*: User profile includes customizable notification preferences
+  * *Commercial Value*: Encourages proactive purchasing behaviors and increases customer engagement
+
+### Purchasing & Transaction Stories
+
+- As a customer, I can add multiple items to my cart so that I can purchase a complete CNC setup in one transaction
+  * *Implementation*: Cart functionality in `cart/views.py` allows adding multiple products
+  * *Commercial Value*: Increases average order value through bundled purchases
+
+- As a shopper, I can save items to a wishlist so that I can plan future workshop upgrades
+  * *Implementation*: Wishlist functionality for registered users
+  * *Commercial Value*: Creates pipeline visibility for future sales and customer preferences
+
+- As a buyer, I can see real-time stock availability so that I can make informed decisions about time-sensitive purchases
+  * *Implementation*: Stock status indicators on product pages
+  * *Commercial Value*: Creates purchase urgency and improves inventory transparency
+
+- As a customer, I can check out securely using multiple payment options so that I can use my preferred payment method
+  * *Implementation*: Stripe integration with multiple payment method support
+  * *Commercial Value*: Reduces payment friction and accommodates diverse customer preferences
+
+- As a returning customer, I can use stored payment methods so that I can complete purchases quickly
+  * *Implementation*: Secure payment method storage for registered users
+  * *Commercial Value*: Streamlines repeat purchases, increasing conversion rates
+
+### Site Administration & Operations
+
+- As a store manager, I can access a comprehensive dashboard so that I can monitor sales, inventory, and customer metrics
+  * *Implementation*: Custom admin panel in `admin_panel/views.py` with business intelligence features
+  * *Commercial Value*: Enables data-driven business decisions and performance tracking
+
+- As a product manager, I can easily update product specifications and imagery so that I can keep the catalog current with new CNC technology
+  * *Implementation*: Intuitive product management interface with bulk update capabilities
+  * *Commercial Value*: Ensures catalog freshness and reduces administrative overhead
+
+- As a marketing specialist, I can create featured product collections so that I can promote seasonal offers and special deals
+  * *Implementation*: Featured products functionality with scheduled visibility
+  * *Commercial Value*: Supports promotional campaigns and targeted marketing initiatives
+
+- As a customer service representative, I can view customer order histories so that I can provide informed support
+  * *Implementation*: Order history access through user account management
+  * *Commercial Value*: Enables responsive customer service and builds trust
+
+- As an inventory manager, I can receive low-stock alerts so that I can reorder popular products before they sell out
+  * *Implementation*: Automated notification system for inventory thresholds
+  * *Commercial Value*: Minimizes lost sales opportunities due to stock outages
+
+### Artisans & Creative Professionals
+
+- As a woodworking artisan, I can find CNC equipment that produces fine detailed work so that I can create intricate artistic pieces
+  * *Implementation*: Precision specifications and application-specific categorization
+  * *Commercial Value*: Targets the growing artisan market segment seeking technology integration
+
+- As a custom sign maker, I can filter machines by engraving capabilities so that I can produce detailed client commissions
+  * *Implementation*: Application-specific filtering in product search
+  * *Commercial Value*: Addresses niche creative markets with specialized equipment needs
+
+- As a furniture designer, I can view sample projects created with specific machines so that I can assess output quality
+  * *Implementation*: Gallery of example projects associated with products
+  * *Commercial Value*: Builds confidence in purchase decisions through demonstrated results
+
+- As a jewelry maker, I can find compact, precise CNC machines so that I can produce small-scale detailed work
+  * *Implementation*: Dimensional filtering with precision ratings
+  * *Commercial Value*: Expands market reach to specialized creative professions
+
+### Technical & Accessibility Considerations
+
+- As a user with limited technical knowledge, I can easily understand CNC specifications through plain language descriptions so that I can make informed purchases
+  * *Implementation*: Technical jargon is paired with accessible explanations
+  * *Commercial Value*: Broadens market appeal beyond technical experts
+
+- As a mobile user, I can complete the entire purchase process on my smartphone so that I can buy equipment while on job sites
+  * *Implementation*: Fully responsive design with mobile-optimized checkout
+  * *Commercial Value*: Captures sales opportunities from professionals in the field
+
+- As a user with visual impairments, I can navigate the site with a screen reader so that I can independently research and purchase equipment
+  * *Implementation*: ARIA attributes and semantic HTML throughout the site
+  * *Commercial Value*: Demonstrates corporate social responsibility and expands market reach
+
+- As an international customer, I can view product specifications in metric and imperial measurements so that I can understand dimensions in my preferred system
+  * *Implementation*: Dual measurement display in product specifications
+  * *Commercial Value*: Facilitates global sales and reduces purchase confusion
+
+### Industry-Specific Applications
+
+- As an automotive restoration specialist, I can find CNC machines capable of producing custom parts so that I can recreate discontinued components
+  * *Implementation*: Application-specific categories and use case examples
+  * *Commercial Value*: Targets specialized restoration market with high-value requirements
+
+- As an architectural model maker, I can filter machines by precision tolerance so that I can create accurate scale models
+  * *Implementation*: Advanced filtering by precision specifications
+  * *Commercial Value*: Addresses professional requirements of specialized design fields
+
+- As a prototype developer, I can find rapid manufacturing solutions so that I can quickly iterate product designs
+  * *Implementation*: Speed and turnaround capabilities in product specs
+  * *Commercial Value*: Positions CNCraft within the innovation and product development ecosystem
+
+- As a musical instrument maker, I can find CNC tools suitable for specific tone woods so that I can maintain craftsmanship while increasing production
+  * *Implementation*: Material-specific application recommendations
+  * *Commercial Value*: Targets traditional crafts seeking modernization through technology
+
+## Commercial Impact of These User Stories
+
+These user stories reflect both the technical implementation and commercial potential of the CNCraft platform. By addressing the specific needs of diverse user segments—from hobbyists and small workshop owners to production engineers and educational institutions—CNCraft positions itself as a comprehensive marketplace that understands the unique challenges across the CNC community.
+
+Each story connects specific features to tangible business benefits, demonstrating how the platform creates value for both users and stakeholders. This customer-centric approach ensures that technical development aligns with real market needs, creating a commercially viable product that solves genuine problems across multiple segments of the CNC machinery marketplace.
+
+---
+
+## User Experience (UX)
+
+CNCraft's user experience design follows a comprehensive strategy that prioritizes both technical users and newcomers to CNC technology. The platform balances complex technical information with intuitive navigation and clear visual hierarchy to create a specialized e-commerce experience tailored to the unique needs of the CNC machinery marketplace.
+
+### UX Strategy
+
+The CNCraft platform is built on five core UX principles that address the specific challenges of selling technical industrial equipment online:
+
+1. **Technical Clarity** - Present complex specifications in scannable, consistent formats that help users make informed comparisons
+2. **Guided Discovery** - Provide intuitive navigation paths based on user type, project needs, and technical requirements
+3. **Purchase Confidence** - Reduce anxiety around high-value purchases through detailed information, visual assets, and transparent policies
+4. **Responsive Access** - Ensure consistent functionality across devices for professionals who research on desktop but may purchase via mobile
+5. **Progressive Disclosure** - Layer technical information to serve both experts seeking detailed specifications and beginners needing basic guidance
+
+### User Research & Personas
+
+CNCraft's UX design is informed by research into distinct user segments with unique needs and behaviors:
+
+**The Professional Shop Manager (Primary)**
+- Demographics: 35-55, manufacturing background, moderate to high technical knowledge
+- Behaviors: Compares technical specifications intensely, concerned with ROI and production integration
+- Pain Points: Needs assurance about dimensions, power requirements, and compatibility with existing workflows
+- Design Response: Detailed specification tables, facility planning guides, ROI calculators
+
+**The Hobbyist Maker (Secondary)**
+- Demographics: 25-60, varied backgrounds, self-taught technical skills
+- Behaviors: Research-intensive, budget-conscious, values learning resources
+- Pain Points: Technical terminology confusion, space constraints, concerns about skill requirements
+- Design Response: Terminology explanations, beginner guides, space requirement visualizations
+
+**The Educational Procurer (Tertiary)**
+- Demographics: 30-50, academic background, varying technical knowledge
+- Behaviors: Purchases in batches, requires documentation for institutional approval
+- Pain Points: Needs educational discounts, concerns about student safety and learning curves
+- Design Response: Educational packages, downloadable specification sheets, safety feature highlights
+
+### Information Architecture
+
+CNCraft's content is organized in a user-centered hierarchy that accommodates multiple browsing patterns:
+
+**Primary Navigation Structure**
+- By Machine Type (Mills, Lathes, Routers)
+- By Application (Woodworking, Metalwork, Educational)
+- By Experience Level (Entry-Level, Professional, Industrial)
+
+**Product Classification System**
+- Primary Category > Sub-Category > Feature-Based Filters > Individual Products
+- Example: CNC Mills > Desktop Mills > Filtering by Working Area > Product Detail
+
+**Content Hierarchy Within Product Pages**
+1. Essential Decision Information (Images, Price, Key Specs)
+2. Technical Specifications (Comprehensive, Organized by System)
+3. Application Examples & Resources (Use Cases, Videos, Downloads)
+4. Related Products & Accessories (Compatible Items, Recommended Pairings)
+
+### Interaction Design
+
+The platform employs thoughtful interaction patterns that support complex decision-making:
+
+**Filtering System**
+- Progressive refinement with visual feedback showing result counts
+- Parameter-based filters (dimensions, power, precision) with range sliders
+- Save filter combinations for future reference
+
+**Product Comparison**
+- Side-by-side specification comparison for up to 4 products
+- Visual highlighting of differences and similarities
+- Persistent comparison tool accessible throughout browsing
+
+**Cart Management**
+- Real-time updates without page reloads
+- Saved cart functionality for returning after consultation or research
+- Quick-add options for frequently purchased accessories
+
+### Visual Design Language
+
+CNCraft employs a visual system that communicates precision and trustworthiness:
+
+**Typography System**
+- Primary Font: Sans-serif for headings and navigation (emphasizing clarity and modernity)
+- Secondary Font: Monospace for technical specifications (evoking precision and engineering)
+- Hierarchical type scale based on a 1.2 ratio for consistent information density
+
+**Color Palette**
+- Primary: Deep blue (#1A3A5F) - Representing precision, trustworthiness, and industrial reliability
+- Secondary: Brushed Steel (#D9D9D9) - Evoking the materials and finish of quality machinery
+- Accent: Energetic Orange (#FF5722) - Drawing attention to calls-to-action and key decision points
+- Supporting: Various grays for information hierarchy and interface elements
+
+**Iconography**
+- Custom technical icons for consistent representation of machine features
+- Clear visual distinction between navigation icons and informational icons
+- Sizing optimized for recognition at multiple screen densities
+
+### Responsive Design Strategy
+
+CNCraft adapts thoughtfully across devices to maintain functionality and clarity:
+
+**Desktop Experience (1200px+)**
+- Robust filtering and comparison tools in expanded sidebar
+- Multi-column product grids with comprehensive information
+- Detailed technical specifications in expandable sections
+
+**Tablet Experience (768px-1199px)**
+- Collapsible filter panels that maintain all functionality
+- Reduced product grid columns with preserved information hierarchy
+- Tabbed technical specifications to preserve screen real estate
+
+**Mobile Experience (320px-767px)**
+- Filter overlay accessible through persistent filter button
+- Single-column product view with essential information
+- Progressive disclosure of technical details through accordions
+
+### Accessibility Considerations
+
+The platform is designed to be inclusive of users with varying abilities:
+
+**Visual Accessibility**
+- WCAG 2.1 AA compliant color contrast throughout the interface
+- Alt text for all product images with detailed descriptions of machinery
+- Consistent focus states for keyboard navigation
+
+**Technical Accessibility**
+- ARIA landmarks and roles for screen reader navigation
+- Semantic HTML structure with proper heading hierarchy
+- Keyboard-accessible filters and product controls
+
+**Cognitive Accessibility**
+- Plain language alternatives for technical terminology
+- Consistent placement of interface elements across pages
+- Error prevention in form fields with clear validation messages
+
+### Performance Optimization
+
+CNCraft prioritizes performance to ensure a smooth experience even with heavy technical content:
+
+- Lazy-loading of product images below the fold
+- Progressive loading of technical specifications
+- Optimized product filtering that minimizes server requests
+- Image compression appropriate for technical product visualization
+
+This comprehensive UX approach ensures that CNCraft delivers an exceptional shopping experience that addresses the specialized needs of the CNC community while maintaining the accessibility and usability expected in modern e-commerce platforms. The strategic UX decisions outlined above lay the foundation for the visual design language that follows, providing the functional architecture upon which the aesthetic elements can be built to reinforce the brand's core values of precision, expertise, and accessibility.
+
+---
 
 ## Design
 
-- The colour scheme, typography and layout are yet to be decided. 
+While the UX strategy establishes how users interact with CNCraft, the design system brings this strategy to life through visual elements that communicate the platform's industrial expertise and technical precision. The following design elements have been carefully selected to reinforce the brand's values of precision, craftsmanship, and technical excellence.
+
+---
+
+### Color Palette
+
+The color palette balances professionalism with technical clarity, using Bootstrap's core colors alongside custom accents. The colors create a cohesive interface that guides users through complex technical information while maintaining a clean, modern aesthetic suitable for CNC equipment and machinery.
+
+#### Primary Interface Elements
+
+![Primary Interface Elements](documentation/readme/colour_scheme/primary_interface_elements.png)
+
+| Element | Color | Purpose |
+|---------|-------|---------|
+| Primary Background | #FFFFFF (white) | Creates clean, spacious canvas for technical content |
+| Secondary Background | #F8F9FA (light gray) | Provides subtle section differentiation without visual distraction |
+| Dark Section Background | #343A40 (dark gray) | Creates contrast for footer and special sections |
+| Primary Text | #333333 (dark gray) | Ensures excellent readability against light backgrounds |
+| Secondary Text | #6C757D (medium gray) | Provides appropriate contrast for supporting information |
+
+#### Brand & Action Elements
+
+![Brand and Action Elements](documentation/readme/colour_scheme/brand_and_action_elements.png)
+
+| Element | Color | Purpose |
+|---------|-------|---------|
+| Brand Primary | #007BFF (bootstrap blue) | Core brand color used for interactive elements and emphasis |
+| Heading Color | #0080FF (light blue) | Used for headings to create clear hierarchy |
+| Primary CTA | #007BFF (bootstrap blue) | Draws attention to primary actions with high visibility |
+| Secondary CTA | #6C757D (medium gray) | Indicates secondary actions without competing with primary CTAs |
+| Link Color | #007BFF (bootstrap blue) | Identifies clickable text throughout the interface |
+
+#### Status & Feedback Indicators
+
+![Status and Feedback Indicators](documentation/readme/colour_scheme/status_and_feedback_indicators.png)
+
+| Element | Color | Purpose |
+|---------|-------|---------|
+| Success | #28A745 (bootstrap green) | Indicates successful operations and positive status |
+| Warning | #FFC107 (bootstrap amber) | Alerts users to potential issues requiring attention |
+| Error/Danger | #DC3545 (bootstrap red) | Signals critical errors or blocking issues |
+| Information | #17A2B8 (bootstrap cyan) | Highlights neutral informational content |
+| Cart Badge | #DC3545 (bootstrap red) | Ensures high visibility for cart item count |
+
+#### Navigation & Interface Elements
+
+![Navigation Elements](documentation/readme/colour_scheme/navigation_elements.png)
+
+| Element | Color | Purpose |
+|---------|-------|---------|
+| Navbar Links | #333333 (dark gray) | Creates consistent navigation experience |
+| Active Link | #007BFF (bootstrap blue) | Indicates current page or section |
+| Footer Background | #343A40 (dark gray) | Creates visual foundation for site footer |
+| Footer Text | #F8F9FA (light gray) | Ensures readability against dark background |
+| Form Focus | #007BFF with rgba(0, 123, 255, 0.25) shadow | Provides clear interaction feedback on form elements |
+
+#### Content & Component Elements
+
+![Content and Component Elements](documentation/readme/colour_scheme/content_&_component_elements.png)
+
+| Element | Color | Purpose |
+|---------|-------|---------|
+| Card Background | #FFFFFF (white) | Creates clean containers for product and service information |
+| Card Border | #DEE2E6 (light gray) | Defines subtle boundaries for card components |
+| Card Hover Shadow | rgba(0, 0, 0, 0.15) | Provides interactive feedback on hoverable components |
+| Star Ratings | #FFC107 (bootstrap amber) | Highlights customer ratings and reviews |
+| Testimonial Quote | #666666 (medium gray) | Creates visual distinction for customer testimonials |
+
+---
+
+### Typography 
+
+The typography system balances technical precision with readability, using carefully selected fonts and consistent hierarchy to communicate both detailed specifications and marketing content effectively. The type system supports the diverse information needs of CNCraft's audience, from engineers examining technical details to hobbyists browsing for new equipment.
+
+#### Primary Text Elements
+
+| Element | Typography | Purpose |
+|---------|------------|---------|
+| Page Titles | Open Sans Bold, 32px, #1A3A5F | Establishes clear page hierarchy and reinforces brand color |
+| Section Headings | Open Sans Semibold, 24px, #2C3E50 | Creates distinct content sections with strong visual weight |
+| Subsection Headings | Open Sans Medium, 18px, #2C3E50 | Organizes content within major sections |
+| Body Text | Open Sans Regular, 16px, #2C3E50 | Ensures optimal readability for general content |
+| Secondary Text | Open Sans Regular, 14px, #5D6D7E | Provides supporting information with visual distinction |
+
+#### Technical Content Elements
+
+| Element | Typography | Purpose |
+|---------|------------|---------|
+| Specification Labels | Roboto Mono Medium, 14px, #2C3E50 | Clearly identifies technical parameters with monospace precision |
+| Specification Values | Roboto Mono Regular, 14px, #1A3A5F | Presents technical data with appropriate visual emphasis |
+| Code Examples | Roboto Mono Regular, 14px, #0D2339 | Displays any programming or configuration syntax |
+| Unit Measurements | Roboto Mono Regular, 14px, #1A3A5F | Ensures clear distinction of numerical values and units |
+| Technical Notes | Open Sans Italic, 14px, #5D6D7E | Highlights important technical considerations or limitations |
+
+#### Interactive Elements
+
+| Element | Typography | Purpose |
+|---------|------------|---------|
+| Primary Buttons | Open Sans Bold, 16px, #FFFFFF | Maximizes readability on colored button backgrounds |
+| Secondary Buttons | Open Sans Semibold, 16px, #4A6B8A | Creates clear hierarchy between button types |
+| Navigation Links | Open Sans Medium, 16px, #1A3A5F | Ensures clear wayfinding throughout the platform |
+| Form Labels | Open Sans Medium, 14px, #2C3E50 | Clearly identifies input fields with appropriate weight |
+| Filter Options | Open Sans Regular, 14px, #2C3E50 | Maintains readability in filter interface components |
+
+#### Special Text Elements
+
+| Element | Typography | Purpose |
+|---------|------------|---------|
+| Price | Open Sans Bold, 24px, #1A3A5F | Emphasizes product pricing with appropriate prominence |
+| Discount | Open Sans Bold, 16px, #F44336 | Highlights savings opportunities with attention-grabbing color |
+| Product Names | Open Sans Semibold, 18px, #1A3A5F | Ensures product titles stand out in listings and details |
+| Breadcrumbs | Open Sans Regular, 12px, #5D6D7E | Provides subtle navigation context without distraction |
+| Error Messages | Open Sans Medium, 14px, #F44336 | Clearly communicates problems with appropriate urgency |
+
+### Layout Structure
+
+The layout system provides consistent structural patterns across the platform, creating familiar spatial relationships that support intuitive navigation and information scanning. The grid-based approach ensures both visual harmony and responsive adaptability across devices.
+
+#### Global Layout Framework
+
+| Element | Structure | Purpose |
+|---------|-----------|---------|
+| Page Container | Max-width 1440px, centered | Creates consistent bounds for all page content |
+| Content Gutters | 24px (desktop), 16px (mobile) | Prevents content from touching screen edges |
+| Grid System | 12-column, 24px gutters | Provides flexible but consistent alignment framework |
+| Content Sections | 64px vertical spacing | Creates clear separation between major content blocks |
+| Component Spacing | 8px base unit, 8px/16px/24px/32px | Maintains consistent rhythm throughout interface |
+
+#### Navigation Structures
+
+| Element | Structure | Purpose |
+|---------|-----------|---------|
+| Primary Navigation | Fixed top, 64px height | Ensures consistent access to main sections |
+| Sidebar Navigation | 280px width, collapsible | Provides detailed category filtering and navigation |
+| Breadcrumb Path | Full width, 40px height | Shows contextual location within site hierarchy |
+| Footer Navigation | 5-column grid, responsive | Organizes supplementary links and information |
+| Mobile Navigation | Collapsible menu, 100% width | Adapts navigation pattern for smaller screens |
+
+#### Product Presentation
+
+| Element | Structure | Purpose |
+|---------|-----------|---------|
+| Product Grid | 4/3/2/1 columns by breakpoint | Displays products in responsive, scannable layout |
+| Product Cards | 1:1.2 aspect ratio images | Creates consistent visual rhythm in product listings |
+| Detail Layout | 1/3 images, 2/3 content (desktop) | Balances visual and textual information |
+| Specification Tables | Full width, grouped categories | Organizes technical details in scannable format |
+| Related Products | Horizontal scroll, 280px cards | Shows alternatives without leaving current product |
+
+#### Component Layouts
+
+| Element | Structure | Purpose |
+|---------|-----------|---------|
+| Form Fields | 100% width, 48px height | Provides comfortable touch targets across devices |
+| Button Sizing | 48px height, variable width | Ensures appropriate tap/click targets |
+| Card Padding | 24px external, 16px internal | Creates breathing room between content blocks |
+| Modal Windows | 600px max-width, centered | Focuses attention on specific tasks or information |
+| Toast Notifications | Top-right, 300px width | Provides feedback without disrupting workflow |
+
+### Iconography System
+
+The iconography system uses Font Awesome icons to create a consistent visual language throughout the platform. These standardized icons help with navigation, provide intuitive feedback, and enhance the overall user experience across all pages of the site.
+
+#### Navigation & Core Functions
+
+| Class | Usage | Purpose |
+|-------|-------|---------|
+| `fas fa-home` | Home | Primary navigation to home page |
+| `fas fa-store` | Shop | Navigation to products listing |
+| `fas fa-search` | Search | Product search functionality |
+| `fas fa-user` | Account | Access to user account functions |
+| `fas fa-shopping-cart` | Cart | Shopping cart access with item counter |
+
+#### User Account Icons
+
+| Class | Usage | Purpose |
+|-------|-------|---------|
+| `fas fa-user-plus` | Register | New account registration |
+| `fas fa-sign-in-alt` | Login | User authentication |
+| `fas fa-sign-out-alt` | Logout | End user session |
+| `fas fa-user` | Profile | Access user profile information |
+| `fas fa-eye` | Show Password | Toggle password visibility |
+
+#### Checkout & Order Icons
+
+| Class | Usage | Purpose |
+|-------|-------|---------|
+| `fas fa-credit-card` | Payment | Indicates payment processing step |
+| `fas fa-lock` | Secure Checkout | Reinforces payment security |
+| `fas fa-check-circle` | Confirmation | Indicates successful order completion |
+| `fas fa-receipt` | Order Details | Displays order information |
+| `fas fa-shipping-fast` | Shipping | Indicates shipping information |
+
+#### Information & Support Icons
+
+| Class | Usage | Purpose |
+|-------|-------|---------|
+| `fas fa-info-circle` | Information | Provides additional details or context |
+| `fas fa-envelope` | Contact | Email or contact information |
+| `fas fa-headset` | Customer Support | Access to help and support |
+| `fas fa-box` | Product | Indicates product-specific information |
+| `fas fa-check` | Success | Indicates successful operations |
+
+#### Product & Shopping Icons
+
+| Class | Usage | Purpose |
+|-------|-------|---------|
+| `fas fa-shopping-bag` | Products | Represents product collections |
+| `fas fa-truck` | Delivery | Shows shipping or delivery information |
+| `fas fa-tag` | Price | Indicates pricing information |
+| `fas fa-star` | Rating | Shows product ratings and reviews |
+| `fas fa-percent` | Discount | Highlights special offers and discounts |
+
 
 ## Wireframes
 
