@@ -1,0 +1,23 @@
+services:
+  # Web service
+  - type: web
+    name: cncraft
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn cncraft.wsgi:application"
+    plan: free
+    envVars:
+      - key: DEBUG
+        value: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_SETTINGS_MODULE
+        value: cncraft.settings
+      - key: WEB_CONCURRENCY
+        value: 4
+
+  # PostgreSQL database
+  - type: pserv
+    name: cncraft-db
+    env: docker
+    plan: free

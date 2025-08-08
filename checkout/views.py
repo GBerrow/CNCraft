@@ -113,8 +113,9 @@ def checkout(request):
                     return redirect(reverse('view_cart'))
             
             # Check if we're in test mode (using placeholder keys)
-            if (settings.STRIPE_SECRET_KEY == 'sk_test_placeholder' or 
-                settings.STRIPE_PUBLISHABLE_KEY == 'pk_test_placeholder'):
+            # Check for placeholder keys
+            if (not settings.STRIPE_SECRET_KEY or 
+                not settings.STRIPE_PUBLISHABLE_KEY):
                 # Test mode - simulate successful payment
                 messages.success(request, f'Test order successful! Order number: {order.order_number}')
                 # Clear cart immediately after successful order creation
@@ -185,7 +186,7 @@ def checkout(request):
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
-        'stripe_public_key': 'pk_test_placeholder' if settings.DEBUG else settings.STRIPE_PUBLISHABLE_KEY,
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
         'client_secret': None,
     }
     
