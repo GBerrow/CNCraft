@@ -306,6 +306,7 @@ main {
     position: relative;
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .password-toggle {
@@ -340,35 +341,41 @@ main {
 
 .password-input-container .form-control {
     padding-right: 45px;
+    width: 100%;
 }
 
-/* Success/validation message positioning to avoid overlapping with eye icon */
+/* Success/validation message positioning - should appear below input like error messages */
 .form-group .success-message,
 .form-group .valid-feedback {
-    position: absolute;
-    right: 50px; /* Position to the left of the eye icon */
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    z-index: 5;
+    color: #28a745;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    position: static; /* Keep success messages below the field */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Adjust error messages positioning as well */
 .form-group .error-message,
 .form-group .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
     margin-top: 0.5rem;
     position: static; /* Keep error messages below the field */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Error message styling */
-.error-message {
+.error-message,
+.form-group .error-message,
+.form-group .invalid-feedback {
     color: #dc3545;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
+    position: static; /* Keep error messages below the field */
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -379,10 +386,13 @@ main {
 }
 
 /* Success message styling */
-.success-message {
+.success-message,
+.form-group .success-message,
+.form-group .valid-feedback {
     color: #28a745;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
+    position: static; /* Keep success messages below the field */
     display: flex;
     align-items: center;
     gap: 0.5rem;
