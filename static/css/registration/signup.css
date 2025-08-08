@@ -310,7 +310,7 @@ main {
 
 .password-toggle {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -339,7 +339,29 @@ main {
 }
 
 .password-input-container .form-control {
-    padding-right: 40px;
+    padding-right: 45px;
+}
+
+/* Success/validation message positioning to avoid overlapping with eye icon */
+.form-group .success-message,
+.form-group .valid-feedback {
+    position: absolute;
+    right: 50px; /* Position to the left of the eye icon */
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 5;
+}
+
+/* Adjust error messages positioning as well */
+.form-group .error-message,
+.form-group .invalid-feedback {
+    margin-top: 0.5rem;
+    position: static; /* Keep error messages below the field */
 }
 
 /* Error message styling */

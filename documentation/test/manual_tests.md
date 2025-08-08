@@ -8,83 +8,83 @@ This document outlines comprehensive manual testing procedures for CNCraft, cove
 
 ### Test Scenario 1: New Customer Registration and Purchase Flow
 
-| Step | Action | Expected Outcome | Status | Notes |
-|------|--------|------------------|--------|-------|
-| 1 | Navigate to homepage | Homepage loads with proper navigation and content | ⏳ | Check loading time and layout |
-| 2 | Access registration form | Registration form displays with validation | ⏳ | Verify all fields present |
-| 3 | Submit registration data | User account created successfully | ⏳ | Validate with proper data format |
-| 4 | Browse product catalog | Product listing displays with filtering options | ⏳ | Test sorting and filtering |
-| 5 | Execute product search | Search functionality returns relevant results | ⏳ | Try various search terms |
-| 6 | View product details | Complete product information displayed | ⏳ | Check images, price, description |
-| 7 | Add item to cart | Product added with correct quantity and pricing | ⏳ | Verify cart counter updates |
-| 8 | Review cart contents | All items displayed with accurate totals | ⏳ | Check calculations |
-| 9 | Modify cart quantities | Price calculations update dynamically | ⏳ | Test quantity validation |
-| 10 | Proceed to checkout | Checkout form loads with customer information | ⏳ | Verify form pre-population |
-| 11 | Complete order form | Form accepts valid customer data | ⏳ | Test validation errors |
-| 12 | Process payment | Stripe payment integration completes successfully | ⏳ | Use test card: 4242424242424242 |
-| 13 | Receive confirmation | Order confirmation page displays with order details | ⏳ | Verify order number generation |
+| Step | Action | Expected Outcome | ✅/❌ |
+|------|--------|------------------|-------|
+| 1 | Navigate to homepage | Homepage loads with proper navigation and content | ⏳ |
+| 2 | Access registration form | Registration form displays with validation | ⏳ |
+| 3 | Submit registration data | User account created successfully | ⏳ |
+| 4 | Browse product catalog | Product listing displays with filtering options | ⏳ |
+| 5 | Execute product search | Search functionality returns relevant results | ⏳ |
+| 6 | View product details | Complete product information displayed | ⏳ |
+| 7 | Add item to cart | Product added with correct quantity and pricing | ⏳ |
+| 8 | Review cart contents | All items displayed with accurate totals | ⏳ |
+| 9 | Modify cart quantities | Price calculations update dynamically | ⏳ |
+| 10 | Proceed to checkout | Checkout form loads with customer information | ⏳ |
+| 11 | Complete order form | Form accepts valid customer data | ⏳ |
+| 12 | Process payment | Stripe payment integration completes successfully | ⏳ |
+| 13 | Receive confirmation | Order confirmation page displays with order details | ⏳ |
 
 ### Test Scenario 2: Returning Customer Experience
 
-| Step | Action | Expected Outcome | Status | Notes |
-|------|--------|------------------|--------|-------|
-| 1 | User authentication | Successful login with existing credentials | ⏳ | Test remember me functionality |
-| 2 | Profile information review | Saved customer data displays correctly | ⏳ | Verify all profile fields |
-| 3 | Order history access | Previous orders display with complete details | ⏳ | Check order details accuracy |
-| 4 | Profile data modification | Profile updates save successfully | ⏳ | Test individual field updates |
-| 5 | Repeat purchase process | Shopping experience maintains consistency | ⏳ | Compare with first-time experience |
+| Step | Action | Expected Outcome | ✅/❌ |
+|------|--------|------------------|-------|
+| 1 | User authentication | Successful login with existing credentials | ⏳ |
+| 2 | Profile information review | Saved customer data displays correctly | ⏳ |
+| 3 | Order history access | Previous orders display with complete details | ⏳ |
+| 4 | Profile data modification | Profile updates save successfully | ⏳ |
+| 5 | Repeat purchase process | Shopping experience maintains consistency | ⏳ |
 
 ### Test Scenario 3: Administrative Functions
 
-| Step | Action | Expected Outcome | Status | Notes |
-|------|--------|------------------|--------|-------|
-| 1 | Admin authentication | Administrative panel access granted | ⏳ | Test admin login process |
-| 2 | Product management | New product creation and modification | ⏳ | Test all product fields |
-| 3 | Product data modification | Changes reflect immediately on frontend | ⏳ | Verify real-time updates |
-| 4 | Order management | Customer order visibility and status updates | ⏳ | Test order status workflow |
-| 5 | Order status updates | Status changes visible to customers | ⏳ | Verify customer notifications |
+| Step | Action | Expected Outcome | ✅/❌ |
+|------|--------|------------------|-------|
+| 1 | Admin authentication | Administrative panel access granted | ⏳ |
+| 2 | Product management | New product creation and modification | ⏳ |
+| 3 | Product data modification | Changes reflect immediately on frontend | ⏳ |
+| 4 | Order management | Customer order visibility and status updates | ⏳ |
+| 5 | Order status updates | Status changes visible to customers | ⏳ |
 
 ## Form Validation Testing
 
 ### User Registration Form
 
-| Field | Valid Data Test | Invalid Data Test | Status | Notes |
-|-------|----------------|-------------------|--------|-------|
-| **Email Address** | test@example.com | invalid-email-format | ⏳ | Check email format validation |
-| **Password** | SecurePass123! | 123 (too weak) | ⏳ | Test password strength requirements |
-| **Password Confirmation** | Matching passwords | Non-matching passwords | ⏳ | Verify password confirmation |
-| **Required Fields** | All fields completed | Empty required fields | ⏳ | Check field validation messages |
+| Field | Test Case | Expected Result | ✅/❌ |
+|-------|-----------|-----------------|-------|
+| **Email Address** | Valid: test@example.com / Invalid: bad-email | Email format validation | ⏳ |
+| **Password** | Valid: SecurePass123! / Invalid: 123 | Password strength requirements | ⏳ |
+| **Password Confirmation** | Matching vs non-matching passwords | Password confirmation validation | ⏳ |
+| **Required Fields** | Complete vs empty fields | Required field validation | ⏳ |
 
 ### Checkout Form
 
-| Field | Valid Data Test | Invalid Data Test | Status | Notes |
-|-------|----------------|-------------------|--------|-------|
-| **Full Name** | John Doe | Empty field | ⏳ | Required field validation |
-| **Email Address** | john@example.com | not-an-email | ⏳ | Email format validation |
-| **Phone Number** | +1234567890 | invalid-phone | ⏳ | Phone format validation |
-| **Address Fields** | Complete address | Missing required fields | ⏳ | Address validation |
-| **Payment Information** | Valid card details | Invalid card number | ⏳ | Stripe validation integration |
+| Field | Test Case | Expected Result | ✅/❌ |
+|-------|-----------|-----------------|-------|
+| **Full Name** | Valid: John Doe / Invalid: Empty | Required field validation | ⏳ |
+| **Email Address** | Valid: john@example.com / Invalid: not-an-email | Email format validation | ⏳ |
+| **Phone Number** | Valid: +1234567890 / Invalid: letters | Phone format validation | ⏳ |
+| **Address Fields** | Complete vs incomplete address | Address validation | ⏳ |
+| **Payment Information** | Valid vs invalid card details | Stripe validation | ⏳ |
 
 ### Contact Form
 
-| Field | Valid Data Test | Invalid Data Test | Status | Notes |
-|-------|----------------|-------------------|--------|-------|
-| **Name** | Customer Name | Empty field | ⏳ | Required field validation |
-| **Email** | customer@email.com | invalid.email | ⏳ | Email validation |
-| **Message** | Valid inquiry message | Empty message | ⏳ | Message content validation |
-| **Machine Type** | CNC Mill selection | No selection | ⏳ | Dropdown validation |
+| Field | Test Case | Expected Result | ✅/❌ |
+|-------|-----------|-----------------|-------|
+| **Name** | Valid: Customer Name / Invalid: Empty | Required field validation | ⏳ |
+| **Email** | Valid: customer@email.com / Invalid: bad.email | Email validation | ⏳ |
+| **Message** | Valid: inquiry message / Invalid: Empty | Message validation | ⏳ |
+| **Machine Type** | Valid: CNC Mill selection / Invalid: None | Dropdown validation | ⏳ |
 
 ## Input Validation Testing
 
-| Test Case | Bad Input | Expected Result | ✅/❌ | Notes |
-|-----------|-----------|-----------------|-------|-------|
-| **Invalid Email** | "not-an-email" | Show validation error | ⏳ | Email format validation |
-| **Weak Password** | "123" | Reject password | ⏳ | Password strength validation |
-| **Negative Quantity** | -1 in cart | Don't allow or show error | ⏳ | Cart quantity validation |
-| **Empty Required Field** | Leave name blank | Show "required" error | ⏳ | Required field validation |
-| **Long Input** | 1000 character string | Handle gracefully | ⏳ | Input length validation |
-| **Special Characters** | `<script>alert('test')</script>` | Sanitize and escape | ⏳ | XSS prevention testing |
-| **SQL Injection** | `'; DROP TABLE users--` | Block malicious input | ⏳ | SQL injection prevention |
+| Test Case | Input to Test | Expected Result | ✅/❌ |
+|-----------|---------------|-----------------|-------|
+| **Invalid Email** | "not-an-email" | Show validation error | ⏳ |
+| **Weak Password** | "123" | Reject password | ⏳ |
+| **Negative Quantity** | -1 in cart | Don't allow or show error | ⏳ |
+| **Empty Required Field** | Leave name blank | Show "required" error | ⏳ |
+| **Long Input** | 1000 character string | Handle gracefully | ⏳ |
+| **Special Characters** | `<script>alert('test')</script>` | Sanitize and escape | ⏳ |
+| **SQL Injection** | `'; DROP TABLE users--` | Block malicious input | ⏳ |
 
 ## CRUD Operations Testing
 
