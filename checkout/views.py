@@ -91,7 +91,6 @@ def checkout(request):
                                 order=order,
                                 product=product,
                                 quantity=quantity,
-                                product_size=size,
                             )
                             order_line_item.save()
                     else:
@@ -164,8 +163,8 @@ def checkout(request):
             try:
                 profile = request.user.userprofile
                 order_form = OrderForm(initial={
-                    'full_name': profile.default_full_name,
-                    'email': profile.default_email,
+                    'full_name': f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username,
+                    'email': request.user.email,
                     'phone_number': profile.default_phone_number,
                     'country': profile.default_country,
                     'postcode': profile.default_postcode,

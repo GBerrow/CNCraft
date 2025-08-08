@@ -251,8 +251,7 @@ def signup_view(request):
                 last_name=last_name
             )
             
-            # Create user profile
-            UserProfile.objects.create(user=user)
+            # Profile is automatically created by signal, no need to create manually
             
             # Log the user in
             login(request, user)
