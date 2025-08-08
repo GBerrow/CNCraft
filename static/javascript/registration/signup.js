@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             field.classList.add('is-invalid');
             
             // Remove existing error message
-            const existingError = field.parentNode.querySelector('.error-message');
+            const existingError = findValidationMessageContainer(field).querySelector('.error-message');
             if (existingError) {
                 existingError.remove();
             }
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i>${message}`;
-            field.parentNode.appendChild(errorDiv);
+            findValidationMessageContainer(field).appendChild(errorDiv);
         }
     }
     
@@ -183,8 +183,9 @@ document.addEventListener('DOMContentLoaded', function() {
             field.classList.add('is-valid');
             
             // Remove existing messages
-            const existingError = field.parentNode.querySelector('.error-message');
-            const existingSuccess = field.parentNode.querySelector('.success-message');
+            const container = findValidationMessageContainer(field);
+            const existingError = container.querySelector('.error-message');
+            const existingSuccess = container.querySelector('.success-message');
             if (existingError) existingError.remove();
             if (existingSuccess) existingSuccess.remove();
             
@@ -192,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const successDiv = document.createElement('div');
             successDiv.className = 'success-message';
             successDiv.innerHTML = `<i class="fas fa-check-circle"></i>${message}`;
-            field.parentNode.appendChild(successDiv);
+            container.appendChild(successDiv);
         }
     }
     
@@ -200,11 +201,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const field = document.getElementById(fieldId);
         if (field) {
             field.classList.remove('is-invalid', 'is-valid');
-            const errorMessage = field.parentNode.querySelector('.error-message');
-            const successMessage = field.parentNode.querySelector('.success-message');
+            const container = findValidationMessageContainer(field);
+            const errorMessage = container.querySelector('.error-message');
+            const successMessage = container.querySelector('.success-message');
             if (errorMessage) errorMessage.remove();
             if (successMessage) successMessage.remove();
         }
+    }
+    
+    // Helper function to find the correct container for validation messages
+    function findValidationMessageContainer(field) {
+        // For all fields, find the closest form-group to ensure messages appear below the input
+        const formGroup = field.closest('.form-group');
+        if (formGroup) {
+            return formGroup;
+        }
+        // Fallback to parent node if no form-group found
+        return field.parentNode;
     }
     
     function clearErrors() {
@@ -213,6 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
             field.classList.remove('is-invalid', 'is-valid');
         });
         
+        // Remove all validation messages from form groups and other containers
         document.querySelectorAll('.error-message, .success-message').forEach(message => {
             message.remove();
         });

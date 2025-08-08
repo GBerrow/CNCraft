@@ -73,6 +73,15 @@ main {
 .form-group {
     margin-bottom: 2rem;
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure validation messages appear at the bottom of form groups */
+.form-group .error-message,
+.form-group .success-message {
+    order: 999; /* Push to bottom of flex container */
+    margin-top: 0.5rem;
 }
 
 /* Form label styling for better accessibility */
@@ -114,10 +123,18 @@ main {
 /* Form validation states */
 .form-control.is-invalid {
     border-color: #dc3545;
+    background-image: none; /* Remove default Bootstrap validation icon */
 }
 
 .form-control.is-valid {
     border-color: #28a745;
+    background-image: none; /* Remove default Bootstrap validation icon */
+}
+
+/* Ensure non-password fields don't get extra padding */
+.form-group:not(:has(.password-input-container)) .form-control.is-invalid,
+.form-group:not(:has(.password-input-container)) .form-control.is-valid {
+    padding-right: 0.75rem; /* Standard padding for non-password fields */
 }
 
 .invalid-feedback {
@@ -304,23 +321,21 @@ main {
 /* Password toggle functionality */
 .password-input-container {
     position: relative;
-    display: flex;
-    align-items: center;
+    display: block;
     width: 100%;
 }
 
 .password-toggle {
     position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 12px; /* Position from right edge of input */
+    top: 12px; /* Fixed position from top of input */
     background: none;
     border: none;
     color: #6c757d;
     cursor: pointer;
     padding: 5px;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease;
     z-index: 10;
     width: 30px;
     height: 30px;
@@ -340,8 +355,19 @@ main {
 }
 
 .password-input-container .form-control {
-    padding-right: 45px;
+    padding: 12px 55px 12px 12px; /* Top, Right (space for icon), Bottom, Left */
     width: 100%;
+}
+
+/* Fix for Bootstrap validation icons - ensure they appear inside the field */
+.password-input-container .form-control.is-invalid {
+    background-image: none; /* Remove Bootstrap's default validation icon */
+    padding: 12px 55px 12px 12px; /* Keep consistent padding */
+}
+
+.password-input-container .form-control.is-valid {
+    background-image: none; /* Remove Bootstrap's default validation icon */
+    padding: 12px 55px 12px 12px; /* Keep consistent padding */
 }
 
 /* Success/validation message positioning - should appear below input like error messages */
@@ -375,14 +401,16 @@ main {
     color: #dc3545;
     font-size: 0.875rem;
     margin-top: 0.5rem;
-    position: static; /* Keep error messages below the field */
+    position: static;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 100%; /* Ensure full width */
 }
 
 .error-message i {
     font-size: 0.75rem;
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 /* Success message styling */
@@ -392,14 +420,16 @@ main {
     color: #28a745;
     font-size: 0.875rem;
     margin-top: 0.5rem;
-    position: static; /* Keep success messages below the field */
+    position: static;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 100%; /* Ensure full width */
 }
 
 .success-message i {
     font-size: 0.75rem;
+    flex-shrink: 0; /* Prevent icon from shrinking */
 }
 
 /* Enhanced focus states for better accessibility */
