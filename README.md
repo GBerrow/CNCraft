@@ -10,6 +10,18 @@ The platform offers an intuitive shopping experience tailored to the technical n
 
 **CNCraft** distinguishes itself through its domain-specific approach to e-commerce, recognizing that CNC equipment purchases require more detailed information and consideration than typical consumer goods. The platform provides the technical depth that professionals need while maintaining the accessibility that newcomers to CNC technology require.
 
+## Testing Documentation
+
+CNCraft implements a comprehensive testing strategy that ensures reliability, security, and performance across all platform features. Our testing framework combines automated testing with manual validation to provide enterprise-level quality assurance.
+
+**📋 [Complete Testing Overview](documentation/test/test.md)** - Comprehensive testing strategy and methodology
+
+**🔧 [Automated Testing](documentation/test/automated_tests.md)** - 197 automated tests with 97% code coverage
+
+**👤 [Manual Testing](documentation/test/manual_tests.md)** - User journey validation and browser compatibility testing
+
+**🔒 [Performance & Security](documentation/test/performance_security.md)** - Load testing, security validation, and compliance standards
+
 ---
 
 
@@ -2823,7 +2835,13 @@ CNCraft has been thoroughly tested across multiple dimensions to ensure reliabil
 
 For detailed information about our testing methodology, test cases, validation processes, and results, please refer to our dedicated testing documentation:
 
-[Test section](documentation/test/test.md)
+**📋 [Complete Testing Overview](documentation/test/test.md)** - Comprehensive testing strategy and methodology
+
+**🔧 [Automated Testing](documentation/test/automated_tests.md)** - 197 automated tests with 97% code coverage
+
+**👤 [Manual Testing](documentation/test/manual_tests.md)** - User journey validation and browser compatibility testing
+
+**🔒 [Performance & Security](documentation/test/performance_security.md)** - Load testing, security validation, and compliance standards
 
 ---
 
@@ -4285,6 +4303,18 @@ For easy access to key sections, here's the same navigation table from the top o
 | **[Design](#design)** | Visual design language | UI/UX designers | 8-12 minutes |
 | **[Wireframes](#wireframes)** | Complete interface design process | Designers & stakeholders | 10-15 minutes |
 | **[Business Logic & Application Features](#business-logic-and-application-features)** | Application architecture | Senior developers | 12-18 minutes |
+
+---
+
+Links to the testing documentations are provided below:
+
+**📋 [Complete Testing Overview](documentation/test/test.md)** - Comprehensive testing strategy and methodology
+
+**🔧 [Automated Testing](documentation/test/automated_tests.md)** - 197 automated tests with 97% code coverage
+
+**👤 [Manual Testing](documentation/test/manual_tests.md)** - User journey validation and browser compatibility testing
+
+**🔒 [Performance & Security](documentation/test/performance_security.md)** - Load testing, security validation, and compliance standards
 
 ---
 
