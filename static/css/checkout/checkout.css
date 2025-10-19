@@ -541,12 +541,14 @@ label {
     background: #fff;
     transition: all 0.3s ease;
     min-height: 50px;
-    display: flex;
-    align-items: center;
+    /* Remove display: flex - Stripe needs block layout */
+    display: block;
     font-size: 16px;
     position: relative;
     z-index: 1;
     pointer-events: auto;
+    /* Add this to ensure proper height */
+    line-height: normal;
 }
 
 /* Ensure iframe inside can receive clicks */
