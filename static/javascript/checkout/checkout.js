@@ -1031,51 +1031,13 @@ document.addEventListener('DOMContentLoaded', function() {
             hidePostalCode: true,
         });
         
-        // Mount card element with error handling
-        card.mount('#card-element')
-            .then(function() {
-                console.log('✅ Stripe card element mounted successfully!');
-                
-                // Check if iframe was created
-                setTimeout(() => {
-                    const iframe = document.querySelector('#card-element iframe');
-                    if (iframe) {
-                        console.log('✅ Stripe iframe detected:', iframe);
-                    } else {
-                        console.error('❌ ERROR: Stripe iframe NOT created!');
-                        console.error('This means Stripe failed to initialize the payment field');
-                        
-                        // Show error to user
-                        const cardElement = document.getElementById('card-element');
-                        if (cardElement) {
-                            cardElement.innerHTML = `
-                                <div style="padding: 1rem; background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; color: #856404;">
-                                    <strong>⚠️ Payment field failed to load</strong>
-                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">
-                                        Please refresh the page or contact support if the issue persists.
-                                    </p>
-                                </div>
-                            `;
-                        }
-                    }
-                }, 500);
-            })
-            .catch(function(error) {
-                console.error('❌ Stripe mount ERROR:', error);
-                
-                // Show user-friendly error
-                const cardElement = document.getElementById('card-element');
-                if (cardElement) {
-                    cardElement.innerHTML = `
-                        <div style="padding: 1rem; background: #f8d7da; border: 2px solid #f5c2c7; border-radius: 8px; color: #842029;">
-                            <strong>❌ Error loading payment form</strong>
-                            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">
-                                ${error.message || 'Unable to load payment processor'}
-                            </p>
-                        </div>
-                    `;
-                }
-            });
+        // Mount card element (synchronous operation - no Promise returned)
+        try {
+            card.mount('#card-element');
+            console.log('Stripe card mount called successfully');
+        } catch (error) {
+            console.error('Error mounting Stripe card:', error);
+        }
         
         // Wait for card element to be ready
         card.on('ready', function() {
@@ -1144,26 +1106,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     loadingSpinner.style.display = 'flex';
                 }
                 
-                // Create payment method
-                stripe.createPaymentMethod({
-                    type: 'card',
-                    card: card,
-                    billing_details: {
-                        name: document.getElementById('id_full_name').value,
-                        email: document.getElementById('id_email').value,
-                        phone: document.getElementById('id_phone_number').value,
-                        address: {
-                            line1: document.getElementById('id_street_address1').value,
-                            line2: document.getElementById('id_street_address2')?.value || '',
-                            city: document.getElementById('id_town_or_city').value,
-                            state: document.getElementById('id_county')?.value || '',
-                            postal_code: document.getElementById('id_postcode').value,
-                            country: document.getElementById('id_country').value,
+                // Get client_secret from hidden input
+                const clientSecretInput = document.querySelector('input[name="client_secret"]');
+                const clientSecret = clientSecretInput ? clientSecretInput.value : null;
+                
+                if (!clientSecret || clientSecret === 'None' || clientSecret === '') {
+                    console.error('No client_secret found - cannot process payment');
+                    alert('Payment system error. Please refresh the page and try again.');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    if (loadingSpinner) loadingSpinner.style.display = 'none';
+                    return;
+                }
+                
+                console.log('Confirming payment with Stripe...');
+                
+                // Confirm the card payment with Stripe
+                stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: document.getElementById('id_full_name').value,
+                            email: document.getElementById('id_email').value,
+                            phone: document.getElementById('id_phone_number').value,
+                            address: {
+                                line1: document.getElementById('id_street_address1').value,
+                                line2: document.getElementById('id_street_address2')?.value || '',
+                                city: document.getElementById('id_town_or_city').value,
+                                state: document.getElementById('id_county')?.value || '',
+                                postal_code: document.getElementById('id_postcode').value,
+                                country: document.getElementById('id_country').value,
+                            }
                         }
-                    },
+                    }
                 }).then(function(result) {
                     if (result.error) {
-                        // Show error message
+                        // Show error to customer
                         const errorElement = document.getElementById('card-errors');
                         errorElement.textContent = result.error.message;
                         errorElement.style.display = 'block';
@@ -1177,24 +1155,22 @@ document.addEventListener('DOMContentLoaded', function() {
                             loadingSpinner.style.display = 'none';
                         }
                         
-                        // Reset CheckoutManager state
-                        if (CheckoutManager) {
-                            CheckoutManager.state.isSubmitting = false;
-                            CheckoutManager.hideLoadingState();
-                        }
+                        console.error('Payment failed:', result.error.message);
                     } else {
-                        // Payment method created successfully
-                        console.log('Payment method created:', result.paymentMethod.id);
-                        
-                        // Add payment method ID to form
-                        const hiddenInput = document.createElement('input');
-                        hiddenInput.setAttribute('type', 'hidden');
-                        hiddenInput.setAttribute('name', 'payment_method_id');
-                        hiddenInput.setAttribute('value', result.paymentMethod.id);
-                        form.appendChild(hiddenInput);
-                        
-                        // Submit form
-                        form.submit();
+                        // Payment succeeded!
+                        if (result.paymentIntent.status === 'succeeded') {
+                            console.log('✅ Payment succeeded!', result.paymentIntent.id);
+                            
+                            // Add payment intent ID to form
+                            const hiddenInput = document.createElement('input');
+                            hiddenInput.setAttribute('type', 'hidden');
+                            hiddenInput.setAttribute('name', 'payment_intent_id');
+                            hiddenInput.setAttribute('value', result.paymentIntent.id);
+                            form.appendChild(hiddenInput);
+                            
+                            // Now submit the form to create the order
+                            form.submit();
+                        }
                     }
                 }).catch(function(error) {
                     console.error('Stripe error:', error);
@@ -1211,12 +1187,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Hide loading state
                     if (loadingSpinner) {
                         loadingSpinner.style.display = 'none';
-                    }
-                    
-                    // Reset CheckoutManager state
-                    if (CheckoutManager) {
-                        CheckoutManager.state.isSubmitting = false;
-                        CheckoutManager.hideLoadingState();
                     }
                 });
             });

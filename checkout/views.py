@@ -183,11 +183,34 @@ def checkout(request):
         messages.error(request, "Your cart is empty!")
         return redirect(reverse('view_cart'))
     
+    # Calculate totals for PaymentIntent
+    current_cart = cart_contents(request)
+    total = current_cart['grand_total']
+    stripe_total = round(total * 100)  # Stripe expects amount in cents
+    
+    # Create Stripe PaymentIntent
+    intent = None
+    client_secret = None
+    if settings.STRIPE_SECRET_KEY and settings.STRIPE_PUBLISHABLE_KEY:
+        try:
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+                metadata={
+                    'cart': json.dumps(cart),
+                    'user_id': request.user.id if request.user.is_authenticated else None,
+                }
+            )
+            client_secret = intent.client_secret
+        except Exception as e:
+            messages.error(request, f'Sorry, we could not process your payment at this time. Please try again later.')
+            print(f'Stripe PaymentIntent error: {e}')
+    
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
         'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
-        'client_secret': None,
+        'client_secret': client_secret,
     }
     
     return render(request, template, context)
