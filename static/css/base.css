@@ -612,7 +612,7 @@ main {
   min-height: calc(
     100vh - 200px
   ); /* Ensure minimum height accounting for header/footer */
-  padding-top: 76px; /* Account for fixed navbar */
+  padding-top: 0px; /* Account for fixed navbar */
 }
 
 /* Footer base styling */
