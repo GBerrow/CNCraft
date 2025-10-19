@@ -6,6 +6,33 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/checkout/checkout.css' %}">
+    <style>
+        /* Force Stripe iframe to be interactive - override browser user agent stylesheet */
+        #card-element iframe,
+        .__PrivateStripeElement iframe {
+            overflow: visible !important;
+            overflow-clip-margin: 0 !important;
+            user-select: auto !important;
+            -webkit-user-select: auto !important;
+            pointer-events: auto !important;
+            height: auto !important;
+            min-height: 50px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Prevent Stripe elements from being hidden by debug/extension CSS rules */
+        #card-element,
+        .__PrivateStripeElement,
+        iframe[name*="__privateStripeFrame"],
+        iframe[name*="Stripe"] {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+    </style>
 {% endblock %}
 
 {% block page_header %}
