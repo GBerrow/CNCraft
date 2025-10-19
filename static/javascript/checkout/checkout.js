@@ -50,7 +50,6 @@
         }, 100);
     }
     
-    console.log('Immediate fix applied - loading state cleared and browser warnings disabled');
 })();
 
 const CheckoutManager = {
@@ -92,7 +91,6 @@ const CheckoutManager = {
         this.initializeAccessibilityFeatures();
         this.initializeLoadingStates();
         this.initializeMobileEnhancements();
-        console.log('Checkout Manager initialized successfully');
     },
 
     // Bind all event listeners
@@ -330,7 +328,6 @@ const CheckoutManager = {
         // If Stripe is active, ALWAYS preventDefault and let Stripe handle submission
         if (cardElement) {
             event.preventDefault();
-            console.log('Stripe is active - form submission prevented, Stripe will handle payment');
             return false;
         }
 
@@ -338,7 +335,6 @@ const CheckoutManager = {
         const stripePublicKey = document.getElementById('id_stripe_public_key');
         if (stripePublicKey && stripePublicKey.textContent === 'pk_test_placeholder') {
             // Test mode - allow form submission without Stripe processing
-            console.log('Test mode detected - allowing form submission');
             
             // Don't prevent default - let the form submit naturally
             // Don't show loading state in test mode to avoid getting stuck
@@ -348,7 +344,6 @@ const CheckoutManager = {
 
         // If we get here, something is wrong - prevent submission
         event.preventDefault();
-        console.error('Cannot submit form - no valid payment method detected');
         return false;
     },
 
@@ -505,7 +500,6 @@ const CheckoutManager = {
         if (event.key === 'Escape' && this.state.isSubmitting) {
             event.preventDefault();
             this.forceClearLoadingState();
-            console.log('Loading state cleared by Escape key');
         }
     },
 
@@ -527,7 +521,6 @@ const CheckoutManager = {
                 // Only trigger if clicking the overlay itself, not its children
                 if (event.target === loadingOverlay) {
                     this.forceClearLoadingState();
-                    console.log('Loading state cleared by clicking overlay');
                 }
             });
             
@@ -554,7 +547,6 @@ const CheckoutManager = {
             emergencyButton.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.forceClearLoadingState();
-                console.log('Loading state cleared by emergency button');
             });
             
             loadingOverlay.appendChild(emergencyButton);
@@ -595,7 +587,6 @@ const CheckoutManager = {
         
         // Add timeout to automatically clear loading state after 30 seconds
         this.loadingTimeout = setTimeout(() => {
-            console.log('Loading timeout reached - clearing state automatically');
             this.forceClearLoadingState();
         }, 30000); // 30 seconds
     },
@@ -633,7 +624,6 @@ const CheckoutManager = {
 
     // Force clear loading state (for emergency situations)
     forceClearLoadingState() {
-        console.log('Force clearing loading state');
         this.state.isSubmitting = false;
         this.hideLoadingState();
         
@@ -667,7 +657,6 @@ const CheckoutManager = {
             // Remove any beforeunload listeners
             window.removeEventListener('beforeunload', this.handleBeforeUnload);
             
-            console.log('Form state cleared - browser warnings should stop');
         }
     },
 
@@ -675,7 +664,6 @@ const CheckoutManager = {
     handleVisibilityChange() {
         if (document.hidden && this.state.isSubmitting) {
             // User switched tabs during payment processing
-            console.warn('User navigated away during payment processing');
         }
     },
 
@@ -974,7 +962,6 @@ const CheckoutManager = {
             // Remove any beforeunload listeners
             window.removeEventListener('beforeunload', this.handleBeforeUnload);
             
-            console.log('Form state cleared - browser warnings should stop');
         }
     }
 };
@@ -984,7 +971,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get Stripe public key from template
     const stripePublicKeyElement = document.getElementById('id_stripe_public_key');
     if (!stripePublicKeyElement) {
-        console.log('No Stripe public key element found');
         return;
     }
     
@@ -994,20 +980,16 @@ document.addEventListener('DOMContentLoaded', function() {
         stripePublicKey = JSON.parse(stripePublicKey);
     } catch (e) {
         // If parsing fails, use as-is (for backward compatibility)
-        console.log('Note: Stripe key was not JSON-encoded');
     }
-    console.log('Stripe public key found:', stripePublicKey.substring(0, 20) + '...');
     
     // Check if card element exists before initializing
     const cardElement = document.getElementById('card-element');
     if (!cardElement) {
-        console.log('Card element not found - skipping Stripe initialization');
         return;
     }
     
     // Initialize Stripe if we have a valid public key (test or live)
     if (stripePublicKey && (stripePublicKey.startsWith('pk_test_') || stripePublicKey.startsWith('pk_live_'))) {
-        console.log('Initializing Stripe with key:', stripePublicKey.substring(0, 20) + '...');
         const stripe = Stripe(stripePublicKey);
         const elements = stripe.elements();
         
@@ -1034,19 +1016,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mount card element (synchronous operation - no Promise returned)
         try {
             card.mount('#card-element');
-            console.log('Stripe card mount called successfully');
         } catch (error) {
-            console.error('Error mounting Stripe card:', error);
         }
         
         // Wait for card element to be ready
         card.on('ready', function() {
-            console.log('✅ Stripe "ready" event fired - card should accept input now');
         });
         
         // Handle real-time validation errors
         card.on('change', function(event) {
-            console.log('Card change event:', event);
             const displayError = document.getElementById('card-errors');
             if (event.error) {
                 displayError.textContent = event.error.message;
@@ -1059,11 +1037,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Log focus events for debugging
         card.on('focus', function() {
-            console.log('✅ Card element focused - ready for input');
         });
         
         card.on('blur', function() {
-            console.log('Card element blurred');
         });
         
         // Handle form submission
@@ -1111,7 +1087,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const clientSecret = clientSecretInput ? clientSecretInput.value : null;
                 
                 if (!clientSecret || clientSecret === 'None' || clientSecret === '') {
-                    console.error('No client_secret found - cannot process payment');
                     alert('Payment system error. Please refresh the page and try again.');
                     submitButton.disabled = false;
                     submitButton.innerHTML = originalText;
@@ -1119,7 +1094,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
-                console.log('Confirming payment with Stripe...');
                 
                 // Confirm the card payment with Stripe
                 stripe.confirmCardPayment(clientSecret, {
@@ -1155,11 +1129,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             loadingSpinner.style.display = 'none';
                         }
                         
-                        console.error('Payment failed:', result.error.message);
                     } else {
                         // Payment succeeded!
                         if (result.paymentIntent.status === 'succeeded') {
-                            console.log('✅ Payment succeeded!', result.paymentIntent.id);
                             
                             // Add payment intent ID to form
                             const hiddenInput = document.createElement('input');
@@ -1173,7 +1145,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 }).catch(function(error) {
-                    console.error('Stripe error:', error);
                     
                     // Show error message
                     const errorElement = document.getElementById('card-errors');
@@ -1192,7 +1163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     } else {
-        console.log('Invalid Stripe public key format. Expected pk_test_* or pk_live_*, got:', stripePublicKey);
     }
     
     // Form validation for both test and real modes
@@ -1290,7 +1260,6 @@ window.CheckoutManager = CheckoutManager;
 window.clearCheckoutLoading = function() {
     if (window.CheckoutManager) {
         window.CheckoutManager.forceClearLoadingState();
-        console.log('Checkout loading state cleared via emergency function');
     } else {
         // Fallback if CheckoutManager isn't available
         const overlay = document.getElementById('loading-overlay');
@@ -1301,7 +1270,6 @@ window.clearCheckoutLoading = function() {
         if (submitButton) {
             submitButton.disabled = false;
         }
-        console.log('Checkout loading state cleared via fallback method');
     }
 };
 
@@ -1310,7 +1278,6 @@ window.clearFormState = function() {
     const form = document.getElementById('payment-form');
     if (form) {
         form.reset();
-        console.log('Form reset - browser "unsaved changes" warnings should stop');
     }
     
     // Also clear loading state

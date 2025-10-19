@@ -75,7 +75,6 @@ const CartManager = {
         this.loadCartFromStorage();
         this.initializeAccessibility();
         this.initializeAnimations();
-        console.log('Cart Manager initialized successfully');
     },
 
     // ========================================================================
@@ -434,7 +433,6 @@ const CartManager = {
         $input.val(originalValue);
         this.validateQuantityControls(productId);
         
-        console.error('Cart update failed:', xhr.responseText);
     },
 
     handleRemoveSuccess(productId) {
@@ -453,7 +451,6 @@ const CartManager = {
     },
 
     handleRemoveError(productId, xhr) {
-        console.error('Cart item removal failed:', xhr.responseText);
     },
 
     // ========================================================================
@@ -606,7 +603,6 @@ const CartManager = {
             };
             localStorage.setItem('cncraft_cart', JSON.stringify(cartState));
         } catch (error) {
-            console.warn('Failed to save cart to storage:', error);
         }
     },
 
@@ -623,7 +619,6 @@ const CartManager = {
                 }
             }
         } catch (error) {
-            console.warn('Failed to load cart from storage:', error);
         }
     },
 

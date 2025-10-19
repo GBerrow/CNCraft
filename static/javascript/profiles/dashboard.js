@@ -22,7 +22,6 @@ const DashboardManager = {
         this.initializeFormEnhancements();
         this.initializeProgressiveEnhancement();
         this.initializeMobileOptimizations();
-        console.log('Dashboard Manager initialized successfully');
     },
 
     // Bind all event listeners
@@ -678,7 +677,6 @@ function deleteAllOrders() {
     // Show loading state
     const deleteBtn = document.getElementById('deleteAllOrdersBtn');
     if (!deleteBtn) {
-        console.error('Delete button not found');
         return;
     }
     
@@ -689,7 +687,6 @@ function deleteAllOrders() {
     // Get CSRF token
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
     if (!csrfToken) {
-        console.error('CSRF token not found');
         DashboardManager.showNotification('Error: CSRF token not found. Please refresh the page.', 'error');
         deleteBtn.disabled = false;
         deleteBtn.innerHTML = originalContent;
@@ -707,11 +704,9 @@ function deleteAllOrders() {
         credentials: 'same-origin'
     })
     .then(response => {
-        console.log('Response status:', response.status);
         return response.json();
     })
     .then(data => {
-        console.log('Response data:', data);
         if (data.success) {
             // Show success message
             DashboardManager.showNotification(`Successfully deleted ${data.deleted_count} orders`, 'success');
@@ -725,7 +720,6 @@ function deleteAllOrders() {
         }
     })
     .catch(error => {
-        console.error('Error deleting all orders:', error);
         DashboardManager.showNotification('Error deleting orders. Please try again.', 'error');
         
         // Reset button state
