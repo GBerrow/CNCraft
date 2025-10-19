@@ -543,13 +543,39 @@ label {
     min-height: 50px;
     display: flex;
     align-items: center;
+    font-size: 16px;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+/* Ensure iframe inside can receive clicks */
+#card-element iframe {
+    z-index: 2;
+    pointer-events: auto;
+}
+
+.stripe-element:hover,
+#card-element:hover {
+    border-color: #cbd3da;
 }
 
 .stripe-element:focus,
-.stripe-element.StripeElement--focus {
+.stripe-element.StripeElement--focus,
+#card-element.StripeElement--focus {
     border-color: #0080ff;
     box-shadow: 0 0 0 0.2rem rgba(0, 128, 255, 0.15);
     outline: none;
+}
+
+.stripe-element.StripeElement--invalid,
+#card-element.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.stripe-element.StripeElement--complete,
+#card-element.StripeElement--complete {
+    border-color: #28a745;
 }
 
 /* Payment errors */

@@ -358,7 +358,7 @@
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="{% static 'javascript/checkout/checkout.js' %}"></script>
+    <script src="{% static 'javascript/checkout/checkout.js' %}?v=6.0"></script>
     <script>
         // Emergency reset functionality
         document.addEventListener('DOMContentLoaded', function() {

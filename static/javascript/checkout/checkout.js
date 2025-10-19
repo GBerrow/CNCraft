@@ -324,6 +324,16 @@ const CheckoutManager = {
 
     // Handle form submission
     handleFormSubmit(event) {
+        // Check if Stripe card element exists
+        const cardElement = document.getElementById('card-element');
+        
+        // If Stripe is active, ALWAYS preventDefault and let Stripe handle submission
+        if (cardElement) {
+            event.preventDefault();
+            console.log('Stripe is active - form submission prevented, Stripe will handle payment');
+            return false;
+        }
+
         // Check if we're in test mode (no Stripe integration)
         const stripePublicKey = document.getElementById('id_stripe_public_key');
         if (stripePublicKey && stripePublicKey.textContent === 'pk_test_placeholder') {
@@ -336,38 +346,10 @@ const CheckoutManager = {
             return true; // Allow form to submit normally
         }
 
-        // For real Stripe mode, let the Stripe handler manage the submission
-        // We just validate and show loading state
-        if (this.state.isSubmitting) {
-            event.preventDefault();
-            return false;
-        }
-
-        // Validate all fields before submission
-        let allValid = true;
-        this.config.requiredFields.forEach(fieldName => {
-            const field = document.querySelector(`[name="${fieldName}"]`);
-            if (field) {
-                this.state.touchedFields.add(fieldName);
-                if (!this.validateField(field)) {
-                    allValid = false;
-                }
-            }
-        });
-
-        if (!allValid) {
-            event.preventDefault();
-            this.showValidationSummary();
-            return false;
-        }
-
-        // Set submitting state and show loading
-        this.state.isSubmitting = true;
-        this.showLoadingState();
-        this.trackFormProgress();
-        
-        // Don't prevent default - let Stripe handle the actual submission
-        return true;
+        // If we get here, something is wrong - prevent submission
+        event.preventDefault();
+        console.error('Cannot submit form - no valid payment method detected');
+        return false;
     },
 
     // Show validation summary for accessibility
@@ -1006,51 +988,103 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    const stripePublicKey = stripePublicKeyElement.textContent.trim();
-    console.log('Stripe public key found:', stripePublicKey.substring(0, 10) + '...');
+    // Parse JSON (json_script filter wraps in quotes)
+    let stripePublicKey = stripePublicKeyElement.textContent.trim();
+    try {
+        stripePublicKey = JSON.parse(stripePublicKey);
+    } catch (e) {
+        // If parsing fails, use as-is (for backward compatibility)
+        console.log('Note: Stripe key was not JSON-encoded');
+    }
+    console.log('Stripe public key found:', stripePublicKey.substring(0, 20) + '...');
     
-    // Check if we're in test mode
-    const isTestMode = stripePublicKey === 'pk_test_placeholder';
-    
-    if (isTestMode) {
-        console.log('Test mode detected - skipping Stripe initialization');
+    // Check if card element exists before initializing
+    const cardElement = document.getElementById('card-element');
+    if (!cardElement) {
+        console.log('Card element not found - skipping Stripe initialization');
         return;
     }
     
-    // Initialize Stripe only if we have a real public key and card element exists
-    if (stripePublicKey && stripePublicKey.startsWith('pk_')) {
-        const cardElement = document.getElementById('card-element');
-        if (!cardElement) {
-            console.log('Card element not found');
-            return;
-        }
-        
-        console.log('Initializing Stripe...');
+    // Initialize Stripe if we have a valid public key (test or live)
+    if (stripePublicKey && (stripePublicKey.startsWith('pk_test_') || stripePublicKey.startsWith('pk_live_'))) {
+        console.log('Initializing Stripe with key:', stripePublicKey.substring(0, 20) + '...');
         const stripe = Stripe(stripePublicKey);
         const elements = stripe.elements();
         
-        // Create card element
+        // Create card element with better styling
         const card = elements.create('card', {
             style: {
                 base: {
                     fontSize: '16px',
-                    color: '#424770',
+                    color: '#32325d',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                    fontSmoothing: 'antialiased',
                     '::placeholder': {
                         color: '#aab7c4',
                     },
                 },
                 invalid: {
-                    color: '#9e2146',
+                    color: '#fa755a',
+                    iconColor: '#fa755a',
                 },
             },
+            hidePostalCode: true,
         });
         
-        // Mount card element
-        card.mount('#card-element');
-        console.log('Stripe card element mounted successfully');
+        // Mount card element with error handling
+        card.mount('#card-element')
+            .then(function() {
+                console.log('✅ Stripe card element mounted successfully!');
+                
+                // Check if iframe was created
+                setTimeout(() => {
+                    const iframe = document.querySelector('#card-element iframe');
+                    if (iframe) {
+                        console.log('✅ Stripe iframe detected:', iframe);
+                    } else {
+                        console.error('❌ ERROR: Stripe iframe NOT created!');
+                        console.error('This means Stripe failed to initialize the payment field');
+                        
+                        // Show error to user
+                        const cardElement = document.getElementById('card-element');
+                        if (cardElement) {
+                            cardElement.innerHTML = `
+                                <div style="padding: 1rem; background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; color: #856404;">
+                                    <strong>⚠️ Payment field failed to load</strong>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                                        Please refresh the page or contact support if the issue persists.
+                                    </p>
+                                </div>
+                            `;
+                        }
+                    }
+                }, 500);
+            })
+            .catch(function(error) {
+                console.error('❌ Stripe mount ERROR:', error);
+                
+                // Show user-friendly error
+                const cardElement = document.getElementById('card-element');
+                if (cardElement) {
+                    cardElement.innerHTML = `
+                        <div style="padding: 1rem; background: #f8d7da; border: 2px solid #f5c2c7; border-radius: 8px; color: #842029;">
+                            <strong>❌ Error loading payment form</strong>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                                ${error.message || 'Unable to load payment processor'}
+                            </p>
+                        </div>
+                    `;
+                }
+            });
+        
+        // Wait for card element to be ready
+        card.on('ready', function() {
+            console.log('✅ Stripe "ready" event fired - card should accept input now');
+        });
         
         // Handle real-time validation errors
-        card.addEventListener('change', function(event) {
+        card.on('change', function(event) {
+            console.log('Card change event:', event);
             const displayError = document.getElementById('card-errors');
             if (event.error) {
                 displayError.textContent = event.error.message;
@@ -1061,24 +1095,48 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Handle form submission for real Stripe mode
+        // Log focus events for debugging
+        card.on('focus', function() {
+            console.log('✅ Card element focused - ready for input');
+        });
+        
+        card.on('blur', function() {
+            console.log('Card element blurred');
+        });
+        
+        // Handle form submission
         const form = document.getElementById('payment-form');
         if (form) {
             form.addEventListener('submit', function(event) {
-                // Let CheckoutManager handle validation first
-                if (!CheckoutManager.state.isFormValid) {
-                    event.preventDefault();
+                event.preventDefault();
+                
+                // Validate all required fields
+                let allValid = true;
+                const requiredFields = ['full_name', 'email', 'phone_number', 'street_address1', 'town_or_city', 'postcode', 'country'];
+                
+                requiredFields.forEach(fieldName => {
+                    const field = document.querySelector(`[name="${fieldName}"]`);
+                    if (field && !field.value.trim()) {
+                        allValid = false;
+                        field.classList.add('is-invalid');
+                        const errorElement = field.parentNode.querySelector('.invalid-feedback');
+                        if (errorElement) {
+                            errorElement.textContent = 'This field is required.';
+                            errorElement.style.display = 'block';
+                        }
+                    }
+                });
+                
+                if (!allValid) {
                     CheckoutManager.showValidationSummary();
                     return false;
                 }
                 
-                event.preventDefault();
-                
                 // Disable submit button to prevent double submission
                 const submitButton = form.querySelector('button[type="submit"]');
-                const originalText = submitButton.textContent;
+                const originalText = submitButton.innerHTML;
                 submitButton.disabled = true;
-                submitButton.textContent = 'Processing...';
+                submitButton.innerHTML = '<span class="btn-content"><i class="fas fa-spinner fa-spin"></i> Processing...</span>';
                 
                 // Show loading state
                 const loadingSpinner = document.getElementById('loading-overlay');
@@ -1093,6 +1151,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     billing_details: {
                         name: document.getElementById('id_full_name').value,
                         email: document.getElementById('id_email').value,
+                        phone: document.getElementById('id_phone_number').value,
+                        address: {
+                            line1: document.getElementById('id_street_address1').value,
+                            line2: document.getElementById('id_street_address2')?.value || '',
+                            city: document.getElementById('id_town_or_city').value,
+                            state: document.getElementById('id_county')?.value || '',
+                            postal_code: document.getElementById('id_postcode').value,
+                            country: document.getElementById('id_country').value,
+                        }
                     },
                 }).then(function(result) {
                     if (result.error) {
@@ -1103,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Re-enable submit button
                         submitButton.disabled = false;
-                        submitButton.textContent = originalText;
+                        submitButton.innerHTML = originalText;
                         
                         // Hide loading state
                         if (loadingSpinner) {
@@ -1111,10 +1178,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         
                         // Reset CheckoutManager state
-                        CheckoutManager.state.isSubmitting = false;
-                        CheckoutManager.hideLoadingState();
+                        if (CheckoutManager) {
+                            CheckoutManager.state.isSubmitting = false;
+                            CheckoutManager.hideLoadingState();
+                        }
                     } else {
                         // Payment method created successfully
+                        console.log('Payment method created:', result.paymentMethod.id);
+                        
                         // Add payment method ID to form
                         const hiddenInput = document.createElement('input');
                         hiddenInput.setAttribute('type', 'hidden');
@@ -1125,14 +1196,36 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Submit form
                         form.submit();
                     }
+                }).catch(function(error) {
+                    console.error('Stripe error:', error);
+                    
+                    // Show error message
+                    const errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = 'An error occurred. Please try again.';
+                    errorElement.style.display = 'block';
+                    
+                    // Re-enable submit button
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                    
+                    // Hide loading state
+                    if (loadingSpinner) {
+                        loadingSpinner.style.display = 'none';
+                    }
+                    
+                    // Reset CheckoutManager state
+                    if (CheckoutManager) {
+                        CheckoutManager.state.isSubmitting = false;
+                        CheckoutManager.hideLoadingState();
+                    }
                 });
             });
         }
     } else {
-        console.log('Invalid or missing Stripe public key:', stripePublicKey);
+        console.log('Invalid Stripe public key format. Expected pk_test_* or pk_live_*, got:', stripePublicKey);
     }
     
-    // Form validation and auto-save for both test and real modes
+    // Form validation for both test and real modes
     const form = document.getElementById('payment-form');
     if (form) {
         const requiredFields = form.querySelectorAll('[required]');
@@ -1210,13 +1303,6 @@ document.addEventListener('DOMContentLoaded', function() {
             formInputs.forEach(function(input) {
                 localStorage.removeItem(`checkout_${input.name}`);
             });
-            
-            // Clear loading state after a short delay to allow form submission
-            setTimeout(() => {
-                if (CheckoutManager) {
-                    CheckoutManager.hideLoadingState();
-                }
-            }, 1000);
         });
     }
 });

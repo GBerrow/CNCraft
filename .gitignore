@@ -13,3 +13,7 @@ db.sqlite3
 
 # Static files collected for production
 staticfiles/
+
+# SSL certificates (local development only)
+cert.crt
+cert.key
